@@ -1,12 +1,15 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+
+import ToastReducer from "./modules/ToastMessage";
 
 export const history = createBrowserHistory();
 
 // 리듀서 router 안에 history 넣기
 const rootReducer = combineReducers({
+  toastMessage: ToastReducer,
   router: connectRouter(history),
 });
 
@@ -19,14 +22,10 @@ if (env === "development") {
   middlewares.push(logger);
 }
 
-const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-      })
-    : compose;
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: [...middlewares],
+  devTools: process.env.NODE_ENV !== "production",
+});
 
-const enhancer = composeEnhancers(applyMiddleware(...middlewares));
-let store = () => createStore(rootReducer, enhancer);
-
-export default store();
+export default store;
