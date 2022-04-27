@@ -1,7 +1,7 @@
 import React from "react";
 
-function Follow() {
+const Follow = () => {
   return <div>Follow</div>;
-}
+};
 
 export default Follow;
