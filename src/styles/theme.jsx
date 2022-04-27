@@ -5,7 +5,7 @@ const color = {
 const fontSizes = {};
 
 const view = {
-  mobile: `(max-width: 767px)`,
+  mobile: `@media only screen and (max-width: 767px)`,
   tablet: `(max-width: 1024px)`,
   desktop: `(min-width: 1025px)`,
   width: "375px",
