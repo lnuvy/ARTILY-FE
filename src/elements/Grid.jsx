@@ -1,31 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 
-const Grid = ({ onClick, children, className, ...styles }) => {
-  return (
-    <GridStyle className={className} onClick={onClick} {...styles}>
-      {children}
-    </GridStyle>
-  );
+const Grid = (props) => {
+  const { children, cg, rg, width, gtc, textAlign, margin } = props;
+
+  const styles = {
+    gtc,
+    textAlign,
+    cg,
+    rg,
+    width,
+    margin,
+  };
+
+  return <GridStyle {...styles}>{children}</GridStyle>;
 };
 
 Grid.defaultProps = {
-  jc: "center",
-  ai: "center",
+  gtc: "auto", // 2줄 하고 싶으면 "auto auto", 3줄 하고 싶으면 "auto auto auto"
+  cg: "16px",
+  rg: "16px",
+  textAlign: "left",
+  width: "inherit",
+  margin: "0",
 };
 
 const GridStyle = styled.div`
-  justify-content: ${({ jc }) => jc};
+  display: grid;
+  column-gap: ${({ cg }) => cg};
+  row-gap: ${({ rg }) => rg};
+  grid-template-columns: ${({ gtc }) => gtc};
+  text-align: ${({ textAlign }) => textAlign};
   width: ${({ width }) => width};
-  opacity: ${({ opacity }) => opacity};
-  height: ${({ height }) => height};
   margin: ${({ margin }) => margin};
-  background-color: ${({ bgColor, theme }) => theme.color[bgColor]};
-  border-radius: ${({ radius }) => radius};
-  overflow: ${({ overflow }) => overflow};
-  box-shadow: ${({ shadow }) => shadow};
-  cursor: ${({ cursor }) => cursor};
-  transform: translate(${({ translate }) => translate});
 `;
 
 export default Grid;
