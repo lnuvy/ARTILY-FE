@@ -9,6 +9,11 @@ const Grid = ({ onClick, children, className, ...styles }) => {
   );
 };
 
+Grid.defaultProps = {
+  jc: "center",
+  ai: "center",
+};
+
 const GridStyle = styled.div`
   justify-content: ${({ jc }) => jc};
   width: ${({ width }) => width};
