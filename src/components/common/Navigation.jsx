@@ -3,34 +3,33 @@ import { useLocation } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { history } from "../../redux/configureStore";
 
+// 경로를 같이 저장해야할거같아서 Object.entries로 사용
 const menuSelect = {
   홈: "/home",
-  스토어: "/sell",
+  스토어: "/store",
   리뷰: "/review",
   프로필: "/myprofile",
 };
-
 export const menus = Object.entries(menuSelect);
 
 const Navigation = () => {
+  // 현재 url 경로
   const path = useLocation().pathname;
+  const [current, setCurrent] = useState(menus[0]); // ["홈", "/home"] 이렇게 저장됨
 
-  const [current, setCurrent] = useState(menus[0]);
-
+  // 경로가 바뀔때마다 url이 포함하고있는 네비게이션 항목으로 설정
   useEffect(() => {
     const now = menus.find((l) => path.includes(l[1]));
-    if (now) setCurrent(now);
+    if (now) {
+      setCurrent(now);
+    }
   }, [path]);
 
+  // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
-    // history.push();
     setCurrent(menus.find((l) => l[0] === innerText));
   };
-
-  // useEffect(() => {
-  //   history.push(current[1]);
-  // }, [current]);
 
   return (
     <Container>
@@ -38,7 +37,10 @@ const Navigation = () => {
         return (
           <CurrentDiv
             key={menu}
-            onClick={handleChangeCurrent}
+            onClick={(e) => {
+              handleChangeCurrent(e);
+              history.push(menu[1]);
+            }}
             current={menu === current}
           >
             <Nav>{menu[0]}</Nav>

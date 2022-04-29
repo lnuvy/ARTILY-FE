@@ -12,19 +12,7 @@ const Header = () => {
   const path = useLocation().pathname;
   const [title, setTitle] = useState("");
 
-  useEffect(() => {
-    console.log(/sell/.test(path));
-    switch (1) {
-      case /sell/.test(path):
-        setTitle("안녕");
-        break;
-      case /review/.test(path):
-        setTitle(path);
-        break;
-      default:
-        return;
-    }
-  }, [path]);
+  useEffect(() => {}, [path]);
 
   // const user = useSelector((state) => state.user);
 

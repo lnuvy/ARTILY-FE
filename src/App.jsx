@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import { Chat, Follow, Home, MyPage, NotFound, Review } from "./pages";
+import { Chat, Follow, Home, MyPage, NotFound, Review, Store } from "./pages";
 import { history } from "./redux/configureStore";
 import "./styles/App.css";
 import Navigation from "./components/common/Navigation";
@@ -16,6 +16,7 @@ function App() {
         <Switch>
           <Route path="/home" exact component={Home} />
           <Route path="/chat" exact component={Chat} />
+          <Route path="/store" exact component={Store} />
           <Route path="/follow" exact component={Follow} />
           <Route path="/review" exact component={Review} />
           <Route path="/mypage" exact component={MyPage} />

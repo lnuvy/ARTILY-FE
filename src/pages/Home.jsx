@@ -29,13 +29,13 @@ const Home = () => {
             height="210px"
             bg="tomato"
             borderRadius="8px"
-            onClick={() => history.push("/sell/게시글상세")}
+            onClick={() => history.push("/store/게시글상세")}
           >
             <Image shape="rectangle" />
           </Flex>
           <Flex padding="5px" fd="column">
             <Flex>
-              <Image onClick={() => history.push("/sell/특정유저아이디")} />
+              <Image onClick={() => history.push("/store/특정유저아이디")} />
               &nbsp;&nbsp;
               <Text padding="0 5px" fontWeight="700">
                 작가명
