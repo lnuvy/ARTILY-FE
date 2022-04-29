@@ -73,6 +73,10 @@ const ButtonStyle = styled.button`
       background-color: ${theme.color.lightGray};
       opacity: 0.8;
     }
+    :hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
     `
       : `
     background-color: ${props.bc};
@@ -80,6 +84,10 @@ const ButtonStyle = styled.button`
     border: none;
     :focus {
       opacity: 0.9;
+    }
+    :hover {
+      opacity: 0.8;
+      cursor: pointer;
     }
     `};
 `;

@@ -54,7 +54,13 @@ const Test = () => {
         <Card>Card in Grid (Grid: gtc="auto auto auto" rg="8px" cg="8px")</Card>
         <Card>Card in Grid (Grid: gtc="auto auto auto" rg="8px" cg="8px")</Card>
       </Grid>
-      <Input label="Label" placeholder="Placeholder" margin="0 0 20px" />
+      <Input
+        label="Label"
+        placeholder="Placeholder"
+        margin="0 0 20px"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
       <Input
         label="Label"
         value={input}
@@ -76,12 +82,18 @@ const Test = () => {
         margin="0 0 20px"
         readOnly
       />
-      <Textarea label="Label" placeholder="Placeholder" maxLength="200" />
-      <Textarea label="Label" value="Value" maxLength="200" />
+      <Textarea label="Label" placeholder="Placeholder" maxLength="100" />
+      <Textarea
+        label="Label"
+        value={input}
+        onChane={(e) => setInput(e.target.value)}
+        maxLength="200"
+      />
       <Textarea
         alert
         label="Label"
-        value="Value"
+        value={input}
+        onChane={(e) => setInput(e.target.value)}
         maxLength="200"
         alertMessage="alertMessage (with alert)"
       />

@@ -24,7 +24,6 @@ const Textarea = (props) => {
   const [MaxNum, SetMaxNum] = React.useState(null);
   const ChangeMaxNum = () => {
     SetMaxNum(Textarea.current.value.length);
-    console.log(MaxNum);
   };
 
   React.useEffect(() => {
