@@ -28,7 +28,7 @@ const CheckboxStyle = styled.input``;
 
 const CheckboxLabel = styled.label`
   margin-left: 4px;
-  fontsize: ${({ fontSize }) => fontSize};
+  font-size: ${({ fontSize }) => fontSize};
 `;
 
 export default Checkbox;

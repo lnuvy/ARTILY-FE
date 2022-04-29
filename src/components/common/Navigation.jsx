@@ -11,6 +11,8 @@ const menuSelect = {
   프로필: "/myprofile",
 };
 export const menus = Object.entries(menuSelect);
+console.log(menuSelect);
+console.log(menus);
 
 const Navigation = () => {
   // 현재 url 경로
@@ -28,6 +30,7 @@ const Navigation = () => {
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
+    console.log(innerText);
     setCurrent(menus.find((l) => l[0] === innerText));
   };
 
