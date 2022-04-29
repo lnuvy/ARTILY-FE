@@ -8,6 +8,8 @@ import Login from "./Login";
 import RegionSet from "./RegionSet";
 import Setprofile from "./SetProfile";
 import Test from "./Test";
+import Store from "./Store";
+import StoreDetail from "./StoreDetail";
 
 export {
   Chat,
@@ -19,5 +21,6 @@ export {
   Login,
   RegionSet,
   Setprofile,
-  Test,
+  Store,
+  StoreDetail,
 };

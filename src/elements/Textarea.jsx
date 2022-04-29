@@ -61,6 +61,7 @@ Textarea.defaultProps = {
   fg: "0",
   margin: "0",
   padding: "12px",
+  onChange: () => {},
 };
 
 const TextareaWrap = styled.div`

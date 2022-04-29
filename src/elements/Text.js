@@ -3,10 +3,35 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Text = (props) => {
-  const { bold, color, size, children, margin, h1, h2, h3, body2, body3 } =
-    props;
+  const {
+    bold,
+    color,
+    size,
+    children,
+    margin,
+    h1,
+    h2,
+    h3,
+    body2,
+    body3,
+    fg,
+    textAlign,
+    lineHeight,
+  } = props;
 
-  const styles = { bold, color, margin, h1, h2, h3, body2, body3 };
+  const styles = {
+    bold,
+    color,
+    margin,
+    h1,
+    h2,
+    h3,
+    body2,
+    body3,
+    fg,
+    textAlign,
+    lineHeight,
+  };
 
   if (h1) {
     return <Headline {...styles}>{children}</Headline>;
@@ -26,60 +51,80 @@ Text.defaultProps = {
   bold: false,
   color: "#000",
   margin: "0",
+  fg: "0",
+  textAlign: "inherit",
 };
 
 const Headline = styled.h1`
   color: ${({ color }) => color};
   font-size: 20px;
   line-height: 22px;
-  letter-spacing: -0.41px
+  letter-spacing: -0.41px;
   font-weight: ${(props) => (props.bold ? "600" : "400")};
   margin: ${({ margin }) => margin};
+  flex-grow: ${({ fg }) => fg};
+  text-align: ${({ textAlign }) => textAlign};
+  ${(props) => (props.lineHeight ? props.lineHeight : null)};
 `;
 
 const Subtitle1 = styled.h2`
   color: ${({ color }) => color};
   font-size: 18px;
   line-height: 22px;
-  letter-spacing: -0.41px
+  letter-spacing: -0.41px;
   font-weight: ${(props) => (props.bold ? "600" : "400")};
   margin: ${({ margin }) => margin};
+  flex-grow: ${({ fg }) => fg};
+  text-align: ${({ textAlign }) => textAlign};
+  ${(props) => (props.lineHeight ? props.lineHeight : null)};
 `;
 
 const Subtitle2 = styled.h3`
   color: ${({ color }) => color};
   font-size: 16px;
   line-height: 22px;
-  letter-spacing: -0.41px
+  letter-spacing: -0.41px;
   font-weight: ${(props) => (props.bold ? "600" : "400")};
   margin: ${({ margin }) => margin};
+  flex-grow: ${({ fg }) => fg};
+  text-align: ${({ textAlign }) => textAlign};
+  ${(props) => (props.lineHeight ? props.lineHeight : null)};
 `;
 
 const Body1 = styled.p`
   color: ${({ color }) => color};
   font-size: 16px;
   line-height: 24px;
-  letter-spacing: -0.41px
+  letter-spacing: -0.41px;
   font-weight: ${(props) => (props.bold ? "600" : "400")};
   margin: ${({ margin }) => margin};
+  flex-grow: ${({ fg }) => fg};
+  text-align: ${({ textAlign }) => textAlign};
+  ${(props) => (props.lineHeight ? props.lineHeight : null)};
 `;
 
 const Body2 = styled.p`
   color: ${({ color }) => color};
   font-size: 14px;
   line-height: 21px;
-  letter-spacing: -0.41px
+  letter-spacing: -0.41px;
   font-weight: ${(props) => (props.bold ? "600" : "400")};
   margin: ${({ margin }) => margin};
+  flex-grow: ${({ fg }) => fg};
+  text-align: ${({ textAlign }) => textAlign};
+  ${(props) => (props.lineHeight ? props.lineHeight : null)};
 `;
 
 const Body3 = styled.p`
   color: #555;
   font-size: 14px;
   line-height: 21px;
-  letter-spacing: -0.41px
+  letter-spacing: -0.41px;
   font-weight: ${(props) => (props.bold ? "600" : "400")};
   margin: ${({ margin }) => margin};
+  flex-grow: ${({ fg }) => fg};
+  text-align: ${({ textAlign }) => textAlign};
+  ${(props) => (props.lineHeight ? props.lineHeight : null)};
 `;
 
 export default Text;
