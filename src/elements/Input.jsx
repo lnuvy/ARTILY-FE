@@ -48,7 +48,7 @@ Input.defaultProps = {
   margin: "0",
   icon: false,
   padding: "12px",
-  readOnly: false,
+  onChange: () => {},
 };
 
 const InputWrap = styled.div`

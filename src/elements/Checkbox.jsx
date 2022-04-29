@@ -3,34 +3,44 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Checkbox = (props) => {
-  const { children, id, fontSize, margin, zoom } = props;
+  const { children, id, fontSize, margin, fg } = props;
 
   const styles = {
     fontSize,
     margin,
-    zoom, // 한울 추가
+    fg,
   };
 
   return (
     <React.Fragment>
-      {/* 여기 스타일을 둘다 똑같이주면 나중에 문제생길수있을거같아요 일단 임시로 했어요 -한울- */}
-      <CheckboxStyle {...styles} type="checkbox" id={id} />
-      <CheckboxLabel {...styles} type="label" htmlFor={id}>
-        {children}
-      </CheckboxLabel>
+      <CheckboxWrap {...styles}>
+        <CheckboxStyle type="checkbox" id={id} />
+        <CheckboxLabel type="label" htmlFor={id} fontSize={fontSize}>
+          {children}
+        </CheckboxLabel>
+      </CheckboxWrap>
     </React.Fragment>
   );
 };
 
 Checkbox.defaultProps = {};
 
+const CheckboxWrap = styled.div`
+  flex-grow: ${({ fg }) => fg};
+`;
+
 const CheckboxStyle = styled.input`
-  zoom: ${({ zoom }) => zoom};
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const CheckboxLabel = styled.label`
   margin-left: 4px;
   font-size: ${({ fontSize }) => fontSize};
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export default Checkbox;

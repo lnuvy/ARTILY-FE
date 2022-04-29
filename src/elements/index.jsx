@@ -7,15 +7,21 @@ import ImageCarousel from "./ImageCarousel";
 import Input from "./Input";
 import Text from "./Text";
 import Textarea from "./Textarea";
+import Icon from "./Icon";
+import Tab from "./Tab";
+import Wrap from "./Wrap";
 
 export {
   Button,
   Checkbox,
   Flex,
   Grid,
-  Image,
-  ImageCarousel,
   Input,
   Text,
   Textarea,
+  ImageCarousel,
+  Icon,
+  Tab,
+  Image,
+  Wrap,
 };

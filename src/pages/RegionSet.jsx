@@ -11,6 +11,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import axios from "axios";
 
+import { Text, Button, Input, Flex } from "../elements";
 const Location = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -50,26 +51,28 @@ const Location = (props) => {
   };
   return (
     <React.Fragment>
-      <div>내 위치를 설정해주세요!</div>
-      <div>
-        <input
+      <Text h1>내 위치를 설정해주세요!</Text>
+      <Flex>
+        <Input
+          margin="20px 10px"
           value={`${si} ${gu} ${dong}` || ""}
-          placeholder="아래 버튼을 눌러 동네를 설정해 주세요."
           onChange={(e) => {
             console.log("location");
             // setGu(e.target.value);
             // setDong(e.target.value);
           }}
-        ></input>
-        <button
+        ></Input>
+        <Button
           onClick={() => {
             currentmap();
           }}
         >
           현재 위치
-        </button>
-      </div>
-      <button onClick={complete}>설정 완료</button>
+        </Button>
+      </Flex>
+      <Button outline onClick={complete}>
+        설정 완료
+      </Button>
     </React.Fragment>
   );
 };
