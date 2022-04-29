@@ -8,6 +8,7 @@ import Login from "./Login";
 import Location from "./Location";
 import Setprofile from "./SetProfile";
 import Store from "./Store";
+import StoreDetail from "./StoreDetail";
 import Test from "./Test";
 
 export {
@@ -21,5 +22,6 @@ export {
   Location,
   Setprofile,
   Store,
+  StoreDetail,
   Test,
 };

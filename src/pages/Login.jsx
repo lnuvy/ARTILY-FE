@@ -16,7 +16,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(userActions.kakaoLogin());
+    // dispatch(userActions.kakaoLogin());
   });
 
   return (

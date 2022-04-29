@@ -1,20 +1,19 @@
 import styled, { keyframes } from "styled-components";
 
+// 2초동안 빠르게 생겼다가 서서히 사라집니다
 const toast = keyframes`
 0% {
   opacity: 0;
 }
-30% {
+25% {
   opacity: 1;
-}
-50% {
-  
 }
 100% {
   opacity: 0;
 }
 `;
 
+// 스타일 조절 가능
 const ToastMessageStyle = styled.div`
   display: flex;
   align-items: center;

@@ -28,9 +28,10 @@ const initialState = {
 const kakaoLogin = (code) => {
   // let code = new URL(window.location.href).searchParams.get("code");
   return async function (dispatch, getState, { history }) {
-    axios({
+    console.log("여긴 들어오겠지 ?", code);
+    await axios({
       method: "GET",
-      url: `http://15.164.244.75/oauth/kakao/callback?code=${code}`,
+      url: `http://54.180.96.227/oauth/kakao/callback?code=${code}`,
     })
       .then((res) => {
         console.log(res); // 토큰이 넘어옴
@@ -47,25 +48,7 @@ const kakaoLogin = (code) => {
         history.replace("/"); // 로그인 실패하면 메인화면으로 돌려보냄
       });
 
-    // 서버 열리면 이 아래로 다 지워버리면 됩니다!
-    //서버 열리기 전 가상 데이터
-    // console.log("로그인 성공했다 치고");
-
-    // let fakeResponseData = {
-    //   userId: "user123",
-    //   nickName: "닉네임",
-    //   profileUrl: "",
-    //   address: "",
-    //   blackList: [],
-    // };
-    // let fakeResponseToken = "토큰이다!";
-
-    // insertToken("isLogin", fakeResponseToken); //토큰 저장
-    // console.log("로컬 스토리지에 토큰 넣음");
-    // dispatch(setUser(fakeResponseData));
-    // if (fakeResponseData.address == "") {
-    //   history.push("/"); //일단 로그인하면 메인으로 보내
-    // }
+    console.log("여기 들어오니?");
   };
 };
 

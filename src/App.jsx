@@ -13,12 +13,14 @@ import {
   Store,
   Test,
   Setprofile,
+  StoreDetail,
 } from "./pages";
 import { history } from "./redux/configureStore";
 import RedirectHandler from "./pages/redirectHandeler";
 import { useSelector, useDispatch } from "react-redux";
 import { getToken } from "./shared/token";
 import { actionCreators as userActions } from "./redux/modules/user";
+import { Navigation } from "./components";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,11 +29,12 @@ function App() {
     <>
       <ConnectedRouter history={history}>
         {/* <Header /> */}
-        {/* <Navigation /> */}
+        <Navigation />
         <Switch>
           <Route path={["/home", "/"]} exact component={Home} />
           <Route path="/chat" exact component={Chat} />
           <Route path="/store" exact component={Store} />
+          <Route path="/store/:postId" exact component={StoreDetail} />
           <Route path="/follow" exact component={Follow} />
           <Route path="/review" exact component={Review} />
           <Route path="/mypage" exact component={MyPage} />

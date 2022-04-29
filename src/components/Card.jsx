@@ -1,21 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-const Grid = (props) => {
-  const { children, cg, width, gtc, textAlign, padding } = props;
+const Card = (props) => {
+  const { children, ...data } = props;
 
-  const styles = {
-    gtc,
-    textAlign,
-    cg,
-    width,
-    padding,
-  };
-
-  return <CardStyle {...styles}>{children}</CardStyle>;
+  return <CardStyle {...data}>{children}</CardStyle>;
 };
 
-Grid.defaultProps = {
+Card.defaultProps = {
   padding: "24px",
 };
 
@@ -26,4 +18,4 @@ const CardStyle = styled.div`
   padding: ${({ padding }) => padding};
 `;
 
-export default Grid;
+export default Card;
