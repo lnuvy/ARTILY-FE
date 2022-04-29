@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Flex, Image, Text } from "../elements";
 import Container from "../elements/Container";
 import styled from "styled-components";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import Grid from "../elements/Grid";
+import { useSelector } from "react-redux";
+import { history } from "../redux/configureStore";
 
 const Home = () => {
   return (
@@ -22,12 +24,18 @@ const Home = () => {
       {/* 카드 컴포넌트 */}
       <Grid gtc="1fr 1fr" gap="5px">
         <Flex fd="column">
-          <Flex width="180px" height="210px" bg="tomato" borderRadius="8px">
+          <Flex
+            width="180px"
+            height="210px"
+            bg="tomato"
+            borderRadius="8px"
+            onClick={() => history.push("/sell/게시글상세")}
+          >
             <Image shape="rectangle" />
           </Flex>
           <Flex padding="5px" fd="column">
             <Flex>
-              <Image />
+              <Image onClick={() => history.push("/sell/특정유저아이디")} />
               &nbsp;&nbsp;
               <Text padding="0 5px" fontWeight="700">
                 작가명
@@ -56,7 +64,7 @@ const Home = () => {
       </Flex>
       <HorizontalDiv>
         <Grid gtr="3fr">
-          <Grid>
+          <Grid onClick={() => history.push("/profile/아트인이주목")}>
             <Flex padding="10px">
               <Image size={80} />
             </Flex>
@@ -93,7 +101,13 @@ const Home = () => {
       {/* 카드 컴포넌트 */}
       <Grid gtc="1fr 1fr" gap="5px">
         <Flex fd="column">
-          <Flex width="180px" height="210px" bg="tomato" borderRadius="8px">
+          <Flex
+            width="180px"
+            height="210px"
+            bg="tomato"
+            borderRadius="8px"
+            onClick={() => history.push("/review/후기상세")}
+          >
             <Image shape="rectangle" />
           </Flex>
           <Flex padding="5px" fd="column">
