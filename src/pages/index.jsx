@@ -5,5 +5,6 @@ import MyPage from "./MyPage";
 import NotFound from "./NotFound";
 import Review from "./Review";
 import Store from "./Store";
+import Test from "./Test";
 
-export { Chat, Follow, Home, MyPage, NotFound, Review, Store };
+export { Chat, Follow, Home, MyPage, NotFound, Review, Store, Test };

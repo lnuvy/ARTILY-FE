@@ -1,10 +1,9 @@
 import Button from "./Button";
-import Container from "./Container";
+import Checkbox from "./Checkbox";
 import Flex from "./Flex";
-import Image from "./Image";
+import Grid from "./Grid";
 import Input from "./Input";
-import InputSearch from "./InputSearch";
 import Text from "./Text";
 import Textarea from "./Textarea";
 
-export { Button, Container, Flex, Image, Input, InputSearch, Text, Textarea };
+export { Button, Checkbox, Flex, Grid, Input, Text, Textarea };

@@ -1,77 +1,85 @@
 import React from "react";
 import styled from "styled-components";
+import theme from "../styles/theme";
 
 const Button = (props) => {
   const {
+    children,
+    onClick,
+    display,
+    jc,
+    width,
     margin,
     padding,
-    width,
-    height,
-    color,
-    border,
-    borderRadius,
-    bg,
-    fontSize,
-    fontWeight,
-    disabled,
-    onClick,
-    children,
+    br,
+    fg,
+    bc,
+    outline,
   } = props;
 
   const styles = {
+    display,
+    jc,
+    width,
     margin,
     padding,
-    width,
-    height,
-    color,
-    border,
-    borderRadius,
-    bg,
-    fontSize,
-    fontWeight,
+    br,
+    fg,
+    outline,
+    bc,
   };
 
   return (
-    <ButtonStyle onClick={() => onClick()} disabled={disabled} {...styles}>
-      {children}
-    </ButtonStyle>
+    <React.Fragment>
+      <ButtonStyle onClick={onClick} {...styles}>
+        {children}
+      </ButtonStyle>
+    </React.Fragment>
   );
 };
 
 Button.defaultProps = {
-  margin: "",
-  width: "",
-  height: "",
-  padding: "",
-  color: "#fff",
-  bg: "#0095f6",
-  fontSize: "14px",
-  fontWeight: "600",
-  border: "none",
-  borderRadius: "4px",
-  disabled: false,
   onClick: () => {},
+  display: "inherit",
+  jc: "0",
+  width: "fit-content",
+  height: "fit-content",
+  margin: "0",
+  padding: "16px",
+  border: "none",
+  br: "8px",
+  fg: "0",
+  bc: `${theme.color.brandColor}`,
 };
 
 const ButtonStyle = styled.button`
-  margin: ${(props) => props.margin};
-  padding: ${(props) => props.padding};
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  border: ${(props) => props.border};
-  border-radius: ${(props) => props.borderRadius};
-  color: ${(props) => props.color};
-  background-color: ${(props) => props.bg};
-  font-weight: ${(props) => props.fontWeight};
-  font-size: ${(props) => props.fontSize};
-  transition: 0.2s;
-  cursor: pointer;
-  &:active {
-    opacity: 0.7;
-  }
-  &:disabled {
-    opacity: 0.3;
-  }
+  display: ${({ display }) => display};
+  flex-grow: ${({ fg }) => fg};
+  width: ${({ width }) => width};
+  border-radius: ${({ br }) => br};
+  margin: ${({ margin }) => margin};
+  padding: ${({ padding }) => padding};
+  justify-content: center;
+
+  ${(props) =>
+    props.outline
+      ? `
+    background-color: transparent;
+    color: ${theme.color.black};
+    border: 1px solid ${theme.color.black};
+    :focus {
+      background-color: ${theme.color.lightGray};
+      opacity: 0.8;
+    }
+    `
+      : `
+    background-color: ${props.bc};
+    color: ${theme.color.white};
+    border: none;
+    :focus {
+      opacity: 0.8;
+    }
+    `};
 `;
 
 export default Button;

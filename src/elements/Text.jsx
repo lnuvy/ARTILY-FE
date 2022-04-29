@@ -1,58 +1,85 @@
 import React from "react";
 import styled from "styled-components";
+import theme from "../styles/theme";
 
 const Text = (props) => {
-  // new : margin, textAlign
-  const {
-    fontSize,
-    fontWeight,
-    color,
-    margin,
-    width,
-    textAlign,
-    children,
-    lineHeight,
-    overflow,
-    onKeyPress,
-    onClick,
-  } = props;
-  const styled = {
-    fontSize,
-    fontWeight,
-    color,
-    margin,
-    textAlign,
-    lineHeight,
-    width,
-    overflow,
-  };
-  return (
-    <TextStyled {...styled} onClick={onClick} onKeyPress={onKeyPress}>
-      {children}
-    </TextStyled>
-  );
+  const { bold, color, size, children, margin, h1, h2, h3, body2, body3 } =
+    props;
+
+  const styles = { bold, color, margin, h1, h2, h3, body2, body3 };
+
+  if (h1) {
+    return <Headline {...styles}>{children}</Headline>;
+  } else if (h2) {
+    return <Subtitle1 {...styles}>{children}</Subtitle1>;
+  } else if (h3) {
+    return <Subtitle2 {...styles}>{children}</Subtitle2>;
+  } else if (body2) {
+    return <Body2 {...styles}>{children}</Body2>;
+  } else if (body3) {
+    return <Body3 {...styles}>{children}</Body3>;
+  }
+  return <Body1 {...styles}>{children}</Body1>;
 };
 
 Text.defaultProps = {
-  fontSize: "14px",
-  fontWeight: "",
-  color: "black",
-  textAlign: "start",
-  lineHeight: "normal",
-  width: "",
-  onClick: () => {},
-  onKeyPress: () => {},
+  bold: false,
+  color: "#000",
+  margin: "0",
 };
 
-const TextStyled = styled.div`
-  /* width: 100%; */
-  font-size: ${(props) => props.fontSize};
-  font-weight: ${(props) => props.fontWeight};
-  color: ${(props) => props.color};
-  margin: ${(props) => props.margin};
-  text-align: ${(props) => props.textAlign};
-  line-height: ${(props) => props.lineHeight};
-  width: ${(props) => props.width};
+const Headline = styled.h1`
+  color: ${({ color }) => color};
+  font-size: 20px;
+  line-height: 22px;
+  letter-spacing: -0.41px;
+  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  margin: ${({ margin }) => margin};
+`;
+
+const Subtitle1 = styled.h2`
+  color: ${({ color }) => color};
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.41px;
+  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  margin: ${({ margin }) => margin};
+`;
+
+const Subtitle2 = styled.h3`
+  color: ${({ color }) => color};
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.41px;
+  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  margin: ${({ margin }) => margin};
+`;
+
+const Body1 = styled.p`
+  color: ${({ color }) => color};
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.41px;
+  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  margin: ${({ margin }) => margin};
+`;
+
+const Body2 = styled.p`
+  color: ${({ color }) => color};
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.41px;
+  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  margin: ${({ margin }) => margin};
+`;
+
+const Body3 = styled.p`
+  color: #555;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.41px;
+  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  margin: ${({ margin }) => margin};
 `;
 
 export default Text;
