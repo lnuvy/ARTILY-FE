@@ -1,4 +1,5 @@
-export const storeDummy = [{
+export const storeDummy = [
+  {
     category: "기타",
     postId: "asdfasdf",
     postTitle: "기타 팔아요",
@@ -16,9 +17,9 @@ export const storeDummy = [{
       profileUrl: "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
       address: "대전 유성구"
     }
-},
-{
-  category: "회화",
+  },
+  {
+    category: "회화",
     postId: "qwerqwer",
     postTitle: "그림 팔아요",
     price: 0,
@@ -33,5 +34,6 @@ export const storeDummy = [{
       nickname: "닉네임99",
       profileUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi8sTwwX22p9l0nz43jBSvHw4dlqMxU7XFDg&usqp=CAU",
       address: "서울 동작구"
-    }
-}]
+    },
+  }
+];

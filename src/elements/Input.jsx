@@ -16,6 +16,7 @@ const Input = (props) => {
     margin,
     icon,
     padding,
+    readOnly,
   } = props;
 
   const styles = { width, fg, margin, alert, icon, padding };
@@ -29,9 +30,10 @@ const Input = (props) => {
           value={value}
           placeholder={placeholder}
           onChange={onChange}
+          readOnly={readOnly}
           {...styles}
         ></InputContainer>
-        {icon ? <InputIcon {...styles} /> : ""}
+        {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}
       </InputBox>
       {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}
     </InputWrap>
@@ -46,6 +48,7 @@ Input.defaultProps = {
   margin: "0",
   icon: false,
   padding: "12px",
+  readOnly: false,
 };
 
 const InputWrap = styled.div`
@@ -93,8 +96,8 @@ const InputContainer = styled.input`
 const InputIcon = styled.div`
   height: 28px;
   width: 28px;
-  background-image: url();
-  background-color: grey;
+  /* background-image: url(); */
+  /* background-color: grey; */
   position: absolute;
   top: calc(${({ padding }) => padding} / 2);
   right: calc(${({ padding }) => padding} / 2);

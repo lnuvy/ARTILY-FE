@@ -13,7 +13,11 @@ const Grid = (props) => {
     margin,
   };
 
-  return <GridStyle onClick={onClick} {...styles}>{children}</GridStyle>;
+  return (
+    <GridStyle onClick={onClick} {...styles}>
+      {children}
+    </GridStyle>
+  );
 };
 
 Grid.defaultProps = {
