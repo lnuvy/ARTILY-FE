@@ -1,62 +1,38 @@
 import React from "react";
 import styled from "styled-components";
+
 const Grid = (props) => {
-  const {
-    is_flex,
+  const { children, cg, rg, width, gtc, textAlign, margin } = props;
+
+  const styles = {
+    gtc,
+    textAlign,
+    cg,
+    rg,
     width,
     margin,
-    padding,
-    bg,
-    children,
-    center,
-    _onClick,
-    fixed,
-  } = props;
-  const styles = {
-    is_flex: is_flex,
-    width: width,
-    margin: margin,
-    padding: padding,
-    bg: bg,
-    center: center,
-    fixed: fixed,
   };
-  return (
-    <React.Fragment>
-      <GridBox {...styles} onClick={_onClick}>
-        {children}
-      </GridBox>
-    </React.Fragment>
-  );
+
+  return <GridStyle {...styles}>{children}</GridStyle>;
 };
+
 Grid.defaultProps = {
-  children: null,
-  is_flex: false,
-  width: "100%",
-  padding: false,
-  margin: false,
-  bg: false,
-  center: false,
-  fixed: false,
-  _onClick: () => {},
+  gtc: "auto", // 2줄 하고 싶으면 "auto auto", 3줄 하고 싶으면 "auto auto auto"
+  cg: "16px",
+  rg: "16px",
+  textAlign: "left",
+  width: "inherit",
+  margin: "0",
 };
-//스타일 적용하기
-//웬만하면 props로 가져올 수 있쥐
-//box-sizing:border-box : 넓이에 여백포함
-const GridBox = styled.div`
-  width: ${(props) => props.width};
-  height: 100%;
-  box-sizing: border-box;
-  ${(props) => (props.padding ? `padding : ${props.padding}` : "")};
-  ${(props) => (props.margin ? `margin : ${props.margin}` : "")};
-  ${(props) => (props.bg ? `background-color: ${props.bg}` : "")};
-  ${(props) =>
-    props.is_flex
-      ? `display:flex; align-items:center; justify-content : space-between;`
-      : ""};
-  ${(props) => (props.center ? `text-align:center` : "")};
-  ${(props) =>
-    props.fixed ? `height:100px;position:fixed;top:0;z-index:1` : ""};
+
+const GridStyle = styled.div`
+  display: grid;
+  column-gap: ${({ cg }) => cg};
+  row-gap: ${({ rg }) => rg};
+  grid-template-columns: ${({ gtc }) => gtc};
+  text-align: ${({ textAlign }) => textAlign};
+  width: ${({ width }) => width};
+  margin: ${({ margin }) => margin};
 `;
-//is_flex => 한 영역내에서 같은 간격을 두고 배치됨
+
 export default Grid;

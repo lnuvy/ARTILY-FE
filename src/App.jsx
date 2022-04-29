@@ -43,6 +43,7 @@ function App() {
           <Route path="/chat" exact component={Chat} />
           <Route path="/follow" exact component={Follow} />
           <Route path="/review" exact component={Review} />
+          {/* <Route path="/test" component={Test} /> */}
           <Route path="/mypage" exact component={MyPage} />
           <Route path="/login" exact component={Login} />
           <Route path="/location" exact component={Location} />
