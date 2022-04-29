@@ -2,11 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
-
+import user from "./modules/user";
 export const history = createBrowserHistory();
 
 // 리듀서 router 안에 history 넣기
 const rootReducer = combineReducers({
+  user: user,
   router: connectRouter(history),
 });
 
