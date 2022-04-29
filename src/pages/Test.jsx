@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Checkbox,
@@ -15,6 +15,9 @@ import {
 import { Card } from "../components/index";
 
 const Test = () => {
+
+  const [input, setInput] = useState("");
+
   return (
     <React.Fragment>
       <Grid margin="0 0 20px">
@@ -53,8 +56,8 @@ const Test = () => {
         <Card>Card in Grid (Grid: gtc="auto auto auto" rg="8px" cg="8px")</Card>
       </Grid>
       <Input label="Label" placeholder="Placeholder" margin="0 0 20px" />
-      <Input label="Label" value="Value" margin="0 0 20px" />
-      <Input label="Label" value="Value" margin="0 0 20px" icon />
+      <Input label="Label" value={input} onChange={(e) =>setInput(e.target.value)} margin="0 0 20px" />
+      <Input label="Label" value={input} onChange={(e) =>setInput(e.target.value)} margin="0 0 20px" icon />
       <Input
         label="Label"
         alert

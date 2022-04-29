@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMessage } from "../../redux/modules/ToastMesage";
+import { fetchMessage } from "../../../redux/modules/ToastMessage";
 import ToastMessageStyle from "./Style";
 
 const ToastMessage = () => {
@@ -12,7 +12,7 @@ const ToastMessage = () => {
     if (message) {
       setTimeout(() => {
         dispatch(fetchMessage({ Message: false, text: "" }));
-      }, 2500);
+      }, 2000);
     }
   }
 

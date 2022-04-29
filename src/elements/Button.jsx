@@ -77,7 +77,7 @@ const ButtonStyle = styled.button`
     color: ${theme.color.white};
     border: none;
     :focus {
-      opacity: 0.8;
+      opacity: 0.9;
     }
     `};
 `;

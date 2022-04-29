@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { history } from "../../redux/configureStore";
+import { fetchMessage } from "../../redux/modules/ToastMessage";
 
 // 경로를 같이 저장해야할거같아서 Object.entries로 사용
 const menuSelect = {
@@ -11,10 +13,9 @@ const menuSelect = {
   프로필: "/myprofile",
 };
 export const menus = Object.entries(menuSelect);
-console.log(menuSelect);
-console.log(menus);
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   // 현재 url 경로
   const path = useLocation().pathname;
   const [current, setCurrent] = useState(menus[0]); // ["홈", "/home"] 이렇게 저장됨
@@ -30,7 +31,6 @@ const Navigation = () => {
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
-    console.log(innerText);
     setCurrent(menus.find((l) => l[0] === innerText));
   };
 
@@ -41,6 +41,7 @@ const Navigation = () => {
           <CurrentDiv
             key={menu}
             onClick={(e) => {
+              // dispatch(fetchMessage({ Message: true, text: "안녕하세요" }));
               handleChangeCurrent(e);
               history.push(menu[1]);
             }}
