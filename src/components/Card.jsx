@@ -25,7 +25,7 @@ const Card = (props) => {
   };
 
   return (
-    <CardStyle {...styles} {...data}>
+    <CardStyle onClick={onClick} {...styles} {...data}>
       {children}
     </CardStyle>
   );

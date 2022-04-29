@@ -3,10 +3,10 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Checkbox = (props) => {
-  const { children, id, fontSize, margin, fg } = props;
+  // zoom, onChange 추가 zoom은 체크박스가 너무 작아서 넣었습니다 -한울-
+  const { children, id, fontSize, margin, fg, onChange, zoom } = props;
 
   const styles = {
-    fontSize,
     margin,
     fg,
   };
@@ -14,7 +14,12 @@ const Checkbox = (props) => {
   return (
     <React.Fragment>
       <CheckboxWrap {...styles}>
-        <CheckboxStyle type="checkbox" id={id} />
+        <CheckboxStyle
+          onChange={onChange}
+          type="checkbox"
+          id={id}
+          zoom={zoom}
+        />
         <CheckboxLabel type="label" htmlFor={id} fontSize={fontSize}>
           {children}
         </CheckboxLabel>
@@ -27,9 +32,15 @@ Checkbox.defaultProps = {};
 
 const CheckboxWrap = styled.div`
   flex-grow: ${({ fg }) => fg};
+
+  // 한울 추가
+  display: flex;
+  align-items: center;
+  margin: ${({ margin }) => margin};
 `;
 
 const CheckboxStyle = styled.input`
+  zoom: ${({ zoom }) => zoom};
   :hover {
     cursor: pointer;
   }

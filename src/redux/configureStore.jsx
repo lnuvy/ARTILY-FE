@@ -5,8 +5,9 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import user from "./modules/user";
 import ToastReducer from "./modules/ToastMessage";
-import StoresReducer from "./modules/stores";
+import ModalReducer from "./modules/modal";
 import MainReducer from "./modules/main";
+import StoresReducer from "./modules/stores";
 import ReviewReducer from "./modules/reviews";
 
 export const history = createBrowserHistory();
@@ -14,8 +15,9 @@ export const history = createBrowserHistory();
 const rootReducer = combineReducers({
   user: user,
   toastMessage: ToastReducer,
-  store: StoresReducer,
+  modal: ModalReducer,
   main: MainReducer,
+  store: StoresReducer,
   review: ReviewReducer,
   router: connectRouter(history),
 });

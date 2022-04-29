@@ -12,9 +12,6 @@ const Store = () => {
   const dispatch = useDispatch();
   const storeList = useSelector((state) => state.store.list);
 
-  // 검색창 인풋
-  const [input, setInput] = useState("");
-
   useEffect(() => {
     // 더미데이터 주입된상태
     dispatch(getPostDB());
@@ -23,6 +20,23 @@ const Store = () => {
   const handleClickData = (data) => {
     dispatch(go2detail(data));
     history.push(`/store/${data.postId}`);
+  };
+
+  // 검색창 인풋
+  const [input, setInput] = useState("");
+
+  // 체크박스 체크될때 데이터 필터링
+  const [freeList, setFreeList] = useState([]);
+
+  const checkFree = (e) => {
+    const { checked } = e.target;
+
+    // 체크박스 체크되고 freeList가 빈배열일때 필터
+    if (checked) {
+      setFreeList(storeList.filter((l) => l.price === 0));
+    } else {
+      setFreeList([]);
+    }
   };
 
   return (
@@ -36,24 +50,42 @@ const Store = () => {
           onChange={(e) => setInput(e.target.value)}
         />
         <Category />
+
         <Flex padding="5px 10px" jc="space-between">
-          <Flex>
-            <Checkbox id="checkFree" zoom="1.5">
-              <Text h2>나눔 작품만 보기</Text>
-            </Checkbox>
-          </Flex>
-          <Text h2>거래 방식/지역 선택하기</Text>
+          <Checkbox
+            id="checkFree"
+            zoom={1.3}
+            margin="0 10px"
+            onChange={checkFree}
+          >
+            <Text h2>나눔 작품만 보기</Text>
+          </Checkbox>
+          <Text h2 margin="0 10px 0 0">
+            거래 방식/지역 선택하기
+          </Text>
         </Flex>
         <Grid gtc="auto auto">
-          {storeList.map((l) => {
-            return (
-              <ArtCard
-                key={l.postId}
-                {...l}
-                onClick={() => handleClickData(l)}
-              />
-            );
-          })}
+          {freeList.length
+            ? freeList.map((l) => {
+                console.log(l);
+                return (
+                  <ArtCard
+                    key={l.postId}
+                    {...l}
+                    onClick={() => handleClickData(l)}
+                  />
+                );
+              })
+            : storeList.map((l) => {
+                console.log(l);
+                return (
+                  <ArtCard
+                    key={l.postId}
+                    {...l}
+                    onClick={() => handleClickData(l)}
+                  />
+                );
+              })}
         </Grid>
       </Grid>
     </>

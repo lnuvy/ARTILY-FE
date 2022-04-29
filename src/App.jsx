@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { Header, Navigation } from "./components";
@@ -7,7 +7,7 @@ import {
   Follow,
   Home,
   MyPage,
-  NotFound,
+  // NotFound,
   Review,
   Login,
   RegionSet,
@@ -18,12 +18,16 @@ import {
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
 import RedirectHandler from "./pages/redirectHandeler";
-import { useSelector, useDispatch } from "react-redux";
-import { getToken } from "./shared/token";
-import { actionCreators as userActions } from "./redux/modules/user";
+// import { useDispatch } from "react-redux";
+// import { getToken } from "./shared/token";
+// import { actionCreators as userActions } from "./redux/modules/user";
+import ToastMessage from "./shared/ToastMessage";
+import Modal from "./shared/modal/Modal";
+import { useSelector } from "react-redux";
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const modalOn = useSelector((state) => state.modal.modalOn);
 
   return (
     <>
@@ -44,10 +48,14 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/regionset" exact component={RegionSet} />
           <Route path="/profile" exact component={Setprofile} />
+          <Route path="/oauth/kakao/callback" component={RedirectHandler} />
           {/* <Route path="/*" component={NotFound} /> */}
           <Route path="/*" component={Test} />
         </Switch>
-        {/* <ToastMessage /> */}
+
+        {modalOn && <Modal />}
+
+        <ToastMessage />
       </ConnectedRouter>
     </>
   );

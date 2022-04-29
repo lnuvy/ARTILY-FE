@@ -11,6 +11,8 @@ export const homeDummy = [
         changeAddress: "",
         markupCnt: 24,
         createdAt: "2022-04-26 12:00:00",
+        size: "29.7 x 42cm",
+        content: "작품에 대한 설명이 들억나ㅡㄴ 영역입니다",
         imageUrl: [
           "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
           "https://img.hankyung.com/photo/202108/99.26501439.1-1200x.jpg",
@@ -34,6 +36,8 @@ export const homeDummy = [
         markupCnt: 10,
         createdAt: "2022-04-27 12:00:00",
         imageUrl: ["http://via.placeholder.com/400x300"],
+        size: "29.7 x 42cm",
+        content: "작품에 대한 설명이 들억나ㅡㄴ 영역입니다",
         user: {
           userId: "user999",
           nickname: "조각상헌터",
@@ -51,11 +55,9 @@ export const homeDummy = [
         changeAddress: "",
         markupCnt: 8,
         createdAt: "2022-04-28 12:00:00",
-        imageUrl: [
-          "https://img.hankyung.com/photo/202108/99.26501439.1-1200x.jpg",
-          "http://via.placeholder.com/400x300",
-          "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
-        ],
+        size: "29.7 x 42cm",
+        content: "작품에 대한 설명이 들억나ㅡㄴ 영역입니다",
+        imageUrl: ["https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E"],
         user: {
           userId: "user123",
           nickname: "판매자1",
@@ -73,6 +75,8 @@ export const homeDummy = [
         changeAddress: "",
         markupCnt: 4,
         createdAt: "2022-04-28 17:30:24",
+        size: "29.7 x 42cm",
+        content: "작품에 대한 설명이 들억나ㅡㄴ 영역입니다",
         imageUrl: [
           "https://img.hankyung.com/photo/202108/99.26501439.1-1200x.jpg",
           "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
@@ -134,6 +138,8 @@ export const storeDummy = [
     changeAddress: "",
     markupCnt: 0,
     createdAt: "2022-04-28 12:00:00",
+    size: "29.7 x 42cm",
+    content: "작품에 대한 설명이 들억나ㅡㄴ 영역입니다",
     imageUrl: [
       "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
       "https://img.hankyung.com/photo/202108/99.26501439.1-1200x.jpg",
@@ -155,6 +161,8 @@ export const storeDummy = [
     transaction: "택배",
     changeAddress: "",
     markupCnt: 3,
+    size: "29.7 x 42cm",
+    content: "작품에 대한 설명이 들억나ㅡㄴ 영역입니다",
     imageUrl: [
       "https://img.hankyung.com/photo/202108/99.26501439.1-1200x.jpg",
       "http://via.placeholder.com/400x300",

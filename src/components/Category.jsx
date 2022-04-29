@@ -28,7 +28,7 @@ const Category = () => {
             br="0"
             onClick={(e) => setCurrent(e.target.innerText)}
           >
-            <Text h2 bold color="white">
+            <Text body2 bold color="white">
               {c}
             </Text>
           </Button>

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMessage } from "../../../redux/modules/ToastMessage";
+import { fetchMessage } from "../../redux/modules/ToastMessage";
 import { Text } from "../../elements";
 import ToastMessageStyle from "./Style";
 

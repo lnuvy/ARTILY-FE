@@ -1,38 +1,70 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { history } from "../redux/configureStore";
-import { Flex, Icon, Text, Tab, Grid, Image, Wrap } from "../elements/index";
-import { Card, Navigation, ArtCard } from "../components/index";
+import { Flex, Text, Grid, Image, Wrap } from "../elements";
+import { Card, ArtCard } from "../components";
 import { getHomeDataDB } from "../redux/modules/main";
+import { history } from "../redux/configureStore";
+
+import { openModal } from "../redux/modules/modal";
 
 const Home = () => {
   const dispatch = useDispatch();
   // const user = useSelector((state) => state.user.user);
-
-  const { bestStore, recommendArtist, bestReview } = useSelector(
-    (state) => state.main
-  );
 
   // 더미데이터 주입
   useEffect(() => {
     dispatch(getHomeDataDB());
   }, []);
 
+  // 한번에 데이터를 리덕스에 넣는방법이 딱히 안떠올라서 main용 리덕스를 새로 만들었습니다 좋은 의견있으면 바꿔주세요
+  const { bestStore, recommendArtist, bestReview } = useSelector(
+    (state) => state.main
+  );
+
+  const move2detail = (data, path) => {
+    console.log(data, path);
+    if (path === "/store") {
+      console.log();
+    }
+    history.push(`${path}/${data.postId}`);
+  };
+
+  const modalOn = () => {
+    dispatch(
+      openModal({
+        title: "모달제목",
+        text: "여기에 컨텐츠를 담아주시면됩니다",
+      })
+    );
+  };
+
   return (
-    <React.Fragment>
+    <>
       <Image height="240px" />
       <Wrap margin="16px">
         <Text h2>인기작품</Text>
         <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
           {bestStore.map((v, i) => {
-            return <ArtCard key={v.postId} {...v} />;
+            return (
+              <ArtCard
+                // path 까지 받아서 붙여넣는걸로했는데 더좋은방법이 있을거같네요 고민해봅시다 -한울-
+                onClick={() => move2detail(v, "/store")}
+                key={v.postId}
+                {...v}
+              />
+            );
           })}
         </Grid>
         <Text h2>아트인이 주목하는 작가</Text>
         <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
           {recommendArtist.map((v, i) => {
             return (
-              <Card key={i} border="1px solid rgba(0,0,0,0.1)" padding="12px">
+              <Card
+                key={i}
+                border="1px solid rgba(0,0,0,0.1)"
+                padding="12px"
+                onClick={modalOn}
+              >
                 <Image shape="circle" size="100" margin="8px auto 0" />
                 <Text textAlign="center">작가명</Text>
                 <Text body2 textAlign="center">
@@ -50,7 +82,7 @@ const Home = () => {
         <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
           {bestReview.map((v, i) => {
             return (
-              <Card key={`${v}_${i}`}>
+              <Card key={`${v}_${i}`} onClick={() => move2detail(v, "/review")}>
                 <Image height="120px" />
                 <Text>후기명</Text>
                 <Text>
@@ -65,7 +97,7 @@ const Home = () => {
           })}
         </Grid>
       </Wrap>
-    </React.Fragment>
+    </>
   );
 };
 

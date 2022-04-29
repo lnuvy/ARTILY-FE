@@ -22,9 +22,9 @@ const initialState = {
   location: "",
 };
 
-//로그인 미들웨어
-//인가코드 넘기기
-//서버로부터 토큰받기
+// 로그인 미들웨어
+// 인가코드 넘기기
+// 서버로부터 토큰받기
 const kakaoLogin = (code) => {
   // let code = new URL(window.location.href).searchParams.get("code");
   return async function (dispatch, getState, { history }) {
@@ -33,7 +33,7 @@ const kakaoLogin = (code) => {
       url: `http://54.180.96.227/oauth/kakao/callback?code=${code}`,
     })
       .then((res) => {
-        console.log(res); // 토큰이 넘어옴
+        console.log(res.data); // 토큰이 넘어옴
         const ACCESS_TOKEN = res.data.user.token;
 
         const user = {
@@ -45,7 +45,6 @@ const kakaoLogin = (code) => {
         };
         dispatch(setUser(user));
         localStorage.setItem("token", ACCESS_TOKEN); //local storage에 저장
-        console.log(user);
         history.replace("/"); // 토큰 받았고 로그인됐으니 화면 전환시켜줌(일단 위치설정)
       })
       .catch((err) => {

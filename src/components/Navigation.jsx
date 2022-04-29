@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
-import { Flex, Icon, Text, Tab, Grid } from "../elements/index";
+import { Flex, Icon, Text, Tab, Grid } from "../elements";
 
 // 경로를 같이 저장해야할거같아서 Object.entries로 사용
 const menuSelect = {
@@ -14,7 +14,7 @@ const menuSelect = {
 export const menus = Object.entries(menuSelect);
 
 const Navigation = () => {
-  // 현재 url 경로
+  // 현재 url 경로로 홈에있는지, 스토어에있는지, 리뷰에 있는지 판별
   const path = useLocation().pathname;
   const [current, setCurrent] = useState(menus[0]); // ["홈", "/home"] 이렇게 저장됨
 
@@ -53,17 +53,6 @@ const Navigation = () => {
   );
 };
 
-/*
-const slide = keyframes`
-  0% {
-  }
-  100% {
-    position: relative;
-    left: 100px;
-  }
-`;
-*/
-
 const CurrentDiv = styled.div`
   padding: 5px 10px;
   margin: 10px 0 0;
@@ -82,7 +71,6 @@ const CurrentDiv = styled.div`
 
 const Nav = styled.div`
   display: grid;
-  /* width: calc(89%); */
   width: 100%;
 `;
 
