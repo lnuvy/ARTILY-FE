@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
+import { Header, Navigation } from "./components";
 import {
   Chat,
   Follow,
@@ -11,6 +12,8 @@ import {
   Login,
   Location,
   Setprofile,
+  Store,
+  StoreDetail,
 } from "./pages";
 import { history } from "./redux/configureStore";
 import RedirectHandler from "./pages/redirectHandeler";
@@ -38,10 +41,14 @@ function App() {
   return (
     <div className="App">
       <ConnectedRouter history={history}>
+        <Header>ARTILY</Header>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/home" exact component={Home} />
           <Route path="/chat" exact component={Chat} />
           <Route path="/follow" exact component={Follow} />
+          <Route path="/store" exact component={Store} />
+          <Route path="/store/:id" exact component={StoreDetail} />
           <Route path="/review" exact component={Review} />
           {/* <Route path="/test" component={Test} /> */}
           <Route path="/mypage" exact component={MyPage} />

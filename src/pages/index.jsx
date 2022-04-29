@@ -7,6 +7,8 @@ import Review from "./Review";
 import Login from "./Login";
 import Location from "./Location";
 import Setprofile from "./SetProfile";
+import Store from "./Store";
+import StoreDetail from "./StoreDetail";
 
 export {
   Chat,
@@ -18,4 +20,6 @@ export {
   Login,
   Location,
   Setprofile,
+  Store,
+  StoreDetail,
 };
