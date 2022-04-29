@@ -62,7 +62,7 @@ const Test = () => {
         alertMessage="alertMessage (with alert)"
         margin="0 0 20px"
       />
-      <Textarea label="Label" placeholder="Placeholder" maxLength="200" />
+      <Textarea label="Label" placeholder="Placeholder" maxLength="100" />
       <Textarea label="Label" value="Value" maxLength="200" />
       <Textarea
         alert
