@@ -9,7 +9,6 @@ const Card = (props) => {
     cg,
     width,
     padding,
-    key,
     border,
     onClick,
     ...data
@@ -21,13 +20,12 @@ const Card = (props) => {
     cg,
     width,
     padding,
-    key,
     border,
     onClick,
   };
 
   return (
-    <CardStyle key={key} {...styles} {...data}>
+    <CardStyle {...styles} {...data}>
       {children}
     </CardStyle>
   );

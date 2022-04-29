@@ -30,9 +30,7 @@ const postsSlice = createSlice({
   name: "store",
   initialState: initialState,
   reducers: {
-    hiDB: (state, action) => {
-      console.log("hihi");
-    },
+    getHomeData: (state, action) => {},
     getStoreData: (state, action) => {
       state.list = action.payload;
     },
@@ -44,5 +42,5 @@ const postsSlice = createSlice({
 });
 
 const { reducer, actions } = postsSlice;
-export const { hiDB, getStoreData, go2detail } = actions;
+export const { getStoreData, go2detail } = actions;
 export default reducer;

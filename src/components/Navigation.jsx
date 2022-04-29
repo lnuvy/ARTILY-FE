@@ -12,8 +12,6 @@ const menuSelect = {
   마이페이지: "/myprofile",
 };
 export const menus = Object.entries(menuSelect);
-console.log(menuSelect);
-console.log(menus);
 
 const Navigation = () => {
   // 현재 url 경로

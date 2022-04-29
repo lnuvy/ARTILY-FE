@@ -21,7 +21,6 @@ import RedirectHandler from "./pages/redirectHandeler";
 import { useSelector, useDispatch } from "react-redux";
 import { getToken } from "./shared/token";
 import { actionCreators as userActions } from "./redux/modules/user";
-import { Navigation } from "./components";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +28,6 @@ function App() {
   return (
     <>
       <ConnectedRouter history={history}>
-        {/* <Header /> */}
         <Navigation />
         <Header>ARTILY</Header>
         <Switch>
