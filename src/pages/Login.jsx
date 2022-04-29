@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 // import { insertToken } from "../shared/token";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { Text } from "../elements";
 
 const Login = () => {
   //카카오 소셜 로그인
@@ -15,13 +16,13 @@ const Login = () => {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(userActions.kakaoLogin());
-  });
+  // useEffect(() => {
+  //   dispatch(userActions.kakaoLogin());
+  // });
 
   return (
     <React.Fragment>
-      <h2>로그인</h2>
+      <Text h1>로그인</Text>
       <div>
         {/* 카카오로 로그인 */}
         <a href={KAKAO_AUTH_URL}>

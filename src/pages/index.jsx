@@ -5,8 +5,9 @@ import MyPage from "./MyPage";
 import NotFound from "./NotFound";
 import Review from "./Review";
 import Login from "./Login";
-import Location from "./Location";
+import RegionSet from "./RegionSet";
 import Setprofile from "./SetProfile";
+import Test from "./Test";
 
 export {
   Chat,
@@ -16,6 +17,7 @@ export {
   NotFound,
   Review,
   Login,
-  Location,
+  RegionSet,
   Setprofile,
+  Test,
 };

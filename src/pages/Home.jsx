@@ -5,16 +5,12 @@ import { history } from "../redux/configureStore";
 const Home = () => {
   const user = useSelector((state) => state.user.user);
   console.log(user);
-  // const non_address = user.address;
-  // useEffect(() => {
-  //   if (!non_address) {
-  //     alert("주소를 설정해주세요");
-  // history.push("/location");
-  //   }
-  // if (user.profile === {}) {
-  //   alert("");
-  // }
-  // });
+  useEffect(() => {
+    // if (user.profileUrl === {}) {
+    //   alert("프로필 사진이 없어요!");
+    // }
+  });
+
   // useEffect(() => {
   //   if (!non_address) {
   //     alert("주소를 설정해주세요");

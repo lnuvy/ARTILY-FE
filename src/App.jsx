@@ -9,9 +9,10 @@ import {
   NotFound,
   Review,
   Login,
-  Location,
+  RegionSet,
   Setprofile,
 } from "./pages";
+import { Test } from "./pages";
 import { history } from "./redux/configureStore";
 import RedirectHandler from "./pages/redirectHandeler";
 import { useSelector, useDispatch } from "react-redux";
@@ -43,10 +44,10 @@ function App() {
           <Route path="/chat" exact component={Chat} />
           <Route path="/follow" exact component={Follow} />
           <Route path="/review" exact component={Review} />
-          {/* <Route path="/test" component={Test} /> */}
+          <Route path="/test" component={Test} />
           <Route path="/mypage" exact component={MyPage} />
           <Route path="/login" exact component={Login} />
-          <Route path="/location" exact component={Location} />
+          <Route path="/regionset" exact component={RegionSet} />
           <Route path="/profile" exact component={Setprofile} />
           <Route
             path="/oauth/kakao/callback"
