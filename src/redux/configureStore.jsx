@@ -7,7 +7,7 @@ import user from "./modules/user";
 import ToastReducer from "./modules/ToastMessage";
 import ModalReducer from "./modules/modal";
 import MainReducer from "./modules/main";
-import StoresReducer from "./modules/stores";
+import StoresReducer from "./modules/store";
 import ReviewReducer from "./modules/reviews";
 
 export const history = createBrowserHistory();

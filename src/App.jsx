@@ -27,6 +27,7 @@ import { useSelector } from "react-redux";
 
 function App() {
   // const dispatch = useDispatch();
+  // 리덕스에서 모달 정보 가져오기(디폴트는 false)
   const modalOn = useSelector((state) => state.modal.modalOn);
 
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="/*" component={Test} />
         </Switch>
 
+        {/* modalOn 값이 true 일때만 모달 켜기 */}
         {modalOn && <Modal />}
 
         <ToastMessage />

@@ -3,7 +3,7 @@ import { ArtCard, Card } from "../components";
 import Category from "../components/Category";
 import { Checkbox, Flex, Grid, Input, Text } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostDB, go2detail } from "../redux/modules/stores";
+import { getPostDB, go2detail } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
 
 import { AiOutlineSearch } from "react-icons/ai";
