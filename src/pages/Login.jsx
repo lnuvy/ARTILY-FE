@@ -11,9 +11,10 @@ import { Text } from "../elements";
 
 const Login = () => {
   //카카오 소셜 로그인
-  const REST_API_KEY = "8ef6077e99cfc3ea15c25ab21d4c372e"; //내 REST_API_KEY 값
-  const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_KEY; //내 REST_API_KEY 값
+  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URL;
+  console.log(KAKAO_REDIRECT_URI);
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
   const dispatch = useDispatch();
 
   // useEffect(() => {

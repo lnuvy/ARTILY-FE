@@ -23,4 +23,5 @@ export {
   Setprofile,
   Store,
   StoreDetail,
+  Test,
 };

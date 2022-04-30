@@ -11,7 +11,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import axios from "axios";
 
-import { Text, Button, Input, Flex } from "../elements";
+import { Text, Button, Input, Flex, Grid } from "../elements";
 const Location = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -52,9 +52,11 @@ const Location = (props) => {
   return (
     <React.Fragment>
       <Text h1>내 위치를 설정해주세요!</Text>
+
       <Flex>
         <Input
-          margin="20px 10px"
+          padding="0 100px 20px 0"
+          margin="0 20px 20px 20px"
           value={`${si} ${gu} ${dong}` || ""}
           onChange={(e) => {
             console.log("location");
@@ -63,14 +65,16 @@ const Location = (props) => {
           }}
         ></Input>
         <Button
+          width="20%"
           onClick={() => {
             currentmap();
           }}
         >
-          현재 위치
+          검색
         </Button>
       </Flex>
-      <Button outline onClick={complete}>
+
+      <Button outline width="90%" margin="auto" onClick={complete}>
         설정 완료
       </Button>
     </React.Fragment>
