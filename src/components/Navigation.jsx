@@ -9,7 +9,9 @@ const menuSelect = {
   홈: "/home",
   스토어: "/store",
   리뷰: "/review",
-  마이페이지: "/myprofile",
+  // 마이페이지: "/myprofile",
+  //4/30 pm 2:43 마이페이지 경로 이름 바꿨습니다 -영경
+  마이페이지: "/mypage",
 };
 export const menus = Object.entries(menuSelect);
 

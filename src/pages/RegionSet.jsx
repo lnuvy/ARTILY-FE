@@ -3,9 +3,9 @@
 //카카오 맵 api로 현재 위치를 끌고 올 것인지
 //드롭박스로 직접 선택하도록 할 것 인지
 
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { history } from "../redux/configureStore";
 import { getToken } from "../shared/token";
 import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -13,12 +13,11 @@ import axios from "axios";
 
 import { Text, Button, Input, Flex, Grid } from "../elements";
 const Location = (props) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
-  const [dong, setDong] = React.useState("");
-  const [gu, setGu] = React.useState("");
-  const [si, setSi] = React.useState("");
+  const [dong, setDong] = useState("");
+  const [gu, setGu] = useState("");
+  const [si, setSi] = useState("");
 
   const currentmap = async () => {
     //현재 내 위치 찾기(좌표)
@@ -45,18 +44,22 @@ const Location = (props) => {
         });
     });
   };
-
+  //input 안에 값이 없으면 다음페이지로 못넘어가
   const complete = () => {
     dispatch(userActions.locationDB(si, gu, dong));
+    // if (setGu == null) {
+    //   window.alert("주소를 설정해주세요!");
+    //   return;
+    // }
+    // history.push("/profile");
   };
   return (
     <React.Fragment>
       <Text h1>내 위치를 설정해주세요!</Text>
-
-      <Flex>
+      <Flex margin="20px">
         <Input
-          padding="0 100px 20px 0"
-          margin="0 20px 20px 20px"
+          fg="1"
+          margin="0 10px 0 0px"
           value={`${si} ${gu} ${dong}` || ""}
           onChange={(e) => {
             console.log("location");
@@ -65,7 +68,7 @@ const Location = (props) => {
           }}
         ></Input>
         <Button
-          width="20%"
+          margin="20px 0 0 0"
           onClick={() => {
             currentmap();
           }}
@@ -73,8 +76,7 @@ const Location = (props) => {
           검색
         </Button>
       </Flex>
-
-      <Button outline width="90%" margin="auto" onClick={complete}>
+      <Button outline margin="auto" onClick={complete}>
         설정 완료
       </Button>
     </React.Fragment>

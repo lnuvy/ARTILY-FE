@@ -33,7 +33,7 @@ function App() {
   return (
     <>
       <ConnectedRouter history={history}>
-        <Navigation />
+        {/* <Navigation /> */}
         <Header>ARTILY</Header>
         <Switch>
           <Route path={["/home", "/"]} exact component={Home} />
@@ -42,7 +42,6 @@ function App() {
           <Route path="/store/:postId" exact component={StoreDetail} />
           <Route path="/follow" exact component={Follow} />
           <Route path="/store" exact component={Store} />
-          <Route path="/store/:id" exact component={StoreDetail} />
           <Route path="/review" exact component={Review} />
           <Route path="/test" component={Test} />
           <Route path="/mypage" exact component={MyPage} />

@@ -9,10 +9,12 @@ import { size } from "lodash";
 //로그인 체크
 const SET_USER = "SET_USER";
 const GET_USER = "GET_USER";
+const RANDOM_NICK = "RANDOM_NICK";
 
 //action creator
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
+const randomNick = createAction(RANDOM_NICK, (user) => user);
 
 //initialState
 
@@ -20,6 +22,7 @@ const initialState = {
   user: null,
   isLogin: false,
   location: "",
+  randomNick: null,
 };
 
 // 로그인 미들웨어
@@ -45,7 +48,7 @@ const kakaoLogin = (code) => {
         };
         dispatch(setUser(user));
         localStorage.setItem("token", ACCESS_TOKEN); //local storage에 저장
-        history.replace("/"); // 토큰 받았고 로그인됐으니 화면 전환시켜줌(일단 위치설정)
+        history.replace("/regionset"); // 토큰 받았고 로그인됐으니 화면 전환시켜줌(일단 위치설정)
       })
       .catch((err) => {
         console.log("소셜로그인 에러!", err);
@@ -57,21 +60,22 @@ const kakaoLogin = (code) => {
     console.log("여기 들어오니?");
   };
 };
-const getUserInfo = (token) => {
-  return async function (dispatch, getState, { history }) {
-    const config = { Authorization: `Bearer ${token}` };
-    await axios
-      .get(`http://54.180.96.227/user/getuser`, { headers: config })
-      .then((res) => {
-        dispatch(getUser(res.data));
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
-  };
-};
+// const getUserInfo = (token) => {
+//   return async function (dispatch, getState, { history }) {
+//     const config = { Authorization: `Bearer ${token}` };
+//     await axios
+//       .get(`http://54.180.96.227/user/getuser`, { headers: config })
+//       .then((res) => {
+//         dispatch(getUser(res.data));
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         console.log(err.response);
+//       });
+//   };
+// };
 
+//실시간 위치 정보
 const locationDB = (si, gu, dong) => {
   return function (dispatch) {
     axios({
@@ -90,7 +94,7 @@ const locationDB = (si, gu, dong) => {
       .then((res) => {
         console.log("DB에 저장 완료");
         console.log(res);
-        document.location.href = "/"; //설정이 완료되면 프로필 설정 페이지로 이동
+        document.location.href = "/profile"; //설정이 완료되면 프로필 설정 페이지로 이동
       })
       .catch((error) => {
         console.log("주소 정보 전달 실패", error);
@@ -98,6 +102,19 @@ const locationDB = (si, gu, dong) => {
   };
 };
 
+const RandomNickDB = () => {
+  return function (dispatch, getState, { history }) {
+    axios
+      .get("서버주소", {})
+      .then((res) => {
+        dispatch(randomNick(res.data.nick));
+      })
+      .catch((error) => {
+        window.alert("닉네임 가져오기 실패", error);
+        console.log("닉네임 가져오기 실패", error);
+      });
+  };
+};
 //리듀서
 export default handleActions(
   {
@@ -114,8 +131,9 @@ export default handleActions(
 const actionCreators = {
   locationDB,
   kakaoLogin,
-  getUserInfo,
+  // getUserInfo,
   setUser,
   getUser,
+  RandomNickDB,
 };
 export { actionCreators };

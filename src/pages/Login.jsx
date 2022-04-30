@@ -11,13 +11,13 @@ const Login = () => {
   // const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
 
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_KEY;
-  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+  const KAKAO_REDIRECT_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
 
-  console.log(KAKAO_REST_API_KEY);
-  console.log(KAKAO_REDIRECT_URI);
-  console.log(process.env.REACT_APP_아무거나);
+  // console.log(KAKAO_REST_API_KEY);
+  // console.log(KAKAO_REDIRECT_URI);
+  // console.log(process.env.REACT_APP_아무거나);
 
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
   const dispatch = useDispatch();
 
   // useEffect(() => {
