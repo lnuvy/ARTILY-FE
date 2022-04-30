@@ -10,7 +10,6 @@ const ArtCard = (props) => {
   // ArtCard
   const location = useLocation();
 
-  console.log(props);
   // const postList = useSelector((state) => state.store.list);
   // console.log(postList);
 

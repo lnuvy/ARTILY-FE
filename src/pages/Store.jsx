@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ArtCard, Card } from "../components";
 import Category from "../components/Category";
-import { Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
+import { Button, Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostDB, go2detail } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
@@ -19,7 +19,7 @@ const Store = () => {
 
   const handleClickData = (data) => {
     dispatch(go2detail(data));
-    history.push(`/store/${data.postId}`);
+    history.push(`/store/view/${data.postId}`);
   };
 
   // 검색창 인풋
@@ -87,6 +87,7 @@ const Store = () => {
           </Grid>
         </Wrap>
       </Grid>
+      <Button onClick={() => history.push("/store/write")}>글쓰기</Button>
     </>
   );
 };

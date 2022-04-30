@@ -33,7 +33,7 @@ const Textarea = (props) => {
 
   return (
     <TextareaWrap {...styles}>
-      <TextareaLabel id={id}>{label}</TextareaLabel>
+      <TextareaLabel htmlFor={id}>{label}</TextareaLabel>
       <TextareaBox {...styles}>
         <TextareaContainer
           id={id}

@@ -9,6 +9,7 @@ import Review from "./Review";
 import Setprofile from "./SetProfile";
 import Store from "./Store";
 import StoreDetail from "./StoreDetail";
+import StoreWrite from "./StoreWrite";
 import Test from "./Test";
 
 export {
@@ -23,5 +24,6 @@ export {
   Setprofile,
   Store,
   StoreDetail,
+  StoreWrite,
   Test,
 };

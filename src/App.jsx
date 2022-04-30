@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { Header, Navigation } from "./components";
@@ -14,6 +14,7 @@ import {
   Setprofile,
   Store,
   StoreDetail,
+  StoreWrite,
 } from "./pages";
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
@@ -23,12 +24,20 @@ import RedirectHandler from "./pages/redirectHandeler";
 // import { actionCreators as userActions } from "./redux/modules/user";
 import ToastMessage from "./shared/ToastMessage";
 import Modal from "./shared/modal/Modal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getToken } from "./shared/token";
+import { actionCreators as userActions } from "./redux/modules/user";
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // 리덕스에서 모달 정보 가져오기(디폴트는 false)
   const modalOn = useSelector((state) => state.modal.modalOn);
+
+  useEffect(() => {
+    if (getToken()) {
+      dispatch(userActions.getUserInfo());
+    }
+  });
 
   return (
     <>
@@ -39,7 +48,9 @@ function App() {
           <Route path={["/home", "/"]} exact component={Home} />
           <Route path="/chat" exact component={Chat} />
           <Route path="/store" exact component={Store} />
-          <Route path="/store/:postId" exact component={StoreDetail} />
+          <Route path="/store/view/:postId" exact component={StoreDetail} />
+          <Route path="/store/write" exact component={StoreWrite} />
+          <Route path="/store/write/:postId" exact component={StoreWrite} />
           <Route path="/follow" exact component={Follow} />
           <Route path="/store" exact component={Store} />
           <Route path="/review" exact component={Review} />

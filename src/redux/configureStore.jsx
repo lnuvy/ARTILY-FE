@@ -9,6 +9,7 @@ import ModalReducer from "./modules/modal";
 import MainReducer from "./modules/main";
 import StoresReducer from "./modules/store";
 import ReviewReducer from "./modules/reviews";
+import ImageReducer from "./modules/image";
 
 export const history = createBrowserHistory();
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   main: MainReducer,
   store: StoresReducer,
   review: ReviewReducer,
+  image: ImageReducer,
   router: connectRouter(history),
 });
 

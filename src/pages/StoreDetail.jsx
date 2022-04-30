@@ -13,9 +13,13 @@ import {
   ImageCarousel,
 } from "../elements";
 import { Card, Navigation, ArtCard } from "../components";
+import { getNowPost, getPostDB } from "../redux/modules/store";
+import { useParams } from "react-router-dom";
 
-const Store = () => {
+const Store = (props) => {
   const dispatch = useDispatch();
+  const { postId } = useParams();
+
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user.user);
 
@@ -35,12 +39,12 @@ const Store = () => {
 
   const isMe = userId === currentUser?.userId;
 
-  console.log(current);
-
   useEffect(() => {
     if (!current) {
       // 리덕스 데이터가 없다면 해당 게시글 가져오는 api 호출
       // dispatch()
+      dispatch(getPostDB());
+      dispatch(getNowPost(postId));
     }
   }, []);
 

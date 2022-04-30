@@ -3,7 +3,8 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Flex = (props) => {
-  const { children, fg, child, jc, ai, margin } = props;
+  // 4/30 fd 빠져있어서 추가했습니다 -한울-
+  const { children, fg, child, jc, ai, margin, fd } = props;
 
   const styles = {
     fg,
@@ -11,6 +12,7 @@ const Flex = (props) => {
     jc,
     ai,
     margin,
+    fd,
   };
 
   if (child) {

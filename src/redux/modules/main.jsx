@@ -19,7 +19,6 @@ export const getHomeDataDB = () => {
     // await axios.get()
 
     // 더미데이터 리덕스 주입
-    console.log(homeDummy);
     const bestStore = homeDummy[0].인기작품;
     const artist = homeDummy[1].주목작가;
     const reivew = homeDummy[2].후기;
@@ -39,8 +38,6 @@ const mainSlice = createSlice({
       state.bestStore = 인기작품;
       state.recommendArtist = 주목작가;
       state.bestReview = 후기;
-
-      console.log(action.payload);
     },
   },
 });

@@ -37,13 +37,16 @@ const kakaoLogin = (code) => {
     })
       .then((res) => {
         console.log(res.data); // 토큰이 넘어옴
-        const ACCESS_TOKEN = res.data.user.token;
+
+        const { token, nickname, profileUrl, provider, userId } = res.data.user;
+        const ACCESS_TOKEN = token;
 
         const user = {
           //서버 DB에 담긴 유저정보 가져오자
-          userId: res.data.user.userId,
-          nickname: res.data.user.nickname,
-          profileUrl: res.data.user.profileUrl,
+          userId,
+          nickname,
+          profileUrl,
+          provider,
           // profileUrl: {},
         };
         dispatch(setUser(user));
@@ -55,9 +58,6 @@ const kakaoLogin = (code) => {
         console.log(err.response);
         history.replace("/login"); // 로그인 실패하면 메인화면으로 돌려보냄
       });
-    console.log("!!!!");
-
-    console.log("여기 들어오니?");
   };
 };
 // const getUserInfo = (token) => {
@@ -74,6 +74,31 @@ const kakaoLogin = (code) => {
 //       });
 //   };
 // };
+const getUserInfo = () => {
+  return async function (dispatch, getState, { history }) {
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`http://54.180.96.227/user/getuser`, { headers: config })
+      .then((res) => {
+        console.log(res);
+        // dispatch(getUser(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+
+        // 임시방편
+        const hanul = {
+          nickname: "이한울",
+          profileUrl:
+            "http://k.kakaocdn.net/dn/blXfTb/btq5FhvAxNd/S37fBUxE0CUskeQNo4mA4K/img_640x640.jpg",
+          provider: "kakao",
+          userId: "2222423044",
+        };
+        dispatch(getUser(hanul));
+      });
+  };
+};
 
 //실시간 위치 정보
 const locationDB = (si, gu, dong) => {
@@ -120,7 +145,11 @@ export default handleActions(
   {
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action);
+        draft.user = action.payload.user;
+        draft.isLogin = true;
+      }),
+    [GET_USER]: (state, action) =>
+      produce(state, (draft) => {
         draft.user = action.payload.user;
         draft.isLogin = true;
       }),

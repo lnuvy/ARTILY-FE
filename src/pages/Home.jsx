@@ -34,7 +34,8 @@ const Home = () => {
     dispatch(
       openModal({
         title: "모달제목",
-        text: "여기에 컨텐츠를 담아주시면됩니다",
+        // text 를 content 로 변경, 태그 직접 넣으면 됩니다
+        content: <Text body2>안녕안녕</Text>,
       })
     );
   };
