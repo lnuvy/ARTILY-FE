@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   modalOn: false,
   title: "모달 제목",
-  text: "모달 내용",
+  content: <></>,
 };
 
 const modalSlice = createSlice({
@@ -13,7 +13,7 @@ const modalSlice = createSlice({
     openModal: (state, action) => {
       console.log(action.payload);
       state.title = action.payload.title;
-      state.text = action.payload.text;
+      state.content = action.payload.content;
       state.modalOn = true;
     },
     closeModal: (state) => {

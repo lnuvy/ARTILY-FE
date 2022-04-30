@@ -11,7 +11,7 @@ const Modal = () => {
     <ModalPortal>
       <Grid>
         <Text h1>{modal.title}</Text>
-        <Text body2>{modal.text}</Text>
+        {modal.content}
       </Grid>
     </ModalPortal>
   );

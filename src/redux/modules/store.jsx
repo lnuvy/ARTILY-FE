@@ -26,13 +26,27 @@ export const getPostDB = () => {
   };
 };
 
+export const getPostOne = (postId) => {
+  return async function (dispatch, getState, { history }) {
+    // axios
+
+    // 더미데이터 임시방편
+    const allList = getState().store.list;
+    console.log(allList);
+    const now = allList.find((l) => l.postId === postId);
+    dispatch(getNowPost(now));
+  };
+};
+
 const postsSlice = createSlice({
   name: "store",
   initialState: initialState,
   reducers: {
-    getHomeData: (state, action) => {},
     getStoreData: (state, action) => {
       state.list = action.payload;
+    },
+    getNowPost: (state, action) => {
+      state.detailData = action.payload;
     },
     // 데이터 하나 특정하기
     go2detail: (state, action) => {
@@ -42,5 +56,5 @@ const postsSlice = createSlice({
 });
 
 const { reducer, actions } = postsSlice;
-export const { getStoreData, go2detail } = actions;
+export const { getStoreData, getNowPost, go2detail } = actions;
 export default reducer;
