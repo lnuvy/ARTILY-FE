@@ -160,7 +160,7 @@ export default handleActions(
 const actionCreators = {
   locationDB,
   kakaoLogin,
-  // getUserInfo,
+  getUserInfo,
   setUser,
   getUser,
   RandomNickDB,
