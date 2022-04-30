@@ -71,9 +71,6 @@ const Setprofile = () => {
           </Text>
         </div> */}
       </Flex>
-      {/* 일단 새로고침 할때마다 랜덤 닉네임값은 들어감 */}
-      {/* 버튼을 눌렀을때 닉네임값이 바뀌도록 설정해야함 */}
-
       {/* <div>
         <label>웹사이트</label>
         <input type="text"></input>
