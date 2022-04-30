@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import {
   Flex,
@@ -10,46 +10,85 @@ import {
   Image,
   Checkbox,
   Wrap,
-} from "../elements/index";
-import { Card, Navigation, ArtCard } from "../components/index";
+  ImageCarousel,
+} from "../elements";
+import { Card, Navigation, ArtCard } from "../components";
 
 const Store = () => {
-  const array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const dispatch = useDispatch();
+  const current = useSelector((state) => state.store.detailData);
+  const currentUser = useSelector((state) => state.user.user);
+
+  const {
+    user,
+    category,
+    createdAt,
+    imageUrl,
+    markupCnt,
+    postTitle,
+    price,
+    transaction,
+    size,
+    content,
+  } = current;
+  const { userId, address, nickname, profileUrl } = user;
+
+  const isMe = userId === currentUser?.userId;
+
+  console.log(current);
+
+  useEffect(() => {
+    if (!current) {
+      // 리덕스 데이터가 없다면 해당 게시글 가져오는 api 호출
+      // dispatch()
+    }
+  }, []);
 
   return (
-    <React.Fragment>
+    <>
       <Wrap margin="16px">
-        <Text h1>타이틀</Text>
-        <Flex margin="8px 0 0 0">
-          <Image shape="circle" size="20" />
-          <Text margin="0 0 0 4px">작가</Text>
+        <Text h1>{postTitle}</Text>
+        <Flex margin="8px 0 0 0" jc="space-between">
+          <Flex>
+            <Image shape="circle" size="20" />
+            <Text margin="0 0 0 4px">{nickname}</Text>
+          </Flex>
+          <Flex>
+            {isMe ? (
+              <>
+                <Text body2>수정하기</Text> &nbsp;
+                <Text body2>삭제하기</Text>
+              </>
+            ) : (
+              <>
+                <Text body2>팔로우</Text> &nbsp;
+                <Text body2>신고</Text>
+              </>
+            )}
+          </Flex>
         </Flex>
       </Wrap>
-      <Image height="120px" />
+      <ImageCarousel src={imageUrl} />
       <Wrap margin="16px">
         <Flex>
           <Text body3 fg="1">
             분류
           </Text>
-          <Text body3>회화</Text>
+          <Text body3>{category}</Text>
         </Flex>
         <Flex>
           <Text body3 fg="1">
             크기
           </Text>
-          <Text body3>29.7 x 42cm</Text>
+          <Text body3>{size}</Text>
         </Flex>
-        <Flex>
+        <Flex margin="0 0 10px">
           <Text body3 fg="1">
             거래 방식
           </Text>
-          <Text body3>택배</Text>
+          <Text body3>{transaction}</Text>
         </Flex>
-        <Text>
-          작품에 대한 설명이 들어가는 영역입니다. 작품에 대한 설명이 들어가는
-          영역입니다. 작품에 대한 설명이 들어가는 영역입니다. 작품에 대한 설명이
-          들어가는 영역입니다.{" "}
-        </Text>
+        <Text>{content}</Text>
         <Flex margin="16px 0 0 ">
           <Text h2 lineHeight="22px">
             작가의 다른 작품
@@ -59,25 +98,9 @@ const Store = () => {
           </Text>
           <Text lineHeight="22px">더보기</Text>
         </Flex>
-        <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
-          {array.map((v, i) => {
-            return (
-              <Card key={i} border="1px solid rgba(0,0,0,0.1)" padding="12px">
-                <Image shape="circle" size="100" margin="8px auto 0" />
-                <Text textAlign="center">작가명</Text>
-                <Text body2 textAlign="center">
-                  작가 본인이 작성한 소개를 보여주는 영역입니다. 작가 본인이
-                  작성한 소개를 보여주는 영역입니다.
-                </Text>
-                <Text body3 textAlign="center">
-                  작품타입 오브제 ∙ 등록작품 4개
-                </Text>
-              </Card>
-            );
-          })}
-        </Grid>
+        <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px"></Grid>
       </Wrap>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -2,8 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 const Card = (props) => {
-  const { children, cg, width, gtc, textAlign, padding, key, border, onClick } =
-    props;
+  const {
+    children,
+    gtc,
+    textAlign,
+    cg,
+    width,
+    padding,
+    border,
+    onClick,
+    ...data
+  } = props;
 
   const styles = {
     gtc,
@@ -11,13 +20,12 @@ const Card = (props) => {
     cg,
     width,
     padding,
-    key,
     border,
     onClick,
   };
 
   return (
-    <CardStyle key={key} {...styles}>
+    <CardStyle onClick={onClick} {...styles} {...data}>
       {children}
     </CardStyle>
   );

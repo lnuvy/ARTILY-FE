@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Grid = (props) => {
-  const { children, cg, rg, width, gtc, textAlign, margin } = props;
+  const { children, onClick, cg, rg, width, gtc, textAlign, margin } = props;
 
   const styles = {
     gtc,
@@ -13,7 +13,11 @@ const Grid = (props) => {
     margin,
   };
 
-  return <GridStyle {...styles}>{children}</GridStyle>;
+  return (
+    <GridStyle onClick={onClick} {...styles}>
+      {children}
+    </GridStyle>
+  );
 };
 
 Grid.defaultProps = {

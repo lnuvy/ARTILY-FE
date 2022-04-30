@@ -1,8 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-// import Spinner from "./Spinner";
-import { history } from "../redux/configureStore";
 
 const RedirectHandler = (props) => {
   const dispatch = useDispatch();

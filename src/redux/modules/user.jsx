@@ -22,19 +22,18 @@ const initialState = {
   location: "",
 };
 
-//로그인 미들웨어
-//인가코드 넘기기
-//서버로부터 토큰받기
+// 로그인 미들웨어
+// 인가코드 넘기기
+// 서버로부터 토큰받기
 const kakaoLogin = (code) => {
   // let code = new URL(window.location.href).searchParams.get("code");
   return async function (dispatch, getState, { history }) {
-    console.log("!!!!!!!!!!!!!!!!!!!");
     await axios({
       method: "GET",
       url: `http://54.180.96.227/oauth/kakao/callback?code=${code}`,
     })
       .then((res) => {
-        console.log(res); // 토큰이 넘어옴
+        console.log(res.data); // 토큰이 넘어옴
         const ACCESS_TOKEN = res.data.user.token;
 
         const user = {
@@ -46,7 +45,6 @@ const kakaoLogin = (code) => {
         };
         dispatch(setUser(user));
         localStorage.setItem("token", ACCESS_TOKEN); //local storage에 저장
-        console.log(user);
         history.replace("/"); // 토큰 받았고 로그인됐으니 화면 전환시켜줌(일단 위치설정)
       })
       .catch((err) => {
@@ -56,25 +54,7 @@ const kakaoLogin = (code) => {
       });
     console.log("!!!!");
 
-    // 서버 열리면 이 아래로 다 지워버리면 됩니다!
-    //서버 열리기 전 가상 데이터
-    // console.log("로그인 성공했다 치고");
-
-    // let fakeResponseData = {
-    //   userId: "user123",
-    //   nickName: "닉네임",
-    //   profileUrl: "",
-    //   address: "",
-    //   blackList: [],
-    // };
-    // let fakeResponseToken = "토큰이다!";
-
-    // insertToken("isLogin", fakeResponseToken); //토큰 저장
-    // console.log("로컬 스토리지에 토큰 넣음");
-    // dispatch(setUser(fakeResponseData));
-    // if (fakeResponseData.address == "") {
-    //   history.push("/"); //일단 로그인하면 메인으로 보내
-    // }
+    console.log("여기 들어오니?");
   };
 };
 const getUserInfo = (token) => {

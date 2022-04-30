@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { Header, Navigation } from "./components";
@@ -7,7 +7,7 @@ import {
   Follow,
   Home,
   MyPage,
-  NotFound,
+  // NotFound,
   Review,
   Login,
   RegionSet,
@@ -18,35 +18,28 @@ import {
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
 import RedirectHandler from "./pages/redirectHandeler";
-import { useSelector, useDispatch } from "react-redux";
-import { getToken } from "./shared/token";
-import { actionCreators as userActions } from "./redux/modules/user";
+// import { useDispatch } from "react-redux";
+// import { getToken } from "./shared/token";
+// import { actionCreators as userActions } from "./redux/modules/user";
+import ToastMessage from "./shared/ToastMessage";
+import Modal from "./shared/modal/Modal";
+import { useSelector } from "react-redux";
 
 function App() {
-  const dispatch = useDispatch();
-  // const isLogin = useSelector((state) => state.user.isLogin);
-  // console.log(isLogin);
-
-  // useEffect(() => {
-  // if (!isLogin) {
-  //   const token = getToken();
-  //   if (token) {
-  //     //토큰이 있으면
-  //     dispatch(userActions.getUserInfo(token));
-  //     //최초 로그인이면 주소창을 보여주고
-  //     //기존 가입자면 홈화면을 보여줘
-  //   }
-  // }
-  // }, [isLogin]);
+  // const dispatch = useDispatch();
+  // 리덕스에서 모달 정보 가져오기(디폴트는 false)
+  const modalOn = useSelector((state) => state.modal.modalOn);
 
   return (
-    <div className="App">
+    <>
       <ConnectedRouter history={history}>
-        {/* <Header>ARTILY</Header> */}
+        <Navigation />
+        <Header>ARTILY</Header>
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/home" exact component={Home} />
+          <Route path={["/home", "/"]} exact component={Home} />
           <Route path="/chat" exact component={Chat} />
+          <Route path="/store" exact component={Store} />
+          <Route path="/store/:postId" exact component={StoreDetail} />
           <Route path="/follow" exact component={Follow} />
           <Route path="/store" exact component={Store} />
           <Route path="/store/:id" exact component={StoreDetail} />
@@ -56,14 +49,17 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/regionset" exact component={RegionSet} />
           <Route path="/profile" exact component={Setprofile} />
-          <Route
-            path="/oauth/kakao/callback"
-            component={RedirectHandler}
-          ></Route>
-          <Route path="/*" component={NotFound} />
+          <Route path="/oauth/kakao/callback" component={RedirectHandler} />
+          {/* <Route path="/*" component={NotFound} /> */}
+          <Route path="/*" component={Test} />
         </Switch>
+
+        {/* modalOn 값이 true 일때만 모달 켜기 */}
+        {modalOn && <Modal />}
+
+        <ToastMessage />
       </ConnectedRouter>
-    </div>
+    </>
   );
 }
 export default App;

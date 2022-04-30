@@ -1,17 +1,24 @@
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
-import user from "./modules/user";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-// import ToastReducer from "./modules/ToastMessage";
+import user from "./modules/user";
+import ToastReducer from "./modules/ToastMessage";
+import ModalReducer from "./modules/modal";
+import MainReducer from "./modules/main";
+import StoresReducer from "./modules/store";
+import ReviewReducer from "./modules/reviews";
 
 export const history = createBrowserHistory();
 
-// 리듀서 router 안에 history 넣기
 const rootReducer = combineReducers({
   user: user,
-  // toastMessage: ToastReducer,
+  toastMessage: ToastReducer,
+  modal: ModalReducer,
+  main: MainReducer,
+  store: StoresReducer,
+  review: ReviewReducer,
   router: connectRouter(history),
 });
 

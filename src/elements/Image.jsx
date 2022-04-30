@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 import theme from "../styles/theme";
 
+// 다른 형태의 이미지가 더 없다면 shape 대신 circle 이라고 주기만 하면 프로필 이미지가 되는건 어떨까요 ? 4/29 한울
 const Image = (props) => {
   const {
     shape,

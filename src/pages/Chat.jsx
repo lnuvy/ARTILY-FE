@@ -1,13 +1,8 @@
 import React from "react";
-import styledComponents from "styled-components";
-import Grid from "../elements/Grid";
+import styled from "styled-components";
 
 const Chat = () => {
-  return (
-    <div className="flex-row">
-      <Grid jc="end"></Grid>
-    </div>
-  );
+  return <div className="flex-column"></div>;
 };
 
 export default Chat;

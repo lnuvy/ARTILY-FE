@@ -25,6 +25,7 @@ Flex.defaultProps = {
   height: "inherit",
   fd: "row",
   ai: "center",
+  jc: "center", // 4/29 한울추가
   margin: "0",
   padding: "0",
   jc: "left",
@@ -36,6 +37,7 @@ const FlexStyle = styled.div`
 
   display: flex;
   flex-direction: ${({ fd }) => fd};
+  justify-content: ${({ jc }) => jc}; // 4/29 한울추가
   align-items: ${({ ai }) => ai};
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};

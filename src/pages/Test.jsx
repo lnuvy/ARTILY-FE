@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Checkbox,
@@ -15,9 +15,11 @@ import {
 import { Card } from "../components/index";
 
 const Test = () => {
+  const [input, setInput] = useState("");
+
   return (
     <React.Fragment>
-      <Grid margin="0 0 20px">
+      <Grid margin="50px 0 20px">
         <Text h1>Headline</Text>
         <Text h2>Subtitle1</Text>
         <Text h3>Subtitle2</Text>
@@ -52,22 +54,46 @@ const Test = () => {
         <Card>Card in Grid (Grid: gtc="auto auto auto" rg="8px" cg="8px")</Card>
         <Card>Card in Grid (Grid: gtc="auto auto auto" rg="8px" cg="8px")</Card>
       </Grid>
-      <Input label="Label" placeholder="Placeholder" margin="0 0 20px" />
-      <Input label="Label" value="Value" margin="0 0 20px" />
-      <Input label="Label" value="Value" margin="0 0 20px" icon />
+      <Input
+        label="Label"
+        placeholder="Placeholder"
+        margin="0 0 20px"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <Input
+        label="Label"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        margin="0 0 20px"
+      />
+      <Input
+        label="Label"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        margin="0 0 20px"
+        icon
+      />
       <Input
         label="Label"
         alert
         value="Value"
         alertMessage="alertMessage (with alert)"
         margin="0 0 20px"
+        readOnly
       />
       <Textarea label="Label" placeholder="Placeholder" maxLength="100" />
-      <Textarea label="Label" value="Value" maxLength="200" />
+      <Textarea
+        label="Label"
+        value={input}
+        onChane={(e) => setInput(e.target.value)}
+        maxLength="200"
+      />
       <Textarea
         alert
         label="Label"
-        value="Value"
+        value={input}
+        onChane={(e) => setInput(e.target.value)}
         maxLength="200"
         alertMessage="alertMessage (with alert)"
       />

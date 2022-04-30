@@ -53,6 +53,8 @@ Button.defaultProps = {
 };
 
 const ButtonStyle = styled.button`
+  cursor: pointer; // 한울 추가
+  -webkit-tap-highlight-color: transparent;
   display: ${({ display }) => display};
   flex-grow: ${({ fg }) => fg};
   width: ${({ width }) => width};
@@ -81,7 +83,7 @@ const ButtonStyle = styled.button`
     color: ${theme.color.white};
     border: none;
     :focus {
-      opacity: 0.8;
+      opacity: 0.9;
     }
     :hover {
       opacity: 0.8;

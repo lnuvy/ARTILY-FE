@@ -1,24 +1,25 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Flex, Text, Grid, Image, Wrap } from "../elements";
+import { Card, ArtCard } from "../components";
+import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
-import { Flex, Icon, Text, Tab, Grid, Image, Wrap } from "../elements/index";
-import { Card, Navigation, ArtCard } from "../components/index";
+
+import { openModal } from "../redux/modules/modal";
 
 const Home = () => {
-  const user = useSelector((state) => state.user.user);
-  console.log(user);
-  useEffect(() => {
-    // if (user.profileUrl === {}) {
-    //   alert("프로필 사진이 없어요!");
-    // }
-  });
+  const dispatch = useDispatch();
+  // const user = useSelector((state) => state.user.user);
 
-  // useEffect(() => {
-  //   if (!non_address) {
-  //     alert("주소를 설정해주세요");
-  //     history.push("/location");
-  //   }
-  // }, []);
+  // 더미데이터 주입
+  useEffect(() => {
+    dispatch(getHomeDataDB());
+  }, []);
+
+  // 한번에 데이터를 리덕스에 넣는방법이 딱히 안떠올라서 main용 리덕스를 새로 만들었습니다 좋은 의견있으면 바꿔주세요
+  const { bestStore, recommendArtist, bestReview } = useSelector(
+    (state) => state.main
+  );
 
   // if (user.userId) {
   //   return (
