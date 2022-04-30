@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ArtCard, Card } from "../components";
 import Category from "../components/Category";
-import { Checkbox, Flex, Grid, Input, Text } from "../elements";
+import { Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostDB, go2detail } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
@@ -50,43 +50,42 @@ const Store = () => {
           onChange={(e) => setInput(e.target.value)}
         />
         <Category />
-
-        <Flex padding="5px 10px" jc="space-between">
-          <Checkbox
-            id="checkFree"
-            zoom={1.3}
-            margin="0 10px"
-            onChange={checkFree}
-          >
-            <Text h2>나눔 작품만 보기</Text>
-          </Checkbox>
-          <Text h2 margin="0 10px 0 0">
-            거래 방식/지역 선택하기
-          </Text>
-        </Flex>
-        <Grid gtc="auto auto">
-          {freeList.length
-            ? freeList.map((l) => {
-                console.log(l);
-                return (
-                  <ArtCard
-                    key={l.postId}
-                    {...l}
-                    onClick={() => handleClickData(l)}
-                  />
-                );
-              })
-            : storeList.map((l) => {
-                console.log(l);
-                return (
-                  <ArtCard
-                    key={l.postId}
-                    {...l}
-                    onClick={() => handleClickData(l)}
-                  />
-                );
-              })}
-        </Grid>
+        <Wrap margin="16px">
+          <Flex padding="5px 10px" jc="space-between">
+            <Checkbox
+              id="checkFree"
+              zoom={1.3}
+              margin="0 10px"
+              onChange={checkFree}
+            >
+              <Text h2>나눔 작품만 보기</Text>
+            </Checkbox>
+            <Text h2 margin="0 10px 0 0">
+              거래 방식/지역 선택하기
+            </Text>
+          </Flex>
+          <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
+            {freeList.length
+              ? freeList.map((l) => {
+                  return (
+                    <ArtCard
+                      key={l.postId}
+                      {...l}
+                      onClick={() => handleClickData(l)}
+                    />
+                  );
+                })
+              : storeList.map((l) => {
+                  return (
+                    <ArtCard
+                      key={l.postId}
+                      {...l}
+                      onClick={() => handleClickData(l)}
+                    />
+                  );
+                })}
+          </Grid>
+        </Wrap>
       </Grid>
     </>
   );
