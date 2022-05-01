@@ -16,8 +16,8 @@ const ImagePreview = () => {
     dispatch(setRepresent(image));
   };
 
-  const removePreview = () => {
-    dispatch();
+  const removeImage = (image) => {
+    dispatch(removePreview(image));
   };
 
   return (
@@ -39,7 +39,11 @@ const ImagePreview = () => {
                 >
                   대표이미지로 설정
                 </Button>
-                <Button padding="8px 16px" margin="10px 0">
+                <Button
+                  padding="8px 16px"
+                  margin="10px 0"
+                  onClick={() => removeImage(image)}
+                >
                   삭제
                 </Button>
               </Flex>
