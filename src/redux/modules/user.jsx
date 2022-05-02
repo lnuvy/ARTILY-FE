@@ -10,12 +10,10 @@ import { useParams } from "react-router-dom";
 //로그인 체크
 const SET_USER = "SET_USER";
 const GET_USER = "GET_USER";
-const RANDOM_NICK = "RANDOM_NICK";
 
 //action creator
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
-const randomNick = createAction(RANDOM_NICK, (user) => user);
 
 //initialState
 
@@ -23,7 +21,6 @@ const initialState = {
   user: null,
   isLogin: false,
   location: "",
-  randomNick: null,
 };
 
 // 로그인 미들웨어
@@ -143,20 +140,6 @@ const locationDB = (si, gu, dong) => {
       });
   };
 };
-
-const RandomNickDB = () => {
-  return function (dispatch, getState, { history }) {
-    axios
-      .get("서버주소", {})
-      .then((res) => {
-        dispatch(randomNick(res.data.nick));
-      })
-      .catch((error) => {
-        window.alert("닉네임 가져오기 실패", error);
-        console.log("닉네임 가져오기 실패", error);
-      });
-  };
-};
 //리듀서
 export default handleActions(
   {
@@ -181,6 +164,5 @@ const actionCreators = {
   getUserInfo,
   setUser,
   getUser,
-  RandomNickDB,
 };
 export { actionCreators };

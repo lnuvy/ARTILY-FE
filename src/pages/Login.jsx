@@ -32,20 +32,17 @@ const Login = () => {
   // console.log(NAVER_CLIENT_Id);
   // console.log(NAVER_CALLBACK_URL);
   const NaverLogin = () => {
-    const { naver } = window;
-
-    const naverLogin = new naver.LoginWithNaverId({
-      clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
-      callbackUrl: process.env.REACT_APP_REDIRECT_URI,
-
-      loginButton: {
-        color: "green",
-        type: 3,
-        height: 47,
-      },
-    });
-
-    naverLogin.init();
+    // const { naver } = window;
+    // const naverLogin = new naver.LoginWithNaverId({
+    //   clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
+    //   callbackUrl: process.env.REACT_APP_REDIRECT_URI,
+    //   loginButton: {
+    //     color: "green",
+    //     type: 3,
+    //     height: 47,
+    //   },
+    // });
+    // naverLogin.init();
   };
 
   useEffect(() => {

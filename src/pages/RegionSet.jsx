@@ -54,8 +54,13 @@ const Location = (props) => {
     // history.push("/profile");
   };
   return (
-    <React.Fragment>
-      <Text h1>내 위치를 설정해주세요!</Text>
+    <>
+      <Flex jc="center">
+        <Text bold>ARTILY</Text>
+      </Flex>
+      <Flex jc="center">
+        <Text h3>내 위치를 설정해주세요!</Text>
+      </Flex>
       <Flex margin="20px">
         <Input
           fg="1"
@@ -79,7 +84,7 @@ const Location = (props) => {
       <Button outline margin="auto" onClick={complete}>
         설정 완료
       </Button>
-    </React.Fragment>
+    </>
   );
 };
 

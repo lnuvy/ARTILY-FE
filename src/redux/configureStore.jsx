@@ -10,17 +10,21 @@ import MainReducer from "./modules/main";
 import StoresReducer from "./modules/store";
 import ReviewReducer from "./modules/reviews";
 import ImageReducer from "./modules/image";
+import previewImg from "./modules/previewImg";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   user: user,
+  //프로필 이미지 설정시 사용할 모듈
+  previewImg: previewImg,
   toastMessage: ToastReducer,
   modal: ModalReducer,
   main: MainReducer,
   store: StoresReducer,
   review: ReviewReducer,
   image: ImageReducer,
+
   router: connectRouter(history),
 });
 
