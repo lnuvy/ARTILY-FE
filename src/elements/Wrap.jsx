@@ -6,7 +6,6 @@ const Wrap = (props) => {
 
   const styles = {
     textAlign,
-
     width,
     margin,
     padding,

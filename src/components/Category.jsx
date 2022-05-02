@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Card } from ".";
 import { Button, Grid, Text } from "../elements";
+import { categoryList } from "../redux/modules/store";
 
 const cate = [
   "전체",
@@ -14,9 +16,13 @@ const cate = [
 ];
 
 const Category = () => {
+  const dispatch = useDispatch();
   const [current, setCurrent] = useState("전체");
 
-  console.log(current);
+  useEffect(() => {
+    dispatch(categoryList(current));
+  }, [current]);
+
   return (
     <Grid gtc="1fr 1fr 1fr 1fr" cg="1px" rg="1px" textAlign="center">
       {cate.map((c) => {

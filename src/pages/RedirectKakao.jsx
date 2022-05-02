@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 
-const RedirectHandler = (props) => {
+const RedirectKakao = () => {
   const dispatch = useDispatch();
 
   // 인가코드
   let code = new URL(window.location.href).searchParams.get("code");
-  console.log(code);
-  console.log(window.location.href);
-  console.log(new URL(window.location.href).searchParams.get("code"));
-  //async await 가 필요한 이유?
-  React.useEffect(() => {
-    // dispatch(userActions.kakaoLogin(code));
-    dispatch(userActions.naverLogin(code));
+
+  useEffect(() => {
+    dispatch(userActions.kakaoLogin(code));
   }, []);
 
   return (
@@ -28,4 +24,4 @@ const RedirectHandler = (props) => {
   );
 };
 
-export default RedirectHandler;
+export default RedirectKakao;

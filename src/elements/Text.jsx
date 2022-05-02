@@ -43,8 +43,9 @@ const Text = (props) => {
     return <Body2 {...styles}>{children}</Body2>;
   } else if (body3) {
     return <Body3 {...styles}>{children}</Body3>;
+  } else {
+    return <Body1 {...styles}>{children}</Body1>;
   }
-  return <Body1 {...styles}>{children}</Body1>;
 };
 
 Text.defaultProps = {

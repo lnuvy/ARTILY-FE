@@ -58,9 +58,9 @@ const Store = () => {
               margin="0 10px"
               onChange={checkFree}
             >
-              <Text h2>나눔 작품만 보기</Text>
+              <Text h3>나눔 작품만 보기</Text>
             </Checkbox>
-            <Text h2 margin="0 10px 0 0">
+            <Text h3 margin="0 10px 0 0">
               거래 방식/지역 선택하기
             </Text>
           </Flex>
