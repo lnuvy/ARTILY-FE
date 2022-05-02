@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { ChatCard } from "../components";
 import { Grid } from "../elements";
 
 const Chat = () => {
@@ -10,7 +11,9 @@ const Chat = () => {
 
   return (
     <>
-      <Grid></Grid>
+      <Grid>
+        <ChatCard />
+      </Grid>
     </>
   );
 };

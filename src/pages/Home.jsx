@@ -66,7 +66,7 @@ const Home = () => {
                 padding="12px"
                 onClick={modalOn}
               >
-                <Image shape="circle" size="100" margin="8px auto 0" />
+                <Image circle size="100" margin="8px auto 0" />
                 <Text textAlign="center">작가명</Text>
                 <Text body2 textAlign="center">
                   작가 본인이 작성한 소개를 보여주는 영역입니다. 작가 본인이
@@ -90,7 +90,7 @@ const Home = () => {
                   후기 내용 후기 내용 후기 내용 후기 내용 후기 내용 후기 내용{" "}
                 </Text>
                 <Flex margin="8px 0 0 0">
-                  <Image shape="circle" size="20" />
+                  <Image circle size="20" />
                   <Text margin="0 0 0 4px">유저명</Text>
                 </Flex>
               </Card>

@@ -27,7 +27,6 @@ Flex.defaultProps = {
   height: "inherit",
   fd: "row",
   ai: "center",
-  jc: "center", // 4/29 한울추가
   margin: "0",
   padding: "0",
   jc: "left",
