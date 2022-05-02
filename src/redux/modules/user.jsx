@@ -59,22 +59,6 @@ const kakaoLogin = (code) => {
   };
 };
 
-const getUserInfo = () => {
-  return async function (dispatch, getState, { history }) {
-    const config = { Authorization: `Bearer ${getToken()}` };
-    await axios
-      .get(`http://52.78.183.202/api/user/getuser`, { headers: config })
-      .then((res) => {
-        const { user } = res.data;
-        dispatch(getUser(user));
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
-  };
-};
-
 const naverLogin = (code, state) => {
   return async function (dispatch, getState, { history }) {
     axios
@@ -83,7 +67,35 @@ const naverLogin = (code, state) => {
       )
       .then((res) => {
         console.log(res);
+        const { token, nickname, profileUrl, provider, userId } = res.data.user;
+        const ACCESS_TOKEN = token;
+
+        const user = {
+          //서버 DB에 담긴 유저정보 가져오자
+          userId,
+          nickname,
+          profileUrl,
+          provider,
+        };
+        dispatch(setUser(user));
+        insertToken(ACCESS_TOKEN); //local storage에 저장
         history.replace("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+  };
+};
+
+const getUserInfo = () => {
+  return async function (dispatch, getState, { history }) {
+    const config = { Authorization: `Bearer ${getToken()}` };
+    await axios
+      .get(`http://52.78.183.202/api/user/getuser`, { headers: config })
+      .then((res) => {
+        const { user } = res.data;
+        dispatch(getUser(user));
       })
       .catch((err) => {
         console.log(err);
