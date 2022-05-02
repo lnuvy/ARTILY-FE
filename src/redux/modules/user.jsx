@@ -3,7 +3,6 @@ import { produce } from "immer";
 import axios from "axios";
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/token";
-import { size } from "lodash";
 
 const BASE_URL = "http://52.78.183.202";
 
@@ -11,11 +10,12 @@ const BASE_URL = "http://52.78.183.202";
 //로그인 체크
 const SET_USER = "SET_USER";
 const GET_USER = "GET_USER";
+const LOG_OUT = "LOG_OUT";
 
 //action creator
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
-
+const logout = createAction(LOG_OUT);
 //initialState
 
 const initialState = {
@@ -49,33 +49,45 @@ const kakaoLogin = (code) => {
         };
         dispatch(setUser(user));
         insertToken(ACCESS_TOKEN); //local storage에 저장
-
-        // 5/2 채팅구현때문에 유저정보 로컬스토리지 잠시 저장
-        // localStorage.setItem("user", user);
-
-        history.replace("/"); // 토큰 받았고 로그인됐으니 화면 전환시켜줌(일단 위치설정)
+        history.replace("/");
       })
       .catch((err) => {
         console.log("소셜로그인 에러!", err);
         console.log(err.response);
-        history.replace("/login"); // 로그인 실패하면 메인화면으로 돌려보냄
+        history.replace("/login");
       });
   };
 };
+
 const getUserInfo = () => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
-    console.log(getToken());
     await axios
       .get(`http://52.78.183.202/api/user/getuser`, { headers: config })
       .then((res) => {
-        console.log(res);
         const { user } = res.data;
         dispatch(getUser(user));
       })
       .catch((err) => {
         console.log(err);
         console.log(err.response);
+      });
+  };
+};
+
+const naverLogin = (code) => {
+  return async function (dispatch, getState, { history }) {
+    await axios({
+      method: "GET",
+      url: `http://52.78.183.202/oauth/naver/callback?code=${code}`,
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log("소셜로그인 에러!", err);
+        console.log(err.response);
+        history.replace("/login");
       });
   };
 };
@@ -119,6 +131,12 @@ export default handleActions(
         draft.user = action.payload.user;
         draft.isLogin = true;
       }),
+    [LOG_OUT]: (state) =>
+      produce(state, (draft) => {
+        draft.user = null;
+        draft.isLogin = false;
+        removeToken();
+      }),
   },
   initialState
 );
@@ -126,8 +144,9 @@ export default handleActions(
 const actionCreators = {
   locationDB,
   kakaoLogin,
+  naverLogin,
   getUserInfo,
-  setUser,
   getUser,
+  setUser,
 };
 export { actionCreators };

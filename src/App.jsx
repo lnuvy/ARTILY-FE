@@ -43,7 +43,7 @@ function App() {
   return (
     <>
       <ConnectedRouter history={history}>
-        <Header>ARTILY</Header>
+        <Header>ARTIN</Header>
         <Switch>
           <Route path={["/home", "/"]} exact component={Home} />
           <Route path="/chat" exact component={Chat} />
