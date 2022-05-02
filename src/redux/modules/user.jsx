@@ -75,13 +75,12 @@ const getUserInfo = () => {
   };
 };
 
-const naverLogin = (token, state) => {
+const naverLogin = (code, state) => {
   return async function (dispatch, getState, { history }) {
     axios
-      .post(`http://52.78.183.202/oauth/naver/callback`, {
-        token,
-        state,
-      })
+      .get(
+        `http://52.78.183.202/oauth/naver/callback?code=${code}&state=${state}`
+      )
       .then((res) => {
         console.log(res);
         history.replace("/");

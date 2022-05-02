@@ -17,32 +17,24 @@ const Login = () => {
   const NAVER_CALLBACK_URL = process.env.REACT_APP_NAVER_REDIRECT_URI;
   const NAVER_CLIENT_SECRET = process.env.REACT_APP_NAVER_CLIENT_SECRET;
 
-  const { naver } = window;
-  const location = useLocation();
+  // const { naver } = window;
+  // const location = useLocation();
 
-  const initializeNaverLogin = () => {
-    const naverLogin = new naver.LoginWithNaverId({
-      clientId: NAVER_CLIENT_ID,
-      callbackUrl: NAVER_CALLBACK_URL,
-      isPopup: false,
-      loginButton: { color: "white", type: 1, height: "47" },
-    });
-    naverLogin.init();
-  };
+  // const initializeNaverLogin = () => {
+  //   const naverLogin = new naver.LoginWithNaverId({
+  //     clientId: NAVER_CLIENT_ID,
+  //     callbackUrl: NAVER_CALLBACK_URL,
+  //     isPopup: false,
+  //     loginButton: { color: "white", type: 1, height: "47" },
+  //   });
+  //   naverLogin.init();
+  // };
 
-  const getNaverToken = () => {
-    if (!location.hash) return;
-    const token = location.hash.split("=")[1].split("&")[0];
-    console.log(token);
-  };
+  // useEffect(() => {
+  //   initializeNaverLogin();
+  // }, []);
 
-  useEffect(() => {
-    console.log(NAVER_CALLBACK_URL);
-    initializeNaverLogin();
-    getNaverToken();
-  }, []);
-
-  // const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}&state=${state}`;
+  const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}&state=asdf`;
   return (
     <>
       <Text h1>로그인</Text>
@@ -55,10 +47,10 @@ const Login = () => {
             width="200px"
           ></img>
         </a>
-        <div id="naverIdLogin"></div>
-        {/* <a href={NAVER_AUTH_URL}>
+        {/* <div id="naverIdLogin"></div> */}
+        <a href={NAVER_AUTH_URL}>
           <img alt="네이버" src="../images/naver_social_login.png"></img>
-        </a> */}
+        </a>
       </div>
     </>
   );
