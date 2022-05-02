@@ -75,19 +75,20 @@ const getUserInfo = () => {
   };
 };
 
-const naverLogin = (code) => {
+const naverLogin = (token, state) => {
   return async function (dispatch, getState, { history }) {
-    await axios({
-      method: "GET",
-      url: `http://52.78.183.202/oauth/naver/callback?code=${code}`,
-    })
+    axios
+      .post(`http://52.78.183.202/oauth/naver/callback`, {
+        token,
+        state,
+      })
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
+        history.replace("/");
       })
       .catch((err) => {
-        console.log("소셜로그인 에러!", err);
+        console.log(err);
         console.log(err.response);
-        history.replace("/login");
       });
   };
 };
@@ -148,5 +149,6 @@ const actionCreators = {
   getUserInfo,
   getUser,
   setUser,
+  logout,
 };
 export { actionCreators };

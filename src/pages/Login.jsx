@@ -5,53 +5,44 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Text } from "../elements";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 // import NaverLogin from "react-naver-login";
 // import "babel-Polyfill";
 const Login = () => {
-  //카카오 소셜 로그인
-  // const REST_API_KEY = "8ef6077e99cfc3ea15c25ab21d4c372e"; //내 REST_API_KEY 값
-  // const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
-
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_KEY;
   const KAKAO_REDIRECT_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
-
-  // console.log(KAKAO_REST_API_KEY);
-  // console.log(KAKAO_REDIRECT_URI);
-  // console.log(process.env.REACT_APP_아무거나);
-
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
-  // const dispatch = useDispatch();
 
-  // 네이버 소셜 로그인
-  //여러 방법 시도해봤는데 일단 주석 걸어뒀습니다
-  // const NAVER_CLIENT_Id = process.env.REACT_APP_NAVER_CLIENT_ID;
-  // const NAVER_CALLBACK_URL = process.env.REACT_APP_REDIRECT_URI;
-  // const STATE_STRING = "abcde";
-  // const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_Id}&state=${STATE_STRING}&redirect_uri=${NAVER_CALLBACK_URL}`;
+  const NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID;
+  const NAVER_CALLBACK_URL = process.env.REACT_APP_NAVER_REDIRECT_URI;
+  const NAVER_CLIENT_SECRET = process.env.REACT_APP_NAVER_CLIENT_SECRET;
 
-  // console.log(NAVER_CLIENT_Id);
-  // console.log(NAVER_CALLBACK_URL);
-  const NaverLogin = () => {
-    const { naver } = window;
+  const { naver } = window;
+  const location = useLocation();
 
+  const initializeNaverLogin = () => {
     const naverLogin = new naver.LoginWithNaverId({
-      clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
-      callbackUrl: process.env.REACT_APP_REDIRECT_URI,
-
-      loginButton: {
-        color: "green",
-        type: 3,
-        height: 47,
-      },
+      clientId: NAVER_CLIENT_ID,
+      callbackUrl: NAVER_CALLBACK_URL,
+      isPopup: false,
+      loginButton: { color: "white", type: 1, height: "47" },
     });
-
     naverLogin.init();
   };
 
+  const getNaverToken = () => {
+    if (!location.hash) return;
+    const token = location.hash.split("=")[1].split("&")[0];
+    console.log(token);
+  };
+
   useEffect(() => {
-    NaverLogin();
+    console.log(NAVER_CALLBACK_URL);
+    initializeNaverLogin();
+    getNaverToken();
   }, []);
 
+  // const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}&state=${state}`;
   return (
     <>
       <Text h1>로그인</Text>
@@ -64,15 +55,9 @@ const Login = () => {
             width="200px"
           ></img>
         </a>
-        {/* 네이버로 로그인 */}
-        <div className="grid-naver" id="naverIdLogin"></div>
-        {/* 카카오와 같은 방식으로 해봤을때 사용한 네이버 소셜로그인 버튼입니다 */}
+        <div id="naverIdLogin"></div>
         {/* <a href={NAVER_AUTH_URL}>
-          <img
-            alt="네이버 소셜 로그인"
-            src="../images/naver_social_login.png"
-            width="200px"
-          ></img>
+          <img alt="네이버" src="../images/naver_social_login.png"></img>
         </a> */}
       </div>
     </>

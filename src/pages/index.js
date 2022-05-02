@@ -5,6 +5,8 @@ import Home from "./Home";
 import Login from "./Login";
 import MyPage from "./MyPage";
 import NotFound from "./NotFound";
+import RedirectKakao from "./RedirectKakao";
+import RedirectNaver from "./RedirectNaver";
 import RegionSet from "./RegionSet";
 import Review from "./Review";
 import Setprofile from "./SetProfile";
@@ -20,9 +22,11 @@ export {
   Home,
   MyPage,
   NotFound,
+  RedirectKakao,
+  RedirectNaver,
+  RegionSet,
   Review,
   Login,
-  RegionSet,
   Setprofile,
   Store,
   StoreDetail,

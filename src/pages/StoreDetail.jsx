@@ -10,7 +10,7 @@ import {
   ImageCarousel,
   Button,
 } from "../elements";
-import { getNowPost, getPostDB } from "../redux/modules/store";
+import { getNowPost, getPostDB, getPostOne } from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { priceComma } from "../shared/utils";
@@ -21,12 +21,12 @@ import { IoMdHeartEmpty } from "react-icons/io";
 // 채팅
 import { socket } from "../shared/socket";
 
-const Store = (props) => {
+const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
 
-  const current = useSelector((state) => state.store.detailData);
-  const currentUser = useSelector((state) => state.user.user);
+  const current = useSelector((state) => state.store?.detailData);
+  const currentUser = useSelector((state) => state.user?.user);
 
   const {
     user,
@@ -40,18 +40,14 @@ const Store = (props) => {
     size,
     content,
   } = current;
+
   const { userId, address, nickname, profileUrl } = user;
 
   const isMe = userId === currentUser?.userId;
 
   useEffect(() => {
-    if (!current) {
-      // 리덕스 데이터가 없다면 해당 게시글 가져오는 api 호출
-      // dispatch()
-      dispatch(getPostDB());
-      dispatch(getNowPost(postId));
-    }
-  }, []);
+    dispatch(getPostOne(postId));
+  }, [current]);
 
   const startChat = () => {
     console.log("채팅 시작");
@@ -60,7 +56,6 @@ const Store = (props) => {
     socket.emit("join_room", roomName);
 
     history.push(`/chat/${roomName}`);
-    // socket.emit('newRoom', { from: newMessage.from})
   };
 
   return (
@@ -152,4 +147,4 @@ const FixedChatBar = styled.div`
   border-top: 1px solid gray;
 `;
 
-export default Store;
+export default StoreDetail;

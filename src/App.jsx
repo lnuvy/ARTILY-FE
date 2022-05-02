@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import { Header, Navigation } from "./components";
+import { Header } from "./components";
 import {
   Chat,
   Follow,
   Home,
   MyPage,
   // NotFound,
+  RedirectKakao,
+  RedirectNaver,
   Review,
   Login,
   RegionSet,
@@ -19,15 +21,12 @@ import {
 } from "./pages";
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
-import RedirectHandler from "./pages/redirectHandeler";
-// import { useDispatch } from "react-redux";
-// import { getToken } from "./shared/token";
-// import { actionCreators as userActions } from "./redux/modules/user";
 import ToastMessage from "./shared/ToastMessage";
 import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "./shared/token";
 import { actionCreators as userActions } from "./redux/modules/user";
+import { getPostDB } from "./redux/modules/store";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,7 +59,8 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/regionset" exact component={RegionSet} />
           <Route path="/profile" exact component={Setprofile} />
-          <Route path="/oauth/kakao/callback" component={RedirectHandler} />
+          <Route path="/oauth/kakao/callback" component={RedirectKakao} />
+          <Route path="/oauth/naver/callback" component={RedirectNaver} />
           {/* <Route path="/*" component={NotFound} /> */}
           <Route path="/*" component={Test} />
         </Switch>

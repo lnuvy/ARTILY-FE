@@ -10,7 +10,6 @@ import { openModal } from "../redux/modules/modal";
 const Home = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
-  console.log(userInfo);
 
   // 더미데이터 주입
   useEffect(() => {
