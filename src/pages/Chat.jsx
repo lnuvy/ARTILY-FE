@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ChatCard } from "../components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
+import { socket } from "../shared/socket";
 
 const Chat = () => {
   // const dispatch = useDispatch();
@@ -15,14 +16,17 @@ const Chat = () => {
     // dispatch()
   }, []);
 
+  const enterRoom = () => {
+    socket.on("join_room", (data) => {
+      console.log(data);
+    });
+    history.push(`/chat/${roomList.roomName || "22224230442222423041111"}`);
+  };
+
   return (
     <>
       <Grid>
-        <ChatCard
-          onClick={() =>
-            history.push(`/chat/${roomList.roomName || "22224230442222423041"}`)
-          }
-        />
+        <ChatCard onClick={enterRoom} />
         <ChatCard />
         <ChatCard />
         <ChatCard />

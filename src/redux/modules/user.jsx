@@ -5,6 +5,8 @@ import axios from "axios";
 import { getToken, insertToken, removeToken } from "../../shared/token";
 import { size } from "lodash";
 
+const BASE_URL = "http://52.78.183.202";
+
 //action
 //로그인 체크
 const SET_USER = "SET_USER";
@@ -30,7 +32,7 @@ const kakaoLogin = (code) => {
   return async function (dispatch, getState, { history }) {
     await axios({
       method: "GET",
-      url: `http://54.180.96.227/oauth/kakao/callback?code=${code}`,
+      url: `http://52.78.183.202/oauth/kakao/callback?code=${code}`,
     })
       .then((res) => {
         console.log(res.data); // 토큰이 넘어옴
@@ -46,7 +48,7 @@ const kakaoLogin = (code) => {
           provider,
         };
         dispatch(setUser(user));
-        insertToken("token", ACCESS_TOKEN); //local storage에 저장
+        insertToken(ACCESS_TOKEN); //local storage에 저장
 
         // 5/2 채팅구현때문에 유저정보 로컬스토리지 잠시 저장
         // localStorage.setItem("user", user);
@@ -63,12 +65,13 @@ const kakaoLogin = (code) => {
 const getUserInfo = () => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
+    console.log(getToken());
     await axios
-      .get(`http://54.180.96.227/api/user/getuser`, { headers: config })
+      .get(`http://52.78.183.202/api/user/getuser`, { headers: config })
       .then((res) => {
         console.log(res);
-
-        // dispatch(getUser(res.data));
+        const { user } = res.data;
+        dispatch(getUser(user));
       })
       .catch((err) => {
         console.log(err);
