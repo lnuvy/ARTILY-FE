@@ -1,4 +1,5 @@
 import Chat from "./Chat";
+import ChatRoom from "./ChatRoom";
 import Follow from "./Follow";
 import Home from "./Home";
 import Login from "./Login";
@@ -14,6 +15,7 @@ import Test from "./Test";
 
 export {
   Chat,
+  ChatRoom,
   Follow,
   Home,
   MyPage,

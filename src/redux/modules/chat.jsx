@@ -8,7 +8,7 @@ const initialState = {
   // 신규 알람
   notiCnt: 0,
   // 채팅방 리스트
-  roomList: [],
+  roomList: [{ roomName: null, messages: [] }],
   // 새로 온 메세지
   newMessage: {
     from: null,

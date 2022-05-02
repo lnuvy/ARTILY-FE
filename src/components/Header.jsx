@@ -7,10 +7,10 @@ import { history } from "../redux/configureStore";
 
 const Header = (props) => {
   const path = useLocation().pathname;
-  console.log(
-    "Navigation 보이는곳과 안보이는곳 여기서 주소로 특정하는게 좋아보임",
-    path
-  );
+  // console.log(
+  //   "Navigation 보이는곳과 안보이는곳 여기서 주소로 특정하는게 좋아보임",
+  //   path
+  // );
   const { cg, width, gtc, textAlign, padding, icon1, icon2 } = props;
 
   const styles = {
@@ -25,7 +25,7 @@ const Header = (props) => {
     <HeaderStyle {...styles}>
       <Flex>
         <Text bold fg="1">
-          ARTILY
+          <Flex onClick={() => history.push("/")}>ARTILY</Flex>
         </Text>
         <Icon margin="0 16px 0 0" />
         <Icon onClick={() => history.push("/chat")} />

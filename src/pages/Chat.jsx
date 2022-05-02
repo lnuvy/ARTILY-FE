@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { ChatCard } from "../components";
 import { Grid } from "../elements";
+import { history } from "../redux/configureStore";
 
 const Chat = () => {
   // const dispatch = useDispatch();
@@ -17,7 +18,11 @@ const Chat = () => {
   return (
     <>
       <Grid>
-        <ChatCard />
+        <ChatCard
+          onClick={() =>
+            history.push(`/chat/${roomList.roomName || "22224230442222423041"}`)
+          }
+        />
         <ChatCard />
         <ChatCard />
         <ChatCard />

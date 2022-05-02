@@ -6,7 +6,7 @@ const ChatCard = (props) => {
   // const dispatch = useDispatch();
 
   return (
-    <Flex jc="space-between" margin="16px 24px">
+    <Flex jc="space-between" margin="16px 24px" onClick={props.onClick || null}>
       <Flex>
         <Image circle size={50} />
 

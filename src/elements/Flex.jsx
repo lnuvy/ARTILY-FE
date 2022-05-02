@@ -3,8 +3,8 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Flex = (props) => {
-  // 4/30 fd 빠져있어서 추가했습니다 -한울-
-  const { children, fg, child, jc, ai, margin, fd } = props;
+  // 4/30 fd 빠져있어서 추가했습니다 -한울- 5/2 onClick 추가
+  const { onClick, children, fg, child, jc, ai, margin, fd } = props;
 
   const styles = {
     fg,
@@ -16,10 +16,18 @@ const Flex = (props) => {
   };
 
   if (child) {
-    return <FlexChild {...styles}>{children}</FlexChild>;
+    return (
+      <FlexChild onClick={onClick} {...styles}>
+        {children}
+      </FlexChild>
+    );
   }
 
-  return <FlexStyle {...styles}>{children}</FlexStyle>;
+  return (
+    <FlexStyle onClick={onClick} {...styles}>
+      {children}
+    </FlexStyle>
+  );
 };
 
 Flex.defaultProps = {

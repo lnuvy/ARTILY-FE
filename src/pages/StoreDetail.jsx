@@ -55,6 +55,11 @@ const Store = (props) => {
 
   const startChat = () => {
     console.log("채팅 시작");
+    console.log(user);
+    let roomName = "123123";
+    socket.emit("join_room", roomName);
+
+    history.push(`/chat/${roomName}`);
     // socket.emit('newRoom', { from: newMessage.from})
   };
 

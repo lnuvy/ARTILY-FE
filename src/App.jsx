@@ -15,6 +15,7 @@ import {
   Store,
   StoreDetail,
   StoreWrite,
+  ChatRoom,
 } from "./pages";
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
@@ -46,6 +47,7 @@ function App() {
         <Switch>
           <Route path={["/home", "/"]} exact component={Home} />
           <Route path="/chat" exact component={Chat} />
+          <Route path="/chat/:id" exact component={ChatRoom} />
           <Route path="/store" exact component={Store} />
           <Route path="/store/view/:postId" exact component={StoreDetail} />
           <Route path="/store/write" exact component={StoreWrite} />

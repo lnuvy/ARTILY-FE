@@ -44,10 +44,13 @@ const kakaoLogin = (code) => {
           nickname,
           profileUrl,
           provider,
-          // profileUrl: {},
         };
         dispatch(setUser(user));
-        localStorage.setItem("token", ACCESS_TOKEN); //local storage에 저장
+        insertToken("token", ACCESS_TOKEN); //local storage에 저장
+
+        // 5/2 채팅구현때문에 유저정보 로컬스토리지 잠시 저장
+        // localStorage.setItem("user", user);
+
         history.replace("/"); // 토큰 받았고 로그인됐으니 화면 전환시켜줌(일단 위치설정)
       })
       .catch((err) => {
@@ -70,16 +73,6 @@ const getUserInfo = () => {
       .catch((err) => {
         console.log(err);
         console.log(err.response);
-
-        // 임시방편
-        const hanul = {
-          nickname: "이한울",
-          profileUrl:
-            "http://k.kakaocdn.net/dn/blXfTb/btq5FhvAxNd/S37fBUxE0CUskeQNo4mA4K/img_640x640.jpg",
-          provider: "kakao",
-          userId: "2222423044",
-        };
-        dispatch(getUser(hanul));
       });
   };
 };
