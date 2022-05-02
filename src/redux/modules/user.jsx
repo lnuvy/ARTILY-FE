@@ -61,9 +61,10 @@ const getUserInfo = () => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
-      .get(`http://54.180.96.227/user/getuser`, { headers: config })
+      .get(`http://54.180.96.227/api/user/getuser`, { headers: config })
       .then((res) => {
         console.log(res);
+
         // dispatch(getUser(res.data));
       })
       .catch((err) => {

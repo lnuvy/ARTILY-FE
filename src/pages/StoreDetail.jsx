@@ -11,10 +11,18 @@ import {
   Checkbox,
   Wrap,
   ImageCarousel,
+  Button,
 } from "../elements";
 import { Card, Navigation, ArtCard } from "../components";
 import { getNowPost, getPostDB } from "../redux/modules/store";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+
+// 임시 아이콘
+import { IoMdHeartEmpty } from "react-icons/io";
+
+// 채팅
+import { socket } from "../shared/socket";
 
 const Store = (props) => {
   const dispatch = useDispatch();
@@ -48,13 +56,18 @@ const Store = (props) => {
     }
   }, []);
 
+  const startChat = () => {
+    console.log("채팅 시작");
+    // socket.emit('newRoom', { from: newMessage.from})
+  };
+
   return (
     <>
       <Wrap margin="16px">
         <Text h1>{postTitle}</Text>
         <Flex margin="8px 0 0 0" jc="space-between">
           <Flex>
-            <Image shape="circle" size="20" />
+            <Image shape="circle" size="20" src={profileUrl} />
             <Text margin="0 0 0 4px">{nickname}</Text>
           </Flex>
           <Flex>
@@ -104,8 +117,37 @@ const Store = (props) => {
         </Flex>
         <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px"></Grid>
       </Wrap>
+
+      {/* 임시 */}
+      <FixedChatBar>
+        <Flex>
+          <IoMdHeartEmpty size={36} />
+          <Text h1>{markupCnt}</Text>
+        </Flex>
+        <Flex>
+          <Text h1 bold margin="0 10px">
+            {price}원
+          </Text>
+          {isMe ? (
+            <Button>판매완료</Button>
+          ) : (
+            <Button onClick={startChat}>채팅하기</Button>
+          )}
+        </Flex>
+      </FixedChatBar>
     </>
   );
 };
+
+const FixedChatBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 12px;
+  border-top: 1px solid gray;
+`;
 
 export default Store;

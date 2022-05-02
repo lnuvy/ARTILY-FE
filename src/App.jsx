@@ -42,7 +42,6 @@ function App() {
   return (
     <>
       <ConnectedRouter history={history}>
-        <Navigation />
         <Header>ARTILY</Header>
         <Switch>
           <Route path={["/home", "/"]} exact component={Home} />

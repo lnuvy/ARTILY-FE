@@ -3,7 +3,8 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Icon = (props) => {
-  const { children, fg, child, src, bc, width, height, margin } = props;
+  const { children, onClick, fg, child, src, bc, width, height, margin } =
+    props;
 
   const styles = {
     width,
@@ -14,7 +15,11 @@ const Icon = (props) => {
     margin,
   };
 
-  return <IconStyle {...styles}>{children}</IconStyle>;
+  return (
+    <IconStyle onClick={onClick} {...styles}>
+      {children}
+    </IconStyle>
+  );
 };
 
 Icon.defaultProps = {
