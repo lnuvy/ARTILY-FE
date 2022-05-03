@@ -85,7 +85,7 @@ const Home = () => {
             ? bestReview.map((l, i) => {
                 return (
                   <ReviewCard
-                    _key={i}
+                    key={i}
                     {...l}
                     onClick={() => move2detail(l, "/review")}
                     imageUrl={l.imageUrl[0]}

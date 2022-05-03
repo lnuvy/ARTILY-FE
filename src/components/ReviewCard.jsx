@@ -21,7 +21,6 @@ const ReviewCard = (props) => {
     imageUrl,
     reviewId,
     reviewContent,
-    _key,
     nickname,
     seller,
     createdAt,
@@ -29,7 +28,7 @@ const ReviewCard = (props) => {
   } = props;
 
   return (
-    <Card _key={_key} onClick={onClick}>
+    <Card onClick={onClick}>
       <Image height="120px" src={imageUrl} />
       <Text bold>{reviewTitle}</Text>
       <Text>{reviewContent}</Text>
