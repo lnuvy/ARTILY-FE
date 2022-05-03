@@ -11,7 +11,7 @@ import StoresReducer from "./modules/store";
 import ReviewReducer from "./modules/reviews";
 import ImageReducer from "./modules/image";
 
-export const history = createBrowserHistory();
+export const history = createBrowserHistory({ basename: "/" });
 
 const rootReducer = combineReducers({
   user: user,

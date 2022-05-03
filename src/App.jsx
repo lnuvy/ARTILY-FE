@@ -15,6 +15,7 @@ import {
   Store,
   StoreDetail,
   StoreWrite,
+  ReviewDetail,
 } from "./pages";
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
@@ -53,7 +54,8 @@ function App() {
           <Route path="/store/write/:postId" exact component={StoreWrite} />
           <Route path="/follow" exact component={Follow} />
           <Route path="/store" exact component={Store} />
-          <Route path="/review" exact component={Review} />
+          <Route exact path="/review" component={Review} />
+          <Route exact path="/review/view/:reviewId" component={ReviewDetail} />
           <Route path="/test" component={Test} />
           <Route path="/mypage" exact component={MyPage} />
           <Route path="/login" exact component={Login} />

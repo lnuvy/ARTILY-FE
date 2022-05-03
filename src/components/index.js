@@ -5,5 +5,15 @@ import Header from "./Header";
 import ImagePreview from "./ImagePreview";
 import Navigation from "./Navigation";
 import Preview from "./Preview";
+import ReviewCard from "./ReviewCard";
 
-export { Card, Footer, Header, ImagePreview, Navigation, ArtCard, Preview };
+export {
+  Card,
+  Footer,
+  Header,
+  ImagePreview,
+  Navigation,
+  ArtCard,
+  Preview,
+  ReviewCard,
+};

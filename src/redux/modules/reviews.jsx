@@ -20,8 +20,21 @@ export const getReview = () => {
     // await axios.get()
 
     // 더미데이터 리덕스 주입
-    console.log(homeDummy);
-    // dispatch(getReviewData(homeDummy[0]["후기"]));
+    console.log(homeDummy[2]["후기"]);
+    dispatch(getReviewData(homeDummy[2]["후기"]));
+  };
+};
+
+export const getReviewOne = (reviewId) => {
+  return async function (dispatch, getState, { history }) {
+    // axios
+    console.log(Number(reviewId));
+    const allList = homeDummy[2]["후기"];
+    console.log(allList);
+
+    const now = allList.find((l) => l.reviewId === Number(reviewId));
+    console.log(now);
+    dispatch(getNowReview(now));
   };
 };
 
@@ -32,6 +45,9 @@ const reviewSlice = createSlice({
     getReviewData: (state, action) => {
       state.list = action.payload;
     },
+    getNowReview: (state, action) => {
+      state.reviewData = action.payload;
+    },
     // 데이터 하나 특정하기
     go2detail: (state, action) => {
       state.detailData = action.payload;
@@ -40,5 +56,5 @@ const reviewSlice = createSlice({
 });
 
 const { reducer, actions } = reviewSlice;
-export const { getReviewData, go2detail } = actions;
+export const { getReviewData, go2detail, getNowReview } = actions;
 export default reducer;
