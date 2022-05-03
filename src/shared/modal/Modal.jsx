@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Grid, Text } from "../../elements";
+import { Flex, Grid, Text } from "../../elements";
 import ModalPortal from "./Portals";
 
 const Modal = () => {
@@ -9,10 +9,14 @@ const Modal = () => {
 
   return (
     <ModalPortal>
-      <Grid>
-        <Text h1>{modal.title}</Text>
+      <Flex fd="column">
+        <Flex padding="20px 0">
+          <Text h1 bold>
+            {modal.title}
+          </Text>
+        </Flex>
         {modal.content}
-      </Grid>
+      </Flex>
     </ModalPortal>
   );
 };

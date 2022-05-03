@@ -3,13 +3,15 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Flex = (props) => {
-  const { onClick, children, fg, child, jc, ai, margin, fd, bc } = props;
+  // 5/3 한울 패딩추가
+  const { onClick, children, fg, child, jc, ai, padding, margin, fd, bc } =
+    props;
 
   const styles = {
     fg,
-    child,
     jc,
     ai,
+    padding,
     margin,
     fd,
     bc,
