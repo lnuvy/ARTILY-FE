@@ -3,8 +3,7 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Flex = (props) => {
-  // 4/30 fd 빠져있어서 추가했습니다 -한울- 5/2 onClick 추가
-  const { onClick, children, fg, child, jc, ai, margin, fd } = props;
+  const { onClick, children, fg, child, jc, ai, margin, fd, bc } = props;
 
   const styles = {
     fg,
@@ -13,6 +12,7 @@ const Flex = (props) => {
     ai,
     margin,
     fd,
+    bc,
   };
 
   if (child) {
@@ -38,6 +38,7 @@ Flex.defaultProps = {
   margin: "0",
   padding: "0",
   jc: "left",
+  bc: "transparent",
 };
 
 const FlexStyle = styled.div`
@@ -51,6 +52,7 @@ const FlexStyle = styled.div`
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
   justify-content: ${({ jc }) => jc};
+  background-color: ${({ bc }) => bc};
 `;
 
 const FlexChild = styled.div`

@@ -12,7 +12,7 @@ import ReviewReducer from "./modules/reviews";
 import ImageReducer from "./modules/image";
 import ChatReducer from "./modules/chat";
 
-export const history = createBrowserHistory();
+export const history = createBrowserHistory({ basename: "/" });
 
 const rootReducer = combineReducers({
   user: user,

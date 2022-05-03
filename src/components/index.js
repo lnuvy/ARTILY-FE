@@ -7,6 +7,7 @@ import Header from "./Header";
 import ImagePreview from "./ImagePreview";
 import Navigation from "./Navigation";
 import Preview from "./Preview";
+import ReviewCard from "./ReviewCard";
 
 export {
   ArtCard,
@@ -18,4 +19,5 @@ export {
   ImagePreview,
   Navigation,
   Preview,
+  ReviewCard,
 };

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Flex, Text, Grid, Image, Wrap } from "../elements";
-import { Card, ArtCard } from "../components";
+import { Card, ArtCard, ReviewCard } from "../components";
 import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
@@ -81,7 +81,19 @@ const Home = () => {
         </Grid>
         <Text h2>Best 후기</Text>
         <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
-          {bestReview.map((v, i) => {
+          {bestReview.length
+            ? bestReview.map((l, i) => {
+                return (
+                  <ReviewCard
+                    _key={i}
+                    {...l}
+                    onClick={() => move2detail(l, "/review")}
+                    imageUrl={l.imageUrl[0]}
+                  />
+                );
+              })
+            : null}
+          {/* {bestReview.map((v, i) => {
             return (
               <Card key={`${v}_${i}`} onClick={() => move2detail(v, "/review")}>
                 <Image height="120px" />
@@ -95,7 +107,7 @@ const Home = () => {
                 </Flex>
               </Card>
             );
-          })}
+          })} */}
         </Grid>
       </Wrap>
     </>
