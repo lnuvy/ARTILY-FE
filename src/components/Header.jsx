@@ -23,12 +23,17 @@ const Header = (props) => {
 
   return (
     <HeaderStyle {...styles}>
-      <Flex>
+      <Flex onClick={() => history.push("/")}>
         <Text bold fg="1">
-          <Flex onClick={() => history.push("/")}>ARTILY</Flex>
+          ARTIN
         </Text>
         <Icon margin="0 16px 0 0" />
-        <Icon onClick={() => history.push("/chat")} />
+        <Icon
+          onClick={(e) => {
+            e.stopPropagation();
+            history.push("/chat");
+          }}
+        />
       </Flex>
       <Navigation />
       <Grid gtc="auto auto auto auto" cg="20px"></Grid>
