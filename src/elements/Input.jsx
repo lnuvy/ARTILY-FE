@@ -4,6 +4,7 @@ import theme from "../styles/theme";
 
 const Input = (props) => {
   const {
+    onKeyPress, // onKeyPress 추가
     onChange,
     value,
     placeholder,
@@ -31,6 +32,7 @@ const Input = (props) => {
           placeholder={placeholder}
           onChange={onChange}
           readOnly={readOnly}
+          onKeyPress={onKeyPress}
           {...styles}
         ></InputContainer>
         {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}

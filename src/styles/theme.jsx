@@ -1,5 +1,6 @@
 const color = {
-  brandColor: "#212121",
+  brandColor: "#FD6A00",
+  alertColor: "#FD9B00",
   bgColor: "aliceblue",
   lightGray: "#E7E7E7",
   OpacityGray: "rgba(231,231,231,0.5)",

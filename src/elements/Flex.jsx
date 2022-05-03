@@ -3,11 +3,24 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Flex = (props) => {
-  // 5/3 한울 패딩추가
-  const { onClick, children, fg, child, jc, ai, padding, margin, fd, bc } =
-    props;
+  // 5/3 한울 padding, bc, br 추가
+  const {
+    onClick,
+    children,
+    width,
+    fg,
+    child,
+    jc,
+    ai,
+    padding,
+    margin,
+    fd,
+    bc,
+    br,
+  } = props;
 
   const styles = {
+    width,
     fg,
     jc,
     ai,
@@ -15,6 +28,7 @@ const Flex = (props) => {
     margin,
     fd,
     bc,
+    br,
   };
 
   if (child) {
@@ -49,12 +63,12 @@ const FlexStyle = styled.div`
 
   display: flex;
   flex-direction: ${({ fd }) => fd};
-  justify-content: ${({ jc }) => jc}; // 4/29 한울추가
   align-items: ${({ ai }) => ai};
+  justify-content: ${({ jc }) => jc};
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
-  justify-content: ${({ jc }) => jc};
   background-color: ${({ bc }) => bc};
+  border-radius: ${({ br }) => br};
 `;
 
 const FlexChild = styled.div`

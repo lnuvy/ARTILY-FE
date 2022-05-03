@@ -36,13 +36,12 @@ const StoreDetail = () => {
 
   // 채팅하기 버튼 눌렀을때
   const startChat = () => {
-    console.log("채팅 시작");
     const postUser = current.user?.userId;
     const nowUser = currentUser?.userId;
 
-    let roomName = "123123";
-    socket.emit("join_room", roomName);
+    let roomName = `from${nowUser}_to${postUser}`;
 
+    socket.emit("join_room", roomName);
     history.push(`/chat/${roomName}`);
   };
 
