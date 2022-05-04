@@ -15,7 +15,6 @@ const Header = (props) => {
   //   path
   // );
 
-  console.log(path);
   const { cg, width, gtc, textAlign, padding, icon1, icon2 } = props;
 
   const styles = {
