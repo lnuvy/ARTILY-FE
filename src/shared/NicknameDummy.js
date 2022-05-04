@@ -1,4 +1,4 @@
-export const 앞쪽 = [
+export const Front = [
   "무적의",
   "신기한",
   "새벽의",
@@ -10,7 +10,7 @@ export const 앞쪽 = [
   "용감한",
 ];
 
-export const 뒤쪽 = [
+export const Back = [
   "예술가",
   "마스크",
   "브륄레",

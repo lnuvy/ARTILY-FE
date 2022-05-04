@@ -11,17 +11,21 @@ const BASE_URL = "http://52.78.183.202";
 const SET_USER = "SET_USER";
 const GET_USER = "GET_USER";
 const LOG_OUT = "LOG_OUT";
+const EDIT_USER = "EDIT_USER";
 
 //action creator
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const logout = createAction(LOG_OUT);
+const editUser = createAction(EDIT_USER, () => ({}));
+
 //initialState
 
 const initialState = {
   user: null,
   isLogin: false,
   location: "",
+  address: "",
 };
 
 // 로그인 미들웨어
@@ -37,7 +41,8 @@ const kakaoLogin = (code) => {
       .then((res) => {
         console.log(res.data); // 토큰이 넘어옴
 
-        const { token, nickname, profileUrl, provider, userId } = res.data.user;
+        const { token, nickname, profileUrl, provider, userId, address } =
+          res.data.user;
         const ACCESS_TOKEN = token;
 
         const user = {
@@ -46,6 +51,7 @@ const kakaoLogin = (code) => {
           nickname,
           profileUrl,
           provider,
+          address,
         };
         dispatch(setUser(user));
         insertToken(ACCESS_TOKEN); //local storage에 저장
@@ -109,7 +115,7 @@ const locationDB = (si, gu, dong) => {
     axios({
       method: "post", //주소정보 보내기
       url: "https://6253d1d889f28cf72b5335ef.mockapi.io/location",
-      // url: `http://54.180.96.227/login`,
+      // url: `http://52.78.183.202/api/post`,
       headers: {
         "Content-Type": `application/json`,
       },
@@ -122,10 +128,34 @@ const locationDB = (si, gu, dong) => {
       .then((res) => {
         console.log("DB에 저장 완료");
         console.log(res);
-        document.location.href = "/"; //설정이 완료되면 프로필 설정 페이지로 이동
+        // document.location.href = "/"; //설정이 완료되면 프로필 설정 페이지로 이동
       })
       .catch((error) => {
         console.log("주소 정보 전달 실패", error);
+      });
+  };
+};
+
+//프로필 설정,수정
+//mypage
+const editUserDB = (formData) => {
+  return function (dispatch, getState) {
+    axios({
+      method: "post",
+      // url: "http://52.78.183.202/",
+      data: formData,
+      headers: {
+        "Content-Type": `multipart/form-data;`,
+        // Authorization: insertToken,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        dispatch(editUser(formData));
+        document.location.href = "/";
+      })
+      .catch((error) => {
+        console.log("프로필 정보 전송 실패", error);
       });
   };
 };
@@ -160,5 +190,6 @@ const actionCreators = {
   getUser,
   setUser,
   logout,
+  editUserDB,
 };
 export { actionCreators };

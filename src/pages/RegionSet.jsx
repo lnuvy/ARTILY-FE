@@ -14,7 +14,8 @@ import axios from "axios";
 import { Text, Button, Input, Flex, Grid } from "../elements";
 const Location = (props) => {
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.user.isLogin);
+  const user = useSelector((state) => state.user);
+  console.log(user);
   const [dong, setDong] = useState("");
   const [gu, setGu] = useState("");
   const [si, setSi] = useState("");
@@ -45,45 +46,49 @@ const Location = (props) => {
     });
   };
   //input 안에 값이 없으면 다음페이지로 못넘어가
+
   const complete = () => {
     dispatch(userActions.locationDB(si, gu, dong));
-    // if (setGu == null) {
-    //   window.alert("주소를 설정해주세요!");
+    // if ((setSi, setGu, setDong)) {
+    //   history.push("/profile");
+    // } else {
+    //   window.alert("주소를 입력해주세요!");
     //   return;
     // }
-    // history.push("/profile");
+    history.push("/profile");
   };
   return (
     <>
-      <Flex jc="center">
-        <Text bold>ARTILY</Text>
-      </Flex>
-      <Flex jc="center">
-        <Text h3>내 위치를 설정해주세요!</Text>
-      </Flex>
-      <Flex margin="20px">
-        <Input
-          fg="1"
-          margin="0 10px 0 0px"
-          value={`${si} ${gu} ${dong}` || ""}
-          onChange={(e) => {
-            console.log("location");
-            // setGu(e.target.value);
-            // setDong(e.target.value);
-          }}
-        ></Input>
-        <Button
-          margin="20px 0 0 0"
-          onClick={() => {
-            currentmap();
-          }}
-        >
-          검색
+      <Grid cg rg>
+        <Flex jc="center">
+          <h2>ARTILY</h2>
+        </Flex>
+        <Flex jc="center">
+          <Text h3>내 위치를 설정해주세요!</Text>
+        </Flex>
+        <Flex margin="20px">
+          <Input
+            fg="1"
+            value={`${si} ${gu} ${dong}` || ""}
+            onChange={(e) => {
+              console.log("location");
+              // setGu(e.target.value);
+              // setDong(e.target.value);
+            }}
+          ></Input>
+          <Button
+            margin="20px 0 0 0"
+            onClick={() => {
+              currentmap();
+            }}
+          >
+            O
+          </Button>
+        </Flex>
+        <Button outline margin="auto" onClick={complete}>
+          설정 완료
         </Button>
-      </Flex>
-      <Button outline margin="auto" onClick={complete}>
-        설정 완료
-      </Button>
+      </Grid>
     </>
   );
 };

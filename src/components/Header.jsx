@@ -23,9 +23,9 @@ const Header = (props) => {
 
   return (
     <HeaderStyle {...styles}>
-      <Flex>
+      <Flex onClick={() => history.push("/")}>
         <Text bold fg="1">
-          <Flex onClick={() => history.push("/")}>ARTILY</Flex>
+          ARTILY
         </Text>
         <Icon margin="0 16px 0 0" />
         <Icon onClick={() => history.push("/chat")} />

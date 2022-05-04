@@ -18,6 +18,7 @@ const Image = (props) => {
     bc,
     width,
     height,
+    br, //5.3 영경 변경
   } = props;
 
   const styles = {
@@ -32,6 +33,7 @@ const Image = (props) => {
     height,
     bs,
     bc,
+    br,
   };
 
   if (circle) {
@@ -53,6 +55,8 @@ Image.defaultProps = {
   onClick: () => {},
   bs: "contain",
   bc: "rgba(0,0,0,0.2)",
+  //border-radius 추가했습니다. -영경
+  br: "",
 };
 
 const ImageCircle = styled.div`
@@ -82,6 +86,7 @@ const ImageSqure = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: ${({ br }) => br};
 `;
 
 export default Image;

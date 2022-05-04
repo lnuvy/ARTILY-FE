@@ -10,6 +10,12 @@ import { openModal } from "../redux/modules/modal";
 const Home = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
+  console.log(userInfo);
+
+  //주소 정보가 없으면(=최초 로그인일 경우)
+  // if (userInfo.address) {
+  //   history.push("/regionset");
+  // }
 
   // 더미데이터 주입
   useEffect(() => {

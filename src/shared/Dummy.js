@@ -201,3 +201,63 @@ export const storeDummy = [
     },
   },
 ];
+
+export const myStoreDummy = [
+  {
+    category: "기타",
+    postId: "adsafe",
+    postTitle: "바나나 우유다",
+    price: 1000,
+    transaction: "택배",
+    changeAddress: "",
+    markupCnt: 0,
+    createdAt: "2022-05-03 16:00:00",
+    size: "",
+    content: "작품에 대한 설명",
+    imageUrl: ["../../images/bananamilk.jpg"],
+    user: {
+      userId: "user123",
+      nickname: "미니언즈",
+      profileUrl: "../../images/ddung.jpg",
+      address: "경기 고양시",
+    },
+  },
+  {
+    category: "기타",
+    postId: "rehhst",
+    postTitle: "빙수의 계절이 온다",
+    price: 7000,
+    transaction: "택배",
+    changeAddress: "",
+    markupCnt: 0,
+    createdAt: "2022-05-03 16:00:00",
+    size: "",
+    content: "작품에 대한 설명",
+    imageUrl: ["../../images/icecream.jpg"],
+    user: {
+      userId: "user123",
+      nickname: "미니언즈",
+      profileUrl: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
+      address: "경기 고양시",
+    },
+  },
+  {
+    category: "기타",
+    postId: "heddet",
+    postTitle: "와플팬 필요하신 분",
+    price: 9000,
+    transaction: "택배",
+    changeAddress: "",
+    markupCnt: 0,
+    createdAt: "2022-04-29 16:00:00",
+    size: "",
+    content: "작품에 대한 설명",
+    imageUrl: ["../../images/waffle.jpg"],
+    user: {
+      userId: "user123",
+      nickname: "미니언즈",
+      profileUrl: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
+      address: "경기 고양시",
+    },
+  },
+];
