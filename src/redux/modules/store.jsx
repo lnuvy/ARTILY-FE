@@ -54,7 +54,6 @@ const postsSlice = createSlice({
     // 카테고리 필터 이름변경
     filteringData: (state, action) => {
       if (action.payload === "전체") {
-        console.log("여기");
         state.filterList = state.list;
         return;
       }
@@ -62,9 +61,42 @@ const postsSlice = createSlice({
         (post) => post.category === action.payload
       );
     },
+    // 모달창의 필터링 내용으로 filterList 업데이트하기
+    modalFiltering: (state, action) => {
+      const { transaction, region } = action.payload;
+
+      // 필터링 전 초기화(다시 모두 채우기)
+      state.filterList = state.list;
+
+      let newFilterList = [];
+      // 거래방식이 전체가 아닐때 (직거래 or 택배 가 있음)
+      if (transaction !== "전체") {
+        newFilterList = state.filterList.filter(
+          (l) => l.transaction === transaction
+        );
+        state.filterList = newFilterList;
+      } else {
+        newFilterList = state.filterList;
+      }
+      // 지역이 전체가 아닐때
+      let regionList = [];
+      if (region[0] !== "전체") {
+        regionList = newFilterList.filter((l) => {
+          for (let i = 0; i < region.length; i++) {
+            if (l.user.address.includes(region[i])) {
+              return l;
+            }
+          }
+        });
+        state.filterList = regionList;
+      }
+
+      console.log(regionList);
+    },
   },
 });
 
 const { reducer, actions } = postsSlice;
-export const { getStoreData, go2detail, filteringData } = actions;
+export const { getStoreData, go2detail, filteringData, modalFiltering } =
+  actions;
 export default reducer;

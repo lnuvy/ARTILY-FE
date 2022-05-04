@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Button, Flex, Grid, Icon, Text } from "../../elements";
@@ -16,6 +16,14 @@ const Modal = () => {
   const modalClose = () => {
     dispatch(closeModal());
   };
+
+  // 모달 띄웠을때 배경 스크롤 막기
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
     <ModalPortal>

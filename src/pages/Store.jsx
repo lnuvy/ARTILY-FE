@@ -21,6 +21,13 @@ const Store = () => {
     dispatch(getPostDB());
   }, []);
 
+  // 모달 필터링
+  const [filtering, setFiltering] = useState({
+    transaction: "전체",
+    region: ["전체"],
+  });
+  console.log(filtering);
+
   // 검색창 인풋
   const [query, setQuery] = useState("");
   // 체크박스 체크될때 데이터 필터링
@@ -43,7 +50,9 @@ const Store = () => {
       openModal({
         title: "",
         // text 를 content 로 변경, 태그 직접 넣으면 됩니다
-        content: <StoreFilter />,
+        content: (
+          <StoreFilter filtering={filtering} setFiltering={setFiltering} />
+        ),
       })
     );
   };
@@ -78,6 +87,15 @@ const Store = () => {
             <Flex onClick={modalOn}>
               <Text h3>거래 방식/지역 선택하기</Text>
             </Flex>
+          </Flex>
+          <Flex>
+            {filtering.transaction !== "전체" && (
+              <Text>{filtering.transaction}</Text>
+            )}
+            {filtering.region[0] !== "전체" &&
+              filtering.region.map((r, i) => {
+                return <Text key={`${i}_filter_${r}`}>{r}</Text>;
+              })}
           </Flex>
           <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
             {filterList.map((l) => {

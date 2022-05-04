@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Text, ToggleButton, Wrap } from "../../../elements";
+import { closeModal } from "../../../redux/modules/modal";
+import { modalFiltering } from "../../../redux/modules/store";
 
-const transaction = ["직거래", "택배"];
+const transaction = ["전체", "직거래", "택배"];
 const regions = [
   "전체",
   "서울",
@@ -24,8 +27,14 @@ const regions = [
 ];
 
 // 스토어 필터 모달
-const StoreFilter = () => {
-  const [filter, setFilter] = useState({ transaction: null, region: ["전체"] });
+const StoreFilter = ({ filtering, setFiltering }) => {
+  const dispatch = useDispatch();
+  const [filter, setFilter] = useState(
+    filtering || {
+      transaction: "전체",
+      region: ["전체"],
+    }
+  );
 
   const toggleTransaction = (e) => {
     const { innerText } = e.target;
@@ -62,16 +71,23 @@ const StoreFilter = () => {
         }));
         return;
       }
-      // 누른 버튼의 지역 활성화
-      setFilter((filters) => ({
-        ...filters,
-        region: [...filters.region, innerText],
-      }));
       // "전체" 를 제외하고 모든 지역을 눌렀을때
       if (filter.region.length === regions.length - 1) {
         setFilter((filters) => ({ ...filters, region: ["전체"] }));
+      } else {
+        // 누른 버튼의 지역 활성화
+        setFilter((filters) => ({
+          ...filters,
+          region: [...filters.region, innerText],
+        }));
       }
     }
+  };
+
+  const submitFilter = () => {
+    setFiltering(filter);
+    dispatch(closeModal());
+    dispatch(modalFiltering(filter));
   };
 
   return (
@@ -115,7 +131,7 @@ const StoreFilter = () => {
               </ToggleButton>
             );
         })}
-        <Button width="100%" margin="12px 0">
+        <Button width="100%" margin="12px 0" onClick={submitFilter}>
           이 조건으로 검색하기
         </Button>
       </Wrap>
