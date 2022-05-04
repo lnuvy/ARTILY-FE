@@ -16,6 +16,7 @@ const ChatRoom = () => {
 
   // url 에서 가져온 현재 방 이름
   const roomName = pathname.slice(6);
+  console.log(roomName);
   // 메세지 보내는사람 (지금은 무조건 작성자 본인)
   const from = useSelector((state) => state.user.user?.nickname);
 
@@ -26,7 +27,6 @@ const ChatRoom = () => {
   useEffect(() => {
     socket.on("receive_message", (data) => {
       console.log(data);
-      console.log("!!!!!!!!!!!!!!!");
       setMessages((list) => [...list, data]);
     });
   }, [socket]);
@@ -48,6 +48,7 @@ const ChatRoom = () => {
         message,
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
       };
+      console.log(messageData);
       await socket.emit("send_message", messageData);
       setMessages((list) => [...list, messageData]);
       setMessage("");
@@ -69,9 +70,10 @@ const ChatRoom = () => {
       {messages.map((msg, i) => {
         if (msg.from === from)
           return (
-            <Flex key={i} width="80%" jc="end">
+            <Flex key={i} width="80%" jc="end" height="auto">
               <Flex
                 width="fit-content"
+                height="fit-content"
                 padding="10px 20px"
                 margin="15px 20px 5px"
                 bc={color.brandColor}
@@ -89,6 +91,7 @@ const ChatRoom = () => {
             <Flex key={i} width="80%">
               <Flex
                 width="fit-content"
+                height="fit-content"
                 padding="10px 20px"
                 margin="20px"
                 bc={color.brandColor}

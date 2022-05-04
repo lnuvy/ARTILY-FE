@@ -11,8 +11,6 @@ const Chat = () => {
   const { roomList, newMessage } = useSelector((state) => state.chat);
 
   useEffect(() => {
-    // api 요청으로 기존 채팅방 불러오기
-    // dispatch()
     console.log("여기");
     socket.on("new_room", (data) => {
       console.log(data);

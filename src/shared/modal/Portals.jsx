@@ -24,7 +24,7 @@ const Background = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 205;
+  z-index: 203;
   position: fixed;
   left: 0;
   top: 0;
@@ -32,14 +32,15 @@ const Background = styled.div`
   width: 100%;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 `;
 
 // 컨텐츠: 모달 본체
 const Content = styled.div`
   z-index: 204;
-  height: 60vh;
+  height: 63vh;
   max-width: 580px;
-  width: 90%;
+  width: 92%;
   border-radius: 8px;
   background-color: #fff;
 

@@ -11,7 +11,7 @@ import { storeDummy } from "../../shared/Dummy";
 // list: 데이터 담기는곳, isFetching: 데이터를 불러오는중인지, infinityScroll: 구분하는 아이디 등 넣는곳
 const initialState = {
   list: [],
-  categoryList: [],
+  filterList: [],
   isFetching: false,
   infinityScroll: {},
   detailData: null,
@@ -42,16 +42,23 @@ const postsSlice = createSlice({
   name: "store",
   initialState: initialState,
   reducers: {
+    // 처음 모든 데이터 불러오기만하기 (list 는 저장용도)
     getStoreData: (state, action) => {
       state.list = action.payload;
+      state.filterList = action.payload;
     },
     // 데이터 하나 특정하기
     go2detail: (state, action) => {
       state.detailData = action.payload;
     },
-    // 카테고리 필터
-    categoryList: (state, action) => {
-      state.categoryList = state.list.filter(
+    // 카테고리 필터 이름변경
+    filteringData: (state, action) => {
+      if (action.payload === "전체") {
+        console.log("여기");
+        state.filterList = state.list;
+        return;
+      }
+      state.filterList = state.list.filter(
         (post) => post.category === action.payload
       );
     },
@@ -59,5 +66,5 @@ const postsSlice = createSlice({
 });
 
 const { reducer, actions } = postsSlice;
-export const { getStoreData, go2detail, categoryList } = actions;
+export const { getStoreData, go2detail, filteringData } = actions;
 export default reducer;

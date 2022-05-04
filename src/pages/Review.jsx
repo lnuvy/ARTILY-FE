@@ -34,7 +34,7 @@ const Review = () => {
               ? reviewList.map((l, i) => {
                   return (
                     <ReviewCard
-                      _key={i}
+                      key={i}
                       nickname={l.nickname}
                       {...l}
                       onClick={() => handleClickData(l)}

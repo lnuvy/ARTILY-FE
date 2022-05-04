@@ -35,7 +35,7 @@ const ReceiveAddress = () => {
   return (
     <>
       <Text h1>내 위치를 설정해주세요!</Text>
-      <Flex margin="20px">
+      <Flex padding="20px">
         <Input
           fg="1"
           margin="0 10px 0 0px"

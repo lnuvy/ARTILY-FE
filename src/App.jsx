@@ -27,7 +27,6 @@ import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "./shared/token";
 import { actionCreators as userActions } from "./redux/modules/user";
-import { created } from "./shared/socket";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,8 +37,6 @@ function App() {
     if (getToken()) {
       dispatch(userActions.getUserInfo());
     }
-
-    created();
   });
 
   return (
