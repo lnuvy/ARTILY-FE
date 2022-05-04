@@ -15,6 +15,11 @@ const Button = (props) => {
     fg,
     bc,
     outline,
+    position,
+    top,
+    left,
+    right,
+    bottom,
   } = props;
 
   const styles = {
@@ -27,6 +32,11 @@ const Button = (props) => {
     fg,
     outline,
     bc,
+    position,
+    top,
+    left,
+    right,
+    bottom,
   };
 
   return (
@@ -50,6 +60,11 @@ Button.defaultProps = {
   br: "8px",
   fg: "0",
   bc: `${theme.color.brandColor}`,
+  position: "inherit",
+  top: null,
+  bottom: null,
+  left: null,
+  right: null,
 };
 
 const ButtonStyle = styled.button`
@@ -61,6 +76,11 @@ const ButtonStyle = styled.button`
   border-radius: ${({ br }) => br};
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
+  position: ${({ position }) => position};
+  top: ${({ top }) => top};
+  bottom: ${({ bottom }) => bottom};
+  left: ${({ left }) => left};
+  right: ${({ right }) => right};
   justify-content: center;
 
   ${(props) =>

@@ -58,6 +58,12 @@ const StoreWrite = () => {
   return (
     <Grid>
       <Wrap margin="16px">
+        <Wrap margin="20px 10px 10px">
+          <Flex margin="0 0 10px">
+            <Preview />
+            <ImagePreview />
+          </Flex>
+        </Wrap>
         <Input
           id="postTitle"
           label="제목"
@@ -73,39 +79,6 @@ const StoreWrite = () => {
           maxLength="100"
           onChane={handleChange}
         />
-        <Input
-          id="price"
-          label="가격"
-          placeholder="가격"
-          margin="0 0 20px"
-          value={inputs?.price}
-          onChange={handleChange}
-        />
-        <Checkbox
-          id="transaction"
-          zoom={1.3}
-          margin="0 10px"
-          onChange={(e) =>
-            setInputs({ ...inputs, transaction: e.target.checked })
-          }
-        >
-          <Text h2>직거래만 할래요</Text>
-        </Checkbox>
-        <Button onClick={modalOn} />
-
-        <Wrap margin="20px 10px 10px">
-          <Flex jc="space-between" margin="0 0 10px">
-            <Flex>
-              <Text h1>사진 첨부</Text>
-              <Text body2 color="gray">
-                &nbsp;(최대 10장)
-              </Text>
-            </Flex>
-            <Preview />
-          </Flex>
-
-          <ImagePreview />
-        </Wrap>
       </Wrap>
     </Grid>
   );
