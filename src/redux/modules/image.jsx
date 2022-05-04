@@ -28,7 +28,9 @@ const imageSlice = createSlice({
     },
 
     // 프리뷰 사진을 지울때
-    removePreview: (state, action) => {},
+    removePreview: (state, action) => {
+      state.imageArr = state.imageArr.filter((el) => el !== action.payload);
+    },
     // 사용자가 대표이미지를 바꾸고싶을때
     setRepresent: (state, action) => {
       // 기존 대표이미지

@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import { Header, Navigation } from "./components";
+import { Header } from "./components";
 import {
   Chat,
   Follow,
   Home,
   MyPage,
   // NotFound,
+  RedirectKakao,
+  RedirectNaver,
   Review,
   Login,
   RegionSet,
@@ -15,19 +17,17 @@ import {
   Store,
   StoreDetail,
   StoreWrite,
+  ChatRoom,
   ReviewDetail,
 } from "./pages";
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
-import RedirectHandler from "./pages/redirectHandeler";
-// import { useDispatch } from "react-redux";
-// import { getToken } from "./shared/token";
-// import { actionCreators as userActions } from "./redux/modules/user";
 import ToastMessage from "./shared/ToastMessage";
 import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "./shared/token";
 import { actionCreators as userActions } from "./redux/modules/user";
+import { created } from "./shared/socket";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,16 +38,18 @@ function App() {
     if (getToken()) {
       dispatch(userActions.getUserInfo());
     }
+
+    created();
   });
 
   return (
     <>
       <ConnectedRouter history={history}>
-        {/* <Navigation /> */}
-        <Header>ARTILY</Header>
+        <Header>ARTIN</Header>
         <Switch>
           <Route path={["/home", "/"]} exact component={Home} />
           <Route path="/chat" exact component={Chat} />
+          <Route path="/chat/:id" exact component={ChatRoom} />
           <Route path="/store" exact component={Store} />
           <Route path="/store/view/:postId" exact component={StoreDetail} />
           <Route path="/store/write" exact component={StoreWrite} />
@@ -61,7 +63,8 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/regionset" exact component={RegionSet} />
           <Route path="/profile" exact component={Setprofile} />
-          <Route path="/oauth/kakao/callback" component={RedirectHandler} />
+          <Route path="/oauth/kakao/callback" component={RedirectKakao} />
+          <Route path="/oauth/naver/callback" component={RedirectNaver} />
           {/* <Route path="/*" component={NotFound} /> */}
           <Route path="/*" component={Test} />
         </Switch>

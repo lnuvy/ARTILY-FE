@@ -11,6 +11,7 @@ import { storeDummy } from "../../shared/Dummy";
 // list: 데이터 담기는곳, isFetching: 데이터를 불러오는중인지, infinityScroll: 구분하는 아이디 등 넣는곳
 const initialState = {
   list: [],
+  categoryList: [],
   isFetching: false,
   infinityScroll: {},
   detailData: null,
@@ -21,7 +22,6 @@ export const getPostDB = () => {
     // await axios.get()
 
     // 더미데이터 리덕스 주입
-    console.log(storeDummy);
     dispatch(getStoreData(storeDummy));
   };
 };
@@ -31,10 +31,10 @@ export const getPostOne = (postId) => {
     // axios
 
     // 더미데이터 임시방편
+    dispatch(getStoreData(storeDummy));
     const allList = getState().store.list;
-    console.log(allList);
     const now = allList.find((l) => l.postId === postId);
-    dispatch(getNowPost(now));
+    dispatch(go2detail(now));
   };
 };
 
@@ -45,16 +45,19 @@ const postsSlice = createSlice({
     getStoreData: (state, action) => {
       state.list = action.payload;
     },
-    getNowPost: (state, action) => {
-      state.detailData = action.payload;
-    },
     // 데이터 하나 특정하기
     go2detail: (state, action) => {
       state.detailData = action.payload;
+    },
+    // 카테고리 필터
+    categoryList: (state, action) => {
+      state.categoryList = state.list.filter(
+        (post) => post.category === action.payload
+      );
     },
   },
 });
 
 const { reducer, actions } = postsSlice;
-export const { getStoreData, getNowPost, go2detail } = actions;
+export const { getStoreData, go2detail, categoryList } = actions;
 export default reducer;

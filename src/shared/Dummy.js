@@ -236,4 +236,29 @@ export const storeDummy = [
       address: "서울 동작구",
     },
   },
+  {
+    category: "조각",
+    postId: "postIdforchat",
+    postTitle: "채팅용",
+    price: 2000,
+    transaction: "직거래",
+    changeAddress: "",
+    markupCnt: 1,
+    createdAt: "2022-04-28 12:00:00",
+    size: "29.7 x 42cm",
+    content: "채팅용",
+    imageUrl: [
+      "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
+      "https://img.hankyung.com/photo/202108/99.26501439.1-1200x.jpg",
+      "http://via.placeholder.com/400x300",
+    ],
+    user: {
+      nickname: "이한울",
+      profileUrl:
+        "http://k.kakaocdn.net/dn/blXfTb/btq5FhvAxNd/S37fBUxE0CUskeQNo4mA4K/img_640x640.jpg",
+      provider: "kakao",
+      userId: "2222423044",
+      address: "대구 달성군",
+    },
+  },
 ];

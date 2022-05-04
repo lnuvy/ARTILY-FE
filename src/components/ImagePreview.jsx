@@ -16,14 +16,14 @@ const ImagePreview = () => {
     dispatch(setRepresent(image));
   };
 
-  const removePreview = () => {
-    dispatch();
+  const removeImage = (image) => {
+    dispatch(removePreview(image));
   };
 
   return (
     <Grid>
       <Flex fd="column">
-        <Image src={represent || null} height="200px" />
+        <Image represent src={represent || null} height="200px" />
         <Text>대표이미지</Text>
       </Flex>
       <Grid gtc="1fr 1fr">
@@ -31,7 +31,7 @@ const ImagePreview = () => {
           imageArr.map((image, i) => {
             return (
               <Flex fd="column" key={`${image.slice(0, 10)}_${i}`}>
-                <Image src={image} height="120px" />
+                <Image imageArr src={image} height="120px" />
                 <Button
                   padding="8px 16px"
                   margin="10px 0"
@@ -39,7 +39,11 @@ const ImagePreview = () => {
                 >
                   대표이미지로 설정
                 </Button>
-                <Button padding="8px 16px" margin="10px 0">
+                <Button
+                  padding="8px 16px"
+                  margin="10px 0"
+                  onClick={() => removeImage(image)}
+                >
                   삭제
                 </Button>
               </Flex>

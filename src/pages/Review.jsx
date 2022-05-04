@@ -24,15 +24,12 @@ const Review = () => {
     history.push(`/review/view/${data.reviewId}`);
   };
 
-  const [freeList, setFreeList] = useState([]);
-
   return (
     <>
       <Grid>
         <Category />
         <Wrap margin="16px">
           <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
-            {/* <ReviewCard reviewTitle="이거다" reviewContent="조아" /> */}
             {reviewList.length
               ? reviewList.map((l, i) => {
                   return (

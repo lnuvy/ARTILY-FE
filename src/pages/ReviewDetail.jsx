@@ -39,7 +39,7 @@ const ReviewDetail = (props) => {
             <Text h1 contents={current.reviewData.reviewTitle}></Text>
             <Flex margin="8px 0 0 0" jc="space-between">
               <Flex>
-                <Image shape="circle" size="20" />
+                <Image circle size="20" />
                 <Text
                   margin="0 0 0 4px"
                   contents={current.reviewData.nickname}
@@ -76,7 +76,7 @@ const ReviewDetail = (props) => {
                 <Text>작품명</Text>
                 <Text>15,000원</Text>
                 <Flex>
-                  <Image shape="circle" size="20" />
+                  <Image circle size="20" />
                   <Text margin="0 0 0 4px">작가명</Text>
                 </Flex>
               </Wrap>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Preview } from "../components";
 import ImagePreview from "../components/ImagePreview";
 import {
+  Button,
   Checkbox,
   Flex,
   Grid,
@@ -13,6 +14,8 @@ import {
   Wrap,
 } from "../elements";
 import { clearPreview } from "../redux/modules/image";
+import { openModal } from "../redux/modules/modal";
+import ReceiveAddress from "../shared/modal/modalContent/ReceiveAddress";
 
 /*
  * @한울
@@ -37,6 +40,20 @@ const StoreWrite = () => {
       dispatch(clearPreview());
     };
   }, []);
+
+  const modalOn = () => {
+    dispatch(
+      openModal({
+        title: "주소입력",
+        // text 를 content 로 변경, 태그 직접 넣으면 됩니다
+        content: (
+          <>
+            <ReceiveAddress />
+          </>
+        ),
+      })
+    );
+  };
 
   return (
     <Grid>
@@ -74,6 +91,8 @@ const StoreWrite = () => {
         >
           <Text h2>직거래만 할래요</Text>
         </Checkbox>
+        <Button onClick={modalOn} />
+
         <Wrap margin="20px 10px 10px">
           <Flex jc="space-between" margin="0 0 10px">
             <Flex>

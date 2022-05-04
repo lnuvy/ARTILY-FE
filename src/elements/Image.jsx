@@ -5,7 +5,7 @@ import theme from "../styles/theme";
 // 다른 형태의 이미지가 더 없다면 shape 대신 circle 이라고 주기만 하면 프로필 이미지가 되는건 어떨까요 ? 4/29 한울
 const Image = (props) => {
   const {
-    shape,
+    circle, // 5/2 한울 변경
     src,
     size,
     display,
@@ -34,14 +34,14 @@ const Image = (props) => {
     bc,
   };
 
-  if (shape === "circle") {
+  if (circle) {
     return <ImageCircle onClick={onClick} {...styles}></ImageCircle>;
   }
   return <ImageSqure onClick={onClick} {...styles}></ImageSqure>;
 };
 
 Image.defaultProps = {
-  shape: false,
+  circle: false,
   src: "",
   width: "100%",
   height: "100px",

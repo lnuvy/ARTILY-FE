@@ -10,6 +10,7 @@ import MainReducer from "./modules/main";
 import StoresReducer from "./modules/store";
 import ReviewReducer from "./modules/reviews";
 import ImageReducer from "./modules/image";
+import ChatReducer from "./modules/chat";
 
 export const history = createBrowserHistory({ basename: "/" });
 
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   store: StoresReducer,
   review: ReviewReducer,
   image: ImageReducer,
+  chat: ChatReducer,
   router: connectRouter(history),
 });
 
