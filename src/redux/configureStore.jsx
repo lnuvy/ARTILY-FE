@@ -14,7 +14,7 @@ import ChatReducer from "./modules/chat";
 //마이페이지에서 사용할 모듈 추가
 import MyStoresReducer from "./modules/mypage";
 
-export const history = createBrowserHistory();
+export const history = createBrowserHistory({ basename: "/" });
 
 const rootReducer = combineReducers({
   user: user,

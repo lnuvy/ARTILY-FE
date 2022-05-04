@@ -9,6 +9,7 @@ import RedirectKakao from "./RedirectKakao";
 import RedirectNaver from "./RedirectNaver";
 import RegionSet from "./RegionSet";
 import Review from "./Review";
+import ReviewDetail from "./ReviewDetail";
 import Setprofile from "./SetProfile";
 import Store from "./Store";
 import StoreDetail from "./StoreDetail";
@@ -32,4 +33,5 @@ export {
   StoreDetail,
   StoreWrite,
   Test,
+  ReviewDetail,
 };

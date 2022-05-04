@@ -17,6 +17,7 @@ const Text = (props) => {
     fg,
     textAlign,
     lineHeight,
+    contents,
   } = props;
 
   const styles = {
@@ -31,21 +32,51 @@ const Text = (props) => {
     fg,
     textAlign,
     lineHeight,
+    contents,
   };
 
   if (h1) {
-    return <Headline {...styles}>{children}</Headline>;
+    return (
+      <Headline {...styles}>
+        {children}
+        {contents}
+      </Headline>
+    );
   } else if (h2) {
-    return <Subtitle1 {...styles}>{children}</Subtitle1>;
+    return (
+      <Subtitle1 {...styles}>
+        {children}
+        {contents}
+      </Subtitle1>
+    );
   } else if (h3) {
-    return <Subtitle2 {...styles}>{children}</Subtitle2>;
+    return (
+      <Subtitle2 {...styles}>
+        {children}
+        {contents}
+      </Subtitle2>
+    );
   } else if (body2) {
-    return <Body2 {...styles}>{children}</Body2>;
+    return (
+      <Body2 {...styles}>
+        {children}
+        {contents}
+      </Body2>
+    );
   } else if (body3) {
-    return <Body3 {...styles}>{children}</Body3>;
-  } else {
-    return <Body1 {...styles}>{children}</Body1>;
+    return (
+      <Body3 {...styles}>
+        {children}
+        {contents}
+      </Body3>
+    );
   }
+  return (
+    <Body1 {...styles}>
+      {children}
+      {contents}
+    </Body1>
+  );
 };
 
 Text.defaultProps = {

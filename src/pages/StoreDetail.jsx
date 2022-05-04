@@ -25,113 +25,104 @@ const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
 
-  const current = useSelector((state) => state.store?.detailData);
+  const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
-
-  const {
-    user,
-    category,
-    createdAt,
-    imageUrl,
-    markupCnt,
-    postTitle,
-    price,
-    transaction,
-    size,
-    content,
-  } = current;
-
-  const { userId, address, nickname, profileUrl } = user;
-
-  const isMe = userId === currentUser?.userId;
 
   useEffect(() => {
     dispatch(getPostOne(postId));
-  }, [current]);
+  }, []);
 
+  const isMe = current?.user?.userId === currentUser?.userId;
+
+  // 채팅하기 버튼 눌렀을때
   const startChat = () => {
-    console.log("채팅 시작");
-    console.log(user);
-    let roomName = "123123";
-    socket.emit("join_room", roomName);
+    const postUser = current.user?.userId;
+    const nowUser = currentUser?.userId;
 
+    let roomName = `from${nowUser}_to${postUser}`;
+
+    socket.emit("join_room", roomName);
     history.push(`/chat/${roomName}`);
   };
 
   return (
     <>
-      <Wrap margin="16px">
-        <Text h1>{postTitle}</Text>
-        <Flex margin="8px 0 0 0" jc="space-between">
-          <Flex>
-            <Image circle size="20" src={profileUrl} />
-            <Text margin="0 0 0 4px">{nickname}</Text>
-          </Flex>
-          <Flex>
-            {isMe ? (
-              <>
-                <Text body2>수정하기</Text> &nbsp;
-                <Text body2>삭제하기</Text>
-              </>
-            ) : (
-              <>
-                <Text body2>팔로우</Text> &nbsp;
-                <Text body2>신고</Text>
-              </>
-            )}
-          </Flex>
-        </Flex>
-      </Wrap>
-      <ImageCarousel src={imageUrl} />
-      <Wrap margin="16px">
-        <Flex>
-          <Text body3 fg="1">
-            분류
-          </Text>
-          <Text body3>{category}</Text>
-        </Flex>
-        <Flex>
-          <Text body3 fg="1">
-            크기
-          </Text>
-          <Text body3>{size}</Text>
-        </Flex>
-        <Flex margin="0 0 10px">
-          <Text body3 fg="1">
-            거래 방식
-          </Text>
-          <Text body3>{transaction}</Text>
-        </Flex>
-        <Text>{content}</Text>
-        <Flex margin="16px 0 0 ">
-          <Text h2 lineHeight="22px">
-            작가의 다른 작품
-          </Text>
-          <Text margin="0 0 0 8px" fg="1" lineHeight="22px">
-            팔로우
-          </Text>
-          <Text lineHeight="22px">더보기</Text>
-        </Flex>
-        <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px"></Grid>
-      </Wrap>
+      {current && (
+        <>
+          <Wrap margin="16px">
+            <Text h1>{current.postTitle}</Text>
+            <Flex margin="8px 0 0 0" jc="space-between">
+              <Flex>
+                <Image circle size="20" src={current.user.profileUrl} />
+                <Text margin="0 0 0 4px">{current.user.nickname}</Text>
+              </Flex>
+              <Flex>
+                {isMe ? (
+                  <>
+                    <Text body2>수정하기</Text> &nbsp;
+                    <Text body2>삭제하기</Text>
+                  </>
+                ) : (
+                  <>
+                    <Text body2>팔로우</Text> &nbsp;
+                    <Text body2>신고</Text>
+                  </>
+                )}
+              </Flex>
+            </Flex>
+          </Wrap>
+          <ImageCarousel src={current.imageUrl} />
 
-      {/* 임시 */}
-      <FixedChatBar>
-        <Flex>
-          <IoMdHeartEmpty size={36} />
-          <Text h1>{markupCnt}</Text>
-        </Flex>
-        <Flex>
-          <Text h1 bold margin="0 10px">
-            {priceComma(price)}원
-          </Text>
-          {isMe ? (
-            <Button>판매완료</Button>
-          ) : (
-            <Button onClick={startChat}>채팅하기</Button>
-          )}
-        </Flex>
-      </FixedChatBar>
+          <Wrap margin="16px">
+            <Flex>
+              <Text body3 fg="1">
+                분류
+              </Text>
+              <Text body3>{current.category}</Text>
+            </Flex>
+            <Flex>
+              <Text body3 fg="1">
+                크기
+              </Text>
+              <Text body3>{current.size}</Text>
+            </Flex>
+            <Flex margin="0 0 10px">
+              <Text body3 fg="1">
+                거래 방식
+              </Text>
+              <Text body3>{current.transaction}</Text>
+            </Flex>
+            <Text>{current.content}</Text>
+            <Flex margin="16px 0 0 ">
+              <Text h2 lineHeight="22px">
+                작가의 다른 작품
+              </Text>
+              <Text margin="0 0 0 8px" fg="1" lineHeight="22px">
+                팔로우
+              </Text>
+              <Text lineHeight="22px">더보기</Text>
+            </Flex>
+            <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px"></Grid>
+          </Wrap>
+
+          <FixedChatBar>
+            <Flex>
+              <IoMdHeartEmpty size={36} />
+              <Text h1>{current.markupCnt}</Text>
+            </Flex>
+            <Flex>
+              <Text h1 bold margin="0 10px">
+                {priceComma(current.price)}원
+              </Text>
+              {isMe ? (
+                <Button>판매완료</Button>
+              ) : (
+                <Button onClick={startChat}>채팅하기</Button>
+              )}
+            </Flex>
+          </FixedChatBar>
+        </>
+      )}
     </>
   );
 };

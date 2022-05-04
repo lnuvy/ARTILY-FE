@@ -18,6 +18,7 @@ import {
   StoreDetail,
   StoreWrite,
   ChatRoom,
+  ReviewDetail,
 } from "./pages";
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
@@ -26,7 +27,7 @@ import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "./shared/token";
 import { actionCreators as userActions } from "./redux/modules/user";
-import { getPostDB } from "./redux/modules/store";
+import { created } from "./shared/socket";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,8 @@ function App() {
     if (getToken()) {
       dispatch(userActions.getUserInfo());
     }
+
+    created();
   });
 
   return (
@@ -53,7 +56,8 @@ function App() {
           <Route path="/store/write/:postId" exact component={StoreWrite} />
           <Route path="/follow" exact component={Follow} />
           <Route path="/store" exact component={Store} />
-          <Route path="/review" exact component={Review} />
+          <Route exact path="/review" component={Review} />
+          <Route exact path="/review/view/:reviewId" component={ReviewDetail} />
           <Route path="/test" component={Test} />
           <Route path="/mypage" exact component={MyPage} />
           <Route path="/login" exact component={Login} />

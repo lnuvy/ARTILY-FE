@@ -14,27 +14,10 @@ const Login = () => {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
 
   const NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID;
-  const NAVER_CALLBACK_URL = process.env.REACT_APP_NAVER_REDIRECT_URI;
-  const NAVER_CLIENT_SECRET = process.env.REACT_APP_NAVER_CLIENT_SECRET;
+  const NAVER_REDIRECT_URI = process.env.REACT_APP_NAVER_REDIRECT_URI;
+  // const NAVER_CLIENT_SECRET = process.env.REACT_APP_NAVER_CLIENT_SECRET;
 
-  // const { naver } = window;
-  // const location = useLocation();
-
-  // const initializeNaverLogin = () => {
-  //   const naverLogin = new naver.LoginWithNaverId({
-  //     clientId: NAVER_CLIENT_ID,
-  //     callbackUrl: NAVER_CALLBACK_URL,
-  //     isPopup: false,
-  //     loginButton: { color: "white", type: 1, height: "47" },
-  //   });
-  //   naverLogin.init();
-  // };
-
-  // useEffect(() => {
-  //   initializeNaverLogin();
-  // }, []);
-
-  const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}&state=asdf`;
+  const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=asdf`;
   return (
     <>
       <Text h1>로그인</Text>
