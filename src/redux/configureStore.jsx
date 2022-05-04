@@ -11,15 +11,19 @@ import StoresReducer from "./modules/store";
 import ReviewReducer from "./modules/reviews";
 import ImageReducer from "./modules/image";
 import ChatReducer from "./modules/chat";
+//마이페이지에서 사용할 모듈 추가
+import MyStoresReducer from "./modules/mypage";
 
 export const history = createBrowserHistory({ basename: "/" });
 
 const rootReducer = combineReducers({
   user: user,
+  //프로필 이미지 설정시 사용할 모듈
   toastMessage: ToastReducer,
   modal: ModalReducer,
   main: MainReducer,
   store: StoresReducer,
+  mystore: MyStoresReducer,
   review: ReviewReducer,
   image: ImageReducer,
   chat: ChatReducer,

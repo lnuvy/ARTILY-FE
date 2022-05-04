@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Card } from "../components";
-import { Flex, Image, Text, Icon } from "../elements/index";
+import { Flex, Image, Text, Icon, Wrap } from "../elements/index";
 
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 const OtherWorkCard = (props) => {

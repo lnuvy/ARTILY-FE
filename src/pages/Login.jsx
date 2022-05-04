@@ -35,6 +35,7 @@ const Login = () => {
           <img
             alt="네이버"
             src="../images/naver_social_login.png"
+            // 네이버 소셜로그인 버튼 사이즈 변경함(5.4 영경)
             width="200px"
           ></img>
         </a>
