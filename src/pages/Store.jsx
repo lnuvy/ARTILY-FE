@@ -10,7 +10,10 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 const Store = () => {
   const dispatch = useDispatch();
+
+  // 전체
   const storeList = useSelector((state) => state.store.list);
+  const categoryList = useSelector((state) => state.store.categoryList);
 
   useEffect(() => {
     // 더미데이터 주입된상태
@@ -87,6 +90,8 @@ const Store = () => {
           </Grid>
         </Wrap>
       </Grid>
+
+      {/* 임시로 만들어둔 글쓰기 버튼 */}
       <Button onClick={() => history.push("/store/write")}>글쓰기</Button>
     </>
   );

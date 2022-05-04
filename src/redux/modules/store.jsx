@@ -49,6 +49,7 @@ const postsSlice = createSlice({
     go2detail: (state, action) => {
       state.detailData = action.payload;
     },
+    // 카테고리 필터
     categoryList: (state, action) => {
       state.categoryList = state.list.filter(
         (post) => post.category === action.payload

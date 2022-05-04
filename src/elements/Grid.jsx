@@ -2,7 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 const Grid = (props) => {
-  const { children, onClick, cg, rg, width, gtc, textAlign, margin } = props;
+  const {
+    children,
+    onClick,
+    cg,
+    rg,
+    width,
+    gtc,
+    textAlign,
+    margin,
+    bc,
+    border,
+  } = props;
 
   const styles = {
     gtc,
@@ -11,6 +22,8 @@ const Grid = (props) => {
     rg,
     width,
     margin,
+    bc,
+    border,
   };
 
   return (
@@ -27,9 +40,12 @@ Grid.defaultProps = {
   textAlign: "left",
   width: "inherit",
   margin: "0",
+  bc: "transparent",
+  border: "none",
 };
 
 const GridStyle = styled.div`
+  background-color: ${({ bc }) => bc};
   display: grid;
   column-gap: ${({ cg }) => cg};
   row-gap: ${({ rg }) => rg};
@@ -37,6 +53,8 @@ const GridStyle = styled.div`
   text-align: ${({ textAlign }) => textAlign};
   width: ${({ width }) => width};
   margin: ${({ margin }) => margin};
+
+  border: ${({ border }) => border};
 `;
 
 export default Grid;

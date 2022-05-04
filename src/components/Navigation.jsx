@@ -3,14 +3,13 @@ import { useLocation } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
 import { Flex, Icon, Text, Tab, Grid } from "../elements";
+import theme from "../styles/theme";
 
 // 경로를 같이 저장해야할거같아서 Object.entries로 사용
 const menuSelect = {
   홈: "/home",
   스토어: "/store",
   리뷰: "/review",
-  // 마이페이지: "/myprofile",
-  //4/30 pm 2:43 마이페이지 경로 이름 바꿨습니다 -영경
   마이페이지: "/mypage",
 };
 export const menus = Object.entries(menuSelect);
@@ -60,10 +59,12 @@ const CurrentDiv = styled.div`
   margin: 10px 0 0;
   cursor: pointer;
   text-align: center;
-  color: white;
+  color: black;
   /* animation: all 3s ease-out; */
-  border-bottom: ${({ current }) =>
-    current ? `3px solid white;` : "3px solid transparent;"};
+  border-bottom: ${({ current, theme }) =>
+    current
+      ? `3px solid ${theme.color.brandColor};`
+      : "3px solid transparent;"};
   &:focus {
     /* outline: none; */
   }

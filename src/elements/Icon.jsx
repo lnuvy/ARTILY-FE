@@ -23,10 +23,10 @@ const Icon = (props) => {
 };
 
 Icon.defaultProps = {
-  width: "24px",
-  height: "24px",
+  width: "36px",
+  height: "36px",
   fg: "0",
-  bc: "black",
+  bc: "transparent",
 };
 
 const IconStyle = styled.div`

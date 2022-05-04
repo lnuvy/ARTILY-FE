@@ -8,6 +8,7 @@ const Flex = (props) => {
     onClick,
     children,
     width,
+    height,
     fg,
     child,
     jc,
@@ -21,6 +22,7 @@ const Flex = (props) => {
 
   const styles = {
     width,
+    height,
     fg,
     jc,
     ai,
