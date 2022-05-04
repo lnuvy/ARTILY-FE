@@ -12,7 +12,7 @@ import {
   ImageCarousel,
   Image,
 } from "../elements";
-import { Card, Navigation, ArtCard } from "../components";
+import { Card, Navigation, ArtCard, OtherWorkCard } from "../components";
 import {
   getNowReview,
   getReview,
@@ -90,15 +90,12 @@ const ReviewDetail = (props) => {
               </Text>
               <Text lineHeight="22px">더보기</Text>
             </Flex>
-            <Card>
-              <Flex>
-                <Image width="96px" height="96px" />
-                <Wrap margin="0 0 0 16px ">
-                  <Text>작품명</Text>
-                  <Text>15,000원</Text>
-                </Wrap>
-              </Flex>
-            </Card>
+            <Grid gtc="auto auto">
+              <OtherWorkCard />
+              <OtherWorkCard />
+              <OtherWorkCard />
+              <OtherWorkCard />
+            </Grid>
           </Wrap>
         </>
       ) : null}
