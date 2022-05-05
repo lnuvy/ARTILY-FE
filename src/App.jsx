@@ -30,16 +30,13 @@ import { actionCreators as userActions } from "./redux/modules/user";
 import { socket } from "./shared/socket";
 
 import { removeToken } from "./shared/token";
-import { receiveChatRoom } from "./redux/modules/chat";
+import { receiveChat, receiveChatRoom } from "./redux/modules/chat";
 
 function App() {
   const dispatch = useDispatch();
   // 리덕스에서 모달 정보 가져오기(디폴트는 false)
   const modalOn = useSelector((state) => state.modal.modalOn);
   const userInfo = useSelector((state) => state.user.user);
-
-  const [nickname, setNickname] = useState("");
-  const [userArray, setUserArray] = useState([]);
 
   useEffect(() => {
     if (getToken()) {
@@ -67,17 +64,18 @@ function App() {
   }, [userInfo]);
 
   useEffect(() => {
+    // 판매자 입장
     socket.on("join_room", (data) => {
       dispatch(receiveChatRoom(data));
-      // socket.emit("enter_room");
+      socket.emit("enter_room", data.roomName);
     });
   }, []);
 
   useEffect(() => {
-    socket.on("send_message", (data) => {
-      console.log(data);
+    socket.on("receive_message", (data) => {
+      dispatch(receiveChat(data));
     });
-  });
+  }, []);
 
   return (
     <>
@@ -89,13 +87,6 @@ function App() {
       >
         로그아웃
       </button>
-      {userArray.map((u, i) => {
-        return (
-          <span key={i}>
-            {u.nickname} / {u.sessionID}
-          </span>
-        );
-      })}
       <ConnectedRouter history={history}>
         <Header>ARTIN</Header>
         <Switch>

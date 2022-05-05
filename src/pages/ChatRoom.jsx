@@ -8,7 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import theme from "../styles/theme";
 import { history } from "../redux/configureStore";
-import { messagesUpdate } from "../redux/modules/chat";
+import {
+  messagesUpdate,
+  notificationCheck,
+  receiveChat,
+} from "../redux/modules/chat";
 
 const { color } = theme;
 
@@ -19,7 +23,6 @@ const ChatRoom = () => {
   // url 에서 가져온 현재 방 이름
   const roomName = pathname.slice(6);
   const from = useSelector((state) => state.user.user?.userId);
-  // const targetInfo = localStorage.getItem("target");
   // const target = JSON.parse(targetInfo)?.userId;
 
   const nowChat = useSelector((state) => state.chat.roomList).find(
@@ -27,21 +30,18 @@ const ChatRoom = () => {
   );
 
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState(nowChat?.messages || []);
+
+  const [messages, setMessages] = useState([]);
+
+  // useEffect(() => {
+  //   // socket.emit("join_room", roomName, nowChat?.post?.userId, nowChat?.post);
+  // }, [socket]);
 
   useEffect(() => {
-    // socket.emit("join_room", roomName, nowChat?.post?.userId, nowChat?.post);
-  });
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log(data);
-      setMessages((list) => [...list, data]);
-    });
-    return () => {
-      dispatch(messagesUpdate({ roomName, messages }));
-    };
-  }, []);
+    if (nowChat) {
+      setMessages(nowChat.messages);
+    }
+  }, [nowChat]);
 
   const sendMessage = () => {
     if (message !== "") {
@@ -52,8 +52,14 @@ const ChatRoom = () => {
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
       };
       socket.emit("send_message", messageData);
-      setMessages((list) => [...list, messageData]);
+      // setMessages((list) => [...list, messageData]);
+      setMessages(messages.concat(messageData));
       setMessage("");
+      dispatch(receiveChat(messageData));
+
+      socket.on("receive_message", (data) => {
+        setMessages(messages.concat(data));
+      });
     }
   };
   // 스크롤 부드럽게 내리기
@@ -78,6 +84,7 @@ const ChatRoom = () => {
 
   return (
     <>
+      {/* 상품 정보 */}
       <Wrap>
         <Flex>
           <Image src={nowChat?.post?.imageUrl} width="50px" height="50px" />
@@ -90,6 +97,8 @@ const ChatRoom = () => {
           <Button onClick={leaveRoom}>나가기</Button>
         </Flex>
       </Wrap>
+
+      {/* 채팅 */}
       <Container>
         {messages.map((msg, i) => {
           if (msg.from === from)
@@ -114,6 +123,7 @@ const ChatRoom = () => {
           else
             return (
               <Flex key={i} width="80%" height="auto">
+                <Image circle size={50} src={nowChat.profileImage} />
                 <Flex
                   width="fit-content"
                   height="fit-content"
@@ -150,7 +160,7 @@ const ChatRoom = () => {
 };
 
 const Container = styled.div`
-  height: calc(100vh - 175px);
+  height: calc(100vh - 275px);
   display: flex;
   flex-direction: column;
   overflow-y: scroll;

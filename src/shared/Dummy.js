@@ -21,7 +21,7 @@ export const homeDummy = [
         user: {
           userId: "user444",
           nickname: "판매자777",
-          profileUrl:
+          profileImage:
             "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
           address: "고양시 덕양구",
         },
@@ -41,7 +41,7 @@ export const homeDummy = [
         user: {
           userId: "user999",
           nickname: "조각상헌터",
-          profileUrl:
+          profileImage:
             "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
           address: "동두천 어쩌구",
         },
@@ -61,7 +61,7 @@ export const homeDummy = [
         user: {
           userId: "user123",
           nickname: "판매자1",
-          profileUrl:
+          profileImage:
             "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
           address: "광주 어디",
         },
@@ -84,7 +84,7 @@ export const homeDummy = [
         user: {
           userId: "user123",
           nickname: "판매자1",
-          profileUrl:
+          profileImage:
             "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
           address: "대전 유성구",
         },
@@ -96,28 +96,28 @@ export const homeDummy = [
       {
         userId: "user1234",
         nickname: "피카소",
-        profileUrl:
+        profileImage:
           "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
         address: "서울 중랑구",
       },
       {
         userId: "qwerqwerrrr",
         nickname: "고흐",
-        profileUrl:
+        profileImage:
           "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
         address: "고양시 어디구",
       },
       {
         userId: "tttttttttt",
         nickname: "렘브란트",
-        profileUrl:
+        profileImage:
           "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
         address: "분당 서현구",
       },
       {
         userId: "user123",
         nickname: "판매자1",
-        profileUrl:
+        profileImage:
           "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
         address: "대전 유성구",
       },
@@ -209,7 +209,7 @@ export const storeDummy = [
     user: {
       userId: "user123",
       nickname: "판매자1",
-      profileUrl:
+      profileImage:
         "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
       address: "대전 유성구",
     },
@@ -231,7 +231,7 @@ export const storeDummy = [
     user: {
       userId: "user444",
       nickname: "닉네임99",
-      profileUrl:
+      profileImage:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi8sTwwX22p9l0nz43jBSvHw4dlqMxU7XFDg&usqp=CAU",
       address: "서울 동작구",
     },
@@ -254,7 +254,7 @@ export const storeDummy = [
     ],
     user: {
       nickname: "이한울",
-      profileUrl:
+      profileImage:
         "http://k.kakaocdn.net/dn/blXfTb/btq5FhvAxNd/S37fBUxE0CUskeQNo4mA4K/img_640x640.jpg",
       provider: "kakao",
       userId: "2222423044",
@@ -279,7 +279,7 @@ export const myStoreDummy = [
     user: {
       userId: "user123",
       nickname: "미니언즈",
-      profileUrl: "../../images/ddung.jpg",
+      profileImage: "../../images/ddung.jpg",
       address: "경기 고양시",
     },
   },
@@ -298,7 +298,7 @@ export const myStoreDummy = [
     user: {
       userId: "user123",
       nickname: "미니언즈",
-      profileUrl: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
+      profileImage: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
       address: "경기 고양시",
     },
   },
@@ -317,7 +317,7 @@ export const myStoreDummy = [
     user: {
       userId: "user123",
       nickname: "미니언즈",
-      profileUrl: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
+      profileImage: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
       address: "경기 고양시",
     },
   },
@@ -325,3 +325,7 @@ export const myStoreDummy = [
 
 // 로컬스토리지에 상대방 저장
 // localStorage.setItem("target", JSON.stringify(current.user));
+
+// const targetInfo = localStorage.getItem("target");
+//   const target = JSON.parse(targetInfo);
+// localStorage.setItem("targetInfo", JSON.stringify(targetInfo));

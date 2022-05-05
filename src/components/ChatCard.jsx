@@ -2,26 +2,37 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Flex, Image, Text } from "../elements";
 import { history } from "../redux/configureStore";
+import { changeTime } from "../shared/utils";
 
 const ChatCard = ({ room, onClick }) => {
   // const dispatch = useDispatch();
-
   return (
     <Flex jc="space-between" margin="16px 24px" onClick={onClick}>
       <Flex>
-        <Image circle size={50} />
-
-        <Flex fd="column" margin="0 12px" jc="flex-start">
-          <Text h2>{room?.nickname || "닉네임"}</Text>
-          <Text body2>{room?.lastMessage || "마지막대화"}</Text>
+        <Flex>
+          <Image circle size={50} src={room?.profileImage} />
+        </Flex>
+        <Flex fd="column" padding="0 12px" margin="0 12px">
+          <Flex>
+            <Text h2>{room?.nickname || "닉네임"}</Text>
+          </Flex>
+          <Flex>
+            <Text body2>
+              {room?.lastMessage || "대화를 먼저 시작해보세요!"}
+            </Text>
+          </Flex>
         </Flex>
       </Flex>
-      <Flex fd="column">
-        <Text body2>{room?.time || "몇분전"}</Text>
-        <Text h2>{room?.noti || "알림"}</Text>
-      </Flex>
       <Flex>
-        <Image width="50px" height="50px" src={room?.post?.imageUrl} />
+        <Flex fd="column">
+          <Text body2>
+            {room?.lastTime ? changeTime(room?.lastTime) : null}
+          </Text>
+          <Text h2>{room?.newMessage || null}</Text>
+        </Flex>
+        <Flex>
+          <Image width="50px" height="50px" src={room?.post?.imageUrl} />
+        </Flex>
       </Flex>
     </Flex>
   );

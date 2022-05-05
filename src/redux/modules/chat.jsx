@@ -17,11 +17,14 @@ import moment from "moment";
 //     },
 //     postUser: "2222423044",
 //     roomName: "from2222434554_to2222423044_postIdforchat",
+//     profileImage: "",
+//     messages: [],
 //     lastMessage: {
 //       message: "dfdf",
 //       time: "2022-05-05 12:00:00",
 //       myself: true / false,
 //     },
+//     newMessage: 0,
 //   },
 // ];
 
@@ -34,6 +37,16 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
+    notificationCheck: (state, action) => {
+      const { roomName } = action.payload;
+
+      state.roomList.forEach((room) => {
+        if (room.roomName === roomName) {
+          room.newMessage = 0;
+          return;
+        }
+      });
+    },
     // 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
       const newChatRoom = {
@@ -41,27 +54,19 @@ const chatSlice = createSlice({
       };
       state.roomList.unshift(newChatRoom);
     },
-    createChatRoom: (state, action) => {
-      const { roomName, post } = action.payload;
-
-      const newChatRoom = {
-        roomName,
-        messages: [],
-        newMessage: 0,
-        profileImage: "",
-        post,
-      };
-
-      console.log(newChatRoom);
-
-      state.roomList.unshift(newChatRoom);
-    },
-    messagesUpdate: (state, action) => {
-      const { roomName, messages } = action.payload;
+    receiveChat: (state, action) => {
+      const { from, message, roomName, time } = action.payload;
 
       state.roomList.forEach((room) => {
         if (room.roomName === roomName) {
-          room.messages = messages;
+          room.messages.push(action.payload);
+          // 딕셔너리 넣었는데 터져서 배열로 바꿈
+          room.lastMessage = message;
+          room.lastTime = time;
+          // 남이보낸거면 카운트 추가
+          if (!from) {
+            room.newMessage++;
+          }
         }
       });
     },
@@ -72,8 +77,8 @@ const { reducer, actions } = chatSlice;
 export const {
   newNotification,
   notificationCheck,
-  createChatRoom,
+  // createChatRoom,
   receiveChatRoom,
-  messagesUpdate,
+  receiveChat,
 } = actions;
 export default reducer;

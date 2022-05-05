@@ -41,6 +41,8 @@ const kakaoLogin = (code) => {
       .then((res) => {
         console.log(res.data); // 토큰이 넘어옴
 
+        // const { token, nickname, profileImage, provider, userId, address } =
+        //   res.data.user;
         const { token, nickname, profileUrl, provider, userId, address } =
           res.data.user;
         const ACCESS_TOKEN = token;
@@ -49,7 +51,7 @@ const kakaoLogin = (code) => {
           //서버 DB에 담긴 유저정보 가져오자
           userId,
           nickname,
-          profileUrl,
+          profileImage: profileUrl,
           provider,
           address,
         };
@@ -73,14 +75,15 @@ const naverLogin = (code, state) => {
       )
       .then((res) => {
         console.log(res);
-        const { token, nickname, profileUrl, provider, userId } = res.data.user;
+        const { token, nickname, profileImage, provider, userId } =
+          res.data.user;
         const ACCESS_TOKEN = token;
 
         const user = {
           //서버 DB에 담긴 유저정보 가져오자
           userId,
           nickname,
-          profileUrl,
+          profileImage,
           provider,
         };
         dispatch(setUser(user));

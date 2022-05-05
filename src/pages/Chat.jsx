@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ChatCard } from "../components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
-import { receiveChatRoom } from "../redux/modules/chat";
+import { notificationCheck } from "../redux/modules/chat";
 import { socket } from "../shared/socket";
 
 const Chat = () => {
@@ -19,8 +19,7 @@ const Chat = () => {
   }, []);
 
   const enterRoom = (roomName) => {
-    // socket.emit("join_room", roomName);
-    socket.emit("enter_room", roomName);
+    dispatch(notificationCheck(roomName));
     history.push(`/chat/${roomName}`);
   };
 

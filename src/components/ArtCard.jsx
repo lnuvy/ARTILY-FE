@@ -16,13 +16,13 @@ const ArtCard = (props) => {
 
   const { onClick, user, postTitle, price, category, transaction, imageUrl } =
     props;
-  const { userId, nickname, profileUrl, address } = user;
+  const { userId, nickname, profileImage, address } = user;
 
   return (
     <Card onClick={onClick}>
       <Image height="120px" src={imageUrl[0]} />
       <Flex margin="8px 0 0">
-        <Image circle size="20" src={profileUrl} />
+        <Image circle size="20" src={profileImage} />
         <Text margin="0 0 0 4px">{nickname}</Text>
       </Flex>
       <Text>{postTitle}</Text>

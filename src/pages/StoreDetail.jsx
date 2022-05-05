@@ -54,9 +54,14 @@ const StoreDetail = () => {
     dispatch(
       receiveChatRoom({
         roomName,
-        userId: postUser,
+        target: postUser,
         post: chatPostData,
         nickname: current.user.nickname,
+        profileImage: current.user.profileImage,
+        messages: [],
+        newMessage: 0,
+        lastMessage: null,
+        lastTime: null,
       })
     );
     history.push(`/chat/${roomName}`);
@@ -70,7 +75,7 @@ const StoreDetail = () => {
             <Text h1>{current.postTitle}</Text>
             <Flex margin="8px 0 0 0" jc="space-between">
               <Flex>
-                <Image circle size="20" src={current.user.profileUrl} />
+                <Image circle size="20" src={current.user.profileImage} />
                 <Text margin="0 0 0 4px">{current.user.nickname}</Text>
               </Flex>
               <Flex>
