@@ -26,7 +26,6 @@ const Store = () => {
     transaction: "전체",
     region: ["전체"],
   });
-  console.log(filtering);
 
   // 검색창 인풋
   const [query, setQuery] = useState("");

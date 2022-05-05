@@ -20,6 +20,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 
 // 채팅
 import { socket } from "../shared/socket";
+import { receiveChatRoom } from "../redux/modules/chat";
 
 const StoreDetail = () => {
   const dispatch = useDispatch();
@@ -39,9 +40,25 @@ const StoreDetail = () => {
     const postUser = current.user?.userId;
     const nowUser = currentUser?.userId;
 
-    let roomName = `from${nowUser}_to${postUser}`;
+    let roomName = `from${nowUser}_to${postUser}_${postId}`;
 
-    socket.emit("join_room", roomName);
+    const chatPostData = {
+      postId,
+      imageUrl: current.imageUrl[0],
+      postTitle: current.postTitle,
+      price: current.price,
+    };
+
+    socket.emit("join_room", roomName, postUser, chatPostData);
+
+    dispatch(
+      receiveChatRoom({
+        roomName,
+        userId: postUser,
+        post: chatPostData,
+        nickname: current.user.nickname,
+      })
+    );
     history.push(`/chat/${roomName}`);
   };
 

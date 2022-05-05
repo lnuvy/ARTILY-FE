@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Flex, Image, Text } from "../elements";
 import { history } from "../redux/configureStore";
 
-const ChatCard = ({ room }) => {
+const ChatCard = ({ room, onClick }) => {
   // const dispatch = useDispatch();
 
   return (
-    <Flex jc="space-between" margin="16px 24px">
+    <Flex jc="space-between" margin="16px 24px" onClick={onClick}>
       <Flex>
         <Image circle size={50} />
 
@@ -19,6 +19,9 @@ const ChatCard = ({ room }) => {
       <Flex fd="column">
         <Text body2>{room?.time || "몇분전"}</Text>
         <Text h2>{room?.noti || "알림"}</Text>
+      </Flex>
+      <Flex>
+        <Image width="50px" height="50px" src={room?.post?.imageUrl} />
       </Flex>
     </Flex>
   );

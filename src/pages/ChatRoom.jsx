@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Button, Flex, Grid, Input, Text, Wrap } from "../elements";
+import { Button, Flex, Grid, Image, Input, Text, Wrap } from "../elements";
 import { BsPaperclip } from "react-icons/bs";
 import { socket } from "../shared/socket";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import theme from "../styles/theme";
+import { history } from "../redux/configureStore";
+import { messagesUpdate } from "../redux/modules/chat";
 
 const { color } = theme;
 
@@ -16,31 +18,32 @@ const ChatRoom = () => {
 
   // url 에서 가져온 현재 방 이름
   const roomName = pathname.slice(6);
-  console.log(roomName);
-  // 메세지 보내는사람 (지금은 무조건 작성자 본인)
-  const from = useSelector((state) => state.user.user?.nickname);
+  const from = useSelector((state) => state.user.user?.userId);
+  // const targetInfo = localStorage.getItem("target");
+  // const target = JSON.parse(targetInfo)?.userId;
 
-  // useEffect(() => {
-  //   // 여기서 대화내역 불러오기
-  // }, []);
+  const nowChat = useSelector((state) => state.chat.roomList).find(
+    (room) => room.roomName === roomName
+  );
+
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState(nowChat?.messages || []);
+
+  useEffect(() => {
+    // socket.emit("join_room", roomName, nowChat?.post?.userId, nowChat?.post);
+  });
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
       console.log(data);
       setMessages((list) => [...list, data]);
     });
-  }, [socket]);
+    return () => {
+      dispatch(messagesUpdate({ roomName, messages }));
+    };
+  }, []);
 
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log(data);
-    });
-  }, [socket]);
-
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-
-  const sendMessage = async () => {
+  const sendMessage = () => {
     if (message !== "") {
       const messageData = {
         roomName,
@@ -48,13 +51,11 @@ const ChatRoom = () => {
         message,
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
       };
-      console.log(messageData);
-      await socket.emit("send_message", messageData);
+      socket.emit("send_message", messageData);
       setMessages((list) => [...list, messageData]);
       setMessage("");
     }
   };
-
   // 스크롤 부드럽게 내리기
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
@@ -65,60 +66,86 @@ const ChatRoom = () => {
     scrollToBottom();
   }, [messages]);
 
-  return (
-    <Container>
-      {messages.map((msg, i) => {
-        if (msg.from === from)
-          return (
-            <Flex key={i} width="80%" jc="end" height="auto">
-              <Flex
-                width="fit-content"
-                height="fit-content"
-                padding="10px 20px"
-                margin="15px 20px 5px"
-                bc={color.brandColor}
-                br="8px"
-                jc="end"
-              >
-                <Text h1 color="white">
-                  {msg.message}
-                </Text>
-              </Flex>
-            </Flex>
-          );
-        else
-          return (
-            <Flex key={i} width="80%">
-              <Flex
-                width="fit-content"
-                height="fit-content"
-                padding="10px 20px"
-                margin="20px"
-                bc={color.brandColor}
-                br="8px"
-                jc="start"
-              >
-                <Text>{msg.message}</Text>
-              </Flex>
-            </Flex>
-          );
-      })}
-      <div ref={messagesEndRef} />
+  const leaveRoom = () => {
+    socket.emit("leave_room", roomName);
+  };
 
-      <FixedChatBar>
+  useEffect(() => {
+    socket.on("leave_room", (data) => {
+      console.log(data);
+    });
+  });
+
+  return (
+    <>
+      <Wrap>
         <Flex>
-          <BsPaperclip size={30} />
-          <Input
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") sendMessage();
-            }}
-          />
+          <Image src={nowChat?.post?.imageUrl} width="50px" height="50px" />
+          <Flex fd="column">
+            <Text h1>{nowChat?.post?.postTitle}</Text>
+            <Text h2>{nowChat?.post?.price}</Text>
+          </Flex>
         </Flex>
-        <Button onClick={sendMessage}>전송</Button>
-      </FixedChatBar>
-    </Container>
+        <Flex>
+          <Button onClick={leaveRoom}>나가기</Button>
+        </Flex>
+      </Wrap>
+      <Container>
+        {messages.map((msg, i) => {
+          if (msg.from === from)
+            return (
+              <Flex key={i} width="80%" jc="end" height="auto">
+                <Text>{moment(msg.time).format("hh:mm")}</Text>
+                <Flex
+                  width="fit-content"
+                  height="fit-content"
+                  padding="10px 20px"
+                  margin="15px 20px 5px"
+                  bc={color.brandColor}
+                  br="8px"
+                  jc="end"
+                >
+                  <Text h1 color="white">
+                    {msg.message}
+                  </Text>
+                </Flex>
+              </Flex>
+            );
+          else
+            return (
+              <Flex key={i} width="80%" height="auto">
+                <Flex
+                  width="fit-content"
+                  height="fit-content"
+                  padding="10px 20px"
+                  margin="20px"
+                  bc={color.brandColor}
+                  br="8px"
+                  jc="start"
+                >
+                  <Text>{msg.message}</Text>
+                </Flex>
+                <Text>{moment(msg.time).format("hh:mm")}</Text>
+              </Flex>
+            );
+        })}
+        <div ref={messagesEndRef} />
+
+        <FixedChatBar>
+          <Flex>
+            <BsPaperclip size={30} />
+            <Input
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") sendMessage();
+              }}
+            />
+          </Flex>
+          <Button onClick={sendMessage}>전송</Button>
+        </FixedChatBar>
+      </Container>
+    </>
   );
 };
 

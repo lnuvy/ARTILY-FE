@@ -11,18 +11,17 @@ const Chat = () => {
   const { roomList, newMessage } = useSelector((state) => state.chat);
 
   useEffect(() => {
-    console.log("여기");
-    socket.on("new_room", (data) => {
-      console.log(data);
-      dispatch(receiveChatRoom(data));
-    });
-  }, [socket]);
+    // 방목록 가져오기
+    // dispatch()
+    // socket.on("join_room", (data) => {
+    //   dispatch(receiveChatRoom(data));
+    // });
+  }, []);
 
-  const enterRoom = () => {
-    socket.on("join_room", (data) => {
-      console.log(data);
-    });
-    history.push(`/chat/${roomList.roomName || "22224230442222423041111"}`);
+  const enterRoom = (roomName) => {
+    // socket.emit("join_room", roomName);
+    socket.emit("enter_room", roomName);
+    history.push(`/chat/${roomName}`);
   };
 
   return (
@@ -30,9 +29,15 @@ const Chat = () => {
       <Grid>
         <ChatCard />
         <ChatCard />
-        {/* {roomList.map((room, i) => {
-          return <ChatCard key={room.roomName} room={room} />;
-        })} */}
+        {roomList.map((room, i) => {
+          return (
+            <ChatCard
+              key={room.roomName}
+              room={room}
+              onClick={() => enterRoom(room.roomName)}
+            />
+          );
+        })}
       </Grid>
     </>
   );

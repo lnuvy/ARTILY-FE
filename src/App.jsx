@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { Header } from "./components";
@@ -27,20 +27,75 @@ import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "./shared/token";
 import { actionCreators as userActions } from "./redux/modules/user";
+import { socket } from "./shared/socket";
+
+import { removeToken } from "./shared/token";
+import { receiveChatRoom } from "./redux/modules/chat";
 
 function App() {
   const dispatch = useDispatch();
   // 리덕스에서 모달 정보 가져오기(디폴트는 false)
   const modalOn = useSelector((state) => state.modal.modalOn);
+  const userInfo = useSelector((state) => state.user.user);
+
+  const [nickname, setNickname] = useState("");
+  const [userArray, setUserArray] = useState([]);
 
   useEffect(() => {
     if (getToken()) {
       dispatch(userActions.getUserInfo());
     }
+  }, []);
+
+  useEffect(() => {
+    socket.on("session", ({ sessionID, userId }) => {
+      console.log(sessionID);
+      socket.auth = { sessionID };
+      if (sessionID) {
+        localStorage.setItem("sessionID", sessionID);
+      }
+      socket.userId = userId;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (userInfo) {
+      const sessionID = localStorage.getItem("sessionID") || null;
+      socket.auth = { sessionID, userInfo };
+      socket.connect();
+    }
+  }, [userInfo]);
+
+  useEffect(() => {
+    socket.on("join_room", (data) => {
+      dispatch(receiveChatRoom(data));
+      // socket.emit("enter_room");
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on("send_message", (data) => {
+      console.log(data);
+    });
   });
 
   return (
     <>
+      <button
+        onClick={() => {
+          removeToken();
+          history.replace("/login");
+        }}
+      >
+        로그아웃
+      </button>
+      {userArray.map((u, i) => {
+        return (
+          <span key={i}>
+            {u.nickname} / {u.sessionID}
+          </span>
+        );
+      })}
       <ConnectedRouter history={history}>
         <Header>ARTIN</Header>
         <Switch>

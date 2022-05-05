@@ -322,3 +322,6 @@ export const myStoreDummy = [
     },
   },
 ];
+
+// 로컬스토리지에 상대방 저장
+// localStorage.setItem("target", JSON.stringify(current.user));
