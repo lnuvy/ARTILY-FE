@@ -23,11 +23,8 @@ const Setprofile = () => {
     " " +
     randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
-  //닉네임만 필수입력이므로 닉네임을 입력하고 나서 부터는 프로필 저장버튼이 활성화 됨
-  //마지막 input인 자기소개가 비어있을경우 프로필 저장버튼 비활성화
+  console.log(randomNick);
   const [nickname, setNickname] = useState("");
-  // const [website, setWebsite] = useState("");
-  // const [introduce, setIntroduce] = useState("");
 
   // const handleTextChange = (event) => {
   //   setWebsite(event.target.value);
@@ -99,14 +96,14 @@ const Setprofile = () => {
           </ImgBox>
         </Flex>
       </Wrapprofile>
-      <Wrap padding="0 10px;">
+      <Wrap padding="0 10px">
         <Flex>
           <Text fg="1">닉네임</Text>
           {/* 일단 기본적으로는 소셜로그인 시 가져오는 기본 닉네임으로 설정 */}
           <Input
             type="text"
             fg="0"
-            value={randomNick || ""}
+            value={randomNick}
             onChange={(e) => setNickname(randomNick)}
           />
 

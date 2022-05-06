@@ -89,7 +89,7 @@ const DetailProfile = () => {
             width="120px"
             height="120px"
             br="60px"
-            src={getProfile.profileImage ? getProfile.profileImage : ""}
+            // src={getProfile.profileImage ? getProfile.profileImage : ""}
           ></Image>
         </Flex>
       </Wrapprofile>
