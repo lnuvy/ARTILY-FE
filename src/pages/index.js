@@ -15,6 +15,7 @@ import Store from "./Store";
 import StoreDetail from "./StoreDetail";
 import StoreWrite from "./StoreWrite";
 import Test from "./Test";
+import ReviewWrite from "./ReviewWrite";
 
 export {
   Chat,
@@ -34,4 +35,5 @@ export {
   StoreWrite,
   Test,
   ReviewDetail,
+  ReviewWrite,
 };

@@ -16,9 +16,10 @@ const Textarea = (props) => {
     margin,
     padding,
     maxLength,
+    textLine,
   } = props;
 
-  const styles = { width, fg, margin, alert, padding };
+  const styles = { width, fg, margin, alert, padding, textLine };
 
   const Textarea = React.useRef();
   const [MaxNum, SetMaxNum] = React.useState(null);
@@ -28,8 +29,9 @@ const Textarea = (props) => {
 
   React.useEffect(() => {
     SetMaxNum(Textarea.current.value.length);
-    console.log(MaxNum);
-  }, []);
+    console.log(Textarea.current);
+    Textarea.current.addEventListener("change", ChangeMaxNum);
+  }, [Textarea]);
 
   return (
     <TextareaWrap {...styles}>
@@ -37,16 +39,21 @@ const Textarea = (props) => {
       <TextareaBox {...styles}>
         <TextareaContainer
           id={id}
-          value={value}
+          // value={value ? value : null}
           placeholder={placeholder}
-          onChange={(onChange, ChangeMaxNum)}
+          onChange={(e) => {
+            onChange(e);
+            ChangeMaxNum(e);
+          }}
           maxLength={maxLength}
           {...styles}
           ref={Textarea}
         ></TextareaContainer>
-        <TextareaMaxCharacter {...styles}>
-          {MaxNum ? MaxNum : "0"}/{maxLength}byte
-        </TextareaMaxCharacter>
+        {maxLength && (
+          <TextareaMaxCharacter {...styles}>
+            {MaxNum ? MaxNum : "0"}/{maxLength}byte
+          </TextareaMaxCharacter>
+        )}
       </TextareaBox>
       {alertMessage ? <TextareaAlert>{alertMessage}</TextareaAlert> : ""}
     </TextareaWrap>
@@ -73,9 +80,11 @@ const TextareaBox = styled.div`
 `;
 
 const TextareaContainer = styled.textarea`
-  height: calc(4rem + (${({ padding }) => padding} * 2));
+  height: calc(
+    ${({ textLine }) => textLine}rem + (${({ padding }) => padding} * 2)
+  );
   width: ${({ width }) => width};
-  padding: ${({ padding }) => padding};
+  padding: ${({ padding }) => padding} 0;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 2px;
   resize: none;
@@ -90,18 +99,18 @@ const TextareaContainer = styled.textarea`
     props.alert
       ? `
       color: ${theme.color.black};
-      border: 1px solid ${theme.color.danger};
+      // border: 1px solid ${theme.color.danger};
       :focus {
-        border: 1px solid ${theme.color.danger};
-        box-shadow: 0px 0px 6px ${theme.color.danger};
+        // border: 1px solid ${theme.color.danger};
+        // box-shadow: 0px 0px 6px ${theme.color.danger};
       }
     `
       : `
       color: ${theme.color.black};
-      border: 1px solid ${theme.color.black};
+      // border: 1px solid ${theme.color.black};
       :focus {
-        border: 1px solid ${theme.color.brandColor};
-        box-shadow: 0px 0px 6px ${theme.color.brandColor};
+        // border: 1px solid ${theme.color.brandColor};
+        // box-shadow: 0px 0px 6px ${theme.color.brandColor};
       }
     `}
 `;

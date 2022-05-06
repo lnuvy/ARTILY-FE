@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
   user-select: none;
 }
 
+input, textarea { 
+  -webkit-user-select : auto;
+}
+
 *::-webkit-scrollbar {
   display: none;
 }

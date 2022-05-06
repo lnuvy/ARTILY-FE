@@ -12,6 +12,8 @@ const initialState = {
   imageArr: [],
 };
 
+const removePreviewWhich = (image) => {};
+
 const imageSlice = createSlice({
   name: "image",
   initialState,
@@ -19,17 +21,23 @@ const imageSlice = createSlice({
     // 사진을 하나씩 추가할때
     accrueImage: (state, action) => {
       // 첫게시라면 represent 에 저장
-      if (!state.represent) {
-        state.represent = action.payload;
-        // 대표이미지가 이미 있다면 imageArr 에 순서대로 push
-      } else {
-        state.imageArr.push(action.payload);
-      }
+
+      state.imageArr.push(action.payload);
+      // if (!state.represent) {
+      //   state.represent = action.payload;
+      //   // 대표이미지가 이미 있다면 imageArr 에 순서대로 push
+      // } else {
+      //   state.imageArr.push(action.payload);
+      // }
     },
 
     // 프리뷰 사진을 지울때
     removePreview: (state, action) => {
-      state.imageArr = state.imageArr.filter((el) => el !== action.payload);
+      console.log(state.imageArr);
+      console.log(action);
+      state.imageArr = state.imageArr.filter((el) => {
+        return el !== action.payload;
+      });
     },
     // 사용자가 대표이미지를 바꾸고싶을때
     setRepresent: (state, action) => {
