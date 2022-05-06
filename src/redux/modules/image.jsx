@@ -43,12 +43,9 @@ const imageSlice = createSlice({
       state.imageArr = [...newArr, temp];
     },
 
-    // 한꺼번에 올릴때
-    // 추가: 한꺼번에 올릴때도 for문 안에서 accrueImage로 올리고있습니다 지금당장은 안쓰는 액션임
+    // 5/6 채팅에서 사진 변경할때
     setPreview: (state, action) => {
-      let repImg = action.payload[0];
-      state.represent = repImg;
-      state.imageArr = action.payload.filter((el) => el !== repImg);
+      state.represent = action.payload;
     },
 
     // 업로드하지않았을때
@@ -64,7 +61,7 @@ export const {
   accrueImage,
   removePreview,
   setRepresent,
-  // setPreview,
+  setPreview,
   clearPreview,
 } = actions;
 export default reducer;

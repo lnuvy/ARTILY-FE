@@ -2,6 +2,7 @@ import ArtCard from "./ArtCard";
 import Card from "./Card";
 import Category from "./Category";
 import ChatCard from "./ChatCard";
+import ChatFileInput from "./ChatFileInput";
 import Footer from "./Footer";
 import Header from "./Header";
 import ImagePreview from "./ImagePreview";
@@ -15,6 +16,7 @@ export {
   Card,
   Category,
   ChatCard,
+  ChatFileInput,
   Footer,
   Header,
   ImagePreview,

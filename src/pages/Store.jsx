@@ -16,6 +16,8 @@ const Store = () => {
   // 카테고리 필터링
   const filterList = useSelector((state) => state.store.filterList);
 
+  console.log("여기", filterList);
+
   useEffect(() => {
     // 더미데이터 주입된상태
     dispatch(getPostDB());

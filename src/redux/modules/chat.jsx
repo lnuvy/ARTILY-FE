@@ -38,7 +38,7 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     notificationCheck: (state, action) => {
-      const { roomName } = action.payload;
+      const roomName = action.payload;
 
       state.roomList.forEach((room) => {
         if (room.roomName === roomName) {
@@ -49,6 +49,12 @@ const chatSlice = createSlice({
     },
     // 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
+      const { roomName } = action.payload;
+
+      if (state.roomList.find((room) => roomName === room.roomName)) {
+        return;
+      }
+
       const newChatRoom = {
         ...action.payload,
       };

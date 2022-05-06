@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, Flex, Grid, Image, Input, Text, Wrap } from "../elements";
-import { BsPaperclip } from "react-icons/bs";
 import { socket } from "../shared/socket";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +12,8 @@ import {
   notificationCheck,
   receiveChat,
 } from "../redux/modules/chat";
+import { ChatFileInput } from "../components";
+import { clearPreview } from "../redux/modules/image";
 
 const { color } = theme;
 
@@ -30,7 +31,8 @@ const ChatRoom = () => {
   );
 
   const [message, setMessage] = useState("");
-
+  // 사진업로드
+  const uploadFile = useSelector((state) => state.image.represent);
   const [messages, setMessages] = useState([]);
 
   // useEffect(() => {
@@ -41,10 +43,14 @@ const ChatRoom = () => {
     if (nowChat) {
       setMessages(nowChat.messages);
     }
+    return () => {
+      dispatch(notificationCheck(roomName));
+    };
   }, [nowChat]);
 
   const sendMessage = () => {
-    if (message !== "") {
+    // 공백검사
+    if (/\S/.test(message) && !uploadFile) {
       const messageData = {
         roomName,
         from,
@@ -60,8 +66,31 @@ const ChatRoom = () => {
       socket.on("receive_message", (data) => {
         setMessages(messages.concat(data));
       });
+    } else {
+      alert("공백만 입력됨");
+      setMessage("");
     }
   };
+
+  const sendFile = () => {
+    const file = uploadFile;
+    const formData = new FormData();
+
+    console.log(file);
+
+    if (file) {
+      formData.append("image", file);
+    }
+
+    console.log("formData", formData);
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    socket.emit("send_message", formData);
+    dispatch(clearPreview());
+  };
+
   // 스크롤 부드럽게 내리기
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
@@ -143,16 +172,24 @@ const ChatRoom = () => {
 
         <FixedChatBar>
           <Flex>
-            <BsPaperclip size={30} />
-            <Input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") sendMessage();
-              }}
-            />
+            <ChatFileInput />
+            {uploadFile ? (
+              <Image width="60px" height="50px" src={uploadFile} />
+            ) : (
+              <Input
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") sendMessage();
+                }}
+              />
+            )}
           </Flex>
-          <Button onClick={sendMessage}>전송</Button>
+          {uploadFile ? (
+            <Button onClick={sendFile}>전송</Button>
+          ) : (
+            <Button onClick={sendMessage}>전송</Button>
+          )}
         </FixedChatBar>
       </Container>
     </>

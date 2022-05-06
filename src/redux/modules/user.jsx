@@ -103,6 +103,7 @@ const getUserInfo = () => {
     await axios
       .get(`http://52.78.183.202/api/user/getuser`, { headers: config })
       .then((res) => {
+        console.log("profileImage?", res.data);
         const { user } = res.data;
         dispatch(getUser(user));
       })
