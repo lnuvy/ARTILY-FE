@@ -20,6 +20,7 @@ const Button = (props) => {
     left,
     right,
     bottom,
+    text,
   } = props;
 
   const styles = {
@@ -37,6 +38,7 @@ const Button = (props) => {
     left,
     right,
     bottom,
+    text,
   };
 
   return (
@@ -84,7 +86,20 @@ const ButtonStyle = styled.button`
   justify-content: center;
 
   ${(props) =>
-    props.outline
+    props.text
+      ? `
+    background-color: transparent;
+    color: ${theme.color.black};
+    :focus {
+      background-color: ${theme.color.lightGray};
+      opacity: 0.8;
+    }
+    :hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+    `
+      : props.outline
       ? `
     background-color: transparent;
     color: ${theme.color.black};

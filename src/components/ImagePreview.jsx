@@ -24,36 +24,33 @@ const ImagePreview = () => {
   return (
     <Grid
       gtc="1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
-      cg="0px"
+      cg="16px"
       margin="0 0 0 16px"
     >
       {imageArr.length !== 0 &&
         imageArr.map((image, i) => {
           // console.log(image);
           return (
-            <Grid gtc="auto auto">
-              <Wrap position="relative" key={`${image.slice(0, 10)}_${i}`}>
-                <Image
-                  br="8px"
-                  imageArr
-                  src={image}
-                  height="64px"
-                  width="64px"
-                />
-                <Button
-                  padding="2px"
-                  position="absolute"
-                  top="-6px"
-                  right="-6px"
-                  bc="black"
-                  width="fit-content"
-                  onClick={() => removeImage(image)}
-                >
-                  <Icon width="12px" height="12px" />
-                </Button>
-                {i === 0 && <MainImageLabel>대표 사진</MainImageLabel>}
-              </Wrap>
-            </Grid>
+            <Wrap
+              width="64px"
+              height="64px"
+              position="relative"
+              key={`${image.slice(0, 10)}_${i}`}
+            >
+              <Image br="8px" imageArr src={image} height="64px" width="64px" />
+              <Button
+                padding="2px"
+                position="absolute"
+                top="-6px"
+                right="-6px"
+                bc="black"
+                width="fit-content"
+                onClick={() => removeImage(image)}
+              >
+                <Icon width="12px" height="12px" />
+              </Button>
+              {i === 0 && <MainImageLabel>대표 사진</MainImageLabel>}
+            </Wrap>
           );
         })}
     </Grid>

@@ -84,7 +84,7 @@ Text.defaultProps = {
   color: "#000",
   margin: "0",
   fg: "0",
-  textAlign: "inherit",
+  textAlign: "none",
 };
 
 const Headline = styled.h1`

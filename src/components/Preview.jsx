@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Grid, Input, Icon, Text } from "../elements";
+import { Button, Grid, Input, Icon, Text, Wrap, Flex } from "../elements";
+import { ImagePreview } from "./index";
 import {
   accrueImage,
   removePreview,
@@ -21,21 +22,48 @@ const Preview = () => {
 
   const selectFile = (e) => {
     const { files } = e.target;
+    const maxFileCnt = 10;
+    const attFileCnt = image.imageArr.length;
+    const curFileCnt = files.length;
+    const remainFileCnt = maxFileCnt - attFileCnt;
 
-    console.log(files.length);
-    console.log(image.imageArr.length);
-
-    if (image.imageArr.length > 9) {
+    if (curFileCnt > remainFileCnt) {
       alert("사진은 최대 10장까지 업로드 가능합니다!");
-    } else {
-      for (let i = 0; i < files.length; i++) {
+    }
+    for (let i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
+      const file = files[i];
+
+      if (validation(file)) {
         const reader = new FileReader();
-        const file = files[i];
-        console.log(file);
         reader.readAsDataURL(file);
         reader.onloadend = () => {
           dispatch(accrueImage(reader.result));
         };
+      }
+    }
+
+    function validation(obj) {
+      const fileTypes = [
+        "image/gif",
+        "image/jpeg",
+        "image/png",
+        "image/bmp",
+        "image/tif",
+      ];
+      if (obj.name.length > 100) {
+        alert("파일명이 100자 이상인 파일은 제외되었습니다.");
+        return false;
+      } else if (obj.size > 100 * 1024 * 1024) {
+        alert("최대 파일 용량인 100MB를 초과한 파일은 제외되었습니다.");
+        return false;
+      } else if (obj.name.lastIndexOf(".") == -1) {
+        alert("확장자가 없는 파일은 제외되었습니다.");
+        return false;
+      } else if (!fileTypes.includes(obj.type)) {
+        alert("첨부가 불가능한 파일은 제외되었습니다.");
+        return false;
+      } else {
+        return true;
       }
     }
 
@@ -70,8 +98,8 @@ const Preview = () => {
   };
 
   return (
-    <>
-      <Grid>
+    <FileWrap>
+      <Flex>
         <Button outline>
           <UploadLabel htmlFor="file">
             <Icon bc="black" />
@@ -86,8 +114,10 @@ const Preview = () => {
           onChange={selectFile}
           ref={fileInput}
         />
-      </Grid>
-    </>
+
+        <ImagePreview />
+      </Flex>
+    </FileWrap>
   );
 };
 
@@ -96,4 +126,9 @@ export default Preview;
 const UploadLabel = styled.label`
   width: 100%;
   height: 100%;
+`;
+
+const FileWrap = styled.div`
+  overflow: auto;
+  overflow-y: hidden;
 `;

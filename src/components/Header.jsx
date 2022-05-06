@@ -34,6 +34,11 @@ const Header = (props) => {
     path === "/review" ||
     path === "/mypage";
 
+  const isWrite = path === "/review/write";
+
+  const reviewWrite = path === "/review/write";
+  const storeWrite = path === "/store/write";
+
   if (isShowNow)
     return (
       <HeaderStyle {...styles}>
@@ -53,7 +58,23 @@ const Header = (props) => {
         <Grid gtc="auto auto auto auto" cg="20px"></Grid>
       </HeaderStyle>
     );
-  else
+  else if (isWrite) {
+    return (
+      <HeaderStyle>
+        <Flex height="48px">
+          <Icon
+            bc="black"
+            margin="0 0 0 16px"
+            onClick={() => history.goBack()}
+          />
+          <Text fg="1" textAlign="center">
+            {reviewWrite && "리뷰 등록"}
+            {storeWrite && "작품 등록"}
+          </Text>
+        </Flex>
+      </HeaderStyle>
+    );
+  } else
     return (
       <HeaderStyle>
         <Flex height="48px">

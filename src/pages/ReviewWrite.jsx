@@ -25,62 +25,52 @@ import ReceiveAddress from "../shared/modal/modalContent/ReceiveAddress";
 const StoreWrite = () => {
   const dispatch = useDispatch();
   // 인풋 한번에 받기 (체크박스는 e.target.id 가 아니라 e.target.checked 로 받아야해서 인라인에 적용함)
-  const [inputs, setInputs] = useState({});
-  const { represent, preview } = useSelector((state) => state.image);
+  const [inputs, setinputs] = useState({});
+  const images = useSelector((state) => state.image.imageArr);
 
-  const handleChange = (e) => {
+  const InputChange = (e) => {
     const { id, value } = e.target;
-    setInputs({ ...inputs, [id]: value });
+    setinputs({ ...inputs, [id]: value });
+    console.log(inputs);
+  };
+
+  const reviewSubmit = () => {
+    setinputs({ ...inputs, imgs: [...images] });
+    console.log(inputs);
   };
 
   // componentwillunmount 역할
   useEffect(() => {
     // 이미지 리덕스 데이터 초기화
+
     return () => {
       dispatch(clearPreview());
     };
   }, []);
 
-  const modalOn = () => {
-    dispatch(
-      openModal({
-        title: "주소입력",
-        // text 를 content 로 변경, 태그 직접 넣으면 됩니다
-        content: (
-          <>
-            <ReceiveAddress />
-          </>
-        ),
-      })
-    );
-  };
+  const [image, setImage] = useState(null);
 
   return (
-    <Grid>
-      <Wrap margin="16px">
-        <Wrap margin="20px 10px 10px">
-          <Flex margin="0 0 10px">
-            <Preview />
-            <ImagePreview />
-          </Flex>
-        </Wrap>
-        <Input
-          id="postTitle"
-          label="제목"
-          placeholder="상품의 제목을 입력하세요..."
-          margin="0 0 20px"
-          value={inputs?.postTitle}
-          onChange={handleChange}
-        />
-        <Textarea
-          id="postContent"
-          label="설명"
-          value={inputs.postContent}
-          maxLength="100"
-          onChane={handleChange}
-        />
-      </Wrap>
-    </Grid>
+    <Wrap margin="16px">
+      <Preview />
+
+      <Input
+        id="postTitle"
+        placeholder="제목을 입력해주세요."
+        // value={inputs?.postTitle}
+        onChange={InputChange}
+      />
+      <Textarea
+        id="postContent"
+        // value={inputs.postContent}
+        placeholder="작품에 대한 후기를 작성해주세요. 허위로 작성된 글은 게시가 제한될 수 있습니다."
+        onChange={InputChange}
+        textLine={100}
+      />
+      <Button text position="absolute" top="0" right="0" onClick={reviewSubmit}>
+        완료
+      </Button>
+    </Wrap>
   );
 };
 
