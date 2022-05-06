@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
@@ -11,27 +11,30 @@ import { Front, Back } from "../shared/NicknameDummy.js";
 const Setprofile = () => {
   const dispatch = useDispatch();
 
-  const fileInput = React.useRef();
+  const fileInput = useRef();
 
   const preview = useSelector((state) => state.image.represent);
+
   //랜덤 닉네임 생성
   const randomnickFront = Front;
   const randomnickBack = Back;
 
-  const randomNick =
-    randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
-    " " +
-    randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
-
   //닉네임만 필수입력이므로 닉네임을 입력하고 나서 부터는 프로필 저장버튼이 활성화 됨
   //마지막 input인 자기소개가 비어있을경우 프로필 저장버튼 비활성화
   const [nickname, setNickname] = useState("");
-  // const [website, setWebsite] = useState("");
-  // const [introduce, setIntroduce] = useState("");
 
   // const handleTextChange = (event) => {
   //   setWebsite(event.target.value);
   // };
+
+  const renameRandom = () => {
+    const addNick =
+      randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
+      " " +
+      randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
+
+    setNickname(addNick);
+  };
 
   const selectFile = (e) => {
     const reader = new FileReader();
@@ -106,13 +109,13 @@ const Setprofile = () => {
           <Input
             type="text"
             fg="0"
-            value={randomNick || ""}
-            onChange={(e) => setNickname(randomNick)}
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
           />
 
           <div>
             {/* 버튼을 클릭하면 input안에 값이 다른 랜덤 닉네임이 나오게 해야함 */}
-            <Button onClick={setNickname} />
+            <Button onClick={renameRandom} />
           </div>
         </Flex>
       </Wrap>
