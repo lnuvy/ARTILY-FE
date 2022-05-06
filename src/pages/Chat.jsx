@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ChatCard } from "../components";
+import { ChatCard, NoInfo } from "../components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
 import { notificationCheck } from "../redux/modules/chat";
@@ -26,17 +26,17 @@ const Chat = () => {
   return (
     <>
       <Grid>
-        <ChatCard />
-        <ChatCard />
-        {roomList.map((room, i) => {
-          return (
-            <ChatCard
-              key={room.roomName}
-              room={room}
-              onClick={() => enterRoom(room.roomName)}
-            />
-          );
-        })}
+        <NoInfo list={roomList} text="아직 대화중인 사람이 없어요!">
+          {roomList.map((room, i) => {
+            return (
+              <ChatCard
+                key={room.roomName}
+                room={room}
+                onClick={() => enterRoom(room.roomName)}
+              />
+            );
+          })}
+        </NoInfo>
       </Grid>
     </>
   );

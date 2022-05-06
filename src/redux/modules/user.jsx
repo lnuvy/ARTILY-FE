@@ -36,7 +36,7 @@ const kakaoLogin = (code) => {
   return async function (dispatch, getState, { history }) {
     await axios({
       method: "GET",
-      url: `http://52.78.183.202/oauth/kakao/callback?code=${code}`,
+      url: `${BASE_URL}/oauth/kakao/callback?code=${code}`,
     })
       .then((res) => {
         console.log(res.data); // 토큰이 넘어옴
@@ -70,9 +70,7 @@ const kakaoLogin = (code) => {
 const naverLogin = (code, state) => {
   return async function (dispatch, getState, { history }) {
     axios
-      .get(
-        `http://52.78.183.202/oauth/naver/callback?code=${code}&state=${state}`
-      )
+      .get(`${BASE_URL}/oauth/naver/callback?code=${code}&state=${state}`)
       .then((res) => {
         console.log(res);
         const { token, nickname, profileImage, provider, userId } =
@@ -101,7 +99,7 @@ const getUserInfo = () => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
     await axios
-      .get(`http://52.78.183.202/api/user/getuser`, { headers: config })
+      .get(`${BASE_URL}/api/user/getuser`, { headers: config })
       .then((res) => {
         console.log("profileImage?", res.data);
         const { user } = res.data;

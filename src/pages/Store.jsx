@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ArtCard, Card } from "../components";
 import Category from "../components/Category";
 import { Button, Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostDB, go2detail, filteringData } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
+import _ from "lodash";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import { openModal } from "../redux/modules/modal";
@@ -15,8 +16,6 @@ const Store = () => {
 
   // 카테고리 필터링
   const filterList = useSelector((state) => state.store.filterList);
-
-  console.log("여기", filterList);
 
   useEffect(() => {
     // 더미데이터 주입된상태
@@ -34,6 +33,27 @@ const Store = () => {
   // 체크박스 체크될때 데이터 필터링
   const [isFree, setIsFree] = useState(false);
 
+  let searchList = [];
+
+  // 디바운스
+  const debounce = _.debounce((k) => {
+    searchList = filterList
+      .filter((l) => {
+        const address = l.user.address;
+        const title = l.postTitle;
+        const artist = l.user.nickname;
+        const q = debounce;
+
+        return title.includes(q) || artist.includes(q) || address.includes(q);
+      })
+      .map((l) => {
+        return (
+          <ArtCard key={l.postId} {...l} onClick={() => handleClickData(l)} />
+        );
+      });
+  }, 1000);
+  const keyPress = useCallback(debounce, []);
+
   const checkFree = (e) => {
     const { checked } = e.target;
 
@@ -44,6 +64,14 @@ const Store = () => {
       setIsFree(false);
     }
   };
+
+  const queryChange = (e) => {
+    const { value } = e.target;
+    keyPress(value);
+    setQuery(value);
+  };
+
+  console.log(query, keyPress);
 
   // 필터링 모달 켜기
   const modalOn = () => {
@@ -72,7 +100,7 @@ const Store = () => {
           placeholder="작가명, 작품명 검색..."
           icon={<AiOutlineSearch size={28} />}
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={queryChange}
         />
         <Category />
         <Wrap margin="16px">
@@ -99,26 +127,28 @@ const Store = () => {
               })}
           </Flex>
           <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
-            {filterList.map((l) => {
-              if (isFree) {
-                if (l.price === 0) {
-                  return (
-                    <ArtCard
-                      key={l.postId}
-                      {...l}
-                      onClick={() => handleClickData(l)}
-                    />
-                  );
-                }
-              } else
-                return (
-                  <ArtCard
-                    key={l.postId}
-                    {...l}
-                    onClick={() => handleClickData(l)}
-                  />
-                );
-            })}
+            {searchList && query !== ""
+              ? searchList
+              : filterList.map((l) => {
+                  if (isFree) {
+                    if (l.price === 0) {
+                      return (
+                        <ArtCard
+                          key={l.postId}
+                          {...l}
+                          onClick={() => handleClickData(l)}
+                        />
+                      );
+                    }
+                  } else
+                    return (
+                      <ArtCard
+                        key={l.postId}
+                        {...l}
+                        onClick={() => handleClickData(l)}
+                      />
+                    );
+                })}
           </Grid>
         </Wrap>
       </Grid>

@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import ImagePreview from "./ImagePreview";
 import Navigation from "./Navigation";
+import NoInfo from "./NoInfo";
 import Preview from "./Preview";
 import ReviewCard from "./ReviewCard";
 import OtherWorkCard from "./OtherWorkCard";
@@ -21,6 +22,7 @@ export {
   Header,
   ImagePreview,
   Navigation,
+  NoInfo,
   Preview,
   ReviewCard,
   OtherWorkCard,
