@@ -55,7 +55,11 @@ const kakaoLogin = (code) => {
         };
         dispatch(setUser(user));
         insertToken(ACCESS_TOKEN); //local storage에 저장
-        history.replace("/");
+        //최초 로그인일 경우에만 로그인 후 프로필 설정하는 페이지로 이동
+        if (ACCESS_TOKEN) {
+          history.replace("/");
+        }
+        history.replace("/profile");
       })
       .catch((err) => {
         console.log("소셜로그인 에러!", err);
@@ -136,23 +140,24 @@ const locationDB = (si, gu, dong) => {
   };
 };
 
-//프로필 설정,수정
+//로그인 후 프로필 설정
 //mypage
-const editUserDB = (formData) => {
+//프로필사진, 닉네임 필수 수집
+const setProfileDB = (formData) => {
   return function (dispatch, getState) {
     axios({
-      method: "post",
-      // url: "http://52.78.183.202/",
+      method: "patch",
+      url: "http://52.78.183.202/profile",
       data: formData,
       headers: {
         "Content-Type": `multipart/form-data;`,
-        // Authorization: insertToken,
+        Authorization: insertToken,
       },
     })
       .then((res) => {
         console.log(res);
         dispatch(editUser(formData));
-        document.location.href = "/";
+        // document.location.href = "/";
       })
       .catch((error) => {
         console.log("프로필 정보 전송 실패", error);
@@ -190,6 +195,7 @@ const actionCreators = {
   getUser,
   setUser,
   logout,
-  editUserDB,
+  setProfileDB,
+  // kakaoLogout,
 };
 export { actionCreators };

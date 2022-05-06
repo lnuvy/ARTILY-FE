@@ -3,14 +3,17 @@ import { Button, Text, Flex, Image, Grid, Wrap } from "../elements";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getmyPostDB, go2detail } from "../redux/modules/mypage";
+import { actionCreators as userActions } from "../redux/modules/user";
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
-import { ArtCard, Card } from "../components";
+import { ArtCard } from "../components";
+import theme from "../styles/theme";
+import { getToken, insertToken, removeToken } from "../shared/token";
 
 const choicemenu = {
-  판매목록: "/mypage",
-  리뷰목록: "/mypage",
-  관심목록: "/mypage",
+  판매목록: "/mypage/sellList",
+  리뷰목록: "/mypage/reviewList",
+  관심목록: "/mypage/likeList",
 };
 
 export const menus = Object.entries(choicemenu);
@@ -19,16 +22,21 @@ const MyPage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);
   console.log(mystoreList);
-  const getProfileInfo = useSelector((state) => state.user.user);
-  console.log(getProfileInfo);
+  const getProfile = useSelector((state) => state.user.user);
+  console.log(getProfile);
   //더미 데이터 주입
   useEffect(() => {
     dispatch(getmyPostDB());
   }, [dispatch]);
 
+  //로그아웃(작업중)
+  // const kakaologOut = () => {
+  //   window.alert("로그아웃이 완료되었습니다!");
+  //   history.replace("/");
+  // };
   const handleClickData = (data) => {
     dispatch(go2detail(data));
-    history.push(`/store/view/${data.postId}`);
+    history.push(`/mypage/mystore/${data.postId}`);
   };
   // 현재 url 경로로 홈에있는지, 스토어에있는지, 리뷰에 있는지 판별
   const path = useLocation().pathname;
@@ -52,6 +60,7 @@ const MyPage = () => {
     <>
       <Flex>
         <Image
+          margin="0 10px"
           fg="1"
           width="100px"
           height="100px"
@@ -59,44 +68,82 @@ const MyPage = () => {
           br="50px"
           src=""
         ></Image>
-        <Wrap>
-          <Text bold>유저명</Text>
+        <Wrap padding="0 20px 0 0px">
+          <Text h2 bold margin="0 0 5px 0">
+            {getProfile.nickname}
+          </Text>
           <Text>팔로우 2명 · 팔로워 7명</Text>
           <Text>등록한 작품 5개</Text>
         </Wrap>
-        <Wrap margin="0 0 50px 0">
-          <Text>수정하기</Text>
+        <Wrap margin="0 0 50px">
+          <Edit>
+            <Text
+              onClick={() => {
+                history.push("/mypage/edit");
+              }}
+            >
+              수정하기
+            </Text>
+          </Edit>
         </Wrap>
       </Flex>
 
-      <Text>자기소개 영역입니다아아아아</Text>
-      <Flex>
-        <Text bold>✉ 문의 </Text>
-        <Text>klk17625@naver.com</Text>
-      </Flex>
-      <Flex>
-        <Text>❤️ instagram</Text>
-        <Text>💙 Behance</Text>
-        <Text>🌐 Website</Text>
-      </Flex>
-      <Mytab>
-        <div className="mytab">
-          <Text
-            bold
-            onClick={() => {
-              history.push("/store/write");
-            }}
-          >
-            판매 작품 등록 / 관리
+      <Text margin="10px 10px">
+        자기소개 영역입니다아아아아자기소개 영역입니다아아아아자기소개
+        영역입니다아아아아자기소개 영역입니다아아아아자기소개
+        영역입니다아아아아자기소개 영역입니다아아아아자기소개 영역입니다아아아아
+      </Text>
+      {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
+      <Website>
+        <Flex margin="15px">
+          <Text className="site" fg="1">
+            <a href="http://www.instagram.com/yeong_k0825">❤️ instagram</a>
           </Text>
-        </div>
-        <div className="mytab">
-          <Text bold>구매 내역 조회 / 리뷰 작성</Text>
-        </div>
-        <div className="mytab">
-          <Text bold>로그아웃</Text>
-        </div>
+          <Text className="site" fg="1">
+            💙 Behance
+          </Text>
+          <Text className="site" fg="1">
+            🌐 Website
+          </Text>
+        </Flex>
+      </Website>
+      <Mytab>
+        <p
+          onClick={() => {
+            history.push("/mypage/manage");
+          }}
+        >
+          판매 작품 등록 / 관리
+        </p>
+        <p
+          onClick={() => {
+            history.push("/mypage/buyList");
+          }}
+        >
+          구매 내역 조회 / 리뷰 작성
+        </p>
+        <p
+        // onClick={kakaologOut}
+        >
+          로그아웃
+        </p>
       </Mytab>
+
+      {/* 임시 버튼 */}
+      <Button
+        onClick={() => {
+          history.push("/login");
+        }}
+      >
+        로그인
+      </Button>
+      <Button
+        onClick={() => {
+          history.push("/profile");
+        }}
+      >
+        최초 로그인시 프로필 설정
+      </Button>
 
       <Grid gtc="auto auto auto" cg="20px" margin="10px 0">
         {menus.map((menu) => {
@@ -114,19 +161,19 @@ const MyPage = () => {
           );
         })}
       </Grid>
+
       {/* ---------------------------------------------------- */}
-      {/* 판매목록 */}
-      <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
+      <Grid gtc="auto auto" rg="8px" cg="8px" margin="10px 10px 20px">
         {mystoreList.map((l) => {
           return (
             //판매중 or 판매완료를 표시해야 하는데 어떻게 해야할까
-            <SellList key={l.postId}>
-              <ArtCard
-                className="sell"
-                {...l}
-                onClick={() => handleClickData(l)}
-              />
-            </SellList>
+            <ArtCard
+              sellLabel
+              key={l.postId}
+              className="sell"
+              {...l}
+              onClick={() => handleClickData(l)}
+            />
           );
         })}
       </Grid>
@@ -136,17 +183,18 @@ const MyPage = () => {
 
 const Mytab = styled.div`
   .mytab {
-    color: #ddd;
     width: 100%;
     height: 10vh;
-    border-top: 1px solid #ddd;
     padding-left: 1em;
     cursor: pointer;
-    //line-height가 안먹는다..일단 임시로 padding-top 설정
-    padding-top: 20px;
   }
-  .mytab:nth-of-type(3) {
+  p {
     border-bottom: 1px solid #ddd;
+    padding: 1.2em 0.5em;
+    cursor: pointer;
+  }
+  p:nth-of-type(1) {
+    border-top: 1px solid #ddd;
   }
 `;
 
@@ -157,8 +205,8 @@ const CurrentDiv = styled.div`
   cursor: pointer;
   text-align: center;
   /* animation: all 3s ease-out; */
-  border-bottom: ${({ current }) =>
-    current ? `3px solid #ddd;` : "3px solid transparent;"};
+  border-bottom: ${({ current, theme }) =>
+    current ? `3px solid ${theme.color.brandColor}` : "3px solid transparent;"};
   &:focus {
     /* outline: none; */
   }
@@ -171,8 +219,14 @@ const Nav = styled.div`
   width: 100%;
 `;
 
-const SellList = styled.div`
-  .sell {
+const Edit = styled.div`
+  p {
+    font-size: 15px;
+    color: ${theme.color.brandColor};
   }
+`;
+const Website = styled.div`
+  width: 100%;
+  border-top: 1px solid #ddd;
 `;
 export default MyPage;

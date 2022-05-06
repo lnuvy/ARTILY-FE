@@ -67,7 +67,7 @@ const Store = () => {
               거래 방식/지역 선택하기
             </Text>
           </Flex>
-          <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
+          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
             {freeList.length
               ? freeList.map((l) => {
                   return (

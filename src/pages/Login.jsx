@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { Text } from "../elements";
+import { Text, Flex } from "../elements";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 // import NaverLogin from "react-naver-login";
@@ -20,28 +20,47 @@ const Login = () => {
   const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=asdf`;
   return (
     <>
-      <Text h1>로그인</Text>
-      <div>
+      <Flex jc="center" margin="80px 0 10px 0">
+        <h2>ARTILY</h2>
+      </Flex>
+      <Flex jc="center">
+        <p>회원 서비스 이용을 위해 로그인 해주세요!</p>
+      </Flex>
+      <Flex jc="center" margin="100px 0 0 0">
         {/* 카카오로 로그인 */}
         <a href={KAKAO_AUTH_URL}>
-          <img
-            alt="카카오 소셜 로그인"
-            src="../images/kakao_social_login.png"
-            width="200px"
-          ></img>
+          <Kakao>카카오로 시작하기</Kakao>
         </a>
+      </Flex>
+      <Flex jc="center">
         {/* <div id="naverIdLogin"></div> */}
         <a href={NAVER_AUTH_URL}>
-          <img
-            alt="네이버"
-            src="../images/naver_social_login.png"
-            // 네이버 소셜로그인 버튼 사이즈 변경함(5.4 영경)
-            width="200px"
-          ></img>
+          <Naver>네이버로 시작하기</Naver>
         </a>
-      </div>
+      </Flex>
     </>
   );
 };
+const Kakao = styled.div`
+  width: 90vw;
+  height: 10vh;
+  border: 2px solid #d2d2d2;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #000;
+  line-height: 10vh;
+  text-align: center;
+  margin-bottom: 1em;
+`;
 
+const Naver = styled.div`
+  width: 90vw;
+  height: 10vh;
+  border: 2px solid #d2d2d2;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #000;
+  line-height: 10vh;
+  text-align: center;
+`;
 export default Login;

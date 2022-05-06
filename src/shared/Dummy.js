@@ -302,6 +302,9 @@ export const myStoreDummy = [
       address: "경기 고양시",
     },
   },
+];
+
+export const BuylistDummy = [
   {
     category: "기타",
     postId: "heddet",
@@ -320,5 +323,20 @@ export const myStoreDummy = [
       profileUrl: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
       address: "경기 고양시",
     },
+  },
+];
+//마이페이지에서 목록 불러올때 사용할 더미데이터
+export const Mypage = [
+  {
+    //판매목록
+    myPost: [],
+  },
+  {
+    //리뷰목록
+    myReview: [],
+  },
+  {
+    //관심목록
+    myBuy: [],
   },
 ];

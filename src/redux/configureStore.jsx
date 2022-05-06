@@ -13,6 +13,7 @@ import ImageReducer from "./modules/image";
 import ChatReducer from "./modules/chat";
 //마이페이지에서 사용할 모듈 추가
 import MyStoresReducer from "./modules/mypage";
+import BuyReducer from "./modules/buy";
 
 export const history = createBrowserHistory({ basename: "/" });
 
@@ -24,6 +25,8 @@ const rootReducer = combineReducers({
   main: MainReducer,
   store: StoresReducer,
   mystore: MyStoresReducer,
+  //5.6 구매내역 리스트 불러올 모듈
+  buylist: BuyReducer,
   review: ReviewReducer,
   image: ImageReducer,
   chat: ChatReducer,

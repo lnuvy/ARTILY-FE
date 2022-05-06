@@ -8,6 +8,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // represent 대표이미지, imageArr 추가로 올리는사진들
 const initialState = {
+  preview: null,
   represent: null,
   imageArr: [],
 };
@@ -25,6 +26,8 @@ const imageSlice = createSlice({
       } else {
         state.imageArr.push(action.payload);
       }
+
+      state.preview = action.payload.preview;
     },
 
     // 프리뷰 사진을 지울때

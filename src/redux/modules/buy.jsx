@@ -1,7 +1,7 @@
 //마이페이지에서 판매목록을 불러올때 사용될 리덕스입니다. -영경
 import { createSlice } from "@reduxjs/toolkit";
 
-import { myStoreDummy } from "../../shared/Dummy";
+import { BuylistDummy } from "../../shared/Dummy";
 
 const initialState = {
   list: [],
@@ -11,12 +11,12 @@ const initialState = {
   detailData: null,
 };
 
-export const getmyPostDB = () => {
+export const getmybuyDB = () => {
   return async function (dispatch, getState, { history }) {
     // await axios.get()
 
     // 더미데이터 리덕스 주입
-    dispatch(getmyStoreData(myStoreDummy)); //일단 한번에 가져와
+    dispatch(getmyStoreData(BuylistDummy));
   };
 };
 
@@ -25,7 +25,7 @@ export const getmyPostOne = (postId) => {
     // axios
 
     // 더미데이터 임시방편
-    dispatch(getmyStoreData(myStoreDummy));
+    dispatch(getmyStoreData(BuylistDummy));
     const allList = getState().mystore.list;
     console.log(allList);
     const now = allList.find((l) => l.postId === postId);
@@ -34,7 +34,7 @@ export const getmyPostOne = (postId) => {
 };
 
 const postsSlice = createSlice({
-  name: "mystore",
+  name: "buylist",
   initialState: initialState,
   reducers: {
     getmyStoreData: (state, action) => {

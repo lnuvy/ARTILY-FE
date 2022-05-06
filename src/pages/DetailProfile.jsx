@@ -1,3 +1,5 @@
+//소셜 로그인후 기본 프로필(사진, 닉네임) 설정=> 나머지 프로필 정보 설정하는 페이지
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
@@ -8,12 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import ToastMessage from "../shared/ToastMessage";
 import { Front, Back } from "../shared/NicknameDummy.js";
 
-const Setprofile = () => {
+const DetailProfile = () => {
   const dispatch = useDispatch();
 
   const fileInput = React.useRef();
+  //이미 앞에서 프로필 사진이랑 닉네임은 저장됐을테니까 불러오자
+  const getProfile = useSelector((state) => state.user.user);
+  console.log(getProfile);
 
-  const preview = useSelector((state) => state.image.represent);
   //랜덤 닉네임 생성
   const randomnickFront = Front;
   const randomnickBack = Back;
@@ -23,15 +27,9 @@ const Setprofile = () => {
     " " +
     randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
-  //닉네임만 필수입력이므로 닉네임을 입력하고 나서 부터는 프로필 저장버튼이 활성화 됨
-  //마지막 input인 자기소개가 비어있을경우 프로필 저장버튼 비활성화
   const [nickname, setNickname] = useState("");
-  // const [website, setWebsite] = useState("");
-  // const [introduce, setIntroduce] = useState("");
-
-  // const handleTextChange = (event) => {
-  //   setWebsite(event.target.value);
-  // };
+  const [website, setWebsite] = useState("");
+  const [introduce, setIntroduce] = useState("");
 
   const selectFile = (e) => {
     const reader = new FileReader();
@@ -44,6 +42,10 @@ const Setprofile = () => {
     };
   };
   const editUser = () => {
+    if (!fileInput.current || fileInput.current.files.length === 0) {
+      window.alert("이미지파일을 등록해주세요!");
+      return;
+    }
     const file = fileInput.current.files[0];
     console.log(file);
 
@@ -55,8 +57,8 @@ const Setprofile = () => {
 
     formData.append("profileUrl", file);
     formData.append("nickName", nickname);
-    // formData.append("website", website);
-    // formData.append("introduce", introduce);
+    formData.append("website", website);
+    formData.append("introduce", introduce);
 
     console.log("formData", formData);
 
@@ -66,12 +68,15 @@ const Setprofile = () => {
     dispatch(userActions.setProfileDB(formData));
   };
 
-  // useEffect(() => {
-  //   // setNickname(getProfile?.nickname);
-  // }, [getProfile]);
+  useEffect(() => {
+    setNickname(getProfile?.nickname);
+    setWebsite(getProfile?.website);
+    setIntroduce(getProfile?.introduce);
+  }, []);
   return (
     <>
-      <Flex jc="center" margin="2em 0 0 0">
+      {/* 이 페이지에서는 사진이랑 닉네임은 수정이 안되는게 맞겠죠? */}
+      <Flex jc="center" margin="1em 0 0 0">
         <h2>ARTILY</h2>
       </Flex>
       <Flex jc="center" margin="0 0 2em 0">
@@ -84,21 +89,11 @@ const Setprofile = () => {
             width="120px"
             height="120px"
             br="60px"
-            //새로고침하면 기본 프로필사진이 날라감ㅎ
-            src={preview ? preview : ""}
+            src={getProfile.profileImage ? getProfile.profileImage : ""}
           ></Image>
-
-          <ImgBox>
-            <label htmlFor="image">🖍</label>
-            <input
-              type="file"
-              id="image"
-              ref={fileInput}
-              onChange={selectFile}
-            />
-          </ImgBox>
         </Flex>
       </Wrapprofile>
+
       <Wrap padding="0 10px;">
         <Flex>
           <Text fg="1">닉네임</Text>
@@ -109,11 +104,47 @@ const Setprofile = () => {
             value={randomNick || ""}
             onChange={(e) => setNickname(randomNick)}
           />
+          {/* 닉네임 입력시 웹사이트 입력창 나오게 */}
+          {/* 프로필 저장 버튼도 나타나게 */}
+        </Flex>
+        <Flex>
+          <Text fg="1">웹사이트</Text>
+          <Input
+            fg="0"
+            type="text"
+            value={website || ""}
+            onChange={(e) => setWebsite(e.target.value)}
+          ></Input>
+          <Button>+</Button>
+        </Flex>
+        <Flex>
+          <Input
+            fg="0"
+            type="text"
+            value={website || ""}
+            onChange={(e) => setWebsite(e.target.value)}
+          ></Input>
+          <Button>+</Button>
+        </Flex>
+        <Flex>
+          <Input
+            fg="0"
+            type="text"
+            value={website || ""}
+            onChange={(e) => setWebsite(e.target.value)}
+          ></Input>
+          <Button>+</Button>
+        </Flex>
 
-          <div>
-            {/* 버튼을 클릭하면 input안에 값이 다른 랜덤 닉네임이 나오게 해야함 */}
-            <Button onClick={setNickname} />
-          </div>
+        <Flex>
+          <Text fg="1">소개</Text>
+          <Textarea
+            width="100%"
+            fg="0"
+            // value={introduce || ""}
+            onChange={(e) => setIntroduce(e.target.value)}
+            maxLength="200"
+          ></Textarea>
         </Flex>
       </Wrap>
       <Button
@@ -125,11 +156,22 @@ const Setprofile = () => {
           window.alert("프로필이 저장되었습니다!");
           editUser();
           window.confirm("더 자세한 프로필을 작성하시겠어요?");
-          history.push("/profile/detail");
+          history.push("/mypage/edit");
         }}
       >
         프로필 저장하기
       </Button>
+      <Flex jc="center">
+        <Text
+          body3
+          textDeco="underline"
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          다음에 할래요
+        </Text>
+      </Flex>
     </>
   );
 };
@@ -167,4 +209,11 @@ const ImgBox = styled.div`
     border: 0;
   }
 `;
-export default Setprofile;
+// const Changebtn = styled.button`
+//   position: absolute;
+//   right: 0;
+//   width: 30px;
+//   height: 30px;
+//   background-color: #444;
+// `;
+export default DetailProfile;

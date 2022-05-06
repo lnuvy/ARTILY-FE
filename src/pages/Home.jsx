@@ -12,8 +12,8 @@ const Home = () => {
   const userInfo = useSelector((state) => state.user.user);
   console.log(userInfo);
 
-  //주소 정보가 없으면(=최초 로그인일 경우)
-  // if (userInfo.address) {
+  //최초 로그인일 경우
+  // if (userInfo) {
   //   history.push("/regionset");
   // }
 

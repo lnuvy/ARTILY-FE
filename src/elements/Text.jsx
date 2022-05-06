@@ -18,6 +18,8 @@ const Text = (props) => {
     textAlign,
     lineHeight,
     contents,
+    //5.5 underline 들어간 text 만들기 위해 추가했습니다. -영경
+    textDeco,
   } = props;
 
   const styles = {
@@ -33,6 +35,7 @@ const Text = (props) => {
     textAlign,
     lineHeight,
     contents,
+    textDeco,
   };
 
   if (h1) {
@@ -85,6 +88,7 @@ Text.defaultProps = {
   margin: "0",
   fg: "0",
   textAlign: "inherit",
+  textDeco: "none",
 };
 
 const Headline = styled.h1`
@@ -157,6 +161,7 @@ const Body3 = styled.p`
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
   ${(props) => (props.lineHeight ? props.lineHeight : null)};
+  text-decoration: ${({ textDeco }) => textDeco};
 `;
 
 export default Text;

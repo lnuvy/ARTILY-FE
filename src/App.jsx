@@ -19,6 +19,9 @@ import {
   StoreWrite,
   ChatRoom,
   ReviewDetail,
+  MypageEdit,
+  Manage,
+  DetailProfile,
 } from "./pages";
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
@@ -27,7 +30,6 @@ import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "./shared/token";
 import { actionCreators as userActions } from "./redux/modules/user";
-import { created } from "./shared/socket";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,8 +40,6 @@ function App() {
     if (getToken()) {
       dispatch(userActions.getUserInfo());
     }
-
-    created();
   });
 
   return (
@@ -65,6 +65,10 @@ function App() {
           <Route path="/profile" exact component={Setprofile} />
           <Route path="/oauth/kakao/callback" component={RedirectKakao} />
           <Route path="/oauth/naver/callback" component={RedirectNaver} />
+          <Route path="/mypage/edit" exact component={MypageEdit} />
+          <Route path="/mypage/manage" exact component={Manage} />
+          <Route path="/profile/detail" exact component={DetailProfile} />
+
           {/* <Route path="/*" component={NotFound} /> */}
           <Route path="/*" component={Test} />
         </Switch>
