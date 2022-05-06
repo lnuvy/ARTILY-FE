@@ -21,11 +21,7 @@ const Setprofile = () => {
 
   //닉네임만 필수입력이므로 닉네임을 입력하고 나서 부터는 프로필 저장버튼이 활성화 됨
   //마지막 input인 자기소개가 비어있을경우 프로필 저장버튼 비활성화
-  const [nickname, setNickname] = useState("");
-
-  // const handleTextChange = (event) => {
-  //   setWebsite(event.target.value);
-  // };
+  const [nickname, setNickname] = useState("용감한 지팡이");
 
   const renameRandom = () => {
     const addNick =

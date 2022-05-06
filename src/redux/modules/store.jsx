@@ -90,13 +90,27 @@ const postsSlice = createSlice({
         });
         state.filterList = regionList;
       }
+    },
 
-      console.log(regionList);
+    // 마크업 1 늘리고 줄이기
+    markupToggle: (state, action) => {
+      const { isUp } = action.payload;
+
+      if (isUp) {
+        state.detailData.markupCnt++;
+      } else {
+        state.detailData.markupCnt--;
+      }
     },
   },
 });
 
 const { reducer, actions } = postsSlice;
-export const { getStoreData, go2detail, filteringData, modalFiltering } =
-  actions;
+export const {
+  getStoreData,
+  go2detail,
+  filteringData,
+  modalFiltering,
+  markupToggle,
+} = actions;
 export default reducer;

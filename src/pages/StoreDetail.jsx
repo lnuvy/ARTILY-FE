@@ -17,10 +17,12 @@ import { priceComma } from "../shared/utils";
 
 // 임시 아이콘
 import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart } from "react-icons/io";
 
 // 채팅
 import { socket } from "../shared/socket";
 import { receiveChatRoom } from "../redux/modules/chat";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const StoreDetail = () => {
   const dispatch = useDispatch();
@@ -34,6 +36,13 @@ const StoreDetail = () => {
   }, []);
 
   const isMe = current?.user?.userId === currentUser?.userId;
+
+  // 찜하기
+  const markupToggle = () => {
+    if (currentUser && !isMe) {
+      dispatch(userActions.postMarkupToggle(postId));
+    }
+  };
 
   // 채팅하기 버튼 눌렀을때
   const startChat = () => {
@@ -129,8 +138,14 @@ const StoreDetail = () => {
           </Wrap>
 
           <FixedChatBar>
-            <Flex>
-              <IoMdHeartEmpty size={36} />
+            <Flex onClick={markupToggle}>
+              {currentUser &&
+              currentUser.myMarkup.find((id) => id === postId) ? (
+                <IoMdHeart size={36} color="red" />
+              ) : (
+                <IoMdHeartEmpty size={36} />
+              )}
+
               <Text h1>{current.markupCnt}</Text>
             </Flex>
             <Flex>

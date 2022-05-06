@@ -3,6 +3,7 @@ import { produce } from "immer";
 import axios from "axios";
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/token";
+import { markupToggle } from "./store";
 
 const BASE_URL = "http://52.78.183.202";
 
@@ -12,12 +13,20 @@ const SET_USER = "SET_USER";
 const GET_USER = "GET_USER";
 const LOG_OUT = "LOG_OUT";
 const EDIT_USER = "EDIT_USER";
+// 5/6 한울 마크업 작업
+const POSTING_MARKUP = "POSTING_MARKUP";
 
 //action creator
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const logout = createAction(LOG_OUT);
 const editUser = createAction(EDIT_USER, () => ({}));
+
+// 5/6 한울 마크업 작업
+const postMarkup = createAction(POSTING_MARKUP, (postId, isUp) => ({
+  postId,
+  isUp,
+}));
 
 //initialState
 
@@ -164,6 +173,24 @@ const setProfileDB = (formData) => {
       });
   };
 };
+
+const postMarkupToggle = (postId) => {
+  return function (dispatch, getState) {
+    const { myMarkup } = getState().user.user;
+    // 이미 좋아요가 돼있다면 markup 리스트에 postId를 빼기
+    if (myMarkup.find((id) => id === postId)) {
+      dispatch(postMarkup(postId, false));
+      // 리덕스 내에서 해당 포스팅 숫자 하나 올리기 (이건 store에 있는 액션함수임)
+      dispatch(markupToggle({ isUp: false }));
+      // 본인 유저정보의 myMarkup 안에 해당 포스트 아이디가 없다면 추가
+    } else {
+      dispatch(postMarkup(postId, true));
+      // 리덕스 내에서 해당 포스팅 숫자 하나 올리기 (이건 store에 있는 액션함수임)
+      dispatch(markupToggle({ isUp: true }));
+    }
+  };
+};
+
 //리듀서
 export default handleActions(
   {
@@ -183,6 +210,18 @@ export default handleActions(
         draft.isLogin = false;
         removeToken();
       }),
+    [POSTING_MARKUP]: (state, action) =>
+      produce(state, (draft) => {
+        // 올려야하면
+        if (action.payload.isUp) {
+          draft.user.myMarkup.push(action.payload.postId);
+        } else {
+          let newArr = draft.user.myMarkup.filter(
+            (id) => id !== action.payload.postId
+          );
+          draft.user.myMarkup = newArr;
+        }
+      }),
   },
   initialState
 );
@@ -196,6 +235,7 @@ const actionCreators = {
   setUser,
   logout,
   setProfileDB,
+  postMarkupToggle,
   // kakaoLogout,
 };
 export { actionCreators };
