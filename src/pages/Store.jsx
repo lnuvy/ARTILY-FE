@@ -14,12 +14,13 @@ import StoreFilter from "../shared/modal/modalContent/StoreFilter";
 const Store = () => {
   const dispatch = useDispatch();
 
+  const categoryList = useSelector((state) => state.store.list);
   // 카테고리 필터링
   const filterList = useSelector((state) => state.store.filterList);
 
   useEffect(() => {
-    // 더미데이터 주입된상태
-    dispatch(getPostDB());
+    // 새로고침 등 리덕스데이터가 날아갔을때만 api 요청하게하기
+    if (!categoryList.length) dispatch(getPostDB());
   }, []);
 
   // 모달 필터링

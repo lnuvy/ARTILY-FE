@@ -32,6 +32,9 @@ const StoreDetail = () => {
   const currentUser = useSelector((state) => state.user?.user);
 
   useEffect(() => {
+    if (!current) {
+      dispatch(getPostDB());
+    }
     dispatch(getPostOne(postId));
   }, []);
 
@@ -143,7 +146,7 @@ const StoreDetail = () => {
               currentUser.myMarkup.find((id) => id === postId) ? (
                 <IoMdHeart size={36} color="red" />
               ) : (
-                <IoMdHeartEmpty size={36} />
+                <IoMdHeartEmpty size={36} color="red" />
               )}
 
               <Text h1>{current.markupCnt}</Text>

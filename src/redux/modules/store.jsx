@@ -31,7 +31,7 @@ export const getPostOne = (postId) => {
     // axios
 
     // 더미데이터 임시방편
-    dispatch(getStoreData(storeDummy));
+    // dispatch(getStoreData(storeDummy));
     const allList = getState().store.list;
     const now = allList.find((l) => l.postId === postId);
     dispatch(go2detail(now));
@@ -101,6 +101,21 @@ const postsSlice = createSlice({
       } else {
         state.detailData.markupCnt--;
       }
+
+      state.list.forEach((post) => {
+        if (post.postId === state.detailData.postId) {
+          post.markupCnt = state.detailData.markupCnt;
+          console.log("마크업카운트 전체리스트에 적용");
+          return;
+        }
+      });
+      state.filterList.forEach((post) => {
+        if (post.postId === state.detailData.postId) {
+          post.markupCnt = state.detailData.markupCnt;
+          console.log("마크업카운트 필터리스트에 적용");
+          return;
+        }
+      });
     },
   },
 });
