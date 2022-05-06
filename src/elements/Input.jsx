@@ -28,7 +28,7 @@ const Input = (props) => {
       <InputBox {...styles}>
         <InputContainer
           id={id}
-          // value={value ? value : null}
+          value={value}
           placeholder={placeholder}
           onChange={onChange}
           readOnly={readOnly}

@@ -30,7 +30,6 @@ const Navigation = () => {
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
-    console.log(innerText);
     setCurrent(menus.find((l) => l[0] === innerText));
   };
 

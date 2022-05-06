@@ -41,9 +41,7 @@ const kakaoLogin = (code) => {
       .then((res) => {
         console.log(res.data); // 토큰이 넘어옴
 
-        // const { token, nickname, profileImage, provider, userId, address } =
-        //   res.data.user;
-        const { token, nickname, profileUrl, provider, userId, address } =
+        const { token, nickname, profileImage, provider, userId, address } =
           res.data.user;
         const ACCESS_TOKEN = token;
 
@@ -51,7 +49,7 @@ const kakaoLogin = (code) => {
           //서버 DB에 담긴 유저정보 가져오자
           userId,
           nickname,
-          profileImage: profileUrl,
+          profileImage,
           provider,
           address,
         };

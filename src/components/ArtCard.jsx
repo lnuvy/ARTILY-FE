@@ -126,7 +126,7 @@ const ArtCard = (props) => {
         <Text bold>{priceComma(price)}원</Text>
       </Card>
     );
-  }
+  } // 여기 else 안주면 밑에꺼 나오지 않나요 ? -한울-
   return (
     <Card onClick={onClick}>
       <Image height="120px" src={imageUrl[0]} />
