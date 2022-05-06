@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ChatCard } from "../components";
+import { ChatCard, NoInfo } from "../components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
-import { receiveChatRoom } from "../redux/modules/chat";
+import { notificationCheck } from "../redux/modules/chat";
 import { socket } from "../shared/socket";
 
 const Chat = () => {
@@ -11,30 +11,32 @@ const Chat = () => {
   const { roomList, newMessage } = useSelector((state) => state.chat);
 
   useEffect(() => {
-    // api 요청으로 기존 채팅방 불러오기
+    // 방목록 가져오기
     // dispatch()
-    console.log("여기");
-    socket.on("new_room", (data) => {
-      console.log(data);
-      dispatch(receiveChatRoom(data));
-    });
-  }, [socket]);
+    // socket.on("join_room", (data) => {
+    //   dispatch(receiveChatRoom(data));
+    // });
+  }, []);
 
-  const enterRoom = () => {
-    socket.on("join_room", (data) => {
-      console.log(data);
-    });
-    history.push(`/chat/${roomList.roomName || "22224230442222423041111"}`);
+  const enterRoom = (roomName) => {
+    dispatch(notificationCheck(roomName));
+    history.push(`/chat/${roomName}`);
   };
 
   return (
     <>
       <Grid>
-        <ChatCard />
-        <ChatCard />
-        {/* {roomList.map((room, i) => {
-          return <ChatCard key={room.roomName} room={room} />;
-        })} */}
+        <NoInfo list={roomList} text="아직 대화중인 사람이 없어요!">
+          {roomList.map((room, i) => {
+            return (
+              <ChatCard
+                key={room.roomName}
+                room={room}
+                onClick={() => enterRoom(room.roomName)}
+              />
+            );
+          })}
+        </NoInfo>
       </Grid>
     </>
   );

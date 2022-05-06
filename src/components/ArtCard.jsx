@@ -131,7 +131,7 @@ const ArtCard = (props) => {
     <Card onClick={onClick}>
       <Image height="120px" src={imageUrl[0]} />
       <Flex margin="8px 0 0">
-        <Image circle size="20" src={profileUrl} />
+        <Image circle size="20" src="" />
         <Text margin="0 0 0 4px">{nickname}</Text>
       </Flex>
       <Text>{postTitle}</Text>

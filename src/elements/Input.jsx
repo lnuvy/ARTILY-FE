@@ -28,7 +28,7 @@ const Input = (props) => {
       <InputBox {...styles}>
         <InputContainer
           id={id}
-          value={value ? value : ""}
+          // value={value ? value : null}
           placeholder={placeholder}
           onChange={onChange}
           readOnly={readOnly}
@@ -50,6 +50,7 @@ Input.defaultProps = {
   margin: "0",
   icon: false,
   padding: "12px",
+  readOnly: false,
   onChange: () => {},
 };
 
@@ -65,9 +66,9 @@ const InputBox = styled.div`
 const InputContainer = styled.input`
   height: fit-content;
   width: ${({ width }) => width};
-  padding: ${({ padding }) => padding};
+  padding: ${({ padding }) => padding} 0;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 2px;
+  border-radius: 0px;
   :focus-visible {
     outline: none;
   }
@@ -79,18 +80,18 @@ const InputContainer = styled.input`
     props.alert
       ? `
       color: ${theme.color.black};
-      border: 1px solid ${theme.color.danger};
+      border-bottom: 1px solid ${theme.color.danger};
       :focus {
-        border: 1px solid ${theme.color.danger};
-        box-shadow: 0px 0px 6px ${theme.color.danger};
+        // borde-bottom: 1px solid ${theme.color.danger};
+        // box-shadow: 0px 0px 6px ${theme.color.danger};
       }
     `
       : `
       color: ${theme.color.black};
-      border: 1px solid ${theme.color.black};
+      border-bottom: 1px solid ${theme.color.black};
       :focus {
-        border: 1px solid ${theme.color.brandColor};
-        box-shadow: 0px 0px 6px ${theme.color.brandColor};
+        // border-bottom: 1px solid ${theme.color.brandColor};
+        // box-shadow: 0px 0px 6px ${theme.color.brandColor};
       }
     `}
 `;

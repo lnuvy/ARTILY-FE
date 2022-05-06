@@ -13,6 +13,8 @@ const initialState = {
   imageArr: [],
 };
 
+const removePreviewWhich = (image) => {};
+
 const imageSlice = createSlice({
   name: "image",
   initialState,
@@ -20,19 +22,23 @@ const imageSlice = createSlice({
     // 사진을 하나씩 추가할때
     accrueImage: (state, action) => {
       // 첫게시라면 represent 에 저장
-      if (!state.represent) {
-        state.represent = action.payload;
-        // 대표이미지가 이미 있다면 imageArr 에 순서대로 push
-      } else {
-        state.imageArr.push(action.payload);
-      }
 
-      state.preview = action.payload.preview;
+      state.imageArr.push(action.payload);
+      // if (!state.represent) {
+      //   state.represent = action.payload;
+      //   // 대표이미지가 이미 있다면 imageArr 에 순서대로 push
+      // } else {
+      //   state.imageArr.push(action.payload);
+      // }
     },
 
     // 프리뷰 사진을 지울때
     removePreview: (state, action) => {
-      state.imageArr = state.imageArr.filter((el) => el !== action.payload);
+      console.log(state.imageArr);
+      console.log(action);
+      state.imageArr = state.imageArr.filter((el) => {
+        return el !== action.payload;
+      });
     },
     // 사용자가 대표이미지를 바꾸고싶을때
     setRepresent: (state, action) => {
@@ -46,12 +52,9 @@ const imageSlice = createSlice({
       state.imageArr = [...newArr, temp];
     },
 
-    // 한꺼번에 올릴때
-    // 추가: 한꺼번에 올릴때도 for문 안에서 accrueImage로 올리고있습니다 지금당장은 안쓰는 액션임
+    // 5/6 채팅에서 사진 변경할때
     setPreview: (state, action) => {
-      let repImg = action.payload[0];
-      state.represent = repImg;
-      state.imageArr = action.payload.filter((el) => el !== repImg);
+      state.represent = action.payload;
     },
 
     // 업로드하지않았을때
@@ -67,7 +70,7 @@ export const {
   accrueImage,
   removePreview,
   setRepresent,
-  // setPreview,
+  setPreview,
   clearPreview,
 } = actions;
 export default reducer;

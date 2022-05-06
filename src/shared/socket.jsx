@@ -1,15 +1,13 @@
-import io from "socket.io-client";
+import { io } from "socket.io-client";
+// import { SocketIOFileUpload } from "socketio-file-upload";
 
-const URL = "http://52.78.183.202";
-export const socket = io(URL, { transports: ["websocket"] });
+const URL = "http://localhost:5000";
+// const URL = "http://52.78.183.202";
+export const socket = io(URL, { autoConnect: false });
+// export const siofu = SocketIOFileUpload(socket);
+// export const stream = ss.createStream();
 
-export const created = () => {
-  const sessionID = localStorage.getItem("sessionID");
-  if (sessionID) {
-    this.usernameAlreadySelected = true;
-    socket.auth = { sessionID };
-    socket.connect();
-  }
-};
-
-// 소켓 작업하지않으시는분들은 여기 싹다 주석처리하시고 작업하시면 소켓연결 에러 안뜹니다~
+// 모든 이벤트 확인
+socket.onAny((event, ...args) => {
+  console.log(event, args);
+});
