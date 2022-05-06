@@ -11,14 +11,29 @@ import {
   Text,
   Textarea,
 } from "../elements/index";
+import _ from "lodash";
 
 import { Card } from "../components/index";
 
 const Test = () => {
   const [input, setInput] = useState("");
+  const [query, setQuery] = useState("");
+
+  const throttle = _.throttle((k) => console.log("쓰로틀! :::", k), 1000);
+  const keyPress = React.useCallback(throttle, []);
+
+  const onChange = (e) => {
+    keyPress(e.target.value);
+    setQuery(e.target.value);
+  };
 
   return (
     <React.Fragment>
+      <div>
+        <label>Search:</label>
+        <input value={query} onChange={onChange} />
+      </div>
+
       <Grid margin="50px 0 20px">
         <Text h1>Headline</Text>
         <Text h2>Subtitle1</Text>

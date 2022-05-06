@@ -19,6 +19,7 @@ import Test from "./Test";
 import MypageEdit from "./MypageEdit";
 import Manage from "./Manage";
 import DetailProfile from "./DetailProfile";
+import ReviewWrite from "./ReviewWrite";
 
 export {
   Chat,
@@ -41,4 +42,5 @@ export {
   MypageEdit,
   Manage,
   DetailProfile,
+  ReviewWrite,
 };

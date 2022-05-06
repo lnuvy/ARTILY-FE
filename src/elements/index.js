@@ -9,6 +9,7 @@ import Text from "./Text";
 import Textarea from "./Textarea";
 import Icon from "./Icon";
 import Tab from "./Tab";
+import ToggleButton from "./ToggleButton";
 import Wrap from "./Wrap";
 
 export {
@@ -23,5 +24,6 @@ export {
   Icon,
   Tab,
   Image,
+  ToggleButton,
   Wrap,
 };

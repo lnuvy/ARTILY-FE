@@ -34,7 +34,7 @@ const Review = () => {
               ? reviewList.map((l, i) => {
                   return (
                     <ReviewCard
-                      _key={i}
+                      key={i}
                       nickname={l.nickname}
                       {...l}
                       onClick={() => handleClickData(l)}
@@ -46,7 +46,7 @@ const Review = () => {
           </Grid>
         </Wrap>
       </Grid>
-      <Button onClick={() => history.push("/store/write")}>글쓰기</Button>
+      <Button onClick={() => history.push("/review/write")}>글쓰기</Button>
     </>
   );
 };

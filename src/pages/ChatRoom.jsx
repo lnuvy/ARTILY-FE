@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Button, Flex, Grid, Input, Text, Wrap } from "../elements";
-import { BsPaperclip } from "react-icons/bs";
+import { Button, Flex, Grid, Image, Input, Text, Wrap } from "../elements";
 import { socket } from "../shared/socket";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import theme from "../styles/theme";
+import { history } from "../redux/configureStore";
+import {
+  messagesUpdate,
+  notificationCheck,
+  receiveChat,
+} from "../redux/modules/chat";
+import { ChatFileInput } from "../components";
+import { clearPreview } from "../redux/modules/image";
 
 const { color } = theme;
 
@@ -16,42 +23,72 @@ const ChatRoom = () => {
 
   // url 에서 가져온 현재 방 이름
   const roomName = pathname.slice(6);
-  // 메세지 보내는사람 (지금은 무조건 작성자 본인)
-  const from = useSelector((state) => state.user.user?.nickname);
+  const from = useSelector((state) => state.user.user?.userId);
+  // const target = JSON.parse(targetInfo)?.userId;
 
-  // useEffect(() => {
-  //   // 여기서 대화내역 불러오기
-  // }, []);
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log(data);
-      console.log("!!!!!!!!!!!!!!!");
-      setMessages((list) => [...list, data]);
-    });
-  }, [socket]);
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log(data);
-    });
-  }, [socket]);
+  const nowChat = useSelector((state) => state.chat.roomList).find(
+    (room) => room.roomName === roomName
+  );
 
   const [message, setMessage] = useState("");
+  // 사진업로드
+  const uploadFile = useSelector((state) => state.image.represent);
   const [messages, setMessages] = useState([]);
 
-  const sendMessage = async () => {
-    if (message !== "") {
+  // useEffect(() => {
+  //   // socket.emit("join_room", roomName, nowChat?.post?.userId, nowChat?.post);
+  // }, [socket]);
+
+  useEffect(() => {
+    if (nowChat) {
+      setMessages(nowChat.messages);
+    }
+    return () => {
+      dispatch(notificationCheck(roomName));
+    };
+  }, [nowChat]);
+
+  const sendMessage = () => {
+    // 공백검사
+    if (/\S/.test(message) && !uploadFile) {
       const messageData = {
         roomName,
         from,
         message,
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
       };
-      await socket.emit("send_message", messageData);
-      setMessages((list) => [...list, messageData]);
+      socket.emit("send_message", messageData);
+      // setMessages((list) => [...list, messageData]);
+      setMessages(messages.concat(messageData));
+      setMessage("");
+      dispatch(receiveChat(messageData));
+
+      socket.on("receive_message", (data) => {
+        setMessages(messages.concat(data));
+      });
+    } else {
+      alert("공백만 입력됨");
       setMessage("");
     }
+  };
+
+  const sendFile = () => {
+    const file = uploadFile;
+    const formData = new FormData();
+
+    console.log(file);
+
+    if (file) {
+      formData.append("image", file);
+    }
+
+    console.log("formData", formData);
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    socket.emit("send_message", formData);
+    dispatch(clearPreview());
   };
 
   // 스크롤 부드럽게 내리기
@@ -64,63 +101,103 @@ const ChatRoom = () => {
     scrollToBottom();
   }, [messages]);
 
-  return (
-    <Container>
-      {messages.map((msg, i) => {
-        if (msg.from === from)
-          return (
-            <Flex key={i} width="80%" jc="end">
-              <Flex
-                width="fit-content"
-                padding="10px 20px"
-                margin="15px 20px 5px"
-                bc={color.brandColor}
-                br="8px"
-                jc="end"
-              >
-                <Text h1 color="white">
-                  {msg.message}
-                </Text>
-              </Flex>
-            </Flex>
-          );
-        else
-          return (
-            <Flex key={i} width="80%">
-              <Flex
-                width="fit-content"
-                padding="10px 20px"
-                margin="20px"
-                bc={color.brandColor}
-                br="8px"
-                jc="start"
-              >
-                <Text>{msg.message}</Text>
-              </Flex>
-            </Flex>
-          );
-      })}
-      <div ref={messagesEndRef} />
+  const leaveRoom = () => {
+    socket.emit("leave_room", roomName);
+  };
 
-      <FixedChatBar>
+  useEffect(() => {
+    socket.on("leave_room", (data) => {
+      console.log(data);
+    });
+  });
+
+  return (
+    <>
+      {/* 상품 정보 */}
+      <Wrap>
         <Flex>
-          <BsPaperclip size={30} />
-          <Input
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") sendMessage();
-            }}
-          />
+          <Image src={nowChat?.post?.imageUrl} width="50px" height="50px" />
+          <Flex fd="column">
+            <Text h1>{nowChat?.post?.postTitle}</Text>
+            <Text h2>{nowChat?.post?.price}</Text>
+          </Flex>
         </Flex>
-        <Button onClick={sendMessage}>전송</Button>
-      </FixedChatBar>
-    </Container>
+        <Flex>
+          <Button onClick={leaveRoom}>나가기</Button>
+        </Flex>
+      </Wrap>
+
+      {/* 채팅 */}
+      <Container>
+        {messages.map((msg, i) => {
+          if (msg.from === from)
+            return (
+              <Flex key={i} width="80%" jc="end" height="auto">
+                <Text>{moment(msg.time).format("hh:mm")}</Text>
+                <Flex
+                  width="fit-content"
+                  height="fit-content"
+                  padding="10px 20px"
+                  margin="15px 20px 5px"
+                  bc={color.brandColor}
+                  br="8px"
+                  jc="end"
+                >
+                  <Text h1 color="white">
+                    {msg.message}
+                  </Text>
+                </Flex>
+              </Flex>
+            );
+          else
+            return (
+              <Flex key={i} width="80%" height="auto">
+                <Image circle size={50} src={nowChat.profileImage} />
+                <Flex
+                  width="fit-content"
+                  height="fit-content"
+                  padding="10px 20px"
+                  margin="20px"
+                  bc={color.brandColor}
+                  br="8px"
+                  jc="start"
+                >
+                  <Text>{msg.message}</Text>
+                </Flex>
+                <Text>{moment(msg.time).format("hh:mm")}</Text>
+              </Flex>
+            );
+        })}
+        <div ref={messagesEndRef} />
+
+        <FixedChatBar>
+          <Flex>
+            <ChatFileInput />
+            {uploadFile ? (
+              <Image width="60px" height="50px" src={uploadFile} />
+            ) : (
+              <Input
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") sendMessage();
+                }}
+              />
+            )}
+          </Flex>
+          {uploadFile ? (
+            <Button onClick={sendFile}>전송</Button>
+          ) : (
+            <Button onClick={sendMessage}>전송</Button>
+          )}
+        </FixedChatBar>
+      </Container>
+    </>
   );
 };
 
 const Container = styled.div`
-  height: calc(100vh - 175px);
+  height: calc(100vh - 275px);
   display: flex;
   flex-direction: column;
   overflow-y: scroll;

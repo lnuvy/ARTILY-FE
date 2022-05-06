@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Grid, Text } from "../elements";
-import { categoryList } from "../redux/modules/store";
+import { filteringData } from "../redux/modules/store";
 
 const cate = [
   "전체",
@@ -19,7 +19,7 @@ const Category = () => {
   const [current, setCurrent] = useState("전체");
 
   useEffect(() => {
-    dispatch(categoryList(current));
+    dispatch(filteringData(current));
   }, [current]);
 
   return (

@@ -20,6 +20,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 
 // 채팅
 import { socket } from "../shared/socket";
+import { receiveChatRoom } from "../redux/modules/chat";
 
 const StoreDetail = () => {
   const dispatch = useDispatch();
@@ -39,9 +40,31 @@ const StoreDetail = () => {
     const postUser = current.user?.userId;
     const nowUser = currentUser?.userId;
 
-    let roomName = `from${nowUser}_to${postUser}`;
+    let roomName = `from${nowUser}_to${postUser}_${postId}`;
 
-    socket.emit("join_room", roomName);
+    const chatPostData = {
+      postId,
+      imageUrl: current.imageUrl[0],
+      postTitle: current.postTitle,
+      price: current.price,
+      // TODO: 판매중/판매완료 상태 추가
+    };
+
+    socket.emit("join_room", roomName, postUser, chatPostData);
+
+    dispatch(
+      receiveChatRoom({
+        roomName,
+        target: postUser,
+        post: chatPostData,
+        nickname: current.user.nickname,
+        profileImage: current.user.profileImage,
+        messages: [],
+        newMessage: 0,
+        lastMessage: null,
+        lastTime: null,
+      })
+    );
     history.push(`/chat/${roomName}`);
   };
 
@@ -53,7 +76,7 @@ const StoreDetail = () => {
             <Text h1>{current.postTitle}</Text>
             <Flex margin="8px 0 0 0" jc="space-between">
               <Flex>
-                <Image circle size="20" src={current.user.profileUrl} />
+                <Image circle size="20" src={current.user.profileImage} />
                 <Text margin="0 0 0 4px">{current.user.nickname}</Text>
               </Flex>
               <Flex>

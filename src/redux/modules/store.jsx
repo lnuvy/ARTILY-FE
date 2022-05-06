@@ -11,7 +11,7 @@ import { storeDummy } from "../../shared/Dummy";
 // list: 데이터 담기는곳, isFetching: 데이터를 불러오는중인지, infinityScroll: 구분하는 아이디 등 넣는곳
 const initialState = {
   list: [],
-  categoryList: [],
+  filterList: [],
   isFetching: false,
   infinityScroll: {},
   detailData: null,
@@ -42,22 +42,61 @@ const postsSlice = createSlice({
   name: "store",
   initialState: initialState,
   reducers: {
+    // 처음 모든 데이터 불러오기만하기 (list 는 저장용도)
     getStoreData: (state, action) => {
       state.list = action.payload;
+      state.filterList = action.payload;
     },
     // 데이터 하나 특정하기
     go2detail: (state, action) => {
       state.detailData = action.payload;
     },
-    // 카테고리 필터
-    categoryList: (state, action) => {
-      state.categoryList = state.list.filter(
+    // 카테고리 필터 이름변경
+    filteringData: (state, action) => {
+      if (action.payload === "전체") {
+        state.filterList = state.list;
+        return;
+      }
+      state.filterList = state.list.filter(
         (post) => post.category === action.payload
       );
+    },
+    // 모달창의 필터링 내용으로 filterList 업데이트하기
+    modalFiltering: (state, action) => {
+      const { transaction, region } = action.payload;
+
+      // 필터링 전 초기화(다시 모두 채우기)
+      state.filterList = state.list;
+
+      let newFilterList = [];
+      // 거래방식이 전체가 아닐때 (직거래 or 택배 가 있음)
+      if (transaction !== "전체") {
+        newFilterList = state.filterList.filter(
+          (l) => l.transaction === transaction
+        );
+        state.filterList = newFilterList;
+      } else {
+        newFilterList = state.filterList;
+      }
+      // 지역이 전체가 아닐때
+      let regionList = [];
+      if (region[0] !== "전체") {
+        regionList = newFilterList.filter((l) => {
+          for (let i = 0; i < region.length; i++) {
+            if (l.user.address.includes(region[i])) {
+              return l;
+            }
+          }
+        });
+        state.filterList = regionList;
+      }
+
+      console.log(regionList);
     },
   },
 });
 
 const { reducer, actions } = postsSlice;
-export const { getStoreData, go2detail, categoryList } = actions;
+export const { getStoreData, go2detail, filteringData, modalFiltering } =
+  actions;
 export default reducer;

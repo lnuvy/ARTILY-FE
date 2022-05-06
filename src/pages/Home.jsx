@@ -10,7 +10,6 @@ import { openModal } from "../redux/modules/modal";
 const Home = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.user);
-  console.log(userInfo);
 
   //최초 로그인일 경우
   // if (userInfo) {
@@ -20,7 +19,7 @@ const Home = () => {
   // 더미데이터 주입
   useEffect(() => {
     dispatch(getHomeDataDB());
-  }, [dispatch]);
+  }, []);
 
   // 한번에 데이터를 리덕스에 넣는방법이 딱히 안떠올라서 main용 리덕스를 새로 만들었습니다 좋은 의견있으면 바꿔주세요
   const { bestStore, recommendArtist, bestReview } = useSelector(
