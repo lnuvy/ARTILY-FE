@@ -11,9 +11,9 @@ import theme from "../styles/theme";
 import { getToken, insertToken, removeToken } from "../shared/token";
 
 const choicemenu = {
-  판매목록: "/mypage/sellList",
-  리뷰목록: "/mypage/reviewList",
-  관심목록: "/mypage/likeList",
+  판매목록: "/mypage",
+  리뷰목록: "/mypage",
+  관심목록: "/mypage",
 };
 
 export const menus = Object.entries(choicemenu);
@@ -70,20 +70,18 @@ const MyPage = () => {
         ></Image>
         <Wrap padding="0 20px 0 0px">
           <Text h2 bold margin="0 0 5px 0">
-            {getProfile.nickname}
+            {/* {getProfile.nickname} */}
           </Text>
           <Text>팔로우 2명 · 팔로워 7명</Text>
           <Text>등록한 작품 5개</Text>
         </Wrap>
         <Wrap margin="0 0 50px">
-          <Edit>
-            <Text
-              onClick={() => {
-                history.push("/mypage/edit");
-              }}
-            >
-              수정하기
-            </Text>
+          <Edit
+            onClick={() => {
+              history.push("/mypage/edit");
+            }}
+          >
+            <Text>수정하기</Text>
           </Edit>
         </Wrap>
       </Flex>
