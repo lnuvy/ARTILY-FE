@@ -103,6 +103,7 @@ const getUserInfo = () => {
     await axios
       .get(`${BASE_URL}/api/user/getuser`, { headers: config })
       .then((res) => {
+        console.log("profileImage?", res.data);
         const { user } = res.data;
         dispatch(getUser(user));
       })

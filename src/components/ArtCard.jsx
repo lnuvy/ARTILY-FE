@@ -28,7 +28,6 @@ const ArtCard = (props) => {
     buylist,
   } = props;
   const { userId, nickname, profileImage, address } = user;
-  console.log("여기", profileImage);
 
   //5.5 영경_마이페이지 -> 판매작품 관리하기에서 사용될 Artcard 추가
   if (mystore) {

@@ -19,7 +19,6 @@ const Review = () => {
   }, []);
 
   const handleClickData = (data) => {
-    console.log(data.reviewId);
     dispatch(go2detail(data));
     history.push(`/review/view/${data.reviewId}`);
   };
