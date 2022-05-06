@@ -61,7 +61,7 @@ const MypageEdit = () => {
     //formData.append(name(키),value(값))
     //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
 
-    formData.append("profileUrl", file);
+    formData.append("profileImage", file);
     formData.append("nickName", nickname);
     formData.append("website", website);
     formData.append("introduce", introduce);
