@@ -44,7 +44,7 @@ const StoreWrite = () => {
   const modalOn = () => {
     dispatch(
       openModal({
-        title: "주소입력",
+        title: "위치 선택",
         // text 를 content 로 변경, 태그 직접 넣으면 됩니다
         content: (
           <>

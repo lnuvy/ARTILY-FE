@@ -49,6 +49,7 @@ const Flex = (props) => {
 };
 
 Flex.defaultProps = {
+  // width 디폴트를 none 으로 주신 이유가있는지..? 만들어놓은것들 스타일이 이상해져서 none으로하기가 좀 그러네요 -한울-
   width: "inherit",
   height: "inherit",
   fd: "row",

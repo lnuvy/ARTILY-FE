@@ -2,8 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import theme from "../styles/theme";
 
+// 5/7 전체 border 있는 인풋이 꼭 필요해서 square 로 Input 나눔, border-radius br 로 추가,
+// label 이 인풋을 너무 잡아먹어서 있을때만 자리차지할수있게 삼항연산자 줌 -한울-
 const Input = (props) => {
   const {
+    square, // 네모박스 인풋 추가
     onKeyPress, // onKeyPress 추가
     onChange,
     value,
@@ -18,28 +21,50 @@ const Input = (props) => {
     icon,
     padding,
     readOnly,
+    br, // border-radius
   } = props;
 
-  const styles = { width, fg, margin, alert, icon, padding };
+  const styles = { width, fg, margin, alert, icon, padding, br };
 
-  return (
-    <InputWrap {...styles}>
-      <InputLabel id={id}>{label}</InputLabel>
-      <InputBox {...styles}>
-        <InputContainer
-          id={id}
-          value={value}
-          placeholder={placeholder}
-          onChange={onChange}
-          readOnly={readOnly}
-          onKeyPress={onKeyPress}
-          {...styles}
-        ></InputContainer>
-        {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}
-      </InputBox>
-      {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}
-    </InputWrap>
-  );
+  if (square) {
+    return (
+      <InputWrap {...styles}>
+        {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
+
+        <InputBox {...styles}>
+          <SquareInput
+            id={id}
+            value={value}
+            placeholder={placeholder}
+            onChange={onChange}
+            readOnly={readOnly}
+            onKeyPress={onKeyPress}
+            {...styles}
+          />
+          {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}
+        </InputBox>
+        {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}
+      </InputWrap>
+    );
+  } else
+    return (
+      <InputWrap {...styles}>
+        {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
+        <InputBox {...styles}>
+          <InputContainer
+            id={id}
+            value={value}
+            placeholder={placeholder}
+            onChange={onChange}
+            readOnly={readOnly}
+            onKeyPress={onKeyPress}
+            {...styles}
+          ></InputContainer>
+          {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}
+        </InputBox>
+        {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}
+      </InputWrap>
+    );
 };
 
 export default Input;
@@ -66,7 +91,7 @@ const InputBox = styled.div`
 const InputContainer = styled.input`
   height: fit-content;
   width: ${({ width }) => width};
-  padding: ${({ padding }) => padding} 0;
+  padding: ${({ padding }) => padding};
   background: rgba(255, 255, 255, 0.05);
   border-radius: 0px;
   :focus-visible {
@@ -92,6 +117,39 @@ const InputContainer = styled.input`
       :focus {
         // border-bottom: 1px solid ${theme.color.brandColor};
         // box-shadow: 0px 0px 6px ${theme.color.brandColor};
+      }
+    `}
+`;
+
+const SquareInput = styled.input`
+  height: fit-content;
+  width: ${({ width }) => width};
+  padding: ${({ padding }) => padding};
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: ${({ br }) => br};
+  :focus-visible {
+    outline: none;
+  }
+  ::placeholder {
+    color: ${theme.color.black};
+    opacity: 0.3;
+  }
+  ${(props) =>
+    props.alert
+      ? `
+      color: ${theme.color.black};
+      border: 1px solid ${theme.color.danger};
+      :focus {
+        border: 1px solid ${theme.color.danger};
+        box-shadow: 0px 0px 6px ${theme.color.danger};
+      }
+    `
+      : `
+      color: ${theme.color.black};
+      border: 1px solid ${theme.color.black};
+      :focus {
+        border: 1px solid ${theme.color.brandColor};
+        box-shadow: 0px 0px 6px ${theme.color.brandColor};
       }
     `}
 `;
