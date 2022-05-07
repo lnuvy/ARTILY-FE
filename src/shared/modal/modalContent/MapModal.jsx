@@ -1,23 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { Flex, Grid, Input, Text, Wrap } from "../../../elements";
+import React, { useEffect, useState, forwardRef, useRef } from "react";
+import {
+  Flex,
+  Grid,
+  Input,
+  Text,
+  Wrap,
+  Button,
+  InputRef,
+  Icon,
+} from "../../../elements";
 import {
   Map,
   ZoomControl,
   MapTypeControl,
   MapMarker,
 } from "react-kakao-maps-sdk";
+import { AiOutlineSearch } from "react-icons/ai";
+import { MdGpsFixed } from "react-icons/md";
 
-import { changeMarker } from "../../api/KakaoGeolocation";
+import { changeMarker, currentmap } from "../../api/KakaoGeolocation";
 
 const { kakao } = window;
+const ps = new kakao.maps.services.Places();
 
 const MapModal = () => {
+  const [map, setMap] = useState();
+  const [address, setAddress] = useState("");
+  const [query, setQuery] = useState(null);
   const [position, setPosition] = useState({
     lat: 37.5669412,
     lng: 126.978403,
   });
-  const [address, setAddress] = useState("");
-  const [query, setQuery] = useState("");
+  const inputRef = useRef(null);
 
   useEffect(() => {
     fetchData();
@@ -26,47 +40,60 @@ const MapModal = () => {
     }
   }, [position]);
 
-  // const ps = new kakao.maps.services.Places()
+  useEffect(() => {
+    if (!query) return;
+    ps.keywordSearch(query, (data, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        let bounds = new kakao.maps.LatLngBounds();
+        if (data[0]) {
+          setPosition({
+            lat: data[0].y,
+            lng: data[0].x,
+          });
+          bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+        }
+        map.setBounds(bounds);
+        map.setLevel(6);
+      }
+    });
+  }, [query]);
 
-  //   ps.keywordSearch("이태원 맛집", (data, status, _pagination) => {
-  //     if (status === kakao.maps.services.Status.OK) {
-  //       // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-  //       // LatLngBounds 객체에 좌표를 추가합니다
-  //       const bounds = new kakao.maps.LatLngBounds()
-  //       let markers = []
+  const inputSearch = () => {
+    const { value } = inputRef.current;
+    console.log(value, /\S/.test(value));
+    if (/\S/.test(value)) setQuery(value);
+  };
 
-  //       for (var i = 0; i < data.length; i++) {
-  //         // @ts-ignore
-  //         markers.push({
-  //           position: {
-  //             lat: data[i].y,
-  //             lng: data[i].x,
-  //           },
-  //           content: data[i].place_name,
-  //         })
-  //         // @ts-ignore
-  //         bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x))
-  //       }
-  //       setMarkers(markers)
+  const nowPosition = () => {
+    currentmap(setAddress, setPosition);
 
-  //       // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-  //       map.setBounds(bounds)
-  //     }
-  //   })
-  // }, [map])
+    let bounds = new kakao.maps.LatLngBounds();
+    bounds.extend(new kakao.maps.LatLng(position.lat, position.lng));
+    map.setBounds(bounds);
+    map.setLevel(6);
+  };
 
   return (
     <Wrap height="100%">
-      <Input margin="0" square br="8px" />
-      <Text>현재 위치로 이동</Text>
+      <InputRef
+        margin="0"
+        br="8px"
+        ref={inputRef}
+        icon={<AiOutlineSearch onClick={inputSearch} size={28} />}
+        placeholder="키워드로 내동네 찾기"
+        onKeyPress={inputSearch}
+      />
+
+      <Grid height="auto">
+        <Flex margin="10px 10px" onClick={nowPosition}>
+          <MdGpsFixed size={24} />
+          <Text>현재 위치로 이동</Text>
+        </Flex>
+      </Grid>
       <Flex width="317px" height="249px" bc="tomato" margin="0 auto">
         <Map // 지도를 표시할 Container
-          id="map"
-          center={{
-            // 지도의 중심좌표
-            lat: 37.5669412,
-            lng: 126.978403,
-          }}
+          center={position}
+          isPanto={true}
           style={{
             width: "317px",
             height: "249px",
@@ -79,6 +106,7 @@ const MapModal = () => {
               lng: map.getCenter().getLng(),
             })
           }
+          onCreate={setMap}
         >
           <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />
           <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />

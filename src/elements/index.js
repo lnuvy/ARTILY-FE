@@ -5,6 +5,7 @@ import Grid from "./Grid";
 import Image from "./Image";
 import ImageCarousel from "./ImageCarousel";
 import Input from "./Input";
+import InputRef from "./InputRef";
 import Text from "./Text";
 import Textarea from "./Textarea";
 import Icon from "./Icon";
@@ -18,6 +19,7 @@ export {
   Flex,
   Grid,
   Input,
+  InputRef,
   Text,
   Textarea,
   ImageCarousel,

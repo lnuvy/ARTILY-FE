@@ -5,7 +5,7 @@ import { myStoreDummy } from "../../shared/Dummy";
 
 const initialState = {
   list: [],
-  categoryList: [],
+  nowList: [],
   isFetching: false,
   infinityScroll: {},
   detailData: null,
@@ -20,18 +20,18 @@ export const getmyPostDB = () => {
   };
 };
 
-export const getmyPostOne = (postId) => {
-  return async function (dispatch, getState, { history }) {
-    // axios
+// export const getmyPostOne = (postId) => {
+//   return async function (dispatch, getState, { history }) {
+//     // axios
 
-    // 더미데이터 임시방편
-    dispatch(getmyStoreData(myStoreDummy));
-    const allList = getState().mystore.list;
-    console.log(allList);
-    const now = allList.find((l) => l.postId === postId);
-    dispatch(go2detail(now));
-  };
-};
+//     // 더미데이터 임시방편
+//     dispatch(getmyStoreData(myStoreDummy));
+//     const allList = getState().mystore.list;
+//     console.log(allList);
+//     const now = allList.find((l) => l.postId === postId);
+//     dispatch(go2detail(now));
+//   };
+// };
 
 const postsSlice = createSlice({
   name: "mystore",
@@ -44,14 +44,12 @@ const postsSlice = createSlice({
     go2detail: (state, action) => {
       state.detailData = action.payload;
     },
-    categoryList: (state, action) => {
-      state.categoryList = state.list.filter(
-        (post) => post.category === action.payload
-      );
+    selectList: (state, action) => {
+      state.nowList = state.list.find((l) => l === action.payload);
     },
   },
 });
 
 const { reducer, actions } = postsSlice;
-export const { getmyStoreData, go2detail, categoryList } = actions;
+export const { getmyStoreData, go2detail, selectList } = actions;
 export default reducer;

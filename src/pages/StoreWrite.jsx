@@ -45,7 +45,6 @@ const StoreWrite = () => {
     dispatch(
       openModal({
         title: "위치 선택",
-        // text 를 content 로 변경, 태그 직접 넣으면 됩니다
         content: (
           <>
             <MapModal />
@@ -57,10 +56,14 @@ const StoreWrite = () => {
 
   return (
     <Grid>
+      <Wrap margin="20px 10px 10px">
+        <Flex jc="space-between" margin="0 0 10px">
+          <Preview />
+        </Flex>
+      </Wrap>
       <Wrap margin="16px">
         <Input
           id="postTitle"
-          label="제목"
           placeholder="상품의 제목을 입력하세요..."
           margin="0 0 20px"
           value={inputs?.postTitle}
@@ -92,20 +95,6 @@ const StoreWrite = () => {
           <Text h2>직거래만 할래요</Text>
         </Checkbox>
         <Button onClick={modalOn} />
-
-        <Wrap margin="20px 10px 10px">
-          <Flex jc="space-between" margin="0 0 10px">
-            <Flex>
-              <Text h1>사진 첨부</Text>
-              <Text body2 color="gray">
-                &nbsp;(최대 10장)
-              </Text>
-            </Flex>
-            <Preview />
-          </Flex>
-
-          <ImagePreview />
-        </Wrap>
       </Wrap>
     </Grid>
   );

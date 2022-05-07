@@ -22,6 +22,7 @@ const ArtCard = (props) => {
     price,
     category,
     transaction,
+    done,
     imageUrl,
     mystore,
     sellLabel,
@@ -109,7 +110,12 @@ const ArtCard = (props) => {
       <Card onClick={onClick}>
         <Label>
           {/* 판매중인 상품과 판매완료된 상품을 구별할 라벨입니다. */}
-          <p className="selling">판매중</p>
+          {done ? (
+            <p className="selling">판매완료</p>
+          ) : (
+            <p className="selling">판매중</p>
+          )}
+
           {/* <p className="complete">판매완료</p> */}
 
           <Image height="120px" src={imageUrl[0]} />
@@ -125,21 +131,21 @@ const ArtCard = (props) => {
         <Text bold>{priceComma(price)}원</Text>
       </Card>
     );
-  } // 여기 else 안주면 밑에꺼 나오지 않나요 ? -한울-
-  return (
-    <Card onClick={onClick}>
-      <Image height="120px" src={imageUrl[0]} />
-      <Flex margin="8px 0 0">
-        <Image circle size="20" src={profileImage} />
-        <Text margin="0 0 0 4px">{nickname}</Text>
-      </Flex>
-      <Text>{postTitle}</Text>
-      <Text>
-        {transaction} ∙ {address}
-      </Text>
-      <Text bold>{priceComma(price)}원</Text>
-    </Card>
-  );
+  } else
+    return (
+      <Card onClick={onClick}>
+        <Image height="120px" src={imageUrl[0]} />
+        <Flex margin="8px 0 0">
+          <Image circle size="20" src={profileImage} />
+          <Text margin="0 0 0 4px">{nickname}</Text>
+        </Flex>
+        <Text>{postTitle}</Text>
+        <Text>
+          {transaction} ∙ {address}
+        </Text>
+        <Text bold>{priceComma(price)}원</Text>
+      </Card>
+    );
 };
 const Sell = styled.div`
   margin: 10px 0;

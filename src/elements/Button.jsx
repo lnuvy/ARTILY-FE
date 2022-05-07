@@ -9,6 +9,7 @@ const Button = (props) => {
     display,
     jc,
     width,
+    height,
     margin,
     padding,
     br,
@@ -27,6 +28,7 @@ const Button = (props) => {
     display,
     jc,
     width,
+    height,
     margin,
     padding,
     br,
@@ -75,6 +77,7 @@ const ButtonStyle = styled.button`
   display: ${({ display }) => display};
   flex-grow: ${({ fg }) => fg};
   width: ${({ width }) => width};
+  height: ${({ height }) => height};
   border-radius: ${({ br }) => br};
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};

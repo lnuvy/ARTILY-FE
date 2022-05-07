@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Text, Flex, Image, Grid, Wrap } from "../elements";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getmyPostDB, go2detail } from "../redux/modules/mypage";
+import { getmyPostDB, go2detail, selectList } from "../redux/modules/mypage";
 import { actionCreators as userActions } from "../redux/modules/user";
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
@@ -10,51 +10,38 @@ import { ArtCard } from "../components";
 import theme from "../styles/theme";
 import { getToken, insertToken, removeToken } from "../shared/token";
 
-const choicemenu = {
-  판매목록: "/mypage",
-  리뷰목록: "/mypage",
-  관심목록: "/mypage",
-};
-
-export const menus = Object.entries(choicemenu);
+const menus = ["판매목록", "리뷰목록", "관심목록"];
 
 const MyPage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);
+  const nowList = useSelector((state) => state.mystore.nowList);
   console.log(mystoreList);
   const getProfile = useSelector((state) => state.user.user);
   console.log(getProfile);
+
   //더미 데이터 주입
   useEffect(() => {
     dispatch(getmyPostDB());
-  }, [dispatch]);
+  }, []);
 
-  //로그아웃(작업중)
-  // const kakaologOut = () => {
-  //   window.alert("로그아웃이 완료되었습니다!");
-  //   history.replace("/");
-  // };
   const handleClickData = (data) => {
     dispatch(go2detail(data));
     history.push(`/mypage/mystore/${data.postId}`);
   };
-  // 현재 url 경로로 홈에있는지, 스토어에있는지, 리뷰에 있는지 판별
-  const path = useLocation().pathname;
-  const [current, setCurrent] = useState(menus[0]); // ["홈", "/home"] 이렇게 저장됨
 
-  // 경로가 바뀔때마다 url이 포함하고있는 네비게이션 항목으로 설정
+  const [current, setCurrent] = useState(menus[0]);
+
   useEffect(() => {
-    const now = menus.find((l) => path.includes(l[1]));
-    if (now) {
-      setCurrent(now);
-    }
-  }, [path]);
+    console.log("지금 커런트", current);
+    dispatch(selectList(current));
+  }, [current]);
 
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
     console.log(innerText);
-    setCurrent(menus.find((l) => l[0] === innerText));
+    setCurrent(menus.find((l) => l === innerText));
   };
   return (
     <>
@@ -150,11 +137,10 @@ const MyPage = () => {
               key={menu}
               onClick={(e) => {
                 handleChangeCurrent(e);
-                history.push(menu[1]);
               }}
               current={menu === current}
             >
-              <Nav>{menu[0]}</Nav>
+              <Nav>{menu}</Nav>
             </CurrentDiv>
           );
         })}
@@ -162,18 +148,29 @@ const MyPage = () => {
 
       {/* ---------------------------------------------------- */}
       <Grid gtc="auto auto" rg="8px" cg="8px" margin="10px 10px 20px">
-        {mystoreList.map((l) => {
-          return (
-            //판매중 or 판매완료를 표시해야 하는데 어떻게 해야할까
-            <ArtCard
-              sellLabel
-              key={l.postId}
-              className="sell"
-              {...l}
-              onClick={() => handleClickData(l)}
-            />
-          );
-        })}
+        {mystoreList &&
+          nowList?.map((l) => {
+            if (current === "리뷰목록") {
+              return (
+                <ArtCard
+                  key={l.postId}
+                  className="sell"
+                  {...l}
+                  onClick={() => handleClickData(l)}
+                />
+              );
+            } else
+              return (
+                //판매중 or 판매완료를 표시해야 하는데 어떻게 해야할까
+                <ArtCard
+                  sellLabel
+                  key={l.postId}
+                  className="sell"
+                  {...l}
+                  onClick={() => handleClickData(l)}
+                />
+              );
+          })}
       </Grid>
     </>
   );

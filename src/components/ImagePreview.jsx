@@ -9,6 +9,8 @@ import {
 } from "../redux/modules/image";
 import styled from "styled-components";
 
+import { AiOutlineClose } from "react-icons/ai";
+
 const ImagePreview = () => {
   const dispatch = useDispatch();
   const { represent, imageArr } = useSelector((state) => state.image);
@@ -41,13 +43,14 @@ const ImagePreview = () => {
               <Button
                 padding="2px"
                 position="absolute"
-                top="-6px"
+                top="-4px"
                 right="-6px"
                 bc="black"
                 width="fit-content"
+                height="12px"
                 onClick={() => removeImage(image)}
               >
-                <Icon width="12px" height="12px" />
+                <AiOutlineClose size={12} />
               </Button>
               {i === 0 && <MainImageLabel>대표 사진</MainImageLabel>}
             </Wrap>
