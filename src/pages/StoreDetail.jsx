@@ -151,7 +151,7 @@ const StoreDetail = () => {
 
               <Text h1>{current.markupCnt}</Text>
             </Flex>
-            <Flex>
+            <Flex jc="end">
               <Text h1 bold margin="0 10px">
                 {priceComma(current.price)}원
               </Text>

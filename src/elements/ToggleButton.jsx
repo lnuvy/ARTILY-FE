@@ -4,8 +4,18 @@ import theme from "../styles/theme";
 
 // 필터링에서 사용하는 동글동글 토글되는 버튼
 const ToggleButton = (props) => {
-  const { children, onClick, jc, width, margin, padding, fg, bc, select } =
-    props;
+  const {
+    id = null,
+    children,
+    onClick,
+    jc,
+    width,
+    margin,
+    padding,
+    fg,
+    bc,
+    select,
+  } = props;
 
   const styles = {
     select,
@@ -18,7 +28,7 @@ const ToggleButton = (props) => {
   };
 
   return (
-    <ButtonStyle onClick={onClick} {...styles}>
+    <ButtonStyle id={id} onClick={onClick} {...styles}>
       {children}
     </ButtonStyle>
   );
@@ -36,6 +46,7 @@ ToggleButton.defaultProps = {
   fg: "0",
   bc: `white`,
   select: false,
+  id: false,
 };
 
 const ButtonStyle = styled.button`

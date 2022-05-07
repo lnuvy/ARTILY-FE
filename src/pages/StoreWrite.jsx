@@ -11,11 +11,15 @@ import {
   Input,
   Text,
   Textarea,
+  ToggleButton,
   Wrap,
 } from "../elements";
 import { clearPreview } from "../redux/modules/image";
 import { openModal } from "../redux/modules/modal";
 import MapModal from "../shared/modal/modalContent/MapModal";
+
+import { IoIosArrowForward } from "react-icons/io";
+import { history } from "../redux/configureStore";
 
 /*
  * @한울
@@ -25,13 +29,15 @@ import MapModal from "../shared/modal/modalContent/MapModal";
 const StoreWrite = () => {
   const dispatch = useDispatch();
   // 인풋 한번에 받기 (체크박스는 e.target.id 가 아니라 e.target.checked 로 받아야해서 인라인에 적용함)
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({ delivery: false, direct: false });
   const { represent, preview } = useSelector((state) => state.image);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setInputs({ ...inputs, [id]: value });
   };
+
+  const [receiveAddress, setReceiveAddress] = useState(null);
 
   // componentwillunmount 역할
   useEffect(() => {
@@ -47,7 +53,7 @@ const StoreWrite = () => {
         title: "위치 선택",
         content: (
           <>
-            <MapModal />
+            <MapModal setReceiveAddress={setReceiveAddress} />
           </>
         ),
       })
@@ -55,16 +61,44 @@ const StoreWrite = () => {
   };
 
   return (
-    <Grid>
-      <Wrap margin="20px 10px 10px">
-        <Flex jc="space-between" margin="0 0 10px">
+    <>
+      <Wrap margin="16px">
+        <Flex jc="space-between" margin="10px 0 10px">
           <Preview />
         </Flex>
-      </Wrap>
-      <Wrap margin="16px">
+        <ToggleButton
+          onClick={() => setInputs({ ...inputs, delivery: !inputs.delivery })}
+          id="delivery"
+          select={inputs?.delivery}
+        >
+          택배
+        </ToggleButton>
+        <ToggleButton
+          onClick={() => setInputs({ ...inputs, direct: !inputs.direct })}
+          id="direct"
+          select={inputs?.direct}
+        >
+          직거래
+        </ToggleButton>
+        {inputs.direct && (
+          <Input
+            readOnly
+            value={receiveAddress ? receiveAddress : "위치 선택"}
+            icon={<IoIosArrowForward size={24} />}
+            onClick={modalOn}
+          />
+        )}
+        <Input
+          readOnly
+          value="카테고리 선택"
+          icon={<IoIosArrowForward size={24} />}
+          onClick={() => {
+            history.push(`/category/select`);
+          }}
+        />
         <Input
           id="postTitle"
-          placeholder="상품의 제목을 입력하세요..."
+          placeholder="작품명을 입력해 주세요."
           margin="0 0 20px"
           value={inputs?.postTitle}
           onChange={handleChange}
@@ -84,19 +118,8 @@ const StoreWrite = () => {
           value={inputs?.price}
           onChange={handleChange}
         />
-        <Checkbox
-          id="transaction"
-          zoom={1.3}
-          margin="0 10px"
-          onChange={(e) =>
-            setInputs({ ...inputs, transaction: e.target.checked })
-          }
-        >
-          <Text h2>직거래만 할래요</Text>
-        </Checkbox>
-        <Button onClick={modalOn} />
       </Wrap>
-    </Grid>
+    </>
   );
 };
 

@@ -19,11 +19,14 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { MdGpsFixed } from "react-icons/md";
 
 import { changeMarker, currentmap } from "../../api/KakaoGeolocation";
+import { useDispatch } from "react-redux";
+import { closeModal } from "../../../redux/modules/modal";
 
 const { kakao } = window;
 const ps = new kakao.maps.services.Places();
 
-const MapModal = () => {
+const MapModal = ({ setReceiveAddress }) => {
+  const dispatch = useDispatch();
   const [map, setMap] = useState();
   const [address, setAddress] = useState("");
   const [query, setQuery] = useState(null);
@@ -71,6 +74,12 @@ const MapModal = () => {
     bounds.extend(new kakao.maps.LatLng(position.lat, position.lng));
     map.setBounds(bounds);
     map.setLevel(6);
+    inputRef.current.value = "";
+  };
+
+  const submitAddress = () => {
+    setReceiveAddress(address);
+    dispatch(closeModal());
   };
 
   return (
@@ -80,8 +89,10 @@ const MapModal = () => {
         br="8px"
         ref={inputRef}
         icon={<AiOutlineSearch onClick={inputSearch} size={28} />}
-        placeholder="키워드로 내동네 찾기"
-        onKeyPress={inputSearch}
+        placeholder="OO구 OO동으로 검색하시면 더욱 정확해요"
+        onKeyPress={(e) => {
+          if (e.key === "Enter") inputSearch();
+        }}
       />
 
       <Grid height="auto">
@@ -90,6 +101,7 @@ const MapModal = () => {
           <Text>현재 위치로 이동</Text>
         </Flex>
       </Grid>
+      <Text color="gray">지도를 움직여 위치를 조정하세요.</Text>
       <Flex width="317px" height="249px" bc="tomato" margin="0 auto">
         <Map // 지도를 표시할 Container
           center={position}
@@ -113,7 +125,22 @@ const MapModal = () => {
           <MapMarker position={position} />
         </Map>
       </Flex>
-      <Text h2>{address}</Text>
+      <Flex padding="8px" height="fit-content" fd="column">
+        <Flex jc="space-between" margin="8px">
+          <Text h2 bold textAlign="left">
+            {address}
+          </Text>
+          <Text body2 margin="0 12px 0 0">
+            안심하세요!
+          </Text>
+        </Flex>
+        <Text body2>주소 개인정보는 동의하에 동단위 까지 저장됩니다.</Text>
+      </Flex>
+      <Flex height="fit-content" margin="0 0 12px">
+        <Button width="100%" onClick={submitAddress}>
+          이 위치로 설정
+        </Button>
+      </Flex>
     </Wrap>
   );
 };

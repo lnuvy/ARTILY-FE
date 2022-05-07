@@ -22,6 +22,7 @@ const Input = (props) => {
     padding,
     readOnly,
     br, // border-radius
+    onClick,
   } = props;
 
   const styles = { width, fg, margin, alert, icon, padding, br };
@@ -41,7 +42,7 @@ const Input = (props) => {
             onKeyPress={onKeyPress}
             {...styles}
           />
-          {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}
+          {icon ? <InputIcon>{icon}</InputIcon> : ""}
         </InputBox>
         {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}
       </InputWrap>
@@ -58,6 +59,7 @@ const Input = (props) => {
             onChange={onChange}
             readOnly={readOnly}
             onKeyPress={onKeyPress}
+            onClick={onClick}
             {...styles}
           ></InputContainer>
           {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}

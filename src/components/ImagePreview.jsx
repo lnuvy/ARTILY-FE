@@ -35,7 +35,6 @@ const ImagePreview = () => {
           return (
             <Wrap
               width="64px"
-              height="64px"
               position="relative"
               key={`${image.slice(0, 10)}_${i}`}
             >
@@ -43,7 +42,7 @@ const ImagePreview = () => {
               <Button
                 padding="2px"
                 position="absolute"
-                top="-4px"
+                top="-6px"
                 right="-6px"
                 bc="black"
                 width="fit-content"

@@ -72,7 +72,7 @@ Button.defaultProps = {
 };
 
 const ButtonStyle = styled.button`
-  cursor: pointer; // 한울 추가
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   display: ${({ display }) => display};
   flex-grow: ${({ fg }) => fg};

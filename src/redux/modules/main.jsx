@@ -4,7 +4,8 @@ import axios from "axios";
 import { homeDummy } from "../../shared/Dummy";
 import { getToken } from "../../shared/token";
 
-const BASE_URL = "http://52.78.183.202";
+// const BASE_URL = "http://52.78.183.202";
+const BASE_URL = "http://13.125.83.59";
 
 /*
  * 4/29 한울

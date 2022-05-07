@@ -5,7 +5,8 @@ import axios from "axios";
 import { getToken, insertToken, removeToken } from "../../shared/token";
 import { markupToggle } from "./store";
 
-const BASE_URL = "http://52.78.183.202";
+// const BASE_URL = "http://52.78.183.202";
+const BASE_URL = "http://13.125.83.59";
 
 //action
 //로그인 체크

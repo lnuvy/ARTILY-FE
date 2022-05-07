@@ -18,6 +18,7 @@ const Flex = (props) => {
     fd,
     bc,
     br,
+    borderTop,
   } = props;
 
   const styles = {
@@ -31,6 +32,7 @@ const Flex = (props) => {
     fd,
     bc,
     br,
+    borderTop,
   };
 
   if (child) {
@@ -72,6 +74,8 @@ const FlexStyle = styled.div`
   padding: ${({ padding }) => padding};
   background-color: ${({ bc }) => bc};
   border-radius: ${({ br }) => br};
+
+  border-top: ${({ borderTop }) => borderTop};
 `;
 
 const FlexChild = styled.div`

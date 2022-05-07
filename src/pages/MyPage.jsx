@@ -16,9 +16,7 @@ const MyPage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);
   const nowList = useSelector((state) => state.mystore.nowList);
-  console.log(mystoreList);
   const getProfile = useSelector((state) => state.user.user);
-  console.log(getProfile);
 
   //더미 데이터 주입
   useEffect(() => {

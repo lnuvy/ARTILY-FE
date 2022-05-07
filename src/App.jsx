@@ -23,6 +23,7 @@ import {
   Manage,
   DetailProfile,
   ReviewWrite,
+  WriteSetCate,
 } from "./pages";
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
@@ -48,38 +49,38 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    socket.on("session", ({ sessionID, userId }) => {
-      console.log(sessionID);
-      socket.auth = { sessionID };
-      if (sessionID) {
-        localStorage.setItem("sessionID", sessionID);
-      }
-      socket.userId = userId;
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket.on("session", ({ sessionID, userId }) => {
+  //     console.log(sessionID);
+  //     socket.auth = { sessionID };
+  //     if (sessionID) {
+  //       localStorage.setItem("sessionID", sessionID);
+  //     }
+  //     socket.userId = userId;
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    if (userInfo) {
-      const sessionID = localStorage.getItem("sessionID") || null;
-      socket.auth = { sessionID, userInfo };
-      socket.connect();
-    }
-  }, [userInfo]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     const sessionID = localStorage.getItem("sessionID") || null;
+  //     socket.auth = { sessionID, userInfo };
+  //     socket.connect();
+  //   }
+  // }, [userInfo]);
 
-  useEffect(() => {
-    // 판매자 입장
-    socket.on("join_room", (data) => {
-      dispatch(receiveChatRoom(data));
-      socket.emit("enter_room", data.roomName);
-    });
-  }, []);
+  // useEffect(() => {
+  //   // 판매자 입장
+  //   socket.on("join_room", (data) => {
+  //     dispatch(receiveChatRoom(data));
+  //     socket.emit("enter_room", data.roomName);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      dispatch(receiveChat(data));
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket.on("receive_message", (data) => {
+  //     dispatch(receiveChat(data));
+  //   });
+  // }, []);
 
   return (
     <>
@@ -100,7 +101,9 @@ function App() {
           <Route path="/store" exact component={Store} />
           <Route path="/store/view/:postId" exact component={StoreDetail} />
           <Route path="/store/write" exact component={StoreWrite} />
-          <Route path="/store/write/:postId" exact component={StoreWrite} />
+          <Route path="/category/select" exact component={WriteSetCate} />
+          {/* <Route path="/store/write/:postId" exact component={StoreWrite} /> */}
+
           <Route path="/follow" exact component={Follow} />
           <Route path="/store" exact component={Store} />
           <Route exact path="/review" component={Review} />
