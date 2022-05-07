@@ -15,7 +15,7 @@ import {
 } from "../elements";
 import { clearPreview } from "../redux/modules/image";
 import { openModal } from "../redux/modules/modal";
-import ReceiveAddress from "../shared/modal/modalContent/ReceiveAddress";
+import MapModal from "../shared/modal/modalContent/MapModal";
 
 /*
  * @한울
@@ -48,7 +48,7 @@ const StoreWrite = () => {
         // text 를 content 로 변경, 태그 직접 넣으면 됩니다
         content: (
           <>
-            <ReceiveAddress />
+            <MapModal />
           </>
         ),
       })

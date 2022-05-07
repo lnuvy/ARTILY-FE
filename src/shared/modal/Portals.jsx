@@ -38,7 +38,7 @@ const Background = styled.div`
 // 컨텐츠: 모달 본체
 const Content = styled.div`
   z-index: 204;
-  height: 63vh;
+  height: 67vh;
   max-width: 580px;
   width: 92%;
   border-radius: 8px;

@@ -8,6 +8,7 @@ const Grid = (props) => {
     cg,
     rg,
     width,
+    height,
     gtc,
     textAlign,
     margin,
@@ -21,6 +22,7 @@ const Grid = (props) => {
     cg,
     rg,
     width,
+    height,
     margin,
     bc,
     border,
@@ -39,6 +41,7 @@ Grid.defaultProps = {
   rg: "16px",
   textAlign: "left",
   width: "inherit",
+  height: "inherit",
   margin: "0",
   bc: "transparent",
   border: "none",
@@ -52,6 +55,7 @@ const GridStyle = styled.div`
   grid-template-columns: ${({ gtc }) => gtc};
   text-align: ${({ textAlign }) => textAlign};
   width: ${({ width }) => width};
+  height: ${({ height }) => height};
   margin: ${({ margin }) => margin};
 
   border: ${({ border }) => border};

@@ -49,7 +49,7 @@ const Flex = (props) => {
 };
 
 Flex.defaultProps = {
-  width: "none",
+  width: "inherit",
   height: "inherit",
   fd: "row",
   ai: "center",

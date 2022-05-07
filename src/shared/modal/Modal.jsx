@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Button, Flex, Grid, Icon, Text } from "../../elements";
+import { Button, Flex, Grid, Icon, Text, Wrap } from "../../elements";
 import ModalPortal from "./Portals";
 
 // X 아이콘
@@ -34,13 +34,18 @@ const Modal = () => {
           </Text>
           <IoCloseOutline onClick={modalClose} size={36} />
         </Flex>
-        {modal.content}
-        {/* <ModalFooter>
-        </ModalFooter> */}
+        <ContentWrap>{modal.content}</ContentWrap>
       </Flex>
     </ModalPortal>
   );
 };
+
+const ContentWrap = styled.div`
+  width: 100%;
+  height: calc(67vh - 70px);
+  padding: 12px;
+  margin: 0;
+`;
 
 // const ModalFooter = styled.div`
 //   position: absolute;
