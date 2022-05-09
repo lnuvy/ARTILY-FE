@@ -6,16 +6,18 @@ import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
 import { openModal } from "../redux/modules/modal";
+import { getToken } from "../shared/token";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.user.user);
+  const getProfile = useSelector((state) => state.user.user);
 
-  //최초 로그인일 경우
-  // if (userInfo) {
-  //   history.push("/regionset");
+  // if (getToken) {
+  //   if (!getProfile.address) {
+  //     window.alert("추가 프로필을 작성해 보시겠어요?");
+  //     history.push("/profile/detail");
+  //   }
   // }
-
   // 더미데이터 주입
   useEffect(() => {
     dispatch(getHomeDataDB());

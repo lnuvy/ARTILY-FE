@@ -22,14 +22,18 @@ const imageSlice = createSlice({
     // 사진을 하나씩 추가할때
     accrueImage: (state, action) => {
       // 첫게시라면 represent 에 저장
-
       state.imageArr.push(action.payload);
-      // if (!state.represent) {
-      //   state.represent = action.payload;
-      //   // 대표이미지가 이미 있다면 imageArr 에 순서대로 push
-      // } else {
-      //   state.imageArr.push(action.payload);
-      // }
+    },
+
+    //프로필 설정
+    setProfileImage: (state, action) => {
+      state.preview = action.payload;
+      // state.preview = action.payload.preview;
+      console.log(action);
+    },
+    resetProfileImage: (state, action) => {
+      state.preview = null;
+      console.log("hi");
     },
 
     // 프리뷰 사진을 지울때
@@ -72,5 +76,7 @@ export const {
   setRepresent,
   setPreview,
   clearPreview,
+  setProfileImage,
+  resetProfileImage,
 } = actions;
 export default reducer;

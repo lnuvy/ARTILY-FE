@@ -4,6 +4,8 @@ import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
 import { Flex, Icon, Text, Tab, Grid } from "../elements";
 import theme from "../styles/theme";
+import { getToken, insertToken } from "../shared/token";
+import { useSelector } from "react-redux";
 
 // 경로를 같이 저장해야할거같아서 Object.entries로 사용
 const menuSelect = {
@@ -15,6 +17,15 @@ const menuSelect = {
 export const menus = Object.entries(menuSelect);
 
 const Navigation = () => {
+  // const onlyUser = useSelector((state) => state.user.user.token);
+
+  // if (!onlyUser) {
+  //   //토큰이 없으면
+  //   //마이페이지를 눌렀을때 로그인 페이지로 이동
+  //   menuSelect[4].onClick(() => {
+  //     window.alert("로그인이 필요한 서비스입니다");
+  //   });
+  // }
   // 현재 url 경로로 홈에있는지, 스토어에있는지, 리뷰에 있는지 판별
   const path = useLocation().pathname;
   const [current, setCurrent] = useState(menus[0]); // ["홈", "/home"] 이렇게 저장됨

@@ -3,17 +3,20 @@ import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { accrueImage } from "../redux/modules/image";
+import { setProfileImage } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
 import ToastMessage from "../shared/ToastMessage";
 import { Front, Back } from "../shared/NicknameDummy.js";
 
+//임시 아이콘
+import { BsArrowRepeat } from "react-icons/bs";
 const Setprofile = () => {
   const dispatch = useDispatch();
 
   const fileInput = useRef();
 
-  const preview = useSelector((state) => state.image.represent);
+  const preview = useSelector((state) => state.image.preview);
+  // console.log(preview);
 
   //랜덤 닉네임 생성
   const randomnickFront = Front;
@@ -24,13 +27,7 @@ const Setprofile = () => {
     " " +
     randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
-  console.log(randomNick);
   const [nickname, setNickname] = useState("");
-
-  // const handleTextChange = (event) => {
-  //   setWebsite(event.target.value);
-  // };
-
   const renameRandom = () => {
     const addNick =
       randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
@@ -39,6 +36,7 @@ const Setprofile = () => {
 
     setNickname(addNick);
   };
+  console.log(nickname);
 
   const selectFile = (e) => {
     const reader = new FileReader();
@@ -47,7 +45,7 @@ const Setprofile = () => {
     console.log(file);
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      dispatch(accrueImage(reader.result));
+      dispatch(setProfileImage(reader.result));
     };
   };
   const editUser = () => {
@@ -61,7 +59,7 @@ const Setprofile = () => {
     //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
 
     formData.append("profileImage", file);
-    formData.append("nickName", nickname);
+    formData.append("nickname", nickname);
     // formData.append("website", website);
     // formData.append("introduce", introduce);
 
@@ -73,9 +71,6 @@ const Setprofile = () => {
     dispatch(userActions.setProfileDB(formData));
   };
 
-  // useEffect(() => {
-  //   // setNickname(getProfile?.nickname);
-  // }, [getProfile]);
   return (
     <>
       <Flex jc="center" margin="2em 0 0 0">
@@ -85,13 +80,12 @@ const Setprofile = () => {
         <p>내 프로필을 만들어주세요!</p>
       </Flex>
       <Wrapprofile>
-        <Flex jc="center">
+        <Flex jc="center" margin="50px 0">
           <Image
             alt="profile"
             width="120px"
             height="120px"
             br="60px"
-            //새로고침하면 기본 프로필사진이 날라감ㅎ
             src={preview ? preview : ""}
           ></Image>
 
@@ -106,21 +100,20 @@ const Setprofile = () => {
           </ImgBox>
         </Flex>
       </Wrapprofile>
-      <Wrap padding="0 10px">
+      <Wrap padding="0 20px 30px 20px">
         <Flex>
           <Text fg="1">닉네임</Text>
-          {/* 일단 기본적으로는 소셜로그인 시 가져오는 기본 닉네임으로 설정 */}
           <Input
+            icon={<BsArrowRepeat size={28} onClick={renameRandom} />}
+            square
+            width="100%"
+            border="1px solid #d3d3d3"
+            br="6px"
             type="text"
             fg="0"
-            value={randomNick}
+            value={nickname || ""}
             onChange={(e) => setNickname(randomNick)}
           />
-
-          <div>
-            {/* 버튼을 클릭하면 input안에 값이 다른 랜덤 닉네임이 나오게 해야함 */}
-            <Button onClick={renameRandom} />
-          </div>
         </Flex>
       </Wrap>
       <Button
@@ -129,9 +122,9 @@ const Setprofile = () => {
         outline
         margin="20px auto"
         onClick={() => {
-          window.alert("프로필이 저장되었습니다!");
           editUser();
-          window.confirm("더 자세한 프로필을 작성하시겠어요?");
+          window.alert("프로필이 저장되었습니다!");
+          window.confirm("자세한 프로필을 작성해보시겠어요?");
           history.push("/profile/detail");
         }}
       >

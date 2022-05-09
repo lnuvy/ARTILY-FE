@@ -2,8 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrap = (props) => {
-  const { children, width, textAlign, margin, padding, bc, position, br } =
-    props;
+  const {
+    children,
+    width,
+    textAlign,
+    margin,
+    padding,
+    bc,
+    position,
+    br,
+    height,
+  } = props;
 
   const styles = {
     textAlign,
@@ -13,6 +22,8 @@ const Wrap = (props) => {
     bc,
     position,
     br,
+    //5.8 높이 추가
+    height,
   };
 
   return <WrapStyle {...styles}>{children}</WrapStyle>;
@@ -26,6 +37,7 @@ Wrap.defaultProps = {
   bc: "transparent",
   position: "inherit",
   br: "0",
+  height: "",
 };
 
 const WrapStyle = styled.div`
@@ -36,6 +48,7 @@ const WrapStyle = styled.div`
   background-color: ${({ bc }) => bc};
   position: ${({ position }) => position};
   border-radius: ${({ br }) => br};
+  height: ${({ height }) => height};
 `;
 
 export default Wrap;

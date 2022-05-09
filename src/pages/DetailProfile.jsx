@@ -5,18 +5,23 @@ import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { accrueImage } from "../redux/modules/image";
+import { setProfileImage } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
 import ToastMessage from "../shared/ToastMessage";
 import { Front, Back } from "../shared/NicknameDummy.js";
-
+//임시 아이콘
+import { BsPlusSquare } from "react-icons/bs";
 const DetailProfile = () => {
   const dispatch = useDispatch();
+  const getProfile = useSelector((state) => state.user.user);
+  // console.log(getProfile);
+
+  useEffect(() => {
+    setNickname(getProfile?.nickname);
+  }, [getProfile]);
 
   const fileInput = React.useRef();
   //이미 앞에서 프로필 사진이랑 닉네임은 저장됐을테니까 불러오자
-  const getProfile = useSelector((state) => state.user.user);
-  console.log(getProfile);
 
   //랜덤 닉네임 생성
   const randomnickFront = Front;
@@ -27,9 +32,16 @@ const DetailProfile = () => {
     " " +
     randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
-  const [nickname, setNickname] = useState("");
-  const [website, setWebsite] = useState("");
+  const [nickname, setNickname] = useState(
+    getProfile?.nickname ? getProfile.nickname : ""
+  );
+  const [snsUrl, setSnsUrl] = useState("");
+  const [website2, setWebsite2] = useState("");
+  const [website3, setWebsite3] = useState("");
   const [introduce, setIntroduce] = useState("");
+
+  const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
 
   const selectFile = (e) => {
     const reader = new FileReader();
@@ -38,16 +50,17 @@ const DetailProfile = () => {
     console.log(file);
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      dispatch(accrueImage(reader.result));
+      dispatch(setProfileImage(reader.result));
     };
   };
+
   const editUser = () => {
-    if (!fileInput.current || fileInput.current.files.length === 0) {
-      window.alert("이미지파일을 등록해주세요!");
-      return;
-    }
-    const file = fileInput.current.files[0];
-    console.log(file);
+    // if (!fileInput.current || fileInput.current.files.length === 0) {
+    //   window.alert("이미지파일을 등록해주세요!");
+    //   return;
+    // }
+    // const file = fileInput.current.files[0];
+    // console.log(file);
 
     //새로운 객체 생성
     const formData = new FormData();
@@ -55,9 +68,11 @@ const DetailProfile = () => {
     //formData.append(name(키),value(값))
     //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
 
-    formData.append("profileImage", file);
-    formData.append("nickName", nickname);
-    formData.append("website", website);
+    // formData.append("profileImage", file);
+    // formData.append("nickName", nickname);
+    formData.append("website1", snsUrl);
+    formData.append("website2", website2);
+    formData.append("website3", website3);
     formData.append("introduce", introduce);
 
     console.log("formData", formData);
@@ -68,14 +83,8 @@ const DetailProfile = () => {
     dispatch(userActions.setProfileDB(formData));
   };
 
-  useEffect(() => {
-    setNickname(getProfile?.nickname);
-    setWebsite(getProfile?.website);
-    setIntroduce(getProfile?.introduce);
-  }, []);
   return (
     <>
-      {/* 이 페이지에서는 사진이랑 닉네임은 수정이 안되는게 맞겠죠? */}
       <Flex jc="center" margin="1em 0 0 0">
         <h2>ARTILY</h2>
       </Flex>
@@ -89,61 +98,98 @@ const DetailProfile = () => {
             width="120px"
             height="120px"
             br="60px"
-            // src={getProfile.profileImage ? getProfile.profileImage : ""}
+            src={
+              getProfile && getProfile.profileImage
+                ? getProfile.profileImage
+                : ""
+            }
           ></Image>
         </Flex>
       </Wrapprofile>
-
-      <Wrap padding="0 10px;">
-        <Flex>
+      {/* <ImgBox>
+        <label htmlFor="image">🖍</label>
+        <input type="file" id="image" ref={fileInput} onChange={selectFile} />
+      </ImgBox> */}
+      <Wrap padding="20px 20px">
+        <Flex padding="10px 0">
           <Text fg="1">닉네임</Text>
-          {/* 일단 기본적으로는 소셜로그인 시 가져오는 기본 닉네임으로 설정 */}
           <Input
-            type="text"
-            fg="0"
-            value={randomNick || ""}
-            onChange={(e) => setNickname(randomNick)}
-          />
-          {/* 닉네임 입력시 웹사이트 입력창 나오게 */}
-          {/* 프로필 저장 버튼도 나타나게 */}
+            square
+            br="6px"
+            value={nickname || ""}
+            onChange={(e) => setNickname(e.target.value)}
+          ></Input>
         </Flex>
         <Flex>
-          <Text fg="1">웹사이트</Text>
+          <Text fg="1">웹사이트 1</Text>
           <Input
+            square
+            br="6px"
             fg="0"
             type="text"
-            value={website || ""}
-            onChange={(e) => setWebsite(e.target.value)}
+            name="text"
+            placeholder="instargram 주소"
+            value={snsUrl || ""}
+            icon={
+              <BsPlusSquare
+                size={28}
+                color="#555"
+                onClick={() => {
+                  setVisible1(!visible1);
+                }}
+              />
+            }
+            onChange={(e) => setSnsUrl(e.target.value)}
           ></Input>
-          <Button>+</Button>
         </Flex>
-        <Flex>
-          <Input
-            fg="0"
-            type="text"
-            value={website || ""}
-            onChange={(e) => setWebsite(e.target.value)}
-          ></Input>
-          <Button>+</Button>
-        </Flex>
-        <Flex>
-          <Input
-            fg="0"
-            type="text"
-            value={website || ""}
-            onChange={(e) => setWebsite(e.target.value)}
-          ></Input>
-          <Button>+</Button>
-        </Flex>
+        {/* 나머지 input은 안보였다가 입력값이 들어갔을때 나타나야 함 */}
 
+        {visible1 && (
+          <Flex margin="10px 0">
+            <Text fg="1">웹사이트 2</Text>
+            <Input
+              square
+              br="6px"
+              fg="0"
+              type="text"
+              placeholder="Behance 주소"
+              value={website2 || ""}
+              icon={
+                <BsPlusSquare
+                  size={28}
+                  color="#555"
+                  onClick={() => {
+                    setVisible2(!visible2);
+                  }}
+                />
+              }
+              onChange={(e) => setWebsite2(e.target.value)}
+            ></Input>
+          </Flex>
+        )}
+        {visible2 && (
+          <Flex>
+            <Text fg="1">웹사이트 3</Text>
+            <Input
+              square
+              br="6px"
+              fg="0"
+              type="text"
+              placeholder="other website"
+              value={website3 || ""}
+              onChange={(e) => setWebsite3(e.target.value)}
+            ></Input>
+          </Flex>
+        )}
         <Flex>
           <Text fg="1">소개</Text>
           <Textarea
             width="100%"
             fg="0"
-            // value={introduce || ""}
+            value={introduce || ""}
             onChange={(e) => setIntroduce(e.target.value)}
-            maxLength="200"
+            maxLength="100"
+            br="6px"
           ></Textarea>
         </Flex>
       </Wrap>
@@ -155,20 +201,21 @@ const DetailProfile = () => {
         onClick={() => {
           window.alert("프로필이 저장되었습니다!");
           editUser();
-          window.confirm("더 자세한 프로필을 작성하시겠어요?");
-          history.push("/mypage/edit");
+          // history.push("/");
         }}
       >
         프로필 저장하기
       </Button>
-      <Flex jc="center">
-        <Text
-          body3
-          textDeco="underline"
-          onClick={() => {
-            history.push("/");
-          }}
-        >
+      <Flex
+        jc="center"
+        onClick={() => {
+          window.alert(
+            "프로필 설정 완료는 다음에 할게요! 메인홈으로 이동합니다"
+          );
+          history.push("/");
+        }}
+      >
+        <Text body3 textDeco="underline">
           다음에 할래요
         </Text>
       </Flex>
@@ -209,11 +256,4 @@ const ImgBox = styled.div`
     border: 0;
   }
 `;
-// const Changebtn = styled.button`
-//   position: absolute;
-//   right: 0;
-//   width: 30px;
-//   height: 30px;
-//   background-color: #444;
-// `;
 export default DetailProfile;

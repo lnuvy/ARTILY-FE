@@ -23,6 +23,7 @@ import {
   Manage,
   DetailProfile,
   ReviewWrite,
+  Buylist,
 } from "./pages";
 import { Test } from "./pages";
 import { history } from "./redux/configureStore";
@@ -82,15 +83,8 @@ function App() {
   }, []);
 
   return (
+    //로그아웃 기능 원래 자리로 옮겼습니다!
     <>
-      <button
-        onClick={() => {
-          removeToken();
-          history.replace("/login");
-        }}
-      >
-        로그아웃
-      </button>
       <ConnectedRouter history={history}>
         <Header>ARTIN</Header>
         <Switch>
@@ -116,6 +110,7 @@ function App() {
           <Route path="/mypage/edit" exact component={MypageEdit} />
           <Route path="/mypage/manage" exact component={Manage} />
           <Route path="/profile/detail" exact component={DetailProfile} />
+          <Route path="/mypage/buyList" exact component={Buylist} />
 
           {/* <Route path="/*" component={NotFound} /> */}
           <Route path="/*" component={Test} />

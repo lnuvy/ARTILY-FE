@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Text, Flex, Image, Grid, Wrap } from "../elements";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getmyPostDB, go2detail } from "../redux/modules/mypage";
+import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
+import { getReview, go2detail } from "../redux/modules/reviews";
 import { actionCreators as userActions } from "../redux/modules/user";
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
@@ -10,52 +11,46 @@ import { ArtCard } from "../components";
 import theme from "../styles/theme";
 import { getToken, insertToken, removeToken } from "../shared/token";
 
-const choicemenu = {
-  판매목록: "/mypage",
-  리뷰목록: "/mypage",
-  관심목록: "/mypage",
-};
-
-export const menus = Object.entries(choicemenu);
-
+const menus = ["판매목록", "리뷰목록", "관심목록"];
 const MyPage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);
   console.log(mystoreList);
+  const nowList = useSelector((state) => state.mystore.nowList);
   const getProfile = useSelector((state) => state.user.user);
   console.log(getProfile);
+
   //더미 데이터 주입
   useEffect(() => {
-    dispatch(getmyPostDB());
-  }, [dispatch]);
+    dispatch(getmyPageDB());
+  }, []);
 
-  //로그아웃(작업중)
-  // const kakaologOut = () => {
-  //   window.alert("로그아웃이 완료되었습니다!");
-  //   history.replace("/");
-  // };
-  const handleClickData = (data) => {
-    dispatch(go2detail(data));
-    history.push(`/mypage/mystore/${data.postId}`);
+  const handleClickSellData = (data) => {
+    dispatch(getDetail(data));
+    history.push(`/store/${data.postId}`);
   };
-  // 현재 url 경로로 홈에있는지, 스토어에있는지, 리뷰에 있는지 판별
-  const path = useLocation().pathname;
-  const [current, setCurrent] = useState(menus[0]); // ["홈", "/home"] 이렇게 저장됨
+  const handleClickReviewData = (data) => {
+    dispatch(go2detail(data));
+    history.push(`/review/${data.reviewId}`);
+  };
+  const handleClickMarkupData = (data) => {
+    dispatch(getDetail(data));
+    history.push(`/store/${data.postId}`);
+  };
 
-  // 경로가 바뀔때마다 url이 포함하고있는 네비게이션 항목으로 설정
+  const [current, setCurrent] = useState(menus[0]);
+
   useEffect(() => {
-    const now = menus.find((l) => path.includes(l[1]));
-    if (now) {
-      setCurrent(now);
-    }
-  }, [path]);
+    dispatch(selectList(current));
+  }, [current]);
 
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
     console.log(innerText);
-    setCurrent(menus.find((l) => l[0] === innerText));
+    setCurrent(menus.find((l) => l === innerText));
   };
+  console.log(mystoreList);
   return (
     <>
       <Flex>
@@ -66,14 +61,19 @@ const MyPage = () => {
           height="100px"
           bg="#ddd"
           br="50px"
-          src=""
+          src={
+            getProfile && getProfile.profileImage ? getProfile.profileImage : ""
+          }
         ></Image>
         <Wrap padding="0 20px 0 0px">
-          <Text h2 bold margin="0 0 5px 0">
-            {/* {getProfile.nickname} */}
+          <Text h2 bold margin="5px 0 10px 0">
+            {getProfile && getProfile.nickname ? getProfile.nickname : ""}
+            {/* 유저명 */}
           </Text>
-          <Text>팔로우 2명 · 팔로워 7명</Text>
-          <Text>등록한 작품 5개</Text>
+          <Text body2>팔로우 2명 · 팔로워 7명</Text>
+          <Text body2>
+            등록한 작품 {mystoreList.myPost && mystoreList.myPost.length}개
+          </Text>
         </Wrap>
         <Wrap margin="0 0 50px">
           <Edit
@@ -87,21 +87,23 @@ const MyPage = () => {
       </Flex>
 
       <Text margin="10px 10px">
-        자기소개 영역입니다아아아아자기소개 영역입니다아아아아자기소개
+        {getProfile && getProfile.introduce ? getProfile.introduce : ""}
+        {/* 자기소개 영역입니다아아아아자기소개 영역입니다아아아아자기소개
         영역입니다아아아아자기소개 영역입니다아아아아자기소개
-        영역입니다아아아아자기소개 영역입니다아아아아자기소개 영역입니다아아아아
+        영역입니다아아아아자기소개 영역입니다아아아아자기소개 영역입니다아아아아 */}
       </Text>
       {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
       <Website>
         <Flex margin="15px">
           <Text className="site" fg="1">
-            <a href="http://www.instagram.com/yeong_k0825">❤️ instagram</a>
+            {/* 유저에게 받은 웹사이트 주소 넣어서 외부링크로 연결해야 함. 아직 못함 */}
+            <a href="http://{getProfile.snsUrl}">❤️ instagram</a>
           </Text>
           <Text className="site" fg="1">
-            💙 Behance
+            <a href="">💙 Behance</a>
           </Text>
           <Text className="site" fg="1">
-            🌐 Website
+            <a href="">🌐 Website</a>
           </Text>
         </Flex>
       </Website>
@@ -121,7 +123,10 @@ const MyPage = () => {
           구매 내역 조회 / 리뷰 작성
         </p>
         <p
-        // onClick={kakaologOut}
+          onClick={() => {
+            removeToken(); //토큰 삭제
+            history.replace("/"); //로그아웃 후 홈으로 이동
+          }}
         >
           로그아웃
         </p>
@@ -142,7 +147,7 @@ const MyPage = () => {
       >
         최초 로그인시 프로필 설정
       </Button>
-
+      {/*--------------------------------------------------------------*/}
       <Grid gtc="auto auto auto" cg="20px" margin="10px 0">
         {menus.map((menu) => {
           return (
@@ -150,30 +155,50 @@ const MyPage = () => {
               key={menu}
               onClick={(e) => {
                 handleChangeCurrent(e);
-                history.push(menu[1]);
               }}
               current={menu === current}
             >
-              <Nav>{menu[0]}</Nav>
+              <Nav>{menu}</Nav>
             </CurrentDiv>
           );
         })}
       </Grid>
 
       {/* ---------------------------------------------------- */}
-      <Grid gtc="auto auto" rg="8px" cg="8px" margin="10px 10px 20px">
-        {mystoreList.map((l) => {
-          return (
-            //판매중 or 판매완료를 표시해야 하는데 어떻게 해야할까
-            <ArtCard
-              sellLabel
-              key={l.postId}
-              className="sell"
-              {...l}
-              onClick={() => handleClickData(l)}
-            />
-          );
-        })}
+      <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="10px 10px 20px">
+        {mystoreList &&
+          nowList?.map((l) => {
+            if (current === "리뷰목록") {
+              return (
+                <ArtCard
+                  review
+                  key={l.postId}
+                  className="sell"
+                  {...l}
+                  onClick={() => handleClickReviewData(l)}
+                />
+              );
+            } else if (current === "관심목록") {
+              return (
+                <ArtCard
+                  markup
+                  key={l.postId}
+                  className="sell"
+                  {...l}
+                  onClick={() => handleClickMarkupData(l)}
+                />
+              );
+            } else
+              return (
+                <ArtCard
+                  sellLabel
+                  key={l.postId}
+                  className="sell"
+                  {...l}
+                  onClick={() => handleClickSellData(l)}
+                />
+              );
+          })}
       </Grid>
     </>
   );
@@ -225,6 +250,5 @@ const Edit = styled.div`
 `;
 const Website = styled.div`
   width: 100%;
-  border-top: 1px solid #ddd;
 `;
 export default MyPage;

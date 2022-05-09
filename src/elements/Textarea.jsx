@@ -17,9 +17,11 @@ const Textarea = (props) => {
     padding,
     maxLength,
     textLine,
+    //5.8 border-radius 추가했습니다 -영경
+    br,
   } = props;
 
-  const styles = { width, fg, margin, alert, padding, textLine };
+  const styles = { width, fg, margin, alert, padding, textLine, br };
 
   const Textarea = React.useRef();
   const [MaxNum, SetMaxNum] = React.useState(null);
@@ -68,6 +70,7 @@ Textarea.defaultProps = {
   margin: "0",
   padding: "12px",
   onChange: () => {},
+  br: "",
 };
 
 const TextareaWrap = styled.div`
@@ -99,20 +102,22 @@ const TextareaContainer = styled.textarea`
     props.alert
       ? `
       color: ${theme.color.black};
-      // border: 1px solid ${theme.color.danger};
+      border: 1px solid ${theme.color.danger};
       :focus {
-        // border: 1px solid ${theme.color.danger};
+        border: 1px solid ${theme.color.danger};
         // box-shadow: 0px 0px 6px ${theme.color.danger};
       }
     `
       : `
       color: ${theme.color.black};
-      // border: 1px solid ${theme.color.black};
+      border: 1px solid ${theme.color.black};
       :focus {
-        // border: 1px solid ${theme.color.brandColor};
+        border: 1px solid ${theme.color.brandColor};
         // box-shadow: 0px 0px 6px ${theme.color.brandColor};
       }
     `}
+  //5.8 border-radius 추가했습니다 -영경
+  border-radius: ${({ br }) => br};
 `;
 
 const TextareaLabel = styled.label`
