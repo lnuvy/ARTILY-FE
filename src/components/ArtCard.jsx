@@ -27,7 +27,7 @@ const ArtCard = (props) => {
     sellLabel,
     buylist,
   } = props;
-  const { userId, nickname, profileUrl, address } = user;
+  const { userId, nickname, profileImage, address } = user;
 
   //5.5 영경_마이페이지 -> 판매작품 관리하기에서 사용될 Artcard 추가
   if (mystore) {
@@ -36,10 +36,9 @@ const ArtCard = (props) => {
         <Card onClick={onClick}>
           <Flex>
             <Image height="120px" src={imageUrl[0]} margin="0 10px 0 10px" />
-
             <Wrap>
               <Flex>
-                <Image circle size="20" src={profileUrl} />
+                <Image circle size="20" src={profileImage} />
                 <Text margin="0 0 0 4px">{nickname}</Text>
               </Flex>
               <Text>{postTitle}</Text>
@@ -92,7 +91,7 @@ const ArtCard = (props) => {
             <Wrap width="60%">
               <Text>{postTitle}</Text>
               <Flex>
-                <Image circle size="20" src={profileUrl} />
+                <Image circle size="20" src={profileImage} />
                 <Text margin="0 0 0 4px">{nickname}</Text>
               </Flex>
             </Wrap>
@@ -116,7 +115,7 @@ const ArtCard = (props) => {
           <Image height="120px" src={imageUrl[0]} />
         </Label>
         <Flex margin="8px 0 0">
-          <Image circle size="20" src={profileUrl} />
+          <Image circle size="20" src={profileImage} />
           <Text margin="0 0 0 4px">{nickname}</Text>
         </Flex>
         <Text>{postTitle}</Text>
@@ -126,12 +125,12 @@ const ArtCard = (props) => {
         <Text bold>{priceComma(price)}원</Text>
       </Card>
     );
-  }
+  } // 여기 else 안주면 밑에꺼 나오지 않나요 ? -한울-
   return (
     <Card onClick={onClick}>
       <Image height="120px" src={imageUrl[0]} />
       <Flex margin="8px 0 0">
-        <Image circle size="20" src="" />
+        <Image circle size="20" src={profileImage} />
         <Text margin="0 0 0 4px">{nickname}</Text>
       </Flex>
       <Text>{postTitle}</Text>

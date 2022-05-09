@@ -33,27 +33,6 @@ const Store = () => {
   // 체크박스 체크될때 데이터 필터링
   const [isFree, setIsFree] = useState(false);
 
-  let searchList = [];
-
-  // 디바운스
-  const debounce = _.debounce((k) => {
-    searchList = filterList
-      .filter((l) => {
-        const address = l.user.address;
-        const title = l.postTitle;
-        const artist = l.user.nickname;
-        const q = debounce;
-
-        return title.includes(q) || artist.includes(q) || address.includes(q);
-      })
-      .map((l) => {
-        return (
-          <ArtCard key={l.postId} {...l} onClick={() => handleClickData(l)} />
-        );
-      });
-  }, 1000);
-  const keyPress = useCallback(debounce, []);
-
   const checkFree = (e) => {
     const { checked } = e.target;
 
@@ -65,13 +44,21 @@ const Store = () => {
     }
   };
 
-  const queryChange = (e) => {
-    const { value } = e.target;
-    keyPress(value);
-    setQuery(value);
-  };
+  // 검색필터
+  const searchList = filterList
+    .filter((l) => {
+      const address = l.user.address;
+      const title = l.postTitle;
+      const artist = l.user.nickname;
+      const q = query;
 
-  console.log(query, keyPress);
+      return title.includes(q) || artist.includes(q) || address.includes(q);
+    })
+    .map((l) => {
+      return (
+        <ArtCard key={l.postId} {...l} onClick={() => handleClickData(l)} />
+      );
+    });
 
   // 필터링 모달 켜기
   const modalOn = () => {
@@ -100,7 +87,7 @@ const Store = () => {
           placeholder="작가명, 작품명 검색..."
           icon={<AiOutlineSearch size={28} />}
           value={query}
-          onChange={queryChange}
+          onChange={(e) => setQuery(e.target.value)}
         />
         <Category />
         <Wrap margin="16px">
