@@ -1,103 +1,76 @@
+//판매작품 등록/관리하기 페이지
+//마이페이지 판매목록과 동일한 목록
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Grid, Text, Flex } from "../elements";
 import { useLocation } from "react-router-dom";
-import { getmyPostDB, go2detail } from "../redux/modules/mypage";
+import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
 import { history } from "../redux/configureStore";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ArtCard } from "../components";
-
-const sellState = {
-  판매중: "/mypage/manage",
-  판매완료: "/mypage/manage",
-};
-
-export const menus = Object.entries(sellState);
-
+const menus = ["판매목록"];
+console.log(menus[0]);
 const Manage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);
   console.log(mystoreList);
+  const nowList = useSelector((state) => state.mystore.nowList);
+  console.log(nowList);
   //더미 데이터 주입
   useEffect(() => {
-    dispatch(getmyPostDB());
+    dispatch(getmyPageDB());
   }, [dispatch]);
 
   const handleClickData = (data) => {
-    dispatch(go2detail(data));
+    dispatch(getDetail(data));
     history.push(`/mypage/manage/${data.postId}`);
   };
 
-  // 현재 url 경로로 홈에있는지, 스토어에있는지, 리뷰에 있는지 판별
-  const path = useLocation().pathname;
-  const [current, setCurrent] = useState(menus[0]); // ["홈", "/home"] 이렇게 저장됨
+  const [current, setCurrent] = useState(menus[0]);
 
-  // 경로가 바뀔때마다 url이 포함하고있는 네비게이션 항목으로 설정
   useEffect(() => {
-    const now = menus.find((l) => path.includes(l[1]));
-    if (now) {
-      setCurrent(now);
-    }
-  }, [path]);
-
-  // 네비게이션 탭을 직접 눌렀을때
-  const handleChangeCurrent = (e) => {
-    const { innerText } = e.target;
-    console.log(innerText);
-    setCurrent(menus.find((l) => l[0] === innerText));
-  };
-
+    dispatch(selectList(current));
+  }, [current]);
   return (
     <>
       <Text h2 bold margin="0 0 0 10px">
         판매 작품 관리하기
       </Text>
 
-      <Grid gtc="auto auto">
-        {menus.map((menu) => {
-          return (
-            <CurrentDiv
-              key={menu}
-              onClick={(e) => {
-                handleChangeCurrent(e);
-                history.push(menu[1]);
-              }}
-              current={menu === current}
-            >
-              <Nav>{menu[0]}</Nav>
-            </CurrentDiv>
-          );
-        })}
-      </Grid>
-
       {/* 판매목록 */}
       <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0">
-        {mystoreList.map((list) => {
-          //판매글이 없다면?
-          if (!list) {
+        {mystoreList &&
+          nowList?.map((list) => {
+            //판매글이 없다면?
+            if (!list) {
+              return (
+                <p>
+                  아직 등록한 작품이 없어요.
+                  <br />
+                  작품을 등록하시겠어요?
+                </p>
+              );
+            }
             return (
-              <p>
-                아직 등록한 작품이 없어요.
-                <br />
-                작품을 등록하시겠어요?
-              </p>
+              <ArtCard
+                mystore
+                key={list.postId}
+                className="sell"
+                {...list}
+                onClick={() => handleClickData(list)}
+              ></ArtCard>
             );
-          }
-          return (
-            //판매중 or 판매완료를 표시해야 하는데 어떻게 해야할까
-            <ArtCard
-              mystore
-              key={list.postId}
-              className="sell"
-              {...list}
-              onClick={() => handleClickData(list)}
-            ></ArtCard>
-          );
-        })}
+          })}
       </Grid>
 
-      <Button width="90%" margin="10px auto">
+      <Button
+        width="90%"
+        margin="10px auto"
+        onClick={() => {
+          history.push("/store/write");
+        }}
+      >
         판매 작품 등록하기
       </Button>
     </>

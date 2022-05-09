@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Card } from "../components";
 import { Flex, Image, Text, Icon } from "../elements/index";
+import theme from "../styles/theme";
+import { Favorite } from "../assets/icons";
 
 const ReviewCard = (props) => {
   const location = useLocation();
@@ -28,16 +30,26 @@ const ReviewCard = (props) => {
 
   return (
     <Card onClick={onClick}>
-      <Image height="120px" src={imageUrl} />
-      <Text bold>{reviewTitle}</Text>
-      <Text>{reviewContent}</Text>
+      <Image height="168px" br="8px" src={imageUrl} />
+      <Text medium margin="8px 0 0">
+        {reviewTitle}
+      </Text>
+      <Text body2 margin="3px 0 0" color={`${theme.pallete.gray3}`}>
+        {reviewContent}
+      </Text>
       <Flex margin="8px 0 0 0">
-        <Image circle size="20" />
-        <Text fg="1" margin="0 0 0 4px">
+        <Image circle size="24" />
+        <Text fg="1" margin="0 0 0 8px">
           {nickname}
         </Text>
-        <Icon />
-        <Text margin="0 0 0 4px">{likeCnt}</Text>
+        <Icon width="fit-content">
+          <Flex>
+            <Favorite />
+            <Text body2 margin="0 0 0 4px">
+              {likeCnt}
+            </Text>
+          </Flex>
+        </Icon>
       </Flex>
       <DisplayNone>
         <Text margin="0 0 0 4px">{createdAt}</Text>

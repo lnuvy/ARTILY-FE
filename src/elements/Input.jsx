@@ -4,6 +4,8 @@ import theme from "../styles/theme";
 
 // 5/7 전체 border 있는 인풋이 꼭 필요해서 square 로 Input 나눔, border-radius br 로 추가,
 // label 이 인풋을 너무 잡아먹어서 있을때만 자리차지할수있게 삼항연산자 줌 -한울-
+
+// TODO INFO 인풋 타입넣고, onclick도 줌(storeWrite 에서 쓸거)
 const Input = (props) => {
   const {
     square, // 네모박스 인풋 추가
@@ -44,7 +46,7 @@ const Input = (props) => {
             onKeyPress={onKeyPress}
             {...styles}
           />
-          {icon ? <InputIcon>{icon}</InputIcon> : ""}
+          {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}
         </InputBox>
         {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}
       </InputWrap>

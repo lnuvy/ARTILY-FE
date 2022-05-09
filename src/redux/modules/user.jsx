@@ -5,9 +5,7 @@ import axios from "axios";
 import { getToken, insertToken, removeToken } from "../../shared/token";
 import { markupToggle } from "./store";
 
-// const BASE_URL = "http://52.78.183.202";
-// const BASE_URL = "http://13.125.83.59";
-const BASE_URL = "http://13.124.169.236"; // 5/9
+const BASE_URL = "http://13.124.169.236";
 
 //action
 //로그인 체크
@@ -22,7 +20,7 @@ const POSTING_MARKUP = "POSTING_MARKUP";
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const logout = createAction(LOG_OUT);
-const editUser = createAction(EDIT_USER, () => ({}));
+const editUser = createAction(EDIT_USER, (formData) => ({ formData }));
 
 // 5/6 한울 마크업 작업
 const postMarkup = createAction(POSTING_MARKUP, (postId, isUp) => ({
@@ -66,11 +64,13 @@ const kakaoLogin = (code) => {
         };
         dispatch(setUser(user));
         insertToken(ACCESS_TOKEN); //local storage에 저장
-        //최초 로그인일 경우에만 로그인 후 프로필 설정하는 페이지로 이동
-        if (ACCESS_TOKEN) {
-          history.replace("/");
+        // 최초 로그인일 경우에만 로그인 후 프로필 설정하는 페이지로 이동
+        if (res.data.new) {
+          //신규 회원이면
+          history.replace("/profile");
         }
-        history.replace("/profile");
+        //기존 회원이면
+        history.push("/");
       })
       .catch((err) => {
         console.log("소셜로그인 에러!", err);
@@ -152,7 +152,6 @@ const locationDB = (si, gu, dong) => {
 };
 
 //로그인 후 프로필 설정
-//mypage
 //프로필사진, 닉네임 필수 수집
 const setProfileDB = (formData) => {
   return function (dispatch, getState) {
@@ -168,10 +167,35 @@ const setProfileDB = (formData) => {
       .then((res) => {
         console.log(res);
         dispatch(editUser(formData));
-        // document.location.href = "/";
+        document.location.href = "/"; //일단 홈으로
       })
       .catch((error) => {
         console.log("프로필 정보 전송 실패", error);
+        window.alert("프로필 저장에 문제가 발생했습니다!");
+      });
+  };
+};
+//마이페이지 프로필 수정
+//mypage
+const editProfileDB = (formData) => {
+  return function (dispatch, getState) {
+    axios({
+      method: "patch",
+      url: `${BASE_URL}/api/profile/update`,
+      data: formData,
+      headers: {
+        "Content-Type": `multipart/form-data;`,
+        Authorization: `Bearer ${getToken()}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        dispatch(editUser(formData));
+        document.location.href = "/mypage";
+      })
+      .catch((error) => {
+        console.log("프로필 수정 정보 전달 실패", error);
+        window.alert("프로필 수정 정보 저장에 문제가 발생했습니다!");
       });
   };
 };
@@ -237,6 +261,7 @@ const actionCreators = {
   setUser,
   logout,
   setProfileDB,
+  editProfileDB,
   postMarkupToggle,
   // kakaoLogout,
 };

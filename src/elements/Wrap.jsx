@@ -23,6 +23,8 @@ const Wrap = (props) => {
     bc,
     position,
     br,
+    //5.8 높이 추가
+    height,
   };
 
   return <WrapStyle {...styles}>{children}</WrapStyle>;
@@ -30,13 +32,11 @@ const Wrap = (props) => {
 
 Wrap.defaultProps = {
   textAlign: "left",
-  width: "inherit",
-  height: "inherit",
   margin: "0",
   padding: "0",
   bc: "transparent",
-  position: "inherit",
   br: "0",
+  height: "",
 };
 
 const WrapStyle = styled.div`
@@ -48,6 +48,7 @@ const WrapStyle = styled.div`
   background-color: ${({ bc }) => bc};
   position: ${({ position }) => position};
   border-radius: ${({ br }) => br};
+  height: ${({ height }) => height};
 `;
 
 export default Wrap;

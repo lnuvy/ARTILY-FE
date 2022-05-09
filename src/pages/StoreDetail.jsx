@@ -14,6 +14,7 @@ import { getNowPost, getPostDB, getPostOne } from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { priceComma } from "../shared/utils";
+import theme from "../styles/theme";
 
 // 임시 아이콘
 import { IoMdHeartEmpty } from "react-icons/io";
@@ -177,6 +178,7 @@ const FixedChatBar = styled.div`
   width: 100%;
   padding: 10px 12px;
   border-top: 1px solid gray;
+  max-width: ${theme.view.maxWidth}; ;
 `;
 
 export default StoreDetail;

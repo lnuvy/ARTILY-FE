@@ -6,10 +6,12 @@ import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { accrueImage } from "../redux/modules/image";
+import { setProfileImage } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
-
+import { BsPlusSquareFill } from "react-icons/bs";
+import { BsArrowRepeat } from "react-icons/bs";
 import { Front, Back } from "../shared/NicknameDummy.js";
+import { getPostClones } from "react-slick/lib/utils/innerSliderUtils";
 
 const MypageEdit = () => {
   const dispatch = useDispatch();
@@ -17,8 +19,9 @@ const MypageEdit = () => {
   const fileInput = React.useRef();
   const getProfile = useSelector((state) => state.user.user);
   console.log(getProfile);
-  const preview = useSelector((state) => state.image.represent);
-  // console.log(preview);
+  // console.log(getProfile.introduce);
+
+  const preview = useSelector((state) => state.image.preview);
 
   const randomnickFront = Front;
   // console.log(randomnickFront);
@@ -30,12 +33,27 @@ const MypageEdit = () => {
     " " +
     randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
-  const [nickname, setNickname] = useState("");
-  const [website, setWebsite] = useState("");
-  const [introduce, setIntroduce] = useState("");
+  const [nickname, setNickname] = useState(
+    getProfile?.nickname ? getProfile.nickname : ""
+  );
+  const [snsUrl, setSnsUrl] = useState(
+    getProfile?.snsUrl ? getProfile.snsUrl : ""
+  );
+  const [introduce, setIntroduce] = useState(
+    getProfile?.introduce ? getProfile.introduce : ""
+  );
+  const renameRandom = () => {
+    const addNick =
+      randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
+      " " +
+      randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
+    setNickname(addNick);
+  };
   useEffect(() => {
     setNickname(getProfile?.nickname);
+    setSnsUrl(getProfile?.snsUrl);
+    setIntroduce(getProfile?.introduce);
   }, [getProfile]);
 
   const selectFile = (e) => {
@@ -45,7 +63,7 @@ const MypageEdit = () => {
     console.log(file);
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      dispatch(accrueImage(reader.result));
+      dispatch(setProfileImage(reader.result));
     };
   };
   const editUser = () => {
@@ -62,8 +80,8 @@ const MypageEdit = () => {
     //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
 
     formData.append("profileImage", file);
-    formData.append("nickName", nickname);
-    formData.append("website", website);
+    formData.append("nickName", randomNick);
+    formData.append("snsUrl", snsUrl);
     formData.append("introduce", introduce);
 
     console.log("formData", formData);
@@ -71,7 +89,7 @@ const MypageEdit = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    dispatch(userActions.editUserDB(formData));
+    dispatch(userActions.editProfileDB(formData));
   };
 
   return (
@@ -88,7 +106,7 @@ const MypageEdit = () => {
             width="120px"
             height="120px"
             br="60px"
-            src=""
+            src={preview ? preview : getProfile ? getProfile.profileImage : ""}
           ></Image>
 
           <ImgBox>
@@ -105,25 +123,37 @@ const MypageEdit = () => {
       <Wrap margin="0 10px">
         <Flex jc="center">
           <Text fg="1">닉네임</Text>
-          {/* <Input value={randomNick} /> */}
-          {/* 일단 기본적으로는 소셜로그인 시 가져오는 기본 닉네임으로 설정 */}
-          <Input fg="0" />
+          <Input
+            icon={<BsArrowRepeat size={28} onClick={renameRandom} />}
+            square
+            width="100%"
+            border="1px solid #d3d3d3"
+            br="6px"
+            type="text"
+            fg="0"
+            value={nickname || ""}
+            onChange={(e) => setNickname(randomNick)}
+          />
         </Flex>
         {/* 닉네임 입력시 웹사이트 입력창 나오게 */}
         {/* 프로필 저장 버튼도 나타나게 */}
-        <Flex jc="center">
+        <Flex jc="center" margin="10px 0">
           <Text fg="1">웹사이트</Text>
           <Input
+            square
+            br="6px"
+            fg="0"
             type="text"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
+            value={snsUrl || ""}
+            icon={<BsPlusSquareFill size={28} />}
+            onChange={(e) => setSnsUrl(e.target.value)}
           ></Input>
         </Flex>
         {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
         <Flex jc="center">
           <Text fg="1">소개</Text>
           <Textarea
-            // value={introduce || ""}
+            value={introduce || ""}
             onChange={(e) => setIntroduce(e.target.value)}
             maxLength="200"
           ></Textarea>
@@ -135,22 +165,10 @@ const MypageEdit = () => {
         onClick={() => {
           window.alert("프로필이 저장되었습니다!");
           editUser();
-          history.push("/");
         }}
       >
         수정 완료
       </Button>
-      <Text
-        textAlign="center"
-        margin="10px 0 0 0"
-        body3
-        textDeco="underline"
-        onClick={() => {
-          history.push("/");
-        }}
-      >
-        다음에 할래요
-      </Text>
     </>
   );
 };
@@ -169,7 +187,6 @@ const ImgBox = styled.div`
     display: inline-block;
     padding: 0.5em 0.75em;
     color: #666;
-    font-size: inherit;
     line-height: normal;
     vertical-align: middle;
     background-color: #fdfdfd;

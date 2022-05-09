@@ -4,12 +4,11 @@ import axios from "axios";
 import { storeDummy } from "../../shared/Dummy";
 import { getToken } from "../../shared/token";
 
-// const BASE_URL = "http://52.78.183.202";
-// const BASE_URL = "http://13.125.83.59";
-const BASE_URL = "http://13.124.169.236"; // 5/9
+import { Apis } from "../../shared/api";
 
 /*
- * 4/29 한울
+ * @한울
+ * 4/29
  * 상세페이지로 넘어갈때 리덕스에 해당 데이터만 넣어서 StoreDetail 에서 가져오는 식으로 진행했습니다
  */
 
@@ -26,8 +25,7 @@ export const getPostDB = () => {
   return async function (dispatch, getState, { history }) {
     // const config = { Authorization: `Bearer ${getToken()}` };
 
-    await axios
-      .get(`${BASE_URL}/api/post/store`)
+    Apis.getStore()
       .then((res) => {
         console.log(res.data);
         dispatch(getStoreData(res.data.data));
@@ -43,10 +41,7 @@ export const getPostDB = () => {
 
 export const getPostOne = (postId) => {
   return async function (dispatch, getState, { history }) {
-    const config = { Authorization: `Bearer ${getToken()}` };
-
-    await axios
-      .get(`${BASE_URL}/api/post/${postId}`, config)
+    Apis.getStoreDetail()
       .then((res) => {
         console.log(res.data);
       })
@@ -64,17 +59,13 @@ export const getPostOne = (postId) => {
 
 export const addPostDB = (data) => {
   return async function (dispatch, getState, { history }) {
-    const config = { Authorization: `Bearer ${getToken()}` };
-
-    console.log(data);
-
-    axios
-      .post(`${BASE_URL}/api/post`, data, config)
+    Apis.postStore(data)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
+        console.log(err.response);
       });
   };
 };

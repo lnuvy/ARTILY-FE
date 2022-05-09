@@ -3,7 +3,6 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 
 const Flex = (props) => {
-  // 5/3 한울 padding, bc, br 추가
   const {
     onClick,
     children,
@@ -51,9 +50,8 @@ const Flex = (props) => {
 };
 
 Flex.defaultProps = {
-  // width 디폴트를 none 으로 주신 이유가있는지..? 만들어놓은것들 스타일이 이상해져서 none으로하기가 좀 그러네요 -한울-
-  width: "inherit",
-  height: "inherit",
+  // width: null, // May8 none -> fit-conent 변경
+  // height: null,
   fd: "row",
   ai: "center",
   margin: "0",

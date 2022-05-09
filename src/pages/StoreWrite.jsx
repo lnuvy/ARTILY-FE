@@ -192,6 +192,7 @@ const StoreWrite = () => {
           value={inputs?.postContent}
           maxLength="100"
           onChange={handleChange}
+          border="1px solid transparent"
         />
       </Wrap>
       <Button width="90%" margin="0 auto" onClick={submitPost}>

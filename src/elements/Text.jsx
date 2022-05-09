@@ -5,6 +5,7 @@ import theme from "../styles/theme";
 const Text = (props) => {
   const {
     bold,
+    medium,
     color,
     size,
     children,
@@ -24,6 +25,7 @@ const Text = (props) => {
 
   const styles = {
     bold,
+    medium,
     color,
     margin,
     h1,
@@ -87,7 +89,7 @@ Text.defaultProps = {
   color: "#000",
   margin: "0",
   fg: "0",
-  textAlign: "inherit",
+  textAlign: null,
   textDeco: "none",
 };
 
@@ -96,7 +98,8 @@ const Headline = styled.h1`
   font-size: 20px;
   line-height: 22px;
   letter-spacing: -0.41px;
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  font-weight: ${(props) =>
+    props.bold ? "600" : props.medium ? "500" : "400"};
   margin: ${({ margin }) => margin};
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
@@ -108,7 +111,8 @@ const Subtitle1 = styled.h2`
   font-size: 18px;
   line-height: 22px;
   letter-spacing: -0.41px;
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  font-weight: ${(props) =>
+    props.bold ? "600" : props.medium ? "500" : "400"};
   margin: ${({ margin }) => margin};
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
@@ -120,7 +124,8 @@ const Subtitle2 = styled.h3`
   font-size: 16px;
   line-height: 22px;
   letter-spacing: -0.41px;
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  font-weight: ${(props) =>
+    props.bold ? "600" : props.medium ? "500" : "400"};
   margin: ${({ margin }) => margin};
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
@@ -132,7 +137,8 @@ const Body1 = styled.p`
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.41px;
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  font-weight: ${(props) =>
+    props.bold ? "600" : props.medium ? "500" : "400"};
   margin: ${({ margin }) => margin};
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
@@ -144,7 +150,8 @@ const Body2 = styled.p`
   font-size: 14px;
   line-height: 21px;
   letter-spacing: -0.41px;
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  font-weight: ${(props) =>
+    props.bold ? "600" : props.medium ? "500" : "400"};
   margin: ${({ margin }) => margin};
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
@@ -156,7 +163,8 @@ const Body3 = styled.p`
   font-size: 14px;
   line-height: 21px;
   letter-spacing: -0.41px;
-  font-weight: ${(props) => (props.bold ? "600" : "400")};
+  font-weight: ${(props) =>
+    props.bold ? "600" : props.medium ? "500" : "400"};
   margin: ${({ margin }) => margin};
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};

@@ -263,83 +263,102 @@ export const storeDummy = [
   },
 ];
 
-export const myStoreDummy = [
-  {
-    category: "기타",
-    postId: "adsafe",
-    postTitle: "바나나 우유다",
-    price: 1000,
-    transaction: "택배",
-    changeAddress: "",
-    markupCnt: 0,
-    createdAt: "2022-05-03 16:00:00",
-    size: "",
-    content: "작품에 대한 설명",
-    imageUrl: ["../../images/bananamilk.jpg"],
-    user: {
-      userId: "user123",
-      nickname: "미니언즈",
-      profileImage: "../../images/ddung.jpg",
-      address: "경기 고양시",
-    },
-  },
-  {
-    category: "기타",
-    postId: "rehhst",
-    postTitle: "빙수의 계절이 온다",
-    price: 7000,
-    transaction: "택배",
-    changeAddress: "",
-    markupCnt: 0,
-    createdAt: "2022-05-03 16:00:00",
-    size: "",
-    content: "작품에 대한 설명",
-    imageUrl: ["../../images/icecream.jpg"],
-    user: {
-      userId: "user123",
-      nickname: "미니언즈",
-      profileImage: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
-      address: "경기 고양시",
-    },
-  },
-];
-
-export const BuylistDummy = [
-  {
-    category: "기타",
-    postId: "heddet",
-    postTitle: "와플팬 필요하신 분",
-    price: 9000,
-    transaction: "택배",
-    changeAddress: "",
-    markupCnt: 0,
-    createdAt: "2022-04-29 16:00:00",
-    size: "",
-    content: "작품에 대한 설명",
-    imageUrl: ["../../images/waffle.jpg"],
-    user: {
-      userId: "user123",
-      nickname: "미니언즈",
-      profileImage: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
-      address: "경기 고양시",
-    },
-  },
-];
 //마이페이지에서 목록 불러올때 사용할 더미데이터
-export const Mypage = [
-  {
+export const myPageDummy = {
+  myPost: [
     //판매목록
-    myPost: [],
-  },
-  {
-    //리뷰목록
-    myReview: [],
-  },
-  {
-    //관심목록
-    myBuy: [],
-  },
-];
+    {
+      postId: "ssdeffgv",
+      imageUrl: [
+        "http://img4.tmon.kr/cdn2/deals/2019/04/09/1953546246/1953546246_front_hKRdglys8a.jpg",
+      ],
+      postTitle: "무드등 예쁘져",
+      price: "50000",
+      done: "false", //판매중
+      markupCnt: "13",
+      user: {
+        userId: "user123",
+        nickname: "미니언즈",
+        profileImage: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
+        address: "경기 고양시",
+      },
+    },
+
+    {
+      postId: "hrew2w",
+      imageUrl: [
+        "http://img4.tmon.kr/cdn3/deals/2019/09/27/2485573694/front_a13ff_edf2s.jpg",
+      ],
+      postTitle: "하트 머그컵",
+      price: "8800",
+      done: "true", //판매완료
+      markupCnt: "13",
+      user: {
+        userId: "user123",
+        nickname: "미니언즈", //본인
+        profileImage: ["../../images/ddung.jpg"], //마이페이지 프로필 사진과 동일
+        address: "경기 고양시",
+      },
+    },
+  ],
+  //리뷰목록
+  myReview: [
+    {
+      reviewId: "dddeer",
+      reviewTitle: "그림 진짜 너무 예뻐요",
+      reviewContent:
+        "그림에 관심이 많아서 둘러보다가 홀린듯이 구매했는데 너무 예쁘네요~",
+      imageUrl: [
+        "http://artsbee.cafe24.com/web/product/big/artsbeeanti_089.jpg",
+      ],
+      likeCnt: "2",
+      user: {
+        userId: "user123",
+        nickname: "미니언즈", //본인
+        profileImage: ["../../images/ddung.jpg"], //마이페이지 프로필 사진과 동일
+        address: "경기 고양시",
+      },
+    },
+  ],
+  //구매 목록
+  myBuy: [
+    {
+      postId: "srthwe",
+      postTitle: "직접 제작한 목도리",
+      nickname: "용감한 지렁이", //작가명
+      imageUrl: [
+        "https://m.ccomeng.com/web/product/big/201910/247228ad8753d306dc7379cf77e31636.jpg",
+      ],
+    },
+    {
+      postId: "wwerwwe",
+      postTitle: "찻잔",
+      nickname: "용감한 지렁이", //작가명
+      imageUrl: [
+        "https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMjMg/MDAxNTkxNzc2MjQ1NDYw.9u2DgHK164SUPChiJTawKA1fwFNEkTkm4Vjbc8qaBWEg.Ju7hiC86Mw3xzY_BpnlhRzF3qUVJ-GPCPWzALgBo-bIg.JPEG.from5may/frommay310_001.jpg?type=w800",
+      ],
+    },
+  ],
+  //관심 목록
+  myMarkup: [
+    {
+      postId: "tresdwe",
+      postTitle: "직접 그린 그림 판매해요",
+      imageUrl: [
+        "https://images.ctfassets.net/a97lsixqgsyg/3cNOGV0ZNrkqU8qHLUin7T/e4c60801429e8d426238b18350de4455/4.jpg?w=944&q=100",
+      ],
+      price: "21000",
+      done: "false",
+      markupCnt: "3",
+      user: {
+        userId: "user123",
+        nickname: "아틀리덕후",
+        profileImage: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
+        address: "경기 고양시",
+      },
+    },
+  ],
+};
 
 // 로컬스토리지에 상대방 저장
 // localStorage.setItem("target", JSON.stringify(current.user));

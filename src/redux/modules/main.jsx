@@ -2,11 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { homeDummy } from "../../shared/Dummy";
-import { getToken } from "../../shared/token";
-
-// const BASE_URL = "http://52.78.183.202";
-// const BASE_URL = "http://13.125.83.59";
-const BASE_URL = "http://13.124.169.236"; // 5/9
+import { Apis } from "../../shared/api";
 
 /*
  * 4/29 한울
@@ -21,26 +17,17 @@ const initialState = {
 
 export const getHomeDataDB = () => {
   return async function (dispatch, getState, { history }) {
-    const config = { Authorization: `Bearer ${getToken()}` };
-
-    await axios
-      .get(`${BASE_URL}/api/post`, config)
-      .then((res) => {
-        console.log(res);
-        // const { bestPost, bestWriter, bestReview } = res.data.data;
-        dispatch(getHomeData(res.data.data));
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      });
-
-    // 더미데이터 리덕스 주입
-    // const bestStore = homeDummy[0].인기작품;
-    // const artist = homeDummy[1].주목작가;
-    // const reivew = homeDummy[2].후기;
-
     // dispatch(getHomeData(homeDummy));
+
+    Apis.getHome()
+      .then(function (response) {
+        console.log(response);
+        dispatch(getHomeData(response.data.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log("실패");
+      });
   };
 };
 
@@ -49,16 +36,11 @@ const mainSlice = createSlice({
   initialState: initialState,
   reducers: {
     getHomeData: (state, action) => {
-      const { bestStore, bestReview, bestWriter } = action.payload;
-      // const { 인기작품 } = action.payload[0];
-      // const { 주목작가 } = action.payload[1];
-      // const { 후기 } = action.payload[2];
-      // state.bestStore = 인기작품;
-      // state.recommendArtist = 주목작가;
-      // state.bestReview = 후기;
-      state.bestStore = bestStore;
-      state.bestReview = bestReview;
+      const { bestPost, bestReview, bestWriter } = action.payload;
+
+      state.bestStore = bestPost;
       state.recommendArtist = bestWriter;
+      state.bestReview = bestReview;
     },
   },
 });

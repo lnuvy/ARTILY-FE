@@ -22,6 +22,8 @@ const Button = (props) => {
     right,
     bottom,
     text,
+    border,
+    borderRight,
   } = props;
 
   const styles = {
@@ -41,6 +43,8 @@ const Button = (props) => {
     right,
     bottom,
     text,
+    border,
+    borderRight,
   };
 
   return (
@@ -54,7 +58,7 @@ const Button = (props) => {
 
 Button.defaultProps = {
   onClick: () => {},
-  display: "inherit",
+  display: null,
   jc: "0",
   width: "fit-content",
   height: "fit-content",
@@ -64,7 +68,7 @@ Button.defaultProps = {
   br: "8px",
   fg: "0",
   bc: `${theme.color.brandColor}`,
-  position: "inherit",
+  position: null,
   top: null,
   bottom: null,
   left: null,
@@ -86,6 +90,8 @@ const ButtonStyle = styled.button`
   bottom: ${({ bottom }) => bottom};
   left: ${({ left }) => left};
   right: ${({ right }) => right};
+  border: ${({ border }) => border};
+  border-right: ${({ borderRight }) => borderRight};
   justify-content: center;
 
   ${(props) =>
@@ -120,6 +126,7 @@ const ButtonStyle = styled.button`
     background-color: ${props.bc};
     color: ${theme.color.white};
     border: none;
+    border-right: ${({ borderRight }) => borderRight};
     :focus {
       opacity: 0.9;
     }
