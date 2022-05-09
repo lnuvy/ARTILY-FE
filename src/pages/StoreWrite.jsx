@@ -25,10 +25,16 @@ import { history } from "../redux/configureStore";
 import { addPostDB } from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 
+// alert
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 /*
  * @한울
  *
  */
+
+const MySwal = withReactContent(Swal);
 
 const StoreWrite = () => {
   const params = useParams();
@@ -86,11 +92,19 @@ const StoreWrite = () => {
     inputSpaceReg(postTitle);
     inputSpaceReg(postContent);
     if (!imageArr.length) {
-      alert("작품 등록시 사진은 반드시 1장 이상이어야 합니다.");
+      MySwal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "작품 등록시 사진은 반드시 1장 이상이어야 합니다.",
+      });
       return;
     }
     if (!(inputs.delivery || inputs.direct)) {
-      alert("거래방식을 선택하세요.");
+      MySwal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "거래방식을 선택하세요.",
+      });
       return;
     }
 
