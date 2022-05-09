@@ -1,4 +1,4 @@
-const color = {
+const pallete = {
   /// May9 새로 추가된 컬러
   white: "#FFFFFF",
   gray1: "#E0E0E0",
@@ -17,9 +17,11 @@ const color = {
   primary800: "#FD8A00",
   primary850: "#FD7A00",
   primary900: "#FD6A00",
+};
 
+const color = {
   /// 기존 컬러
-  brandColor: "#FD6A00",
+  brandColor: pallete.primary900,
   alertColor: "#FD9B00",
   bgColor: "aliceblue",
   lightGray: "#E7E7E7",
@@ -43,12 +45,9 @@ const view = {
   tablet: `(max-width: 1024px)`,
   desktop: `(min-width: 1025px)`,
   width: "375px",
+  maxWidth: "428px",
 };
 
-const theme = {
-  color,
-  fontSizes,
-  view,
-};
+const theme = { pallete, color, fontSizes, view };
 
 export default theme;

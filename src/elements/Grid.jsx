@@ -38,7 +38,6 @@ Grid.defaultProps = {
   cg: "16px",
   rg: "16px",
   textAlign: "left",
-  width: "inherit",
   margin: "0",
   bc: "transparent",
   border: "none",

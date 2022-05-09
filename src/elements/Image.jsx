@@ -57,6 +57,7 @@ Image.defaultProps = {
   bc: "rgba(0,0,0,0.2)",
   //border-radius 추가했습니다. -영경
   br: "",
+  border: "none", // May8 수정
 };
 
 const ImageCircle = styled.div`
@@ -71,7 +72,7 @@ const ImageCircle = styled.div`
   margin: ${({ margin }) => margin};
   background-position: center;
   background-repeat: no-repeat;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: ${({ border }) => border};
 `;
 
 const ImageSqure = styled.div`
@@ -85,7 +86,7 @@ const ImageSqure = styled.div`
   margin: ${({ margin }) => margin};
   background-position: center;
   background-repeat: no-repeat;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: ${({ border }) => border};
   border-radius: ${({ br }) => br};
 `;
 

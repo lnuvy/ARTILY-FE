@@ -36,6 +36,7 @@ import styled from "styled-components";
 
 import { removeToken } from "./shared/token";
 import { receiveChat, receiveChatRoom } from "./redux/modules/chat";
+import theme from "./styles/theme";
 
 function App() {
   const dispatch = useDispatch();
@@ -142,6 +143,9 @@ export default App;
 /// May9 MaxContainer로 최대 너비 지정 -> 모바일 최적화로 맞추기 위함
 
 const MaxContainer = styled.div`
-  max-width: 428px;
+  max-width: ${theme.view.maxWidth};
+  min-height: 100vh;
+  height: fit-content;
+  background-color: white;
   margin: 0 auto;
 `;

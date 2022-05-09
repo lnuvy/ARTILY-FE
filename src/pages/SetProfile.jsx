@@ -151,7 +151,7 @@ const ImgBox = styled.div`
     display: inline-block;
     padding: 0.5em 0.75em;
     color: #666;
-    font-size: inherit;
+
     line-height: normal;
     vertical-align: middle;
     background-color: #fdfdfd;

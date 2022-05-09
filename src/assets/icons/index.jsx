@@ -2,5 +2,6 @@
 
 import Notification from "./Notification";
 import Chat from "./Chat";
+import Favorite from "./Favorite";
 
-export { Notification, Chat };
+export { Notification, Chat, Favorite };

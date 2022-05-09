@@ -71,9 +71,20 @@ const reviewSlice = createSlice({
     go2detail: (state, action) => {
       state.detailData = action.payload;
     },
+    // 카테고리 필터 이름변경
+    filteringReviewData: (state, action) => {
+      if (action.payload === "전체") {
+        state.filterList = state.list;
+        return;
+      }
+      state.filterList = state.list.filter(
+        (post) => post.category === action.payload
+      );
+    },
   },
 });
 
 const { reducer, actions } = reviewSlice;
-export const { getReviewData, go2detail, getNowReview } = actions;
+export const { getReviewData, go2detail, getNowReview, filteringReviewData } =
+  actions;
 export default reducer;

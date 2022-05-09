@@ -34,7 +34,7 @@ const Navigation = () => {
   };
 
   return (
-    <Grid gtc="auto auto auto auto" cg="20px">
+    <Grid gtc="auto auto auto auto" cg="0">
       {menus.map((menu) => {
         return (
           <CurrentDiv
@@ -45,7 +45,7 @@ const Navigation = () => {
             }}
             current={menu === current}
           >
-            <Nav>{menu[0]}</Nav>
+            {menu[0]}
           </CurrentDiv>
         );
       })}
@@ -54,26 +54,23 @@ const Navigation = () => {
 };
 
 const CurrentDiv = styled.div`
-  padding: 5px 10px;
-  margin: 10px 0 0;
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  padding: 8px 16px;
   cursor: pointer;
   text-align: center;
   color: black;
   /* animation: all 3s ease-out; */
   border-bottom: ${({ current, theme }) =>
     current
-      ? `3px solid ${theme.color.brandColor};`
-      : "3px solid transparent;"};
+      ? `4px solid ${theme.color.brandColor};`
+      : "4px solid transparent;"};
   &:focus {
     /* outline: none; */
   }
   // 모바일 파란박스 없애기
   -webkit-tap-highlight-color: transparent;
-`;
-
-const Nav = styled.div`
-  display: grid;
-  width: 100%;
 `;
 
 export default Navigation;

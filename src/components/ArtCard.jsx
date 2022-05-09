@@ -6,6 +6,8 @@ import { Card } from "../components";
 import { Flex, Image, Text, Wrap, Button } from "../elements";
 import { priceComma } from "../shared/utils";
 import { useHistory } from "react-router-dom";
+import theme from "../styles/theme";
+
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 const ArtCard = (props) => {
   const history = useHistory();
@@ -35,7 +37,12 @@ const ArtCard = (props) => {
       <>
         <Card onClick={onClick}>
           <Flex>
-            <Image height="120px" src={imageUrl[0]} margin="0 10px 0 10px" />
+            <Image
+              height="168px"
+              src={imageUrl[0]}
+              margin="0 10px 0 10px"
+              br="8px"
+            />
             <Wrap>
               <Flex>
                 <Image circle size="20" src={profileImage} />
@@ -87,7 +94,12 @@ const ArtCard = (props) => {
       <>
         <Card onClick={onClick}>
           <Flex>
-            <Image width="120px" src={imageUrl[0]} margin="0 10px 0 10px" />
+            <Image
+              width="168px"
+              src={imageUrl[0]}
+              margin="0 10px 0 10px"
+              br="8px"
+            />
             <Wrap width="60%">
               <Text>{postTitle}</Text>
               <Flex>
@@ -112,7 +124,7 @@ const ArtCard = (props) => {
           <p className="selling">판매중</p>
           {/* <p className="complete">판매완료</p> */}
 
-          <Image height="120px" src={imageUrl[0]} />
+          <Image height="168px" src={imageUrl[0]} br="8px" />
         </Label>
         <Flex margin="8px 0 0">
           <Image circle size="20" src={profileImage} />
@@ -128,16 +140,18 @@ const ArtCard = (props) => {
   } // 여기 else 안주면 밑에꺼 나오지 않나요 ? -한울-
   return (
     <Card onClick={onClick}>
-      <Image height="120px" src={imageUrl[0]} />
-      <Flex margin="8px 0 0">
-        <Image circle size="20" src={profileImage} />
-        <Text margin="0 0 0 4px">{nickname}</Text>
+      <Image height="168px" border="none" src={imageUrl[0]} br="8px" />
+      <Flex margin="8px 0 ">
+        <Image circle size="32" src={profileImage} />
+        <Text margin="0 0 0 8px">{nickname}</Text>
       </Flex>
-      <Text>{postTitle}</Text>
-      <Text>
+      <Text h3 medium margin="0 0 0 2px">
+        {postTitle}
+      </Text>
+      <Text body2 margin="0 0 0 2px" color={theme.pallete.gray3}>
         {transaction} ∙ {address}
       </Text>
-      <Text bold>{priceComma(price)}원</Text>
+      <Text>{priceComma(price)}원</Text>
     </Card>
   );
 };

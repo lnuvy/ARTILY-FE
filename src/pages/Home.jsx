@@ -6,6 +6,8 @@ import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
 import { openModal } from "../redux/modules/modal";
+import styled from "styled-components";
+import theme from "../styles/theme";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -46,10 +48,12 @@ const Home = () => {
 
   return (
     <>
-      <Image height="240px" />
-      <Wrap margin="16px">
-        <Text h2>인기작품</Text>
-        <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
+      <Image height="200px" width="100%" br="0" border="none" />
+      <Wrap padding="16px 16px 28px">
+        <Text bold h3 margin="0 0 10px 0">
+          인기 작품
+        </Text>
+        <Grid gtc="auto auto" rg="16px" cg="16px">
           {bestStore.map((v, i) => {
             return (
               <ArtCard
@@ -61,31 +65,45 @@ const Home = () => {
             );
           })}
         </Grid>
-        <Text h2>아트인이 주목하는 작가</Text>
-        <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
-          {recommendArtist.map((v, i) => {
-            return (
-              <Card
-                key={i}
-                border="1px solid rgba(0,0,0,0.1)"
-                padding="12px"
-                onClick={modalOn}
-              >
-                <Image circle size="100" margin="8px auto 0" />
-                <Text textAlign="center">작가명</Text>
-                <Text body2 textAlign="center">
-                  작가 본인이 작성한 소개를 보여주는 영역입니다. 작가 본인이
-                  작성한 소개를 보여주는 영역입니다.
-                </Text>
-                <Text body3 textAlign="center">
-                  작품타입 오브제 ∙ 등록작품 4개
-                </Text>
-              </Card>
-            );
-          })}
-        </Grid>
-        <Text h2>Best 후기</Text>
-        <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px">
+      </Wrap>
+      <Wrap padding="0 0 24px">
+        <Text bold h3 margin="0 0 18px 16px">
+          아틀리가 주목하는 작가
+        </Text>
+
+        <BestArtistWrap>
+          <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
+            {recommendArtist.map((v, i) => {
+              return (
+                <Card
+                  key={i}
+                  border={`1px solid ${theme.pallete.gray1}`}
+                  padding="16px 16px 10px"
+                  onClick={modalOn}
+                  width="268px"
+                >
+                  <Image circle size="88" margin="8px auto 10px" />
+                  <Text textAlign="center" margin="0 0 9px">
+                    작가명
+                  </Text>
+                  <Text body2 textAlign="center" margin="0 0 6px">
+                    작가 본인이 작성한 소개를 보여주는 영역입니다. 작가 본인이
+                    작성한 소개를 보여주는 영역입니다.
+                  </Text>
+                  <Text body3 textAlign="center" color={theme.pallete.gray3}>
+                    작품타입 오브제 ∙ 등록작품 4개
+                  </Text>
+                </Card>
+              );
+            })}
+          </Grid>
+        </BestArtistWrap>
+      </Wrap>
+      <Wrap padding="0 16px 33px">
+        <Text bold h3 margin="0 0 10px 0">
+          Best 후기
+        </Text>
+        <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
           {bestReview.length
             ? bestReview.map((l, i) => {
                 return (
@@ -104,3 +122,9 @@ const Home = () => {
   );
 };
 export default Home;
+
+const BestArtistWrap = styled.div`
+  padding: 0 16px;
+  overflow: auto;
+  overflow-y: hidden;
+`;

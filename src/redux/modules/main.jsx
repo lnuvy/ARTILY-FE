@@ -17,7 +17,8 @@ const initialState = {
 
 export const getHomeDataDB = () => {
   return async function (dispatch, getState, { history }) {
-    // await axios.get()
+    dispatch(getHomeData(homeDummy));
+
     Apis.getHome()
       .then(function (response) {
         console.log(response);
@@ -35,12 +36,19 @@ const mainSlice = createSlice({
   initialState: initialState,
   reducers: {
     getHomeData: (state, action) => {
-      const { artPost } = action.payload[0];
+      const { 인기작품 } = action.payload[0];
+      const { 주목작가 } = action.payload[1];
+      const { 후기 } = action.payload[2];
+      state.bestStore = 인기작품;
+      state.recommendArtist = 주목작가;
+      state.bestReview = 후기;
+
+      // const { artPost } = action.payload[0];
       // const { 주목작가 } = action.payload[1];
-      const { reviwPage } = action.payload[2];
-      state.bestStore = artPost;
+      // const { reviwPage } = action.payload[2];
+      // state.bestStore = artPost;
       // state.recommendArtist = 주목작가;
-      state.bestReview = reviwPage;
+      // state.bestReview = reviwPage;
     },
   },
 });

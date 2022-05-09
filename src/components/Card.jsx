@@ -34,11 +34,12 @@ const Card = (props) => {
 Card.defaultProps = {
   padding: "0",
   border: "none",
+  width: "100%",
   onClick: () => {},
 };
 
 const CardStyle = styled.div`
-  width: 100%;
+  width: ${({ width }) => width};
   height: fit-content;
   border-radius: 16px;
   padding: ${({ padding }) => padding};

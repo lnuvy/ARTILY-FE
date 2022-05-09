@@ -52,7 +52,7 @@ const Button = (props) => {
 
 Button.defaultProps = {
   onClick: () => {},
-  display: "inherit",
+  display: null,
   jc: "0",
   width: "fit-content",
   height: "fit-content",
@@ -62,7 +62,7 @@ Button.defaultProps = {
   br: "8px",
   fg: "0",
   bc: `${theme.color.brandColor}`,
-  position: "inherit",
+  position: null,
   top: null,
   bottom: null,
   left: null,
