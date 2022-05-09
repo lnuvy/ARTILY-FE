@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { homeDummy } from "../../shared/Dummy";
+import { Apis } from "../../shared/api";
 
 /*
  * 4/29 한울
@@ -10,31 +11,49 @@ import { homeDummy } from "../../shared/Dummy";
 
 const initialState = {
   list: [],
+  filterList: [],
   isFetching: false,
   infinityScroll: {},
   detailData: null,
+  reviewData: null,
 };
 
-export const getReview = () => {
+export const getReviewDB = () => {
   return async function (dispatch, getState, { history }) {
     // await axios.get()
-
+    console.log("---getReviewDB");
     // 더미데이터 리덕스 주입
-    console.log(homeDummy[2]["후기"]);
-    dispatch(getReviewData(homeDummy[2]["후기"]));
+    Apis.getReview()
+      .then(function (response) {
+        console.log(response);
+        dispatch(getReviewData(response.data.review));
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log("실패");
+      });
   };
 };
 
 export const getReviewOne = (reviewId) => {
   return async function (dispatch, getState, { history }) {
     // axios
-    console.log(Number(reviewId));
-    const allList = homeDummy[2]["후기"];
-    console.log(allList);
 
-    const now = allList.find((l) => l.reviewId === Number(reviewId));
-    console.log(now);
-    dispatch(getNowReview(now));
+    console.log(reviewId);
+
+    Apis.getReviewDetail(reviewId)
+      .then(function (response) {
+        console.log(response);
+        dispatch(getReviewData(response.data.review));
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log("실패");
+      });
+
+    // const now = allList.find((l) => l.reviewId === Number(reviewId));
+    // console.log(now);
+    // dispatch(getNowReview(now));
   };
 };
 

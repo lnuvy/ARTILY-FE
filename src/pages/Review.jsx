@@ -3,7 +3,7 @@ import { ArtCard, Card, ReviewCard } from "../components";
 import Category from "../components/Category";
 import { Button, Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
-import { getReview, go2detail } from "../redux/modules/reviews";
+import { getReviewDB, go2detail } from "../redux/modules/reviews";
 
 import { history } from "../redux/configureStore";
 
@@ -15,7 +15,7 @@ const Review = () => {
 
   useEffect(() => {
     // 더미데이터 주입된상태
-    dispatch(getReview());
+    dispatch(getReviewDB());
   }, []);
 
   const handleClickData = (data) => {

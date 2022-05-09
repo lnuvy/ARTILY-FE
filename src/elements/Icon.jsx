@@ -23,8 +23,9 @@ const Icon = (props) => {
 };
 
 Icon.defaultProps = {
-  width: "36px",
-  height: "36px",
+  // May8 24px 로 수정 (체크 후 이상 있으면 추가 수정 필요)
+  width: "24px",
+  height: "24px",
   fg: "0",
   bc: "transparent",
 };
