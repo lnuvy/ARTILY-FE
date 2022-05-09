@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { storeDummy } from "../../shared/Dummy";
+import { getToken } from "../../shared/token";
+
+// const BASE_URL = "http://52.78.183.202";
+const BASE_URL = "http://13.125.83.59";
 
 /*
  * 4/29 한울
@@ -19,22 +23,55 @@ const initialState = {
 
 export const getPostDB = () => {
   return async function (dispatch, getState, { history }) {
-    // await axios.get()
+    // const config = { Authorization: `Bearer ${getToken()}` };
+
+    await axios
+      .get(`${BASE_URL}/api/post/store`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // 더미데이터 리덕스 주입
-    dispatch(getStoreData(storeDummy));
+    // dispatch(getStoreData(storeDummy));
   };
 };
 
 export const getPostOne = (postId) => {
   return async function (dispatch, getState, { history }) {
-    // axios
+    const config = { Authorization: `Bearer ${getToken()}` };
+
+    await axios
+      .get(`${BASE_URL}/api/post/${postId}`, config)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // 더미데이터 임시방편
     // dispatch(getStoreData(storeDummy));
     const allList = getState().store.list;
     const now = allList.find((l) => l.postId === postId);
     dispatch(go2detail(now));
+  };
+};
+
+export const addPostDB = (data) => {
+  return async function (dispatch, getState, { history }) {
+    const config = { Authorization: `Bearer ${getToken()}` };
+
+    axios
+      .post(`${BASE_URL}/api/post`, data, config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 

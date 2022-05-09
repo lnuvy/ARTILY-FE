@@ -1,7 +1,7 @@
 import ArtCard from "./ArtCard";
 import Card from "./Card";
 import Category from "./Category";
-import CategoryRadio from "./CategoryRadio";
+// import CategoryRadio from "./CategoryRadio";
 import ChatCard from "./ChatCard";
 import ChatFileInput from "./ChatFileInput";
 import Footer from "./Footer";
@@ -17,7 +17,7 @@ export {
   ArtCard,
   Card,
   Category,
-  CategoryRadio,
+  // CategoryRadio,
   ChatCard,
   ChatFileInput,
   Footer,

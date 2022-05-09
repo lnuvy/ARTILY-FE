@@ -23,7 +23,6 @@ import { useDispatch } from "react-redux";
 import { closeModal } from "../../../redux/modules/modal";
 
 const { kakao } = window;
-const ps = new kakao.maps.services.Places();
 
 const MapModal = ({ setReceiveAddress }) => {
   const dispatch = useDispatch();
@@ -35,6 +34,7 @@ const MapModal = ({ setReceiveAddress }) => {
     lng: 126.978403,
   });
   const inputRef = useRef(null);
+  const ps = new kakao.maps.services.Places();
 
   useEffect(() => {
     fetchData();

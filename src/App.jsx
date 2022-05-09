@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import { Header } from "./components";
+import { CategoryRadio, Header } from "./components";
 import {
   Chat,
   Follow,
@@ -101,8 +101,7 @@ function App() {
           <Route path="/store" exact component={Store} />
           <Route path="/store/view/:postId" exact component={StoreDetail} />
           <Route path="/store/write" exact component={StoreWrite} />
-          <Route path="/category/select" exact component={WriteSetCate} />
-          {/* <Route path="/store/write/:postId" exact component={StoreWrite} /> */}
+          <Route path="/store/write/:postId" exact component={StoreWrite} />
 
           <Route path="/follow" exact component={Follow} />
           <Route path="/store" exact component={Store} />

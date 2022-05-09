@@ -20,7 +20,6 @@ import MypageEdit from "./MypageEdit";
 import Manage from "./Manage";
 import DetailProfile from "./DetailProfile";
 import ReviewWrite from "./ReviewWrite";
-import WriteSetCate from "./WriteSetCate";
 
 export {
   Chat,
@@ -44,5 +43,4 @@ export {
   Manage,
   DetailProfile,
   ReviewWrite,
-  WriteSetCate,
 };

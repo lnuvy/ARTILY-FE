@@ -23,6 +23,7 @@ const Input = (props) => {
     readOnly,
     br, // border-radius
     onClick,
+    type,
   } = props;
 
   const styles = { width, fg, margin, alert, icon, padding, br };
@@ -35,6 +36,7 @@ const Input = (props) => {
         <InputBox {...styles}>
           <SquareInput
             id={id}
+            type={type}
             value={value}
             placeholder={placeholder}
             onChange={onChange}
@@ -54,6 +56,7 @@ const Input = (props) => {
         <InputBox {...styles}>
           <InputContainer
             id={id}
+            type={type}
             value={value}
             placeholder={placeholder}
             onChange={onChange}

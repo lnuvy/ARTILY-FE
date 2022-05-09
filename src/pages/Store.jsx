@@ -66,7 +66,6 @@ const Store = () => {
     dispatch(
       openModal({
         title: "",
-        // text 를 content 로 변경, 태그 직접 넣으면 됩니다
         content: (
           <StoreFilter filtering={filtering} setFiltering={setFiltering} />
         ),

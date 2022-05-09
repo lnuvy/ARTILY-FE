@@ -35,11 +35,11 @@ const Textarea = (props) => {
 
   return (
     <TextareaWrap {...styles}>
-      <TextareaLabel htmlFor={id}>{label}</TextareaLabel>
+      {label && <TextareaLabel htmlFor={id}>{label}</TextareaLabel>}
       <TextareaBox {...styles}>
         <TextareaContainer
           id={id}
-          // value={value ? value : null}
+          value={value}
           placeholder={placeholder}
           onChange={(e) => {
             onChange(e);
