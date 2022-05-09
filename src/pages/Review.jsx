@@ -20,7 +20,7 @@ const Review = () => {
 
   const handleClickData = (data) => {
     dispatch(go2detail(data));
-    history.push(`/review/view/${data.reviewId}`);
+    history.push(`/review/${data.reviewId}`);
   };
 
   return (

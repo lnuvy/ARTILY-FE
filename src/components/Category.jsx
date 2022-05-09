@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Button, Grid, Text } from "../elements";
 import { filteringData } from "../redux/modules/store";
 import { filteringReviewData } from "../redux/modules/reviews";
+import theme from "../styles/theme";
 
 const cate = [
   "전체",
@@ -29,11 +30,9 @@ const Category = (props) => {
   return (
     <Grid
       gtc="1fr 1fr 1fr 1fr"
-      cg="1px"
-      rg="1px"
+      cg="0px"
+      rg="0px"
       textAlign="center"
-      bc="gray"
-      border="1px solid gray"
       width="100%"
     >
       {cate.map((c, i) => {
@@ -44,6 +43,7 @@ const Category = (props) => {
               padding="10px 5px"
               width="100%"
               br="0"
+              borderRight="1px solid black"
               onClick={(e) => setCurrent(e.target.innerText)}
               bc="white"
             >
@@ -59,6 +59,8 @@ const Category = (props) => {
               padding="10px 5px"
               width="100%"
               br="0"
+              borderRight="1px solid black"
+              border={`1px solid ${theme.pallete.gray2}`}
               onClick={(e) => setCurrent(e.target.innerText)}
               bc="white"
             >

@@ -17,12 +17,12 @@ const initialState = {
 
 export const getHomeDataDB = () => {
   return async function (dispatch, getState, { history }) {
-    dispatch(getHomeData(homeDummy));
+    // dispatch(getHomeData(homeDummy));
 
     Apis.getHome()
       .then(function (response) {
         console.log(response);
-        dispatch(getHomeData(response.data));
+        dispatch(getHomeData(response.data.data));
       })
       .catch(function (error) {
         console.log(error);
@@ -36,19 +36,18 @@ const mainSlice = createSlice({
   initialState: initialState,
   reducers: {
     getHomeData: (state, action) => {
-      const { 인기작품 } = action.payload[0];
-      const { 주목작가 } = action.payload[1];
-      const { 후기 } = action.payload[2];
-      state.bestStore = 인기작품;
-      state.recommendArtist = 주목작가;
-      state.bestReview = 후기;
-
-      // const { artPost } = action.payload[0];
+      // const { 인기작품 } = action.payload[0];
       // const { 주목작가 } = action.payload[1];
-      // const { reviwPage } = action.payload[2];
-      // state.bestStore = artPost;
+      // const { 후기 } = action.payload[2];
+      // state.bestStore = 인기작품;
       // state.recommendArtist = 주목작가;
-      // state.bestReview = reviwPage;
+      // state.bestReview = 후기;
+
+      const { bestPost, bestReview, bestWriter } = action.payload;
+
+      state.bestStore = bestPost;
+      state.recommendArtist = bestWriter;
+      state.bestReview = bestReview;
     },
   },
 });

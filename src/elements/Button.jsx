@@ -21,6 +21,8 @@ const Button = (props) => {
     right,
     bottom,
     text,
+    border,
+    borderRight,
   } = props;
 
   const styles = {
@@ -39,6 +41,8 @@ const Button = (props) => {
     right,
     bottom,
     text,
+    border,
+    borderRight,
   };
 
   return (
@@ -83,6 +87,8 @@ const ButtonStyle = styled.button`
   bottom: ${({ bottom }) => bottom};
   left: ${({ left }) => left};
   right: ${({ right }) => right};
+  border: ${({ border }) => border};
+  border-right: ${({ borderRight }) => borderRight};
   justify-content: center;
 
   ${(props) =>
@@ -117,6 +123,7 @@ const ButtonStyle = styled.button`
     background-color: ${props.bc};
     color: ${theme.color.white};
     border: none;
+    border-right: ${({ borderRight }) => borderRight};
     :focus {
       opacity: 0.9;
     }

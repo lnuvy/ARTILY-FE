@@ -23,7 +23,12 @@ export const getReviewDB = () => {
     // await axios.get()
     console.log("---getReviewDB");
     // 더미데이터 리덕스 주입
-    Apis.getReview()
+
+    const pageHandler = {
+      page: 1,
+      limit: 6,
+    };
+    Apis.getReview(pageHandler)
       .then(function (response) {
         console.log(response);
         dispatch(getReviewData(response.data.review));
@@ -41,10 +46,10 @@ export const getReviewOne = (reviewId) => {
 
     console.log(reviewId);
 
-    Apis.getReviewDetail(reviewId)
+    Apis.getReviewDetail("4208ef179b5d")
       .then(function (response) {
         console.log(response);
-        dispatch(getReviewData(response.data.review));
+        // dispatch(getReviewData(response.data.review));
       })
       .catch(function (error) {
         console.log(error);

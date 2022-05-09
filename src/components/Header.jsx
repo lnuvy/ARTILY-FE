@@ -5,7 +5,7 @@ import { Navigation } from "../components";
 import { useLocation } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { Logo } from "../assets/images/index";
-import { Notification, Chat } from "../assets/icons/index";
+import { Notification, Chat, Close } from "../assets/icons/index";
 
 // 뒤로가기 아이콘
 import { IoIosArrowBack } from "react-icons/io";
@@ -78,12 +78,10 @@ const Header = (props) => {
   else if (isWrite) {
     return (
       <HeaderStyle>
-        <Flex height="48px">
-          <Icon
-            bc="black"
-            margin="0 0 0 16px"
-            onClick={() => history.goBack()}
-          />
+        <Flex height="48px" margin="0 60px 0 0">
+          <Icon margin="0 0 0 16px" onClick={() => history.goBack()}>
+            <Close />
+          </Icon>
           <Text fg="1" textAlign="center">
             {reviewWrite && "리뷰 등록"}
             {storeWrite && "작품 등록"}
