@@ -5,7 +5,8 @@ import { homeDummy } from "../../shared/Dummy";
 import { getToken } from "../../shared/token";
 
 // const BASE_URL = "http://52.78.183.202";
-const BASE_URL = "http://13.125.83.59";
+// const BASE_URL = "http://13.125.83.59";
+const BASE_URL = "http://13.124.169.236"; // 5/9
 
 /*
  * 4/29 한울
@@ -26,7 +27,7 @@ export const getHomeDataDB = () => {
       .get(`${BASE_URL}/api/post`, config)
       .then((res) => {
         console.log(res);
-        // const { artPost, reviewPage } = res.data;
+        // const { bestPost, bestWriter, bestReview } = res.data.data;
         dispatch(getHomeData(res.data.data));
       })
       .catch((err) => {
@@ -48,14 +49,16 @@ const mainSlice = createSlice({
   initialState: initialState,
   reducers: {
     getHomeData: (state, action) => {
+      const { bestStore, bestReview, bestWriter } = action.payload;
       // const { 인기작품 } = action.payload[0];
       // const { 주목작가 } = action.payload[1];
       // const { 후기 } = action.payload[2];
       // state.bestStore = 인기작품;
       // state.recommendArtist = 주목작가;
       // state.bestReview = 후기;
-      state.bestStore = action.payload.artPost;
-      state.bestReview = action.payload.reviwPage; // TODO: ㅋㅋ 오타
+      state.bestStore = bestStore;
+      state.bestReview = bestReview;
+      state.recommendArtist = bestWriter;
     },
   },
 });

@@ -12,3 +12,11 @@ export const changeTime = (momentDate) => {
   // const text = moment(insert_dt).add(9, "hours").fromNow();
   return text;
 };
+
+// 띄어쓰기, 엔터만 있으면 false
+export const inputSpaceReg = (text) => {
+  if (!text.replace(/(^\s*)|(\s*$)/gi, "")) {
+    return false;
+  }
+  return true;
+};

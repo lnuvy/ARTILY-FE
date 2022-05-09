@@ -5,7 +5,8 @@ import { storeDummy } from "../../shared/Dummy";
 import { getToken } from "../../shared/token";
 
 // const BASE_URL = "http://52.78.183.202";
-const BASE_URL = "http://13.125.83.59";
+// const BASE_URL = "http://13.125.83.59";
+const BASE_URL = "http://13.124.169.236"; // 5/9
 
 /*
  * 4/29 한울
@@ -29,6 +30,7 @@ export const getPostDB = () => {
       .get(`${BASE_URL}/api/post/store`)
       .then((res) => {
         console.log(res.data);
+        dispatch(getStoreData(res.data.data));
       })
       .catch((err) => {
         console.log(err);
@@ -63,6 +65,8 @@ export const getPostOne = (postId) => {
 export const addPostDB = (data) => {
   return async function (dispatch, getState, { history }) {
     const config = { Authorization: `Bearer ${getToken()}` };
+
+    console.log(data);
 
     axios
       .post(`${BASE_URL}/api/post`, data, config)

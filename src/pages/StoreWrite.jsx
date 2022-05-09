@@ -18,21 +18,28 @@ import { clearPreview } from "../redux/modules/image";
 import { openModal } from "../redux/modules/modal";
 import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
-import { priceComma } from "../shared/utils";
+import { inputSpaceReg, priceComma } from "../shared/utils";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { history } from "../redux/configureStore";
 import { addPostDB } from "../redux/modules/store";
+import { useParams } from "react-router-dom";
 
 /*
  * @한울
- * 리뷰와 공통으로 쓸수있는 컴포넌트: Preview.jsx ImagePreview.jsx
+ *
  */
 
 const StoreWrite = () => {
+  const params = useParams();
   const dispatch = useDispatch();
   // 인풋 한번에 받기 (체크박스는 e.target.id 가 아니라 e.target.checked 로 받아야해서 인라인에 적용함)
-  const [inputs, setInputs] = useState({ delivery: false, direct: false });
+  const [inputs, setInputs] = useState({
+    delivery: false,
+    direct: false,
+    postTitle: "",
+    postContent: "",
+  });
   const { represent, imageArr } = useSelector((state) => state.image);
 
   const handleChange = (e) => {
@@ -74,6 +81,8 @@ const StoreWrite = () => {
 
   const submitPost = () => {
     const { postTitle, price, postContent } = inputs;
+    inputSpaceReg(postTitle);
+    inputSpaceReg(postContent);
     if (!imageArr.length) {
       alert("작품 등록시 사진은 반드시 1장 이상이어야 합니다.");
       return;
@@ -82,11 +91,12 @@ const StoreWrite = () => {
       alert("거래방식을 선택하세요.");
       return;
     }
+
     if (
       !receiveCategory ||
-      inputs.postTitle === "" ||
+      !inputSpaceReg(postTitle) ||
       inputs.price === "" ||
-      inputs.postContent === ""
+      !inputSpaceReg(postContent)
     ) {
       alert("카테고리, 작품명, 가격, 내용은 필수 입력 항목이에요.");
       return;
@@ -115,9 +125,9 @@ const StoreWrite = () => {
       formData.append("transaction", "전체");
     }
 
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
 
     dispatch(addPostDB(formData));
   };

@@ -6,7 +6,8 @@ import { getToken, insertToken, removeToken } from "../../shared/token";
 import { markupToggle } from "./store";
 
 // const BASE_URL = "http://52.78.183.202";
-const BASE_URL = "http://13.125.83.59";
+// const BASE_URL = "http://13.125.83.59";
+const BASE_URL = "http://13.124.169.236"; // 5/9
 
 //action
 //로그인 체크
@@ -157,11 +158,11 @@ const setProfileDB = (formData) => {
   return function (dispatch, getState) {
     axios({
       method: "patch",
-      url: "http://52.78.183.202/profile",
+      url: `${BASE_URL}/api/profile`,
       data: formData,
       headers: {
         "Content-Type": `multipart/form-data;`,
-        Authorization: insertToken,
+        Authorization: `Bearer ${getToken()}`,
       },
     })
       .then((res) => {
