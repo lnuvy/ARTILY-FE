@@ -56,11 +56,12 @@ const kakaoLogin = (code) => {
         dispatch(setUser(user));
         insertToken(ACCESS_TOKEN); //local storage에 저장
         // 최초 로그인일 경우에만 로그인 후 프로필 설정하는 페이지로 이동
-        // if (res.data.new) {
-        //   //신규 회원이면
-        //   history.replace("/profile");
-        // }
-        history.push("/profile");
+        if (res.data.new) {
+          //신규 회원이면
+          history.replace("/profile");
+        }
+        //기존 회원이면
+        history.push("/");
       })
       .catch((err) => {
         console.log("소셜로그인 에러!", err);
