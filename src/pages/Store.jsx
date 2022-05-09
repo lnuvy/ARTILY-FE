@@ -13,14 +13,12 @@ import StoreFilter from "../shared/modal/modalContent/StoreFilter";
 
 const Store = () => {
   const dispatch = useDispatch();
-
-  const categoryList = useSelector((state) => state.store.list);
+  const { list, filterList } = useSelector((state) => state.store);
   // 카테고리 필터링
-  const filterList = useSelector((state) => state.store.filterList);
 
   useEffect(() => {
     // 새로고침 등 리덕스데이터가 날아갔을때만 api 요청하게하기
-    if (!categoryList.length) dispatch(getPostDB());
+    if (!list.length) dispatch(getPostDB());
   }, []);
 
   // 모달 필터링
@@ -47,7 +45,7 @@ const Store = () => {
 
   // 검색필터
   const searchList = filterList
-    .filter((l) => {
+    ?.filter((l) => {
       const address = l.user.address;
       const title = l.postTitle;
       const artist = l.user.nickname;

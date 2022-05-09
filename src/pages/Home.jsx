@@ -20,13 +20,14 @@ const Home = () => {
   //     history.push("/profile/detail");
   //   }
   // }
+
   // 더미데이터 주입
   useEffect(() => {
     dispatch(getHomeDataDB());
   }, []);
 
   // 한번에 데이터를 리덕스에 넣는방법이 딱히 안떠올라서 main용 리덕스를 새로 만들었습니다 좋은 의견있으면 바꿔주세요
-  const { bestStore, recommendArtist, bestReview } = useSelector(
+  const { bestPost, bestWriter, bestReview } = useSelector(
     (state) => state.main
   );
 
@@ -35,7 +36,7 @@ const Home = () => {
     if (path === "/store") {
       console.log();
     }
-    history.push(`${path}/${data.postId}`);
+    history.push(`${path}/view/${data.postId}`);
   };
 
   const modalOn = () => {
@@ -56,10 +57,9 @@ const Home = () => {
           인기 작품
         </Text>
         <Grid gtc="auto auto" rg="16px" cg="16px">
-          {bestStore.map((v, i) => {
+          {bestPost.map((v, i) => {
             return (
               <ArtCard
-                // path 까지 받아서 붙여넣는걸로했는데 더좋은방법이 있을거같네요 고민해봅시다 -한울-
                 onClick={() => move2detail(v, "/store")}
                 key={v.postId}
                 {...v}
@@ -75,7 +75,7 @@ const Home = () => {
 
         <BestArtistWrap>
           <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
-            {recommendArtist.map((v, i) => {
+            {bestWriter.map((v, i) => {
               return (
                 <Card
                   key={i}

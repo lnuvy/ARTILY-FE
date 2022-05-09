@@ -28,7 +28,12 @@ const Modal = () => {
   return (
     <ModalPortal>
       <Flex fd="column" margin="0" width="100%">
-        <Flex padding="20px 20px 20px 28px" height="70px" jc="space-between">
+        <Flex
+          width="100%"
+          padding="15px 20px 0px 28px"
+          height="55px"
+          jc="space-between"
+        >
           <Text h1 bold>
             {modal.title}
           </Text>
@@ -42,7 +47,7 @@ const Modal = () => {
 
 const ContentWrap = styled.div`
   width: 100%;
-  height: calc(67vh - 70px);
+  height: calc(67vh - 55px);
   padding: 12px;
   margin: 0;
 `;

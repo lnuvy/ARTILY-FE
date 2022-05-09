@@ -11,6 +11,7 @@ const initialState = {
   preview: null,
   represent: null,
   imageArr: [],
+  fileObj: [],
 };
 
 const removePreviewWhich = (image) => {};
@@ -61,10 +62,16 @@ const imageSlice = createSlice({
       state.represent = action.payload;
     },
 
+    // 5/9 파일형태 저장
+    inputfileObj: (state, action) => {
+      state.fileObj.push(action.payload);
+    },
+
     // 업로드하지않았을때
     clearPreview: (state) => {
       state.represent = null;
       state.imageArr = [];
+      state.fileObj = [];
     },
   },
 });
@@ -78,5 +85,6 @@ export const {
   clearPreview,
   setProfileImage,
   resetProfileImage,
+  inputfileObj,
 } = actions;
 export default reducer;

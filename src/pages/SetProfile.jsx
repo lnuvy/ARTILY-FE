@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
-import { actionCreators as userActions } from "../redux/modules/user";
+// import { actionCreators as userActions } from "../redux/modules/user";
 import { setProfileImage } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
 import ToastMessage from "../shared/ToastMessage";
@@ -10,6 +10,7 @@ import { Front, Back } from "../shared/NicknameDummy.js";
 
 //임시 아이콘
 import { BsArrowRepeat } from "react-icons/bs";
+import { setProfileDB } from "../redux/modules/user";
 const Setprofile = () => {
   const dispatch = useDispatch();
 
@@ -50,13 +51,8 @@ const Setprofile = () => {
   };
   const editUser = () => {
     const file = fileInput.current.files[0];
-    console.log(file);
-
     //새로운 객체 생성
     const formData = new FormData();
-
-    //formData.append(name(키),value(값))
-    //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
 
     formData.append("profileImage", file);
     formData.append("nickname", nickname);
@@ -68,7 +64,7 @@ const Setprofile = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    dispatch(userActions.setProfileDB(formData));
+    dispatch(setProfileDB(formData));
   };
 
   return (
@@ -123,9 +119,6 @@ const Setprofile = () => {
         margin="20px auto"
         onClick={() => {
           editUser();
-          window.alert("프로필이 저장되었습니다!");
-          window.confirm("자세한 프로필을 작성해보시겠어요?");
-          history.push("/profile/detail");
         }}
       >
         프로필 저장하기

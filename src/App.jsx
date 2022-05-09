@@ -31,11 +31,11 @@ import ToastMessage from "./shared/ToastMessage";
 import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "./shared/token";
-import { actionCreators as userActions } from "./redux/modules/user";
 import { socket } from "./shared/socket";
 import styled from "styled-components";
 
 import { removeToken } from "./shared/token";
+import { getUserInfo } from "./redux/modules/user";
 import { receiveChat, receiveChatRoom } from "./redux/modules/chat";
 import theme from "./styles/theme";
 
@@ -43,11 +43,11 @@ function App() {
   const dispatch = useDispatch();
   // 리덕스에서 모달 정보 가져오기(디폴트는 false)
   const modalOn = useSelector((state) => state.modal.modalOn);
-  const userInfo = useSelector((state) => state.user.user);
+  // const userInfo = useSelector((state) => state.user.user);
 
   useEffect(() => {
     if (getToken()) {
-      dispatch(userActions.getUserInfo());
+      dispatch(getUserInfo());
     }
   }, []);
 
@@ -115,7 +115,6 @@ function App() {
             <Route path="/test" component={Test} />
             <Route path="/mypage" exact component={MyPage} />
             <Route path="/login" exact component={Login} />
-            <Route path="/regionset" exact component={RegionSet} />
             <Route path="/profile" exact component={Setprofile} />
             <Route path="/oauth/kakao/callback" component={RedirectKakao} />
             <Route path="/oauth/naver/callback" component={RedirectNaver} />

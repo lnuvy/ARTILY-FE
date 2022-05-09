@@ -10,7 +10,12 @@ import {
   ImageCarousel,
   Button,
 } from "../elements";
-import { getNowPost, getPostDB, getPostOne } from "../redux/modules/store";
+import {
+  deletePostDB,
+  getNowPost,
+  getPostDB,
+  getPostOne,
+} from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { priceComma } from "../shared/utils";
@@ -23,7 +28,7 @@ import { IoMdHeart } from "react-icons/io";
 // 채팅
 import { socket } from "../shared/socket";
 import { receiveChatRoom } from "../redux/modules/chat";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { postMarkupToggle } from "../redux/modules/user";
 
 const StoreDetail = () => {
   const dispatch = useDispatch();
@@ -33,9 +38,6 @@ const StoreDetail = () => {
   const currentUser = useSelector((state) => state.user?.user);
 
   useEffect(() => {
-    if (!current) {
-      dispatch(getPostDB());
-    }
     dispatch(getPostOne(postId));
   }, []);
 
@@ -44,7 +46,7 @@ const StoreDetail = () => {
   // 찜하기
   const markupToggle = () => {
     if (currentUser && !isMe) {
-      dispatch(userActions.postMarkupToggle(postId));
+      dispatch(postMarkupToggle(postId));
     }
   };
 
@@ -96,7 +98,14 @@ const StoreDetail = () => {
                 {isMe ? (
                   <>
                     <Text body2>수정하기</Text> &nbsp;
-                    <Text body2>삭제하기</Text>
+                    <Flex
+                      onClick={() => {
+                        console.log("삭제", postId);
+                        dispatch(deletePostDB(postId));
+                      }}
+                    >
+                      <Text body2>삭제하기</Text>
+                    </Flex>
                   </>
                 ) : (
                   <>

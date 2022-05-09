@@ -229,16 +229,18 @@ const ArtCard = (props) => {
   } else {
     return (
       <Card onClick={onClick}>
-        <Image height="120px" src={imageUrl[0]} />
+        <Image height="168px" br="8px" src={imageUrl[0]} />
         <Flex margin="8px 0 0">
-          <Image circle size="20" src={user.profileImage} />
-          <Text margin="0 0 0 4px">{user.nickname}</Text>
+          <Image circle size="32" src={user.profileImage} />
+          <Text h3 margin="0 0 0 4px">
+            {user.nickname}
+          </Text>
         </Flex>
-        <Text>{postTitle}</Text>
-        <Text>
-          {transaction} ∙ {address}
+        <Text h3>{postTitle}</Text>
+        <Text color={theme.pallete.gray3}>
+          {transaction} ∙ {user.address}
         </Text>
-        <Text bold>{priceComma(price)}원</Text>
+        <Text h3>{priceComma(price)}원</Text>
         <Text>{reviewContent}</Text>
       </Card>
     );

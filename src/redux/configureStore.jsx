@@ -3,7 +3,7 @@ import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import user from "./modules/user";
+import userReducer from "./modules/user";
 import ToastReducer from "./modules/ToastMessage";
 import ModalReducer from "./modules/modal";
 import MainReducer from "./modules/main";
@@ -18,7 +18,7 @@ import BuyReducer from "./modules/buy";
 export const history = createBrowserHistory({ basename: "/" });
 
 const rootReducer = combineReducers({
-  user: user,
+  user: userReducer,
   //프로필 이미지 설정시 사용할 모듈
   toastMessage: ToastReducer,
   modal: ModalReducer,

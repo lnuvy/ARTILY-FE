@@ -7,7 +7,6 @@ import MyPage from "./MyPage";
 import NotFound from "./NotFound";
 import RedirectKakao from "./RedirectKakao";
 import RedirectNaver from "./RedirectNaver";
-import RegionSet from "./RegionSet";
 import Review from "./Review";
 import ReviewDetail from "./ReviewDetail";
 import Setprofile from "./SetProfile";
@@ -31,7 +30,6 @@ export {
   NotFound,
   RedirectKakao,
   RedirectNaver,
-  RegionSet,
   Review,
   Login,
   Setprofile,

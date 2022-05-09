@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-import { homeDummy } from "../../shared/Dummy";
+// import { homeDummy } from "../../shared/Dummy";
 import { Apis } from "../../shared/api";
 
 /*
@@ -10,13 +10,15 @@ import { Apis } from "../../shared/api";
  */
 
 const initialState = {
-  bestStore: [],
-  recommendArtist: [],
+  // 5/9 변수명 바꿈
+  bestPost: [],
+  bestWriter: [],
   bestReview: [],
 };
 
 export const getHomeDataDB = () => {
   return async function (dispatch, getState, { history }) {
+    // console.log(homeDummy);
     // dispatch(getHomeData(homeDummy));
 
     Apis.getHome()
@@ -38,8 +40,8 @@ const mainSlice = createSlice({
     getHomeData: (state, action) => {
       const { bestPost, bestReview, bestWriter } = action.payload;
 
-      state.bestStore = bestPost;
-      state.recommendArtist = bestWriter;
+      state.bestPost = bestPost;
+      state.bestWriter = bestWriter;
       state.bestReview = bestReview;
     },
   },

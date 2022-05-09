@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
-import { homeDummy } from "../../shared/Dummy";
 import { Apis } from "../../shared/api";
 
 /*
- * 4/29 한울
- * 민경님꺼 머지했을때 홈에서 터져서 더미데이터 넣음
+ * @ 민경
+ *
  */
 
 const initialState = {

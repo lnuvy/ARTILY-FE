@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
-import { storeDummy } from "../../shared/Dummy";
-import { getToken } from "../../shared/token";
 
 import { Apis } from "../../shared/api";
+// import { storeDummy } from "../../shared/Dummy";
 
 /*
  * @한울
@@ -23,7 +20,10 @@ const initialState = {
 
 export const getPostDB = () => {
   return async function (dispatch, getState, { history }) {
-    // const config = { Authorization: `Bearer ${getToken()}` };
+    // const pageHandler = {
+    //   page: 1,
+    //   limit: 6,
+    // };
 
     Apis.getStore()
       .then((res) => {
@@ -41,9 +41,11 @@ export const getPostDB = () => {
 
 export const getPostOne = (postId) => {
   return async function (dispatch, getState, { history }) {
-    Apis.getStoreDetail()
+    Apis.getStoreDetail(postId)
       .then((res) => {
         console.log(res.data);
+        const { detail, getUser } = res.data.data;
+        dispatch(go2detail(detail));
       })
       .catch((err) => {
         console.log(err);
@@ -51,9 +53,9 @@ export const getPostOne = (postId) => {
 
     // 더미데이터 임시방편
     // dispatch(getStoreData(storeDummy));
-    const allList = getState().store.list;
-    const now = allList.find((l) => l.postId === postId);
-    dispatch(go2detail(now));
+    // const allList = getState().store.list;
+    // const now = allList.find((l) => l.postId === postId);
+    // dispatch(go2detail(now));
   };
 };
 
@@ -61,11 +63,41 @@ export const addPostDB = (data) => {
   return async function (dispatch, getState, { history }) {
     Apis.postStore(data)
       .then((res) => {
-        console.log(res);
+        // dispatch(addPost(data));
+        alert("작성완료");
+        history.replace("/store");
       })
       .catch((err) => {
         console.log(err);
         console.log(err.response);
+      });
+  };
+};
+
+export const editPostDB = (postId, formData) => {
+  return async function (dispatch, getState, { history }) {
+    Apis.patchStore(postId, formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .then((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+  };
+};
+
+export const deletePostDB = (postId) => {
+  return async function (dispatch, getState, { history }) {
+    Apis.deleteStore(postId)
+      .then((res) => {
+        console.log(res);
+        alert("삭제완료");
+        dispatch(deletePost(postId));
+        history.replace("/store");
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 };
@@ -123,6 +155,13 @@ const postsSlice = createSlice({
         state.filterList = regionList;
       }
     },
+    deletePost: (state, action) => {
+      let newArr = state.filterList.filter((l) => l.postId !== action.payload);
+      state.filterList = newArr;
+
+      newArr = state.list.filter((l) => l.postId !== action.payload);
+      state.list = newArr;
+    },
 
     // 마크업 1 늘리고 줄이기
     markupToggle: (state, action) => {
@@ -158,6 +197,9 @@ export const {
   go2detail,
   filteringData,
   modalFiltering,
+
+  // 리덕스 내에서만 처리하는 함수
   markupToggle,
+  deletePost,
 } = actions;
 export default reducer;

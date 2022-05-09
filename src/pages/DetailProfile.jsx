@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
-import { actionCreators as userActions } from "../redux/modules/user";
+// import { actionCreators as userActions } from "../redux/modules/user";
+import { getUserInfo, setProfileDB } from "../redux/modules/user";
 import { setProfileImage } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
 import ToastMessage from "../shared/ToastMessage";
@@ -15,6 +16,15 @@ const DetailProfile = () => {
   const dispatch = useDispatch();
   const getProfile = useSelector((state) => state.user.user);
   // console.log(getProfile);
+
+  useEffect(() => {
+    const result = window.confirm("더 자세한 프로필을 작성하실래요?");
+    if (result) {
+      dispatch(getUserInfo());
+    } else {
+      history.push("/");
+    }
+  }, []);
 
   useEffect(() => {
     setNickname(getProfile?.nickname);
@@ -33,7 +43,7 @@ const DetailProfile = () => {
     randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
   const [nickname, setNickname] = useState(
-    getProfile?.nickname ? getProfile.nickname : ""
+    getProfile?.nickname ? getProfile.nickname : randomNick
   );
   const [snsUrl, setSnsUrl] = useState("");
   const [website2, setWebsite2] = useState("");
@@ -55,13 +65,6 @@ const DetailProfile = () => {
   };
 
   const editUser = () => {
-    // if (!fileInput.current || fileInput.current.files.length === 0) {
-    //   window.alert("이미지파일을 등록해주세요!");
-    //   return;
-    // }
-    // const file = fileInput.current.files[0];
-    // console.log(file);
-
     //새로운 객체 생성
     const formData = new FormData();
 
@@ -80,7 +83,7 @@ const DetailProfile = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    dispatch(userActions.setProfileDB(formData));
+    dispatch(setProfileDB(formData));
   };
 
   return (
@@ -106,10 +109,6 @@ const DetailProfile = () => {
           ></Image>
         </Flex>
       </Wrapprofile>
-      {/* <ImgBox>
-        <label htmlFor="image">🖍</label>
-        <input type="file" id="image" ref={fileInput} onChange={selectFile} />
-      </ImgBox> */}
       <Wrap padding="20px 20px">
         <Flex padding="10px 0">
           <Text fg="1">닉네임</Text>

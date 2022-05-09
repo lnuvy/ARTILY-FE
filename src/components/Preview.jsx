@@ -7,6 +7,7 @@ import {
   removePreview,
   setRepresent,
   clearPreview,
+  inputfileObj,
 } from "../redux/modules/image";
 import styled from "styled-components";
 
@@ -34,6 +35,7 @@ const Preview = () => {
     }
     for (let i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
       const file = files[i];
+      dispatch(inputfileObj(file));
 
       if (validation(file)) {
         const reader = new FileReader();

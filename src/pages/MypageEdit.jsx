@@ -5,13 +5,14 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
-import { actionCreators as userActions } from "../redux/modules/user";
+// import { actionCreators as userActions } from "../redux/modules/user";
 import { setProfileImage } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { BsArrowRepeat } from "react-icons/bs";
 import { Front, Back } from "../shared/NicknameDummy.js";
 import { getPostClones } from "react-slick/lib/utils/innerSliderUtils";
+import { editProfileDB } from "../redux/modules/user";
 
 const MypageEdit = () => {
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ const MypageEdit = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    dispatch(userActions.editProfileDB(formData));
+    dispatch(editProfileDB(formData));
   };
 
   return (

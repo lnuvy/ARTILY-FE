@@ -10,7 +10,6 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ArtCard } from "../components";
 const menus = ["판매목록"];
-console.log(menus[0]);
 const Manage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);

@@ -40,7 +40,7 @@ const StoreWrite = () => {
     postTitle: "",
     postContent: "",
   });
-  const { represent, imageArr } = useSelector((state) => state.image);
+  const { represent, imageArr, fileObj } = useSelector((state) => state.image);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -49,6 +49,8 @@ const StoreWrite = () => {
 
   const [receiveAddress, setReceiveAddress] = useState(null);
   const [receiveCategory, setReceiveCategory] = useState(null);
+
+  console.log(receiveCategory);
 
   useEffect(() => {
     // 이미지 리덕스 데이터 초기화
@@ -107,11 +109,12 @@ const StoreWrite = () => {
     }
 
     const formData = new FormData();
+    formData.append("category", receiveCategory);
     formData.append("postTitle", postTitle);
     formData.append("postContent", postContent);
     formData.append("price", price);
     for (let i = 0; i < imageArr.length; i++) {
-      formData.append("image", imageArr[i]);
+      formData.append("image", fileObj[i]);
     }
 
     if (inputs.delivery && !inputs.direct) {

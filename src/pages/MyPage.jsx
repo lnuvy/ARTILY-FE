@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
 import { getReview, go2detail } from "../redux/modules/reviews";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as userActions, logout } from "../redux/modules/user";
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard } from "../components";
@@ -15,10 +15,8 @@ const menus = ["판매목록", "리뷰목록", "관심목록"];
 const MyPage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);
-  console.log(mystoreList);
   const nowList = useSelector((state) => state.mystore.nowList);
   const getProfile = useSelector((state) => state.user.user);
-  console.log(getProfile);
 
   //더미 데이터 주입
   useEffect(() => {
@@ -50,7 +48,7 @@ const MyPage = () => {
     console.log(innerText);
     setCurrent(menus.find((l) => l === innerText));
   };
-  console.log(mystoreList);
+
   return (
     <>
       <Flex>
@@ -97,10 +95,15 @@ const MyPage = () => {
         <Flex margin="15px">
           <Text className="site" fg="1">
             {/* 유저에게 받은 웹사이트 주소 넣어서 외부링크로 연결해야 함. 아직 못함 */}
-            <a href="http://{getProfile.snsUrl}">❤️ instagram</a>
+            {/* <a href={`${getProfile.snsUrl[0]}`}>❤️ instagram</a> */}
+            <a href="google.com" target="_blank" rel="noreferrer">
+              ❤️ instagram
+            </a>
           </Text>
           <Text className="site" fg="1">
-            <a href="">💙 Behance</a>
+            <a href="naver.com" target="_blank" rel="noreferrer">
+              💙 Behance
+            </a>
           </Text>
           <Text className="site" fg="1">
             <a href="">🌐 Website</a>
@@ -124,8 +127,8 @@ const MyPage = () => {
         </p>
         <p
           onClick={() => {
-            removeToken(); //토큰 삭제
-            history.replace("/"); //로그아웃 후 홈으로 이동
+            logout();
+            history.go(0);
           }}
         >
           로그아웃
@@ -172,7 +175,7 @@ const MyPage = () => {
               return (
                 <ArtCard
                   review
-                  key={l.postId}
+                  key={`${l.postId}_review`}
                   className="sell"
                   {...l}
                   onClick={() => handleClickReviewData(l)}
@@ -182,7 +185,7 @@ const MyPage = () => {
               return (
                 <ArtCard
                   markup
-                  key={l.postId}
+                  key={`${l.postId}_markup`}
                   className="sell"
                   {...l}
                   onClick={() => handleClickMarkupData(l)}
@@ -192,7 +195,7 @@ const MyPage = () => {
               return (
                 <ArtCard
                   sellLabel
-                  key={l.postId}
+                  key={`${l.postId}_sell`}
                   className="sell"
                   {...l}
                   onClick={() => handleClickSellData(l)}
