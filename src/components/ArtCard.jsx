@@ -41,6 +41,7 @@ const ArtCard = (props) => {
     address,
   } = props;
   // const { userId, profileImage, address } = user;
+  const nowuser = useSelector((state) => state.user.user);
 
   //5.5 영경_마이페이지 -> 판매작품 관리하기에서 사용될 Artcard 추가
   if (mystore) {
@@ -154,8 +155,8 @@ const ArtCard = (props) => {
           <Image height="120px" src={imageUrl[0]} />
         </Label>
         <Flex margin="8px 0 0">
-          <Image circle size="20" src={profileImage} />
-          <Text margin="0 0 0 4px">{nickname}</Text>
+          <Image circle size="20" src={user.profileImage} />
+          <Text margin="0 0 0 4px">{user.nickname}</Text>
         </Flex>
         <Text>{postTitle}</Text>
         <Flex>

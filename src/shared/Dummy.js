@@ -279,7 +279,7 @@ export const myPageDummy = {
       user: {
         userId: "user123",
         nickname: "미니언즈",
-        profileImage: ["../../images/ddung.jpg"], //마이페이지 프로필 사진과 동일
+        profileImage: "../../images/ddung.jpg", //마이페이지 프로필 사진과 동일
         address: "경기 고양시",
       },
     },
