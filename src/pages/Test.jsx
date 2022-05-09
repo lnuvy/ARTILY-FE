@@ -11,6 +11,39 @@ import {
   Text,
   Textarea,
 } from "../elements/index";
+
+import {
+  Notification,
+  Chat,
+  Favorite,
+  Search,
+  AddPhoto,
+  AddBox,
+  Add,
+  ArrowBack,
+  ArrowUpward,
+  Camera,
+  CheckCircle,
+  CheckBoxChecked,
+  CheckBoxUnchecked,
+  Close,
+  Edit,
+  FilterOutline,
+  FilterFilled,
+  Mail,
+  MoreHoriz,
+  MoreVert,
+  MyLocation,
+  NavigationNext,
+  Person,
+  RadioButtonChecked,
+  RadioButtonUnchecked,
+  SendFILL0,
+  Refresh,
+  Visibility,
+  Web,
+  Where,
+} from "../assets/icons/index";
 import _ from "lodash";
 
 import { Card } from "../components/index";
@@ -29,6 +62,37 @@ const Test = () => {
 
   return (
     <React.Fragment>
+      <Notification />
+      <Chat />
+      <Favorite />
+      <Search />
+      <AddPhoto />
+      <AddBox />
+      <Add />
+      <ArrowBack />
+      <ArrowUpward />
+      <Camera />
+      <CheckCircle />
+      <CheckBoxChecked />
+      <CheckBoxUnchecked />
+      <Close />
+      <Edit />
+      <FilterOutline />
+      <FilterFilled />
+      <Mail />
+      <MoreHoriz />
+      <MoreVert />
+      <MyLocation />
+      <NavigationNext />
+      <Person />
+      <RadioButtonChecked />
+      <RadioButtonUnchecked />
+      <SendFILL0 />
+      <Refresh />
+      <Visibility />
+      <Web />
+      <Where />
+
       <div>
         <label>Search:</label>
         <input value={query} onChange={onChange} />
