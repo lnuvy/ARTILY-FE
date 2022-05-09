@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Grid, Text } from "../elements";
 import { filteringData } from "../redux/modules/store";
+import { filteringReviewData } from "../redux/modules/reviews";
+import theme from "../styles/theme";
 
 const cate = [
   "전체",
@@ -14,22 +16,24 @@ const cate = [
   "기타",
 ];
 
-const Category = () => {
+const Category = (props) => {
+  const { review, width } = props;
   const dispatch = useDispatch();
   const [current, setCurrent] = useState("전체");
 
   useEffect(() => {
-    dispatch(filteringData(current));
+    review
+      ? dispatch(filteringReviewData(current))
+      : dispatch(filteringData(current));
   }, [current]);
 
   return (
     <Grid
       gtc="1fr 1fr 1fr 1fr"
-      cg="1px"
-      rg="1px"
+      cg="0px"
+      rg="0px"
       textAlign="center"
-      bc="gray"
-      border="1px solid gray"
+      width="100%"
     >
       {cate.map((c, i) => {
         if (c === current) {
@@ -39,6 +43,7 @@ const Category = () => {
               padding="10px 5px"
               width="100%"
               br="0"
+              borderRight="1px solid black"
               onClick={(e) => setCurrent(e.target.innerText)}
               bc="white"
             >
@@ -54,6 +59,8 @@ const Category = () => {
               padding="10px 5px"
               width="100%"
               br="0"
+              borderRight="1px solid black"
+              border={`1px solid ${theme.pallete.gray2}`}
               onClick={(e) => setCurrent(e.target.innerText)}
               bc="white"
             >

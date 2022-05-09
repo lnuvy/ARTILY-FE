@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { history } from "../redux/configureStore";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { Text, Flex } from "../elements";
+import { Text, Flex, Button, Wrap } from "../elements";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 // import NaverLogin from "react-naver-login";
@@ -26,41 +26,29 @@ const Login = () => {
       <Flex jc="center">
         <p>회원 서비스 이용을 위해 로그인 해주세요!</p>
       </Flex>
-      <Flex jc="center" margin="100px 0 0 0">
+      <Wrap jc="center" margin="100px 0 0 0" padding="0 16px" width="100%">
         {/* 카카오로 로그인 */}
-        <a href={KAKAO_AUTH_URL}>
-          <Kakao>카카오로 시작하기</Kakao>
-        </a>
-      </Flex>
-      <Flex jc="center">
-        {/* <div id="naverIdLogin"></div> */}
-        <a href={NAVER_AUTH_URL}>
-          <Naver>네이버로 시작하기</Naver>
-        </a>
-      </Flex>
+        <Button
+          outline
+          bc="white"
+          width="100%"
+          margin="0 0 16px"
+          onClick={() => window.open(KAKAO_AUTH_URL)}
+        >
+          카카오로 시작하기
+        </Button>
+        <Button
+          outline
+          bc="white"
+          width="100%"
+          onClick={() => window.open(NAVER_AUTH_URL)}
+        >
+          네이버로 시작하기
+        </Button>
+      </Wrap>
     </>
   );
 };
-const Kakao = styled.div`
-  width: 90vw;
-  height: 10vh;
-  border: 2px solid #d2d2d2;
-  border-radius: 8px;
-  font-weight: bold;
-  color: #000;
-  line-height: 10vh;
-  text-align: center;
-  margin-bottom: 1em;
-`;
 
-const Naver = styled.div`
-  width: 90vw;
-  height: 10vh;
-  border: 2px solid #d2d2d2;
-  border-radius: 8px;
-  font-weight: bold;
-  color: #000;
-  line-height: 10vh;
-  text-align: center;
-`;
+// May8 버튼 부분 스타일링 완료
 export default Login;

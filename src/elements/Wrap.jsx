@@ -31,11 +31,9 @@ const Wrap = (props) => {
 
 Wrap.defaultProps = {
   textAlign: "left",
-  width: "inherit",
   margin: "0",
   padding: "0",
   bc: "transparent",
-  position: "inherit",
   br: "0",
   height: "",
 };

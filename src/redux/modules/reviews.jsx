@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import { homeDummy } from "../../shared/Dummy";
+import { Apis } from "../../shared/api";
 
 /*
  * 4/29 한울
@@ -10,31 +11,54 @@ import { homeDummy } from "../../shared/Dummy";
 
 const initialState = {
   list: [],
+  filterList: [],
   isFetching: false,
   infinityScroll: {},
   detailData: null,
+  reviewData: null,
 };
 
-export const getReview = () => {
+export const getReviewDB = () => {
   return async function (dispatch, getState, { history }) {
     // await axios.get()
-
+    console.log("---getReviewDB");
     // 더미데이터 리덕스 주입
-    console.log(homeDummy[2]["후기"]);
-    dispatch(getReviewData(homeDummy[2]["후기"]));
+
+    const pageHandler = {
+      page: 1,
+      limit: 6,
+    };
+    Apis.getReview(pageHandler)
+      .then(function (response) {
+        console.log(response);
+        dispatch(getReviewData(response.data.review));
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log("실패");
+      });
   };
 };
 
 export const getReviewOne = (reviewId) => {
   return async function (dispatch, getState, { history }) {
     // axios
-    console.log(Number(reviewId));
-    const allList = homeDummy[2]["후기"];
-    console.log(allList);
 
-    const now = allList.find((l) => l.reviewId === Number(reviewId));
-    console.log(now);
-    dispatch(getNowReview(now));
+    console.log(reviewId);
+
+    Apis.getReviewDetail("4208ef179b5d")
+      .then(function (response) {
+        console.log(response);
+        // dispatch(getReviewData(response.data.review));
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log("실패");
+      });
+
+    // const now = allList.find((l) => l.reviewId === Number(reviewId));
+    // console.log(now);
+    // dispatch(getNowReview(now));
   };
 };
 
@@ -52,9 +76,20 @@ const reviewSlice = createSlice({
     go2detail: (state, action) => {
       state.detailData = action.payload;
     },
+    // 카테고리 필터 이름변경
+    filteringReviewData: (state, action) => {
+      if (action.payload === "전체") {
+        state.filterList = state.list;
+        return;
+      }
+      state.filterList = state.list.filter(
+        (post) => post.category === action.payload
+      );
+    },
   },
 });
 
 const { reducer, actions } = reviewSlice;
-export const { getReviewData, go2detail, getNowReview } = actions;
+export const { getReviewData, go2detail, getNowReview, filteringReviewData } =
+  actions;
 export default reducer;

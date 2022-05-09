@@ -49,8 +49,8 @@ const Flex = (props) => {
 };
 
 Flex.defaultProps = {
-  width: "none",
-  height: "inherit",
+  width: null, // May8 none -> fit-conent 변경
+  height: null,
   fd: "row",
   ai: "center",
   margin: "0",

@@ -8,6 +8,8 @@ import { priceComma } from "../shared/utils";
 import { useHistory } from "react-router-dom";
 import { myPageDummy } from "../shared/Dummy";
 import { AiOutlineHeart } from "react-icons/ai";
+import theme from "../styles/theme";
+
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 
 const ArtCard = (props) => {

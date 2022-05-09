@@ -33,9 +33,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "./shared/token";
 import { actionCreators as userActions } from "./redux/modules/user";
 import { socket } from "./shared/socket";
+import styled from "styled-components";
 
 import { removeToken } from "./shared/token";
 import { receiveChat, receiveChatRoom } from "./redux/modules/chat";
+import theme from "./styles/theme";
 
 function App() {
   const dispatch = useDispatch();
@@ -85,43 +87,63 @@ function App() {
   return (
     //로그아웃 기능 원래 자리로 옮겼습니다!
     <>
-      <ConnectedRouter history={history}>
-        <Header>ARTIN</Header>
-        <Switch>
-          <Route path={["/home", "/"]} exact component={Home} />
-          <Route path="/chat" exact component={Chat} />
-          <Route path="/chat/:id" exact component={ChatRoom} />
-          <Route path="/store" exact component={Store} />
-          <Route path="/store/view/:postId" exact component={StoreDetail} />
-          <Route path="/store/write" exact component={StoreWrite} />
-          <Route path="/store/write/:postId" exact component={StoreWrite} />
-          <Route path="/follow" exact component={Follow} />
-          <Route path="/store" exact component={Store} />
-          <Route exact path="/review" component={Review} />
-          <Route exact path="/review/view/:reviewId" component={ReviewDetail} />
-          <Route exact path="/review/write" component={ReviewWrite} />
-          <Route path="/test" component={Test} />
-          <Route path="/mypage" exact component={MyPage} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/regionset" exact component={RegionSet} />
-          <Route path="/profile" exact component={Setprofile} />
-          <Route path="/oauth/kakao/callback" component={RedirectKakao} />
-          <Route path="/oauth/naver/callback" component={RedirectNaver} />
-          <Route path="/mypage/edit" exact component={MypageEdit} />
-          <Route path="/mypage/manage" exact component={Manage} />
-          <Route path="/profile/detail" exact component={DetailProfile} />
-          <Route path="/mypage/buyList" exact component={Buylist} />
+      <MaxContainer>
+        <button
+          onClick={() => {
+            removeToken();
+            history.replace("/login");
+          }}
+        >
+          로그아웃
+        </button>
+        <ConnectedRouter history={history}>
+          <Header>ARTIN</Header>
 
-          {/* <Route path="/*" component={NotFound} /> */}
-          <Route path="/*" component={Test} />
-        </Switch>
+          <Switch>
+            <Route path={["/home", "/"]} exact component={Home} />
+            <Route path="/chat" exact component={Chat} />
+            <Route path="/chat/:id" exact component={ChatRoom} />
+            <Route path="/store" exact component={Store} />
+            <Route path="/store/view/:postId" exact component={StoreDetail} />
+            <Route path="/store/write" exact component={StoreWrite} />
+            <Route path="/store/write/:postId" exact component={StoreWrite} />
+            <Route path="/follow" exact component={Follow} />
+            <Route path="/store" exact component={Store} />
+            <Route exact path="/review" component={Review} />
+            <Route exact path="/review/:reviewId" component={ReviewDetail} />
+            <Route exact path="/review/write" component={ReviewWrite} />
+            <Route path="/test" component={Test} />
+            <Route path="/mypage" exact component={MyPage} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/regionset" exact component={RegionSet} />
+            <Route path="/profile" exact component={Setprofile} />
+            <Route path="/oauth/kakao/callback" component={RedirectKakao} />
+            <Route path="/oauth/naver/callback" component={RedirectNaver} />
+            <Route path="/mypage/edit" exact component={MypageEdit} />
+            <Route path="/mypage/manage" exact component={Manage} />
+            <Route path="/profile/detail" exact component={DetailProfile} />
 
-        {/* modalOn 값이 true 일때만 모달 켜기 */}
-        {modalOn && <Modal />}
+            {/* <Route path="/*" component={NotFound} /> */}
+            <Route path="/*" component={Test} />
+          </Switch>
 
-        <ToastMessage />
-      </ConnectedRouter>
+          {/* modalOn 값이 true 일때만 모달 켜기 */}
+          {modalOn && <Modal />}
+
+          <ToastMessage />
+        </ConnectedRouter>
+      </MaxContainer>
     </>
   );
 }
 export default App;
+
+/// May9 MaxContainer로 최대 너비 지정 -> 모바일 최적화로 맞추기 위함
+
+const MaxContainer = styled.div`
+  max-width: ${theme.view.maxWidth};
+  min-height: 100vh;
+  height: fit-content;
+  background-color: white;
+  margin: 0 auto;
+`;
