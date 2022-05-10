@@ -3,19 +3,14 @@ import { Button, Text, Flex, Image, Grid, Wrap } from "../elements";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
-<<<<<<< HEAD
-import { getReview, go2detail } from "../redux/modules/reviews";
-import { actionCreators as userActions, logout } from "../redux/modules/user";
-=======
 import { getPostDB, go2detail, filteringData } from "../redux/modules/store";
-import { actionCreators as userActions } from "../redux/modules/user";
->>>>>>> 3e25d44e4bf13a4b5036ffac468412cc7f218111
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard } from "../components";
 import theme from "../styles/theme";
 import { getToken, insertToken, removeToken } from "../shared/token";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { getUserInfo, logout } from "../redux/modules/user";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
 const MyPage = (props) => {
@@ -45,7 +40,7 @@ const MyPage = (props) => {
   //프로필 정보 불러오기
 
   useEffect(() => {
-    dispatch(userActions.getUserInfo()); //유저정보
+    dispatch(getUserInfo()); //유저정보
     dispatch(getmyPageDB()); //게시글 정보
   }, []);
 
