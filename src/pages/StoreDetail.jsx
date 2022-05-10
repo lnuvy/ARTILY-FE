@@ -91,26 +91,36 @@ const StoreDetail = () => {
             <Text h1>{current.postTitle}</Text>
             <Flex margin="8px 0 0 0" jc="space-between">
               <Flex>
-                <Image circle size="20" src={current.user.profileImage} />
+                <Image circle size="32" src={current.user.profileImage} />
                 <Text margin="0 0 0 4px">{current.user.nickname}</Text>
               </Flex>
               <Flex>
                 {isMe ? (
                   <>
-                    <Text body2>수정하기</Text> &nbsp;
+                    <Text body2 color={theme.pallete.primary900}>
+                      수정하기
+                    </Text>{" "}
+                    &nbsp;
                     <Flex
                       onClick={() => {
                         console.log("삭제", postId);
                         dispatch(deletePostDB(postId));
                       }}
                     >
-                      <Text body2>삭제하기</Text>
+                      <Text body2 color={theme.pallete.primary900}>
+                        삭제하기
+                      </Text>
                     </Flex>
                   </>
                 ) : (
                   <>
-                    <Text body2>팔로우</Text> &nbsp;
-                    <Text body2>신고</Text>
+                    <Text body2 color={theme.pallete.primary900}>
+                      팔로우
+                    </Text>{" "}
+                    &nbsp;
+                    <Text body2 color={theme.pallete.primary900}>
+                      신고
+                    </Text>
                   </>
                 )}
               </Flex>

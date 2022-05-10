@@ -46,12 +46,14 @@ const Store = () => {
   // 검색필터
   const searchList = filterList
     ?.filter((l) => {
-      const address = l.user.address;
-      const title = l.postTitle;
-      const artist = l.user.nickname;
+      const address = l?.user?.address || "";
+      const title = l?.postTitle;
+      const artist = l?.user?.nickname;
       const q = query;
 
-      return title.includes(q) || artist.includes(q) || address.includes(q);
+      if (title && artist) {
+        return title.includes(q) || artist.includes(q) || address.includes(q);
+      }
     })
     .map((l) => {
       return (
