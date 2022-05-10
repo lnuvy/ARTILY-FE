@@ -20,6 +20,14 @@ const ImagePreview = () => {
   };
 
   const removeImage = (image) => {
+    // 수정단계의 대표이미지일때
+    if (
+      image.includes("https://artily-bucket.s3.ap-northeast-2") &&
+      image === imageArr[0]
+    ) {
+      alert("대표이미지는 삭제할수없어요!");
+      return;
+    }
     dispatch(removePreview(image));
   };
 
@@ -32,6 +40,7 @@ const ImagePreview = () => {
       {imageArr.length !== 0 &&
         imageArr.map((image, i) => {
           // console.log(image);
+
           return (
             <Wrap
               width="64px"

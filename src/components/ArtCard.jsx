@@ -40,6 +40,7 @@ const ArtCard = (props) => {
     userId,
     profileImage,
     address,
+    changeAddress,
   } = props;
   // const { userId, profileImage, address } = user;
   const nowuser = useSelector((state) => state.user.user);
@@ -238,7 +239,7 @@ const ArtCard = (props) => {
         </Flex>
         <Text h3>{postTitle}</Text>
         <Text color={theme.pallete.gray3}>
-          {transaction} ∙ {user.address}
+          {transaction} ∙ {changeAddress}
         </Text>
         <Text h3>{priceComma(price)}원</Text>
         <Text>{reviewContent}</Text>

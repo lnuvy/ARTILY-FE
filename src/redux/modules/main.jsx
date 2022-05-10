@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 // import { homeDummy } from "../../shared/Dummy";
 import { Apis } from "../../shared/api";

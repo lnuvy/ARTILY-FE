@@ -12,6 +12,7 @@ import {
 import styled from "styled-components";
 
 import { AiOutlineCamera } from "react-icons/ai";
+import { Camera } from "../assets/icons";
 
 /*
  * @한울 4/30
@@ -77,7 +78,7 @@ const Preview = () => {
       <Flex>
         <Button padding="8px 16px" outline width="64px" height="64px">
           <UploadLabel htmlFor="file">
-            <AiOutlineCamera size={24} />
+            <Camera />
             <Text>{image.imageArr.length}/10</Text>
           </UploadLabel>
         </Button>

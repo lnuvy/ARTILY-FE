@@ -4,7 +4,6 @@ import { Preview } from "../components";
 import ImagePreview from "../components/ImagePreview";
 import {
   Button,
-  Checkbox,
   Flex,
   Grid,
   Image,
@@ -14,7 +13,7 @@ import {
   ToggleButton,
   Wrap,
 } from "../elements";
-import { clearPreview } from "../redux/modules/image";
+import { clearPreview, editPosts3Url } from "../redux/modules/image";
 import { openModal } from "../redux/modules/modal";
 import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
@@ -36,31 +35,36 @@ import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
-const StoreWrite = () => {
+const StoreEdit = () => {
   const dispatch = useDispatch();
 
   const { postId } = useParams();
 
   const nowPost = useSelector((state) => state.store.detailData);
 
-  if (nowPost.postId === postId) {
-    if (nowPost.transaction === "전체") {
-      var editDelivery = true;
-      var editDirect = true;
-    } else if (nowPost.transaction === "직거래") {
-      editDelivery = false;
+  useEffect(() => {
+    if (!nowPost) {
+      history.replace("/store");
     } else {
-      editDirect = false;
+      dispatch(editPosts3Url(nowPost?.imageUrl));
     }
+  }, []);
+
+  if (nowPost?.transaction === "전체") {
+    var editDelivery = true;
+    var editDirect = true;
+  } else if (nowPost?.transaction === "직거래") {
+    editDelivery = false;
+  } else {
+    editDirect = false;
   }
 
-  console.log(editDelivery, editDirect);
-
   const [inputs, setInputs] = useState({
-    delivery: false,
-    direct: false,
-    postTitle: "",
-    postContent: "",
+    delivery: editDelivery,
+    direct: editDirect,
+    postTitle: nowPost?.postTitle,
+    postContent: nowPost?.postContent,
+    price: nowPost?.price,
   });
   const { represent, imageArr, fileObj } = useSelector((state) => state.image);
 
@@ -69,8 +73,8 @@ const StoreWrite = () => {
     setInputs({ ...inputs, [id]: value });
   };
 
-  const [receiveAddress, setReceiveAddress] = useState(null);
-  const [receiveCategory, setReceiveCategory] = useState(null);
+  const [receiveAddress, setReceiveAddress] = useState(nowPost?.changeAddress);
+  const [receiveCategory, setReceiveCategory] = useState(nowPost?.category);
 
   useEffect(() => {
     // 이미지 리덕스 데이터 초기화
@@ -238,4 +242,4 @@ const StoreWrite = () => {
   );
 };
 
-export default StoreWrite;
+export default StoreEdit;

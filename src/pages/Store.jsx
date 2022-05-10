@@ -18,7 +18,8 @@ const Store = () => {
 
   useEffect(() => {
     // 새로고침 등 리덕스데이터가 날아갔을때만 api 요청하게하기
-    if (!list.length) dispatch(getPostDB());
+    // if (!list.length) dispatch(getPostDB());
+    dispatch(getPostDB());
   }, []);
 
   // 모달 필터링

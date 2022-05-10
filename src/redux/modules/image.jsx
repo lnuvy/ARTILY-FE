@@ -67,6 +67,10 @@ const imageSlice = createSlice({
       state.fileObj.push(action.payload);
     },
 
+    editPosts3Url: (state, action) => {
+      state.imageArr = action.payload;
+    },
+
     // 업로드하지않았을때
     clearPreview: (state) => {
       state.represent = null;
@@ -86,5 +90,6 @@ export const {
   setProfileImage,
   resetProfileImage,
   inputfileObj,
+  editPosts3Url,
 } = actions;
 export default reducer;

@@ -56,7 +56,7 @@ const Home = () => {
         <Text bold h3 margin="0 0 10px 0">
           인기 작품
         </Text>
-        <Grid gtc="auto auto" rg="16px" cg="16px">
+        <Grid gtc="1fr 1fr" rg="16px" cg="16px">
           {bestPost.map((v, i) => {
             return (
               <ArtCard

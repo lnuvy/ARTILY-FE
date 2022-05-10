@@ -71,7 +71,7 @@ const CategoryModal = ({ setReceiveCategory }) => {
             );
         })}
       </Grid>
-      <Button width="90%" margin="40px auto 0" onClick={submitCategory}>
+      <Button width="100%" margin="40px 0 0" onClick={submitCategory}>
         선택 완료
       </Button>
     </Wrap>

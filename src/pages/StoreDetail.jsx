@@ -97,28 +97,36 @@ const StoreDetail = () => {
               <Flex>
                 {isMe ? (
                   <>
-                    <Text body2 color={theme.pallete.primary900}>
-                      수정하기
-                    </Text>{" "}
-                    &nbsp;
                     <Flex
+                      padding="6px"
+                      onClick={() => {
+                        console.log("수정");
+                        history.push(`/store/write/${postId}`);
+                      }}
+                    >
+                      <Text body1 color={theme.pallete.primary900}>
+                        수정하기
+                      </Text>
+                    </Flex>
+                    <Flex
+                      padding="6px"
                       onClick={() => {
                         console.log("삭제", postId);
                         dispatch(deletePostDB(postId));
                       }}
                     >
-                      <Text body2 color={theme.pallete.primary900}>
+                      <Text body1 color={theme.pallete.primary900}>
                         삭제하기
                       </Text>
                     </Flex>
                   </>
                 ) : (
                   <>
-                    <Text body2 color={theme.pallete.primary900}>
+                    <Text body1 color={theme.pallete.primary900}>
                       팔로우
-                    </Text>{" "}
-                    &nbsp;
-                    <Text body2 color={theme.pallete.primary900}>
+                    </Text>
+
+                    <Text body1 color={theme.pallete.primary900}>
                       신고
                     </Text>
                   </>
@@ -145,10 +153,12 @@ const StoreDetail = () => {
               <Text body3 fg="1">
                 거래 방식
               </Text>
-              <Text body3>{current.transaction}</Text>
+              <Text body3>
+                {current.transaction} ∙ {current.changeAddress}
+              </Text>
             </Flex>
-            <Text>{current.content}</Text>
-            <Flex margin="16px 0 0 ">
+            <Text>{current.postContent}</Text>
+            {/* <Flex margin="16px 0 0 ">
               <Text h2 lineHeight="22px">
                 작가의 다른 작품
               </Text>
@@ -157,7 +167,7 @@ const StoreDetail = () => {
               </Text>
               <Text lineHeight="22px">더보기</Text>
             </Flex>
-            <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px"></Grid>
+            <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px"></Grid> */}
           </Wrap>
 
           <FixedChatBar>

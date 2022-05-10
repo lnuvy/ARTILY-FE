@@ -23,11 +23,12 @@ import { useDispatch } from "react-redux";
 import { closeModal } from "../../../redux/modules/modal";
 
 const { kakao } = window;
+var geocoder = new kakao.maps.services.Geocoder();
 
-const MapModal = ({ setReceiveAddress }) => {
+const MapModal = ({ setReceiveAddress, currentAddress }) => {
   const dispatch = useDispatch();
   const [map, setMap] = useState();
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(currentAddress || "");
   const [query, setQuery] = useState(null);
   const [position, setPosition] = useState({
     lat: 37.5669412,
@@ -35,6 +36,18 @@ const MapModal = ({ setReceiveAddress }) => {
   });
   const inputRef = useRef(null);
   const ps = new kakao.maps.services.Places();
+
+  // 게시글수정, 주소변경시 이전 좌표로 시작하기
+  useEffect(() => {
+    if (currentAddress) {
+      geocoder.addressSearch(currentAddress, function (result, status) {
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
+          setPosition({ lat: result[0].y, lng: result[0].x });
+        }
+      });
+    }
+  }, []);
 
   useEffect(() => {
     fetchData();
