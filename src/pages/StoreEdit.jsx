@@ -21,7 +21,7 @@ import { inputSpaceReg, priceComma } from "../shared/utils";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { history } from "../redux/configureStore";
-import { addPostDB } from "../redux/modules/store";
+import { addPostDB, editPostDB } from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 
 // alert
@@ -167,7 +167,7 @@ const StoreEdit = () => {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    dispatch(addPostDB(formData));
+    dispatch(editPostDB(formData));
   };
 
   return (

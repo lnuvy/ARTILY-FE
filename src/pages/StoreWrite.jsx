@@ -28,6 +28,7 @@ import { useParams } from "react-router-dom";
 // alert
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { changeAddressDB } from "../redux/modules/user";
 
 /*
  * @한울
@@ -39,23 +40,6 @@ const MySwal = withReactContent(Swal);
 const StoreWrite = () => {
   const dispatch = useDispatch();
 
-  const { postId } = useParams();
-
-  const nowPost = useSelector((state) => state.store.detailData);
-
-  if (nowPost.postId === postId) {
-    if (nowPost.transaction === "전체") {
-      var editDelivery = true;
-      var editDirect = true;
-    } else if (nowPost.transaction === "직거래") {
-      editDelivery = false;
-    } else {
-      editDirect = false;
-    }
-  }
-
-  console.log(editDelivery, editDirect);
-
   const [inputs, setInputs] = useState({
     delivery: false,
     direct: false,
@@ -63,13 +47,16 @@ const StoreWrite = () => {
     postContent: "",
   });
   const { represent, imageArr, fileObj } = useSelector((state) => state.image);
+  const nowUser = useSelector((state) => state.user.user);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setInputs({ ...inputs, [id]: value });
   };
 
-  const [receiveAddress, setReceiveAddress] = useState(null);
+  const [receiveAddress, setReceiveAddress] = useState(
+    nowUser?.address || null
+  );
   const [receiveCategory, setReceiveCategory] = useState(null);
 
   useEffect(() => {
@@ -163,7 +150,33 @@ const StoreWrite = () => {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    dispatch(addPostDB(formData));
+    if (!nowUser.address) {
+      MySwal.fire({
+        icon: "question",
+        title: "주소 기본등록",
+        text: "현재 선택한 주소를 기본주소로 등록할까요?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "네",
+        denyButtonText: `아니오`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // 유저 주소 변경시켜주기
+          dispatch(changeAddressDB(receiveAddress));
+
+          Swal.fire(
+            "저장완료",
+            `"${receiveAddress}" 기본주소로 저장했어요!`,
+            "success"
+          );
+        } else if (result.isDenied) {
+          Swal.fire("", "저장하지 않고 게시글을 등록합니다!", "info");
+        }
+        dispatch(addPostDB(formData));
+      });
+    } else {
+      dispatch(addPostDB(formData));
+    }
   };
 
   return (

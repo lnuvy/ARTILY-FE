@@ -6,6 +6,11 @@ import { insertToken, removeToken } from "../../shared/token";
 // 찜하기
 import { markupToggle } from "./store";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
+
 const initialState = {
   user: null,
   isLogin: false,
@@ -101,7 +106,21 @@ export const setProfileDB = (formData) => {
       .then((res) => {
         console.log(res);
         // dispatch(editUser(formData));
-        history.push("/profile/detail");
+        MySwal.fire({
+          icon: "question",
+          title: "닉네임 설정 완료",
+          text: "더 자세한 프로필을 작성하실래요?",
+          showDenyButton: true,
+          confirmButtonText: "네",
+          denyButtonText: `아니오`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // 유저 주소 변경시켜주기
+            history.push("/profile/detail");
+          } else {
+            history.replace("/");
+          }
+        });
       })
       .catch((error) => {
         console.log("프로필 정보 전송 실패", error);
@@ -121,6 +140,22 @@ export const editProfileDB = (formData) => {
       .catch((error) => {
         console.log("프로필 수정 정보 전달 실패", error);
         window.alert("프로필 수정 정보 저장에 문제가 발생했습니다!");
+      });
+  };
+};
+
+export const changeAddressDB = (address) => {
+  return function (dispatch, getState) {
+    const formData = new FormData();
+    formData.append("address", address);
+
+    Apis.patchEditProfile(formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
       });
   };
 };

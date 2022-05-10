@@ -18,12 +18,7 @@ const DetailProfile = () => {
   // console.log(getProfile);
 
   useEffect(() => {
-    const result = window.confirm("더 자세한 프로필을 작성하실래요?");
-    if (result) {
-      dispatch(getUserInfo());
-    } else {
-      history.push("/");
-    }
+    dispatch(getUserInfo());
   }, []);
 
   useEffect(() => {

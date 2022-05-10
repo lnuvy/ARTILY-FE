@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import { Apis } from "../../shared/api";
 // import { storeDummy } from "../../shared/Dummy";
+const MySwal = withReactContent(Swal);
 
 /*
  * @한울
@@ -63,7 +66,6 @@ export const addPostDB = (data) => {
   return async function (dispatch, getState, { history }) {
     Apis.postStore(data)
       .then((res) => {
-        // dispatch(addPost(data));
         alert("작성완료");
         history.replace("/store");
       })

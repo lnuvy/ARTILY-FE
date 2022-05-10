@@ -3,7 +3,7 @@ import "moment/locale/ko";
 
 // price에 천단위로 쉼표 찍기
 export const priceComma = (price) => {
-  return price?.toLocaleString() || null;
+  return parseInt(price)?.toLocaleString() || null;
 };
 
 // YYYY-MM-DD HH:mm:ss 형식 moment 현재시간기준으로 '00 전' 포맷으로 리턴
