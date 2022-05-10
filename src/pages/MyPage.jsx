@@ -3,16 +3,17 @@ import { Button, Text, Flex, Image, Grid, Wrap } from "../elements";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
-import { getReview, go2detail } from "../redux/modules/reviews";
+import { getPostDB, go2detail, filteringData } from "../redux/modules/store";
 import { actionCreators as userActions } from "../redux/modules/user";
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard } from "../components";
 import theme from "../styles/theme";
 import { getToken, insertToken, removeToken } from "../shared/token";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
-const MyPage = () => {
+const MyPage = (props) => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);
   console.log(mystoreList);
@@ -20,13 +21,33 @@ const MyPage = () => {
   const getProfile = useSelector((state) => state.user.user);
   console.log(getProfile);
 
-  //더미 데이터 주입
+  const onlyUser = useSelector((state) => state.user);
+  console.log(onlyUser);
+
+  // 웹사이트 주소 외부링크 연결
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
+
+  // const target = {
+  //   Url: user.snsUrl ? user.snsUrl : "",
+  // };
+
+  // let insta = target.Url.find((url) => {
+  //   return url.includes("instagram");
+  // });
+  // let Behance = target.Url.find((url) => {
+  //   return url.includes("behance");
+  // });
+
+  //프로필 정보 불러오기
+
   useEffect(() => {
-    dispatch(getmyPageDB());
+    dispatch(userActions.getUserInfo()); //유저정보
+    dispatch(getmyPageDB()); //게시글 정보
   }, []);
 
   const handleClickSellData = (data) => {
-    dispatch(getDetail(data));
+    dispatch(go2detail(data));
     history.push(`/store/${data.postId}`);
   };
   const handleClickReviewData = (data) => {
@@ -34,7 +55,7 @@ const MyPage = () => {
     history.push(`/review/${data.reviewId}`);
   };
   const handleClickMarkupData = (data) => {
-    dispatch(getDetail(data));
+    dispatch(go2detail(data));
     history.push(`/store/${data.postId}`);
   };
 
@@ -70,12 +91,31 @@ const MyPage = () => {
             {getProfile && getProfile.nickname ? getProfile.nickname : ""}
             {/* 유저명 */}
           </Text>
-          <Text body2>팔로우 2명 · 팔로워 7명</Text>
+          <Text body2>
+            팔로워{" "}
+            <Follower
+              onClick={() => {
+                history.push("/follow");
+              }}
+            >
+              1
+            </Follower>
+            명 · 팔로잉{" "}
+            <Follower
+              onClick={() => {
+                history.push("/follow");
+              }}
+            >
+              1
+            </Follower>
+            명
+          </Text>
           <Text body2>
             등록한 작품 {mystoreList.myPost && mystoreList.myPost.length}개
           </Text>
         </Wrap>
         <Wrap margin="0 0 50px">
+          {/* 본인의 마이페이지인 경우에만 수정하기 버튼이 보여야 함 */}
           <Edit
             onClick={() => {
               history.push("/mypage/edit");
@@ -93,20 +133,22 @@ const MyPage = () => {
         영역입니다아아아아자기소개 영역입니다아아아아자기소개 영역입니다아아아아 */}
       </Text>
       {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
-      <Website>
-        <Flex margin="15px">
+      <Wrap>
+        <Flex width="100%" margin="5px 0 10px 20px">
           <Text className="site" fg="1">
             {/* 유저에게 받은 웹사이트 주소 넣어서 외부링크로 연결해야 함. 아직 못함 */}
-            <a href="http://{getProfile.snsUrl}">❤️ instagram</a>
+            <a href={`http://`} target="_blank" rel="noreferrer">
+              ❤️ instagram
+            </a>
           </Text>
           <Text className="site" fg="1">
-            <a href="">💙 Behance</a>
+            <a href={`http://`}>💙 Behance</a>
           </Text>
           <Text className="site" fg="1">
-            <a href="">🌐 Website</a>
+            <a href={``}>🌐 Website</a>
           </Text>
         </Flex>
-      </Website>
+      </Wrap>
       <Mytab>
         <p
           onClick={() => {
@@ -125,7 +167,9 @@ const MyPage = () => {
         <p
           onClick={() => {
             removeToken(); //토큰 삭제
-            history.replace("/"); //로그아웃 후 홈으로 이동
+            window.alert("로그아웃 되었습니다!");
+            history.push("/");
+            window.location.reload();
           }}
         >
           로그아웃
@@ -172,7 +216,7 @@ const MyPage = () => {
               return (
                 <ArtCard
                   review
-                  key={l.postId}
+                  key={`${l.postId}_review`}
                   className="sell"
                   {...l}
                   onClick={() => handleClickReviewData(l)}
@@ -182,7 +226,7 @@ const MyPage = () => {
               return (
                 <ArtCard
                   markup
-                  key={l.postId}
+                  key={`${l.postId}_markup`}
                   className="sell"
                   {...l}
                   onClick={() => handleClickMarkupData(l)}
@@ -192,7 +236,7 @@ const MyPage = () => {
               return (
                 <ArtCard
                   sellLabel
-                  key={l.postId}
+                  key={`${l.postId}_mypost`}
                   className="sell"
                   {...l}
                   onClick={() => handleClickSellData(l)}
@@ -248,7 +292,10 @@ const Edit = styled.div`
     color: ${theme.color.brandColor};
   }
 `;
-const Website = styled.div`
-  width: 100%;
+
+const Follower = styled.span`
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
 `;
 export default MyPage;

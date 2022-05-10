@@ -7,20 +7,19 @@ import {
   getmyPageDB,
   getDetail,
   selectList,
-  // selectbuyList,
+  selectbuyList,
   // buyList,
 } from "../redux/modules/mypage";
 import { history } from "../redux/configureStore";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ArtCard } from "../components";
-const menus = ["구매목록"];
-console.log(menus[0]);
+
 const BuyList = () => {
   const dispatch = useDispatch();
   const mybuyList = useSelector((state) => state.mystore.list);
   console.log(mybuyList);
-  const dummybuyList = useSelector((state) => state.mystore.nowList);
+  const dummybuyList = useSelector((state) => state.mystore.buyList);
   console.log(dummybuyList);
 
   useEffect(() => {
@@ -29,12 +28,12 @@ const BuyList = () => {
 
   const handleClickData = (data) => {
     dispatch(getDetail(data));
-    history.push(`/mypage/buylist/${data.postId}`);
+    history.push(`/store/${data.postId}`);
   };
-  const [current, setCurrent] = useState(menus[0]);
+
   useEffect(() => {
-    dispatch(selectList(current));
-  }, [current]);
+    dispatch(selectbuyList());
+  }, []);
   return (
     <>
       <Text h2 bold margin="10px 0 20px 10px">
@@ -47,7 +46,6 @@ const BuyList = () => {
             {mybuyList &&
               dummybuyList?.map((list) => {
                 return (
-                  //판매중 or 판매완료를 표시해야 하는데 어떻게 해야할까
                   <ArtCard
                     buylist
                     key={list.postId}
@@ -65,7 +63,6 @@ const BuyList = () => {
           <Text body3 textDeco="underline">
             판매자에게 판매 확정을 요청하기
           </Text>
-          {/* 현재 페이지에서 뒤로가기 버튼 누르면 에러나서 이유 찾는중.*/}
         </Wrap>
       </Background>
     </>

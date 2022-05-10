@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ToastMessage from "../shared/ToastMessage";
 import { Front, Back } from "../shared/NicknameDummy.js";
 
-//임시 아이콘
-import { BsArrowRepeat } from "react-icons/bs";
+//아이콘
+import { Refresh } from "../assets/icons";
 const Setprofile = () => {
   const dispatch = useDispatch();
 
@@ -104,7 +104,11 @@ const Setprofile = () => {
         <Flex>
           <Text fg="1">닉네임</Text>
           <Input
-            icon={<BsArrowRepeat size={28} onClick={renameRandom} />}
+            icon={
+              <span onClick={renameRandom}>
+                <Refresh />
+              </span>
+            }
             square
             width="100%"
             border="1px solid #d3d3d3"
@@ -123,8 +127,6 @@ const Setprofile = () => {
         margin="20px auto"
         onClick={() => {
           editUser();
-          window.alert("프로필이 저장되었습니다!");
-          window.confirm("자세한 프로필을 작성해보시겠어요?");
           history.push("/profile/detail");
         }}
       >

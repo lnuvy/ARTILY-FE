@@ -18,15 +18,11 @@ const MypageEdit = () => {
 
   const fileInput = React.useRef();
   const getProfile = useSelector((state) => state.user.user);
-  console.log(getProfile);
-  // console.log(getProfile.introduce);
 
   const preview = useSelector((state) => state.image.preview);
 
   const randomnickFront = Front;
-  // console.log(randomnickFront);
   const randomnickBack = Back;
-  // console.log(randomnickBack);
 
   const randomNick =
     randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
@@ -36,12 +32,10 @@ const MypageEdit = () => {
   const [nickname, setNickname] = useState(
     getProfile?.nickname ? getProfile.nickname : ""
   );
-  const [snsUrl, setSnsUrl] = useState(
-    getProfile?.snsUrl ? getProfile.snsUrl : ""
-  );
-  const [introduce, setIntroduce] = useState(
-    getProfile?.introduce ? getProfile.introduce : ""
-  );
+  const [website1, setWebsite1] = useState(getProfile?.snsUrl[0]);
+  const [website2, setWebsite2] = useState(getProfile?.snsUrl[1]);
+  const [website3, setWebsite3] = useState(getProfile?.snsUrl[2]);
+  const [introduce, setIntroduce] = useState(getProfile?.introduce);
   const renameRandom = () => {
     const addNick =
       randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
@@ -50,11 +44,6 @@ const MypageEdit = () => {
 
     setNickname(addNick);
   };
-  useEffect(() => {
-    setNickname(getProfile?.nickname);
-    setSnsUrl(getProfile?.snsUrl);
-    setIntroduce(getProfile?.introduce);
-  }, [getProfile]);
 
   const selectFile = (e) => {
     const reader = new FileReader();
@@ -67,21 +56,17 @@ const MypageEdit = () => {
     };
   };
   const editUser = () => {
-    // if (!fileInput.current || fileInput.current.files.length === 0) {
-    //   window.alert("이미지파일을 등록해주세요!");
-    // }
     const file = fileInput.current.files[0];
     console.log(file);
 
     //새로운 객체 생성
     const formData = new FormData();
 
-    //formData.append(name(키),value(값))
-    //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
-
     formData.append("profileImage", file);
-    formData.append("nickName", randomNick);
-    formData.append("snsUrl", snsUrl);
+    formData.append("nickName", nickname);
+    formData.append("snsUrl", [website1]);
+    formData.append("snsUrl", [website2]);
+    formData.append("snsUrl", [website3]);
     formData.append("introduce", introduce);
 
     console.log("formData", formData);
@@ -120,8 +105,8 @@ const MypageEdit = () => {
           </ImgBox>
         </Flex>
       </Wrapprofile>
-      <Wrap margin="0 10px">
-        <Flex jc="center">
+      <Wrap margin="0 20px">
+        <Flex jc="center" padding="0 0 10px 0">
           <Text fg="1">닉네임</Text>
           <Input
             icon={<BsArrowRepeat size={28} onClick={renameRandom} />}
@@ -144,24 +129,55 @@ const MypageEdit = () => {
             br="6px"
             fg="0"
             type="text"
-            value={snsUrl || ""}
-            icon={<BsPlusSquareFill size={28} />}
-            onChange={(e) => setSnsUrl(e.target.value)}
+            placeholder="instagram 주소"
+            value={website1 || ""}
+            // icon={<BsPlusSquareFill size={28} />}
+            onChange={(e) => {
+              setWebsite1(e.target.value);
+            }}
           ></Input>
         </Flex>
         {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
-        <Flex jc="center">
+        <Flex margin="20px 0">
+          <Text fg="1"></Text>
+          <Input
+            square
+            br="6px"
+            fg="0"
+            type="text"
+            placeholder="Behance 주소"
+            value={website2 || ""}
+            // icon={<BsPlusSquare size={28} color="#555" onClick={() => {}} />}
+            onChange={(e) => setWebsite2(e.target.value)}
+          ></Input>
+        </Flex>
+        <Flex>
+          <Text fg="1"></Text>
+          <Input
+            square
+            br="6px"
+            fg="0"
+            type="text"
+            placeholder="other website"
+            value={website3 || ""}
+            onChange={(e) => setWebsite3(e.target.value)}
+          ></Input>
+        </Flex>
+        {/* Input으로 했을때는 기존 정보가 불러와지는데 Textarea로 했을때는 안 불러와져요*/}
+        <Flex padding="0 0 20px 0">
           <Text fg="1">소개</Text>
           <Textarea
+            fg="0"
             value={introduce || ""}
             onChange={(e) => setIntroduce(e.target.value)}
-            maxLength="200"
+            maxLength="100"
+            br="6px"
           ></Textarea>
         </Flex>
       </Wrap>
       <Button
+        margin="0 20px"
         width="90%"
-        margin="auto"
         onClick={() => {
           window.alert("프로필이 저장되었습니다!");
           editUser();
@@ -175,7 +191,7 @@ const MypageEdit = () => {
 
 const Wrapprofile = styled.div`
   position: relative;
-  margin: auto;
+  margin: 0 auto 20px auto;
   width: 120px;
 `;
 

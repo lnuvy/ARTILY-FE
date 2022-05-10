@@ -6,9 +6,11 @@ import { useLocation } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { Logo } from "../assets/images/index";
 import { Notification, Chat, Close } from "../assets/icons/index";
-
+import { getToken, insertToken } from "../shared/token";
 // 뒤로가기 아이콘
 import { IoIosArrowBack } from "react-icons/io";
+import { useSelector } from "react-redux";
+import user from "../redux/modules/user";
 
 const Header = (props) => {
   const path = useLocation().pathname;
@@ -16,6 +18,7 @@ const Header = (props) => {
   //   "Navigation 보이는곳과 안보이는곳 여기서 주소로 특정하는게 좋아보임",
   //   path
   // );
+  const user = useSelector((state) => state.user);
 
   const { cg, width, gtc, textAlign, padding, icon1, icon2 } = props;
 
@@ -64,8 +67,14 @@ const Header = (props) => {
           </Icon>
           <Icon
             onClick={(e) => {
-              e.stopPropagation();
-              history.push("/chat");
+              //로그인 시에만 채팅 목록을 볼 수 있도록 조건 추가했습니다 -영경
+              if (user.isLogin === false) {
+                window.alert("로그인이 필요한 서비스입니다!");
+                history.push("/login");
+              } else {
+                e.stopPropagation();
+                history.push("/chat");
+              }
             }}
           >
             <Chat margin="0 16px 0 0" />

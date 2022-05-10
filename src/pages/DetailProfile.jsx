@@ -18,10 +18,9 @@ const DetailProfile = () => {
 
   useEffect(() => {
     setNickname(getProfile?.nickname);
-  }, [getProfile]);
+  }, []);
 
   const fileInput = React.useRef();
-  //이미 앞에서 프로필 사진이랑 닉네임은 저장됐을테니까 불러오자
 
   //랜덤 닉네임 생성
   const randomnickFront = Front;
@@ -35,7 +34,7 @@ const DetailProfile = () => {
   const [nickname, setNickname] = useState(
     getProfile?.nickname ? getProfile.nickname : ""
   );
-  const [snsUrl, setSnsUrl] = useState("");
+  const [website1, setWebsite1] = useState("");
   const [website2, setWebsite2] = useState("");
   const [website3, setWebsite3] = useState("");
   const [introduce, setIntroduce] = useState("");
@@ -55,24 +54,18 @@ const DetailProfile = () => {
   };
 
   const editUser = () => {
-    // if (!fileInput.current || fileInput.current.files.length === 0) {
-    //   window.alert("이미지파일을 등록해주세요!");
-    //   return;
-    // }
-    // const file = fileInput.current.files[0];
-    // console.log(file);
-
+    const file = fileInput.current.files[0];
+    console.log(file);
     //새로운 객체 생성
     const formData = new FormData();
 
     //formData.append(name(키),value(값))
     //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
-
     // formData.append("profileImage", file);
     // formData.append("nickName", nickname);
-    formData.append("website1", snsUrl);
-    formData.append("website2", website2);
-    formData.append("website3", website3);
+    formData.append("snsUrl", [website1]);
+    formData.append("snsUrl", [website2]);
+    formData.append("snsUrl", [website3]);
     formData.append("introduce", introduce);
 
     console.log("formData", formData);
@@ -106,10 +99,10 @@ const DetailProfile = () => {
           ></Image>
         </Flex>
       </Wrapprofile>
-      {/* <ImgBox>
+      <ImgBox>
         <label htmlFor="image">🖍</label>
         <input type="file" id="image" ref={fileInput} onChange={selectFile} />
-      </ImgBox> */}
+      </ImgBox>
       <Wrap padding="20px 20px">
         <Flex padding="10px 0">
           <Text fg="1">닉네임</Text>
@@ -121,7 +114,7 @@ const DetailProfile = () => {
           ></Input>
         </Flex>
         <Flex>
-          <Text fg="1">웹사이트 1</Text>
+          <Text fg="1">웹사이트</Text>
           <Input
             square
             br="6px"
@@ -129,7 +122,7 @@ const DetailProfile = () => {
             type="text"
             name="text"
             placeholder="instargram 주소"
-            value={snsUrl || ""}
+            value={website1 || ""}
             icon={
               <BsPlusSquare
                 size={28}
@@ -139,14 +132,14 @@ const DetailProfile = () => {
                 }}
               />
             }
-            onChange={(e) => setSnsUrl(e.target.value)}
+            onChange={(e) => setWebsite1(e.target.value)}
           ></Input>
         </Flex>
         {/* 나머지 input은 안보였다가 입력값이 들어갔을때 나타나야 함 */}
 
         {visible1 && (
           <Flex margin="10px 0">
-            <Text fg="1">웹사이트 2</Text>
+            <Text fg="1"></Text>
             <Input
               square
               br="6px"
@@ -169,7 +162,7 @@ const DetailProfile = () => {
         )}
         {visible2 && (
           <Flex>
-            <Text fg="1">웹사이트 3</Text>
+            <Text fg="1"></Text>
             <Input
               square
               br="6px"
@@ -197,11 +190,10 @@ const DetailProfile = () => {
         width="90%"
         type="submit"
         outline
-        margin="20px auto"
+        margin="20px"
         onClick={() => {
           window.alert("프로필이 저장되었습니다!");
           editUser();
-          // history.push("/");
         }}
       >
         프로필 저장하기

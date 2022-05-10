@@ -4,7 +4,7 @@ import axios from "axios";
 // 로컬스토리지 token 작업 임포트
 import { getToken, insertToken, removeToken } from "../../shared/token";
 
-const BASE_URL = "http://13.124.169.236";
+const BASE_URL = "http://43.200.8.138";
 
 //action
 //로그인 체크
@@ -90,7 +90,12 @@ const naverLogin = (code, state) => {
         };
         dispatch(setUser(user));
         insertToken(ACCESS_TOKEN); //local storage에 저장
-        history.replace("/");
+        if (res.data.new) {
+          //신규 회원이면
+          history.replace("/profile");
+        }
+        //기존 회원이면
+        history.push("/");
       })
       .catch((err) => {
         console.log(err);
@@ -105,7 +110,7 @@ const getUserInfo = () => {
     await axios
       .get(`${BASE_URL}/api/user/getuser`, { headers: config })
       .then((res) => {
-        console.log("profileImage?", res.data);
+        console.log(res.data);
         const { user } = res.data;
         dispatch(getUser(user));
       })
@@ -145,7 +150,7 @@ const locationDB = (si, gu, dong) => {
 //로그인 후 프로필 설정
 //프로필사진, 닉네임 필수 수집
 const setProfileDB = (formData) => {
-  return function (dispatch, getState) {
+  return function (dispatch, getState, { history }) {
     axios({
       method: "patch",
       url: `${BASE_URL}/api/profile`,
@@ -158,7 +163,7 @@ const setProfileDB = (formData) => {
       .then((res) => {
         console.log(res);
         dispatch(editUser(formData));
-        document.location.href = "/"; //일단 홈으로
+        history.push("/"); //정상적으로 저장되면 홈으로 이동
       })
       .catch((error) => {
         console.log("프로필 정보 전송 실패", error);
@@ -166,6 +171,7 @@ const setProfileDB = (formData) => {
       });
   };
 };
+
 //마이페이지 프로필 수정
 //mypage
 const editProfileDB = (formData) => {
