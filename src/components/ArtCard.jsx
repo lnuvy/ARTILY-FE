@@ -101,7 +101,8 @@ const ArtCard = (props) => {
               <p
                 onClick={() => {
                   window.confirm("정말 판매중으로 변경하시겠어요?");
-                  //done이 false로 바뀌어야 함. 아직 구현 못함
+
+                  //done이 true(판매완료)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
                 판매중으로 변경
@@ -110,13 +111,12 @@ const ArtCard = (props) => {
               <p
                 onClick={() => {
                   window.confirm("정말 판매완료로 변경하시겠어요?");
-                  //done이 false로 바뀌어야 함. 아직 구현 못함
+                  //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
                 판매완료로 변경
               </p>
             )}
-            {/* 판매완료 상품을 보고 있을때는 판매중으로 변경이 있어야함 */}
           </Flex>
         </Sell>
       </>
@@ -157,8 +157,8 @@ const ArtCard = (props) => {
           <Image height="120px" src={imageUrl[0]} />
         </Label>
         <Flex margin="8px 0 0">
-          <Image circle size="20" src={user.profileImage} />
-          <Text margin="0 0 0 4px">{user.nickname}</Text>
+          <Image circle size="20" src={nowuser.profileImage} />
+          <Text margin="0 0 0 4px">{nowuser.nickname}</Text>
         </Flex>
         <Text>{postTitle}</Text>
         <Flex>
@@ -185,9 +185,9 @@ const ArtCard = (props) => {
         <Text bold>{reviewTitle}</Text>
         <Text body2>{reviewContent}</Text>
         <Flex margin="8px 0 0">
-          <Image circle size="20" src={user.profileImage} />
+          <Image circle size="20" src={nowuser.profileImage} />
           <Text fg="1" margin="0 0 0 4px">
-            {user.nickname}
+            {nowuser.nickname}
           </Text>
           <Wrap fg="0">
             <AiOutlineHeart color="#FD6A00" />
@@ -241,7 +241,13 @@ const ArtCard = (props) => {
         <Text color={theme.pallete.gray3}>
           {transaction} ∙ {changeAddress}
         </Text>
-        <Text h3>{priceComma(price)}원</Text>
+        {price ? (
+          <Text fg="1" bold>
+            {priceComma(price)}원
+          </Text>
+        ) : (
+          ""
+        )}
         <Text>{reviewContent}</Text>
       </Card>
     );
@@ -254,8 +260,6 @@ const Sell = styled.div`
   height: 50px;
   p {
     border-right: 1px solid #ddd;
-    /* width: 33%; */
-    /* text-align: center; */
     height: 50px;
     line-height: 50px;
     font-weight: bold;
@@ -265,7 +269,6 @@ const Sell = styled.div`
   p:nth-of-type(2) {
     padding: 0 1em;
   }
-  //판매완료로 변경 버튼 전체영역이 눌렸으면 좋겠는데 아직 해결 못함
   p:nth-of-type(3) {
     border-right: none;
     margin: auto;
@@ -295,7 +298,7 @@ const SmallLabel = styled.div`
 `;
 const Label = styled.div`
   position: relative;
-  //판매완료 label
+
   .complete,
   .selling {
     position: absolute;

@@ -86,17 +86,8 @@ function App() {
   // }, []);
 
   return (
-    //로그아웃 기능 원래 자리로 옮겼습니다!
     <>
       <MaxContainer>
-        <button
-          onClick={() => {
-            removeToken();
-            history.replace("/login");
-          }}
-        >
-          로그아웃
-        </button>
         <ConnectedRouter history={history}>
           <Header>ARTIN</Header>
 

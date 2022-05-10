@@ -23,7 +23,7 @@ const Manage = () => {
 
   const handleClickData = (data) => {
     dispatch(getDetail(data));
-    history.push(`/mypage/manage/${data.postId}`);
+    history.push(`/store/${data.postId}`);
   };
 
   const [current, setCurrent] = useState(menus[0]);

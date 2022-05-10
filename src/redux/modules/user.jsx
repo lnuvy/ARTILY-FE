@@ -88,6 +88,7 @@ export const getUserInfo = () => {
   return async function (dispatch, getState, { history }) {
     Apis.getUser()
       .then((res) => {
+        console.log(res.data);
         const { user } = res.data;
         dispatch(getUser(user));
       })

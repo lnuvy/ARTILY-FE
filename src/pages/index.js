@@ -26,6 +26,7 @@ export {
   Chat,
   ChatRoom,
   Follow,
+  //5.10 팔로워 목록 페이지 추가
   Home,
   MyPage,
   NotFound,
