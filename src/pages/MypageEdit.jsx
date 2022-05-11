@@ -106,7 +106,9 @@ const MypageEdit = () => {
         <Flex padding="10px 0">
           <Flex width="100%">
             <Flex width="30%">
-              <Text>닉네임</Text>
+              <Text textAlign="center" fg="1">
+                닉네임
+              </Text>
             </Flex>
             <Flex width="70%">
               <Input
@@ -125,12 +127,19 @@ const MypageEdit = () => {
         <Flex padding="10px 0 5px">
           <Flex width="100%">
             <Flex width="30%">
-              <Text>웹사이트</Text>
+              <Text textAlign="center" fg="1">
+                웹사이트
+              </Text>
             </Flex>
             <Flex width="70%">
               <Input
-                fg="1"
                 square
+                icon={
+                  <Flex>
+                    <img src="../../images/instagram.svg" alt="인스타" />
+                  </Flex>
+                }
+                fg="1"
                 br="6px"
                 type="text"
                 placeholder="instargram 주소"
@@ -141,18 +150,26 @@ const MypageEdit = () => {
           </Flex>
         </Flex>
         {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
-        <Flex margin="10px 0">
-          <Text fg="1"></Text>
-          <Input
-            square
-            br="6px"
-            fg="0"
-            type="text"
-            placeholder="Behance 주소"
-            value={website2 || ""}
-            // icon={<BsPlusSquare size={28} color="#555" onClick={() => {}} />}
-            onChange={(e) => setWebsite2(e.target.value)}
-          ></Input>
+        <Flex width="100%">
+          <Flex width="30%">
+            <Text></Text>
+          </Flex>
+          <Flex width="70%">
+            <Input
+              square
+              fg="1"
+              br="6px"
+              icon={
+                <Flex>
+                  <img src="../../images/Behance.svg" alt="비핸스" />
+                </Flex>
+              }
+              type="text"
+              placeholder="Behance 주소"
+              value={website2}
+              onChange={(e) => setWebsite2(e.target.value)}
+            />
+          </Flex>
         </Flex>
         <Flex padding="5px 0 10px">
           <Flex width="100%">
@@ -164,6 +181,11 @@ const MypageEdit = () => {
                 fg="1"
                 square
                 br="6px"
+                icon={
+                  <Flex>
+                    <img src="../../images/web.svg" alt="포트폴리오" />
+                  </Flex>
+                }
                 type="text"
                 placeholder="other website"
                 value={website3 || ""}
@@ -172,15 +194,21 @@ const MypageEdit = () => {
             </Flex>
           </Flex>
         </Flex>
-        <Flex padding="20px 0 10px 0">
-          <Text fg="1">소개</Text>
-          <Textarea
-            fg="0"
-            value={introduce || ""}
-            onChange={(e) => setIntroduce(e.target.value)}
-            maxLength="100"
-            br="6px"
-          ></Textarea>
+        <Flex padding="20px 0 10px 0" width="100%">
+          <Flex width="30%">
+            <Text textAlign="center" fg="1">
+              소개
+            </Text>
+          </Flex>
+          <Flex width="70%">
+            <Textarea
+              fg="1"
+              value={introduce}
+              onChange={(e) => setIntroduce(e.target.value)}
+              maxLength="100"
+              br="6px"
+            />
+          </Flex>
         </Flex>
       </Wrap>
       <Flex width="90%" margin="0 auto">

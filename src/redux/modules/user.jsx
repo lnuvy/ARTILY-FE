@@ -130,6 +130,13 @@ export const setProfileDB = (formData, goDetail = null) => {
               history.replace("/");
             }
           });
+        } else {
+          MySwal.fire({
+            icon: "success",
+            title: "프로필 작성 완료",
+            text: "고생하셨어요! 정상적으로 처리되었습니다!",
+          });
+          history.push("/home");
         }
       })
       .catch((error) => {

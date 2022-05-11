@@ -22,8 +22,6 @@ const DetailProfile = () => {
     dispatch(getUserInfo());
   }, []);
 
-  const fileInput = useRef();
-
   const [nickname, setNickname] = useState(getProfile?.nickname || "");
   const [website1, setWebsite1] = useState("");
   const [website2, setWebsite2] = useState("");
@@ -38,27 +36,12 @@ const DetailProfile = () => {
     setNickname(getProfile.nickname);
   }, [getProfile.nickname]);
 
-  const selectFile = () => {
-    const reader = new FileReader();
-    console.log(reader);
-    const file = fileInput.current.files[0];
-    console.log(file);
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      dispatch(setProfileImage(reader.result));
-    };
-  };
-
   const editUser = () => {
-    const file = fileInput.current.files[0];
-    console.log(file);
+    // const file = fileInput.current.files[0];
+    // console.log(file);
     //새로운 객체 생성
     const formData = new FormData();
 
-    //formData.append(name(키),value(값))
-    //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
-    // formData.append("profileImage", file);
-    formData.append("nickname", nickname);
     formData.append("snsUrl", [website1]);
     formData.append("snsUrl", [website2]);
     formData.append("snsUrl", [website3]);
@@ -214,7 +197,6 @@ const DetailProfile = () => {
         jc="center"
         onClick={() => {
           console.log("스킵");
-
           history.push("/");
         }}
       >

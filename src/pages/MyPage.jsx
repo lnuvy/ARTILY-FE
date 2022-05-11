@@ -16,24 +16,31 @@ const MyPage = () => {
   const dispatch = useDispatch();
   const myAllList = useSelector((state) => state.mystore.list);
   const nowList = useSelector((state) => state.mystore.nowList);
-  console.log(nowList);
 
   const getProfile = useSelector((state) => state.user.user);
 
   // 웹사이트 주소 외부링크 연결
   const user = useSelector((state) => state.user.user);
-  console.log(user);
 
+  console.log(user.snsUrl);
   const target = {
     Url: user?.snsUrl,
   };
 
-  let insta = target.Url.find((url) => {
-    return url.includes("instagram");
-  });
-  let Behance = target.Url.find((url) => {
-    return url.includes("behance");
-  });
+  let insta,
+    behance,
+    other = null;
+
+  insta =
+    target?.Url?.find((url) => {
+      return url.includes("instagram");
+    }) || null;
+  behance =
+    target?.Url?.find((url) => {
+      return url.includes("behance");
+    }) || null;
+
+  other = target.Url[2] || null;
 
   //프로필 정보 불러오기
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -43,7 +50,7 @@ const MyPage = () => {
   useEffect(() => {
     if (isLogin) {
       dispatch(getmyPageDB(user?.userId)); //게시글 정보
-      dispatch(getUserInfo()); //유저정보
+      dispatch(getUserInfo());
     }
   }, []);
 
@@ -133,27 +140,36 @@ const MyPage = () => {
       {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
       <Flex width="100%" jc="space-between" padding="10px 20px">
         <Flex>
-          <img src="../../images/instagram.svg" />
+          {insta && <img src="../../images/instagram.svg" alt="인스타" />}
+
           <Text className="site" margin="0 0 0 5px">
-            <a href={`http://${insta}`} target="_blank" rel="noreferrer">
-              instagram
-            </a>
+            {insta && (
+              <a href={insta} target="_blank" rel="noreferrer">
+                instagram
+              </a>
+            )}
           </Text>
         </Flex>
         <Flex>
-          <img src="../../images/Behance.svg" />
+          {behance && <img src="../../images/Behance.svg" alt="비핸스" />}
+
           <Text className="site" margin="0 0 0 5px">
-            <a href={`http://${Behance}`} target="_blank" rel="noreferrer">
-              Behance
-            </a>
+            {behance && (
+              <a href={behance} target="_blank" rel="noreferrer">
+                Behance
+              </a>
+            )}
           </Text>
         </Flex>
         <Flex>
-          <img src="../../images/web.svg" />
+          {other && <img src="../../images/web.svg" alt="포트폴리오" />}
+
           <Text className="site" margin="0 0 0 5px">
-            <a href={`http://${user && user?.snsUrl[3]}}`}>
-              <p>Website</p>
-            </a>
+            {other && (
+              <a href={other} target="_blank" rel="noreferrer">
+                <p>Website</p>
+              </a>
+            )}
           </Text>
         </Flex>
       </Flex>

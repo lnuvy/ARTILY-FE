@@ -29,13 +29,6 @@ function App() {
     }
   }, []);
 
-  //닉네임이 설정되어 있지 않을 경우 다시 프로필 페이지로 보내
-  useEffect(() => {
-    if (user?.nickname === "") {
-      history.push("/profile");
-    }
-  }, []);
-
   // useEffect(() => {
   //   socket.on("session", ({ sessionID, userId }) => {
   //     console.log(sessionID);
