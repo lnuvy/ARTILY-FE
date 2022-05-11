@@ -196,7 +196,7 @@ const StoreDetail = () => {
             </Flex>
             <Flex jc="end">
               <Text h1 bold margin="0 10px">
-                {priceComma(current.price)}원
+                {current.price && priceComma(current.price)}원
               </Text>
               {isMe ? (
                 <Button>판매완료</Button>

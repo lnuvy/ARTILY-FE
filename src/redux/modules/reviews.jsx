@@ -13,6 +13,8 @@ const initialState = {
   isFetching: false,
   infinityScroll: {},
   detailData: null,
+  detailSeller: null,
+  detailSellerAnother: null,
   reviewData: null,
 };
 
@@ -29,7 +31,7 @@ export const getReviewDB = () => {
     Apis.getReview(pageHandler)
       .then(function (response) {
         console.log(response);
-        dispatch(getReviewData(response.data.review));
+        dispatch(getReviewData(response.data));
       })
       .catch(function (error) {
         console.log(error);
@@ -46,8 +48,9 @@ export const getReviewOne = (reviewId) => {
 
     Apis.getReviewDetail("4208ef179b5d")
       .then(function (response) {
-        console.log(response);
-        // dispatch(getReviewData(response.data.review));
+        console.log(response.data.buyer);
+        console.log(response.data.defferent);
+        dispatch(getNowReview(response.data.buyer));
       })
       .catch(function (error) {
         console.log(error);

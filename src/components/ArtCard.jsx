@@ -64,17 +64,11 @@ const ArtCard = (props) => {
                   )}
                 </SmallLabel>
               </Flex>
-              {price ? (
-                <Text fg="1" bold>
-                  {priceComma(price)}원
-                </Text>
-              ) : (
-                ""
-              )}
-              <Wrap fg="0" padding="10px 0 0 0">
-                <AiOutlineHeart color="#FD6A00" />
-                {markupCnt}
-              </Wrap>
+              <Text>{postTitle}</Text>
+              <Text>
+                {transaction} ∙ {address}
+              </Text>
+              <Text bold>{price && priceComma(price)}원</Text>
             </Wrap>
           </Flex>
         </Card>
