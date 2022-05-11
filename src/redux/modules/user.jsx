@@ -41,7 +41,6 @@ export const kakaoLogin = (code) => {
           introduce,
         };
         insertToken(token); //local storage에 저장
-        window.location.reload(); // TODO: 새로고침안하면 401 에러
         dispatch(setUser(user));
         history.replace("/");
       })
