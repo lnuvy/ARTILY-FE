@@ -44,11 +44,18 @@ function App() {
   const dispatch = useDispatch();
   // 리덕스에서 모달 정보 가져오기(디폴트는 false)
   const modalOn = useSelector((state) => state.modal.modalOn);
-  // const userInfo = useSelector((state) => state.user.user);
+  const userInfo = useSelector((state) => state.user.user);
 
   useEffect(() => {
     if (getToken()) {
       dispatch(getUserInfo());
+    }
+  }, []);
+
+  //닉네임이 설정되어 있지 않을 경우 다시 프로필 페이지로 보내
+  useEffect(() => {
+    if (userInfo?.nickname === "") {
+      history.push("/profile");
     }
   }, []);
 
@@ -105,6 +112,7 @@ function App() {
             <Route exact path="/review/:reviewId" component={ReviewDetail} />
             <Route exact path="/review/write" component={ReviewWrite} />
             <Route path="/test" component={Test} />
+            {/* 5.11 프로필 조회를 위해 path 추가 -영경*/}
             <Route path="/mypage" exact component={MyPage} />
             <Route path="/login" exact component={Login} />
             <Route path="/profile" exact component={Setprofile} />
@@ -112,6 +120,7 @@ function App() {
             <Route path="/oauth/naver/callback" component={RedirectNaver} />
             <Route path="/mypage/edit" exact component={MypageEdit} />
             <Route path="/mypage/manage" exact component={Manage} />
+            <Route path="/mypage/buyList" exact component={Buylist} />
             <Route path="/profile/detail" exact component={DetailProfile} />
 
             {/* <Route path="/*" component={NotFound} /> */}

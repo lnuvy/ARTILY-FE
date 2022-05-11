@@ -64,7 +64,7 @@ const MypageEdit = () => {
     const formData = new FormData();
 
     formData.append("profileImage", file);
-    formData.append("nickName", nickname);
+    formData.append("nickname", nickname);
     formData.append("snsUrl", [website1]);
     formData.append("snsUrl", [website2]);
     formData.append("snsUrl", [website3]);
@@ -92,6 +92,7 @@ const MypageEdit = () => {
             width="120px"
             height="120px"
             br="60px"
+            border="1px solid #666"
             src={preview ? preview : getProfile ? getProfile.profileImage : ""}
           ></Image>
 
@@ -139,7 +140,7 @@ const MypageEdit = () => {
           ></Input>
         </Flex>
         {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
-        <Flex margin="20px 0">
+        <Flex margin="10px 0">
           <Text fg="1"></Text>
           <Input
             square
@@ -164,8 +165,7 @@ const MypageEdit = () => {
             onChange={(e) => setWebsite3(e.target.value)}
           ></Input>
         </Flex>
-        {/* Input으로 했을때는 기존 정보가 불러와지는데 Textarea로 했을때는 안 불러와져요*/}
-        <Flex padding="0 0 20px 0">
+        <Flex padding="20px 0 10px 0">
           <Text fg="1">소개</Text>
           <Textarea
             fg="0"
@@ -176,16 +176,17 @@ const MypageEdit = () => {
           ></Textarea>
         </Flex>
       </Wrap>
-      <Button
-        margin="0 20px"
-        width="90%"
-        onClick={() => {
-          window.alert("프로필이 저장되었습니다!");
-          editUser();
-        }}
-      >
-        수정 완료
-      </Button>
+      <Flex width="90%" margin="0 auto">
+        <Button
+          width="100%"
+          onClick={() => {
+            window.alert("프로필이 저장되었습니다!");
+            editUser();
+          }}
+        >
+          수정 완료
+        </Button>
+      </Flex>
     </>
   );
 };

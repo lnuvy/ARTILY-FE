@@ -10,7 +10,7 @@ import { Front, Back } from "../shared/NicknameDummy.js";
 
 //아이콘
 import { Refresh } from "../assets/icons";
-import { setProfileDB } from "../redux/modules/user";
+import { getUserInfo, setProfileDB } from "../redux/modules/user";
 const Setprofile = () => {
   const dispatch = useDispatch();
 
@@ -37,6 +37,10 @@ const Setprofile = () => {
 
     setNickname(addNick);
   };
+
+  // useEffect(() => {
+  //   dispatch(getUserInfo());
+  // });
   console.log(nickname);
 
   const selectFile = (e) => {
@@ -116,18 +120,20 @@ const Setprofile = () => {
           />
         </Flex>
       </Wrap>
-      <Button
-        width="90%"
-        type="submit"
-        outline
-        margin="20px auto"
-        onClick={() => {
-          editUser();
-          history.push("/profile/detail");
-        }}
-      >
-        프로필 저장하기
-      </Button>
+      <Flex width="90%" margin="0 auto">
+        <Button
+          width="100%"
+          type="submit"
+          outline
+          margin="20px auto"
+          onClick={() => {
+            editUser();
+            history.push("/profile/detail");
+          }}
+        >
+          프로필 저장하기
+        </Button>
+      </Flex>
     </>
   );
 };

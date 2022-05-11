@@ -37,12 +37,14 @@ export const kakaoLogin = (code) => {
         insertToken(ACCESS_TOKEN); //local storage에 저장
 
         // 최초 로그인일 경우에만 로그인 후 프로필 설정하는 페이지로 이동
-        if (res.data.new) {
+        if (res.data.user.type === "new") {
           //신규 회원이면
           history.replace("/profile");
+        } else {
+          //기존 회원이면
+          window.location.reload();
+          history.replace("/");
         }
-        //기존 회원이면
-        history.replace("/");
       })
       .catch((err) => {
         console.log("카카오로그인", err);
@@ -70,12 +72,14 @@ export const naverLogin = (code, state) => {
         };
         dispatch(setUser(user));
         insertToken(ACCESS_TOKEN); //local storage에 저장
-        if (res.data.new) {
+        if (res.data.user.type === "new") {
           //신규 회원이면
           history.replace("/profile");
+        } else {
+          //기존 회원이면
+          window.location.reload();
+          history.replace("/");
         }
-        //기존 회원이면
-        history.replace("/");
       })
       .catch((err) => {
         console.log("네이버로그인", err);
@@ -91,6 +95,13 @@ export const getUserInfo = () => {
         console.log(res.data);
         const { user } = res.data;
         dispatch(getUser(user));
+        // if (user.type === "new") {
+        //   //신규 회원이면
+        //   history.replace("/profile");
+        // } else {
+        //   //기존 회원이면
+        //   history.replace("/");
+        // }
       })
       .catch((err) => {
         console.log("getUser 에러", err);
@@ -137,6 +148,7 @@ export const editProfileDB = (formData) => {
         console.log(res);
         // dispatch(editUser({profileImage, nickname}));
         history.replace("/mypage");
+        // window.location.reload();
       })
       .catch((error) => {
         console.log("프로필 수정 정보 전달 실패", error);
@@ -202,7 +214,6 @@ const userSlice = createSlice({
     editUser: (state, action) => {},
     // 카테고리 필터 이름변경
     logout: (state) => {
-      removeToken();
       state.user = null;
       state.isLogin = false;
     },

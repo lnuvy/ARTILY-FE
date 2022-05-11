@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Api = axios.create({
-  baseURL: "http://43.200.8.138",
+  baseURL: "https://rusy7225.shop",
 });
 
 Api.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem(
@@ -40,4 +40,8 @@ export const Apis = {
   patchEditProfile: (data) =>
     Api.patch(`/api/profile/update`, data, formDataConfig),
   postMarkUp: (postId) => Api.post(`/api/markup/${postId}`),
+
+  //mypage API
+  getMypageData: (userId) => Api.get(`/api/profile/${userId}`),
+  getMyList: () => Api.get(`/api/mypost`),
 };
