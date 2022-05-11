@@ -29,7 +29,6 @@ import SendFILL0 from "./SendFILL0";
 import Refresh from "./Refresh";
 import Visibility from "./Visibility";
 import Web from "./Web";
-import Where from "./Where";
 
 export {
   Notification,
@@ -61,5 +60,4 @@ export {
   Refresh,
   Visibility,
   Web,
-  Where,
 };

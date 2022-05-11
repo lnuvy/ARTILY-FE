@@ -140,7 +140,7 @@ const MyPage = () => {
       {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
       <Flex width="100%" jc="space-between" padding="10px 20px">
         <Flex>
-          {insta && <img src="../../images/instagram.svg" alt="인스타" />}
+          <img src="../../images/instagram.svg" alt="인스타" />
 
           <Text className="site" margin="0 0 0 5px">
             {insta && (
@@ -151,7 +151,7 @@ const MyPage = () => {
           </Text>
         </Flex>
         <Flex>
-          {behance && <img src="../../images/Behance.svg" alt="비핸스" />}
+          <img src="../../images/Behance.svg" alt="비핸스" />
 
           <Text className="site" margin="0 0 0 5px">
             {behance && (
@@ -162,7 +162,7 @@ const MyPage = () => {
           </Text>
         </Flex>
         <Flex>
-          {other && <img src="../../images/web.svg" alt="포트폴리오" />}
+          <img src="../../images/web.svg" alt="포트폴리오" />
 
           <Text className="site" margin="0 0 0 5px">
             {other && (

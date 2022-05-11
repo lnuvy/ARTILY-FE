@@ -21,6 +21,7 @@ import { MdGpsFixed } from "react-icons/md";
 import { changeMarker, currentmap } from "../../api/KakaoGeolocation";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../../redux/modules/modal";
+import { Marker } from "../../../assets/icons";
 
 const { kakao } = window;
 var geocoder = new kakao.maps.services.Geocoder();
@@ -135,7 +136,16 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
         >
           <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />
           <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
-          <MapMarker position={position} />
+          <MapMarker
+            position={position}
+            // image={{
+            //   src: "../../../assets/images/where@2x.png",
+            //   size: {
+            //     width: 64,
+            //     height: 69,
+            //   },
+            // }}
+          />
         </Map>
       </Flex>
       <Flex padding="8px" height="fit-content" fd="column">

@@ -10,7 +10,8 @@ import _ from "lodash";
 import { AiOutlineSearch } from "react-icons/ai";
 import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
-import { Search } from "../assets/icons";
+import { FilterFilled, FilterOutline, Search } from "../assets/icons";
+import theme from "../styles/theme";
 
 const Store = () => {
   const dispatch = useDispatch();
@@ -94,25 +95,40 @@ const Store = () => {
         <Category />
         <Wrap margin="16px">
           <Flex margin="0 0 10px" jc="space-between">
-            <Checkbox
-              id="checkFree"
-              zoom={1.3}
-              margin="0 10px"
-              onChange={checkFree}
-            >
+            <Checkbox id="checkFree" zoom={1.2} onChange={checkFree}>
               <Text h3>나눔 작품만 보기</Text>
             </Checkbox>
-            <Flex onClick={modalOn}>
+            <Flex onClick={modalOn} jc="center" ai="center">
               <Text h3>거래 방식/지역 선택하기</Text>
+              {filtering.transaction === "전체" &&
+              filtering.region[0] === "전체" ? (
+                <FilterFilled fill="gray" />
+              ) : (
+                <FilterFilled fill="black" />
+              )}
             </Flex>
           </Flex>
-          <Flex>
+          <Flex margin="5px 0 15px">
             {filtering.transaction !== "전체" && (
-              <Text>{filtering.transaction}</Text>
+              <Text color={theme.pallete.gray3}>
+                {filtering.transaction},&nbsp;
+              </Text>
             )}
             {filtering.region[0] !== "전체" &&
-              filtering.region.map((r, i) => {
-                return <Text key={`${i}_filter_${r}`}>{r}</Text>;
+              filtering.region.map((r, i, arr) => {
+                if (i + 1 === arr.length) {
+                  return (
+                    <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
+                      {r}&nbsp;
+                    </Text>
+                  );
+                } else {
+                  return (
+                    <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
+                      {r},&nbsp;
+                    </Text>
+                  );
+                }
               })}
           </Flex>
           <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
@@ -141,9 +157,6 @@ const Store = () => {
           </Grid>
         </Wrap>
       </Grid>
-
-      {/* 임시로 만들어둔 글쓰기 버튼 */}
-      <Button onClick={() => history.push("/store/write")}>글쓰기</Button>
     </>
   );
 };
