@@ -108,8 +108,9 @@ function App() {
             <Route path="/follow" exact component={Follow} />
             <Route path="/store" exact component={Store} />
             <Route exact path="/review" component={Review} />
-            <Route exact path="/review/:reviewId" component={ReviewDetail} />
-            <Route exact path="/review/write" component={ReviewWrite} />
+            <Route path="/review/:reviewId" component={ReviewDetail} />
+            <Route exact path="/write" component={ReviewWrite} />
+            {/*  민경: review/write로 이동시키면 아예 안떠서 임시로 수정함 */}
             <Route path="/test" component={Test} />
             <Route path="/mypage" exact component={MyPage} />
             <Route path="/login" exact component={Login} />
