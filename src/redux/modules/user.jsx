@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Apis } from "../../shared/api";
 
-import { insertToken } from "../../shared/token";
+import { getToken, insertToken } from "../../shared/token";
 
 // 찜하기
 import { markupToggle } from "./store";
@@ -41,7 +41,7 @@ export const kakaoLogin = (code) => {
           introduce,
         };
         insertToken(token); //local storage에 저장
-        window.location.reload(); // TODO: 새로고침안하면 401 에러
+        // window.location.reload(); // TODO: 새로고침안하면 401 에러
         dispatch(setUser(user));
         history.replace("/");
       })
@@ -78,13 +78,13 @@ export const naverLogin = (code, state) => {
         };
         dispatch(setUser(user));
         insertToken(token); //local storage에 저장
-        window.location.reload(); // TODO: 새로고침안하면 401 에러
+        // window.location.reload(); // TODO: 새로고침안하면 401 에러
         // if (user.type === "new") {
         //   //신규 회원이면
         //   history.replace("/profile");
-        //   window.location.reload();
         // }
         // //기존 회원이면
+        // window.location.reload();
         history.push("/");
       })
       .catch((err) => {
@@ -112,6 +112,8 @@ export const getUserInfo = () => {
 // 프로필사진, 닉네임 필수 수집
 export const setProfileDB = (formData, goDetail = null) => {
   return function (dispatch, getState, { history }) {
+    getToken();
+
     Apis.patchProfile(formData)
       .then((res) => {
         console.log(res);

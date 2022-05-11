@@ -17,6 +17,14 @@ const Setprofile = () => {
 
   const fileInput = useRef();
   const preview = useSelector((state) => state.image.preview);
+  const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    if (user.nickname === "") {
+      // window.location.reload();
+      // window.location.replace("/");
+    }
+  }, [user.nickname]);
 
   //랜덤 닉네임 생성
   const randomnickFront = Front;

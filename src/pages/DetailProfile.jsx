@@ -20,12 +20,11 @@ const DetailProfile = () => {
 
   useEffect(() => {
     dispatch(getUserInfo());
-    setNickname(getProfile.nickname);
   }, []);
 
   const fileInput = useRef();
 
-  const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useState(getProfile?.nickname || "");
   const [website1, setWebsite1] = useState("");
   const [website2, setWebsite2] = useState("");
   const [website3, setWebsite3] = useState("");
@@ -33,6 +32,10 @@ const DetailProfile = () => {
 
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
+
+  useEffect(() => {
+    setNickname(getProfile.nickname);
+  }, [getProfile.nickname]);
 
   const selectFile = () => {
     const reader = new FileReader();
@@ -213,6 +216,8 @@ const DetailProfile = () => {
       <Flex
         jc="center"
         onClick={() => {
+          console.log("스킵");
+
           history.push("/");
         }}
       >
