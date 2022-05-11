@@ -10,7 +10,6 @@ import { getToken, insertToken } from "../shared/token";
 // 뒤로가기 아이콘
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
-import user from "../redux/modules/user";
 
 const Header = (props) => {
   const path = useLocation().pathname;
@@ -68,8 +67,7 @@ const Header = (props) => {
           <Icon
             onClick={(e) => {
               //로그인 시에만 채팅 목록을 볼 수 있도록 조건 추가했습니다 -영경
-              if (user.isLogin === false) {
-                window.alert("로그인이 필요한 서비스입니다!");
+              if (!isLogin) {
                 history.push("/login");
               } else {
                 e.stopPropagation();
@@ -81,7 +79,7 @@ const Header = (props) => {
           </Icon>
         </Flex>
         <Navigation />
-        <Grid gtc="auto auto auto auto" cg="20px"></Grid>
+        {/* <Grid gtc="1fr 1fr 1fr 1fr" cg="20px"></Grid> */}
       </HeaderStyle>
     );
   else if (isWrite) {

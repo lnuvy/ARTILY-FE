@@ -21,6 +21,8 @@ const Navigation = () => {
   const path = useLocation().pathname;
   const [current, setCurrent] = useState(menus[0]); // ["홈", "/home"] 이렇게 저장됨
 
+  const isLogin = useSelector((state) => state.user.isLogin);
+
   // 경로가 바뀔때마다 url이 포함하고있는 네비게이션 항목으로 설정
   useEffect(() => {
     const now = menus.find((l) => path.includes(l[1]));
@@ -32,7 +34,13 @@ const Navigation = () => {
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
-    setCurrent(menus.find((l) => l[0] === innerText));
+
+    if (innerText === "마이페이지" && !isLogin) {
+      history.push("/login");
+      return;
+    } else {
+      setCurrent(menus.find((l) => l[0] === innerText));
+    }
   };
 
   return (

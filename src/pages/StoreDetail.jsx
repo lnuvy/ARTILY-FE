@@ -122,13 +122,26 @@ const StoreDetail = () => {
                   </>
                 ) : (
                   <>
-                    <Text body1 color={theme.pallete.primary900}>
-                      팔로우
-                    </Text>
-
-                    <Text body1 color={theme.pallete.primary900}>
-                      신고
-                    </Text>
+                    <Flex
+                      padding="6px"
+                      onClick={() => {
+                        console.log("팔로우 하기");
+                      }}
+                    >
+                      <Text body1 color={theme.pallete.primary900}>
+                        팔로우
+                      </Text>
+                    </Flex>
+                    <Flex
+                      padding="6px"
+                      onClick={() => {
+                        console.log("신고하기");
+                      }}
+                    >
+                      <Text body1 color={theme.pallete.primary900}>
+                        신고
+                      </Text>
+                    </Flex>
                   </>
                 )}
               </Flex>

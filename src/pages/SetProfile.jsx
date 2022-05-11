@@ -99,7 +99,9 @@ const Setprofile = () => {
       </Wrapprofile>
       <Wrap padding="0 20px 30px 20px">
         <Flex>
-          <Text fg="1">닉네임</Text>
+          <Text textAlign="center" fg="1">
+            닉네임
+          </Text>
           <Input
             icon={
               <span onClick={renameRandom}>
@@ -111,24 +113,25 @@ const Setprofile = () => {
             border="1px solid #d3d3d3"
             br="6px"
             type="text"
-            fg="0"
+            fg="1"
             value={nickname || ""}
             onChange={(e) => setNickname(randomNick)}
           />
         </Flex>
       </Wrap>
-      <Button
-        width="90%"
-        type="submit"
-        outline
-        margin="20px auto"
-        onClick={() => {
-          editUser();
-          history.push("/profile/detail");
-        }}
-      >
-        프로필 저장하기
-      </Button>
+      <Flex>
+        <Button
+          width="90%"
+          outline
+          margin="20px auto"
+          onClick={() => {
+            editUser();
+            history.push("/profile/detail");
+          }}
+        >
+          프로필 저장하기
+        </Button>
+      </Flex>
     </>
   );
 };

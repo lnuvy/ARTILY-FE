@@ -157,7 +157,7 @@ const MyPage = () => {
           onClick={() => {
             console.log("로그아웃!");
             removeToken();
-            userLogout();
+            dispatch(userLogout());
           }}
         >
           로그아웃

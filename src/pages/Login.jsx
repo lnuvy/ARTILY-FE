@@ -1,13 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 // import { IoIosArrowRoundBack } from "react-icons/io";
-import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
-import { Text, Flex, Button, Wrap } from "../elements";
-import styled from "styled-components";
-import { useLocation } from "react-router-dom";
-// import NaverLogin from "react-naver-login";
-// import "babel-Polyfill";
+import { Flex, Button, Wrap } from "../elements";
+
 const Login = () => {
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_KEY;
   const KAKAO_REDIRECT_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
@@ -27,13 +21,12 @@ const Login = () => {
         <p>회원 서비스 이용을 위해 로그인 해주세요!</p>
       </Flex>
       <Wrap jc="center" margin="100px 0 0 0" padding="0 16px" width="100%">
-        {/* 카카오로 로그인 */}
         <Button
           outline
           bc="white"
           width="100%"
           margin="0 0 16px"
-          onClick={() => window.open(KAKAO_AUTH_URL)}
+          onClick={() => (window.location.href = KAKAO_AUTH_URL)}
         >
           카카오로 시작하기
         </Button>
@@ -41,7 +34,7 @@ const Login = () => {
           outline
           bc="white"
           width="100%"
-          onClick={() => window.open(NAVER_AUTH_URL)}
+          onClick={() => (window.location.href = NAVER_AUTH_URL)}
         >
           네이버로 시작하기
         </Button>
@@ -50,5 +43,4 @@ const Login = () => {
   );
 };
 
-// May8 버튼 부분 스타일링 완료
 export default Login;

@@ -1,6 +1,6 @@
 //소셜 로그인후 기본 프로필(사진, 닉네임) 설정=> 나머지 프로필 정보 설정하는 페이지
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
@@ -15,30 +15,14 @@ import { BsPlusSquare } from "react-icons/bs";
 const DetailProfile = () => {
   const dispatch = useDispatch();
   const getProfile = useSelector((state) => state.user.user);
-  // console.log(getProfile);
 
   useEffect(() => {
     dispatch(getUserInfo());
   }, []);
 
-  useEffect(() => {
-    setNickname(getProfile?.nickname);
-  }, []);
+  const fileInput = useRef();
 
-  const fileInput = React.useRef();
-
-  //랜덤 닉네임 생성
-  const randomnickFront = Front;
-  const randomnickBack = Back;
-
-  const randomNick =
-    randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
-    " " +
-    randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
-
-  const [nickname, setNickname] = useState(
-    getProfile?.nickname ? getProfile.nickname : randomNick
-  );
+  const [nickname, setNickname] = useState(getProfile?.nickname || "");
   const [website1, setWebsite1] = useState("");
   const [website2, setWebsite2] = useState("");
   const [website3, setWebsite3] = useState("");
@@ -47,7 +31,7 @@ const DetailProfile = () => {
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
 
-  const selectFile = (e) => {
+  const selectFile = () => {
     const reader = new FileReader();
     console.log(reader);
     const file = fileInput.current.files[0];
@@ -101,7 +85,7 @@ const DetailProfile = () => {
                 ? getProfile.profileImage
                 : ""
             }
-          ></Image>
+          />
         </Flex>
       </Wrapprofile>
       <ImgBox>
@@ -111,12 +95,7 @@ const DetailProfile = () => {
       <Wrap padding="20px 20px">
         <Flex padding="10px 0">
           <Text fg="1">닉네임</Text>
-          <Input
-            square
-            br="6px"
-            value={nickname || ""}
-            onChange={(e) => setNickname(e.target.value)}
-          ></Input>
+          <Input square br="6px" value={nickname} readOnly></Input>
         </Flex>
         <Flex>
           <Text fg="1">웹사이트</Text>
