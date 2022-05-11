@@ -52,7 +52,7 @@ const ArtCard = (props) => {
               <Text>
                 {transaction} ∙ {address}
               </Text>
-              <Text bold>{priceComma(price)}원</Text>
+              <Text bold>{price && priceComma(price)}원</Text>
             </Wrap>
           </Flex>
         </Card>
@@ -134,7 +134,7 @@ const ArtCard = (props) => {
         <Text>
           {transaction} ∙ {address}
         </Text>
-        <Text bold>{priceComma(price)}원</Text>
+        <Text bold>{price && price}원</Text>
       </Card>
     );
   } // 여기 else 안주면 밑에꺼 나오지 않나요 ? -한울-
@@ -151,7 +151,7 @@ const ArtCard = (props) => {
       <Text body2 margin="0 0 0 2px" color={theme.pallete.gray3}>
         {transaction} ∙ {address}
       </Text>
-      <Text>{priceComma(price)}원</Text>
+      <Text>{price && priceComma(price)}원</Text>
     </Card>
   );
 };
