@@ -89,7 +89,7 @@ const TextareaContainer = styled.textarea`
     ${({ textLine }) => textLine}rem + (${({ padding }) => padding} * 2)
   );
   width: ${({ width }) => width};
-  padding: ${({ padding }) => padding} 0;
+  padding: ${({ padding }) => padding}; // 0지움
   background: rgba(255, 255, 255, 0.05);
   border-radius: 2px;
   border: ${({ border }) => border}!important;

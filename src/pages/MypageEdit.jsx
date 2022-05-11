@@ -116,7 +116,7 @@ const MypageEdit = () => {
             border="1px solid #d3d3d3"
             br="6px"
             type="text"
-            fg="0"
+            fg="1"
             value={nickname || ""}
             onChange={(e) => setNickname(randomNick)}
           />
@@ -125,18 +125,19 @@ const MypageEdit = () => {
         {/* 프로필 저장 버튼도 나타나게 */}
         <Flex jc="center" margin="10px 0">
           <Text fg="1">웹사이트</Text>
-          <Input
-            square
-            br="6px"
-            fg="0"
-            type="text"
-            placeholder="instagram 주소"
-            value={website1 || ""}
-            // icon={<BsPlusSquareFill size={28} />}
-            onChange={(e) => {
-              setWebsite1(e.target.value);
-            }}
-          ></Input>
+          <Flex fg="1">
+            <Input
+              square
+              br="6px"
+              type="text"
+              placeholder="instagram 주소"
+              value={website1 || ""}
+              // icon={<BsPlusSquareFill size={28} />}
+              onChange={(e) => {
+                setWebsite1(e.target.value);
+              }}
+            />
+          </Flex>
         </Flex>
         {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
         <Flex margin="20px 0">
@@ -144,7 +145,7 @@ const MypageEdit = () => {
           <Input
             square
             br="6px"
-            fg="0"
+            fg="1"
             type="text"
             placeholder="Behance 주소"
             value={website2 || ""}
@@ -157,7 +158,7 @@ const MypageEdit = () => {
           <Input
             square
             br="6px"
-            fg="0"
+            fg="1"
             type="text"
             placeholder="other website"
             value={website3 || ""}

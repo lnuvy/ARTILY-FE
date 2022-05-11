@@ -51,7 +51,7 @@ const Header = (props) => {
             fg="1"
             height="22px"
             width="69px"
-            onClick={() => history.push("/")}
+            onClick={() => history.push("/home")}
           >
             <Logo />
           </Icon>
