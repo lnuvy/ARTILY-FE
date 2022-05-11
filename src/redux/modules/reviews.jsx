@@ -50,7 +50,7 @@ export const getReviewOne = (reviewId) => {
       .then(function (response) {
         console.log(response.data.buyer);
         console.log(response.data.defferent);
-        dispatch(getNowReview(response.data.buyer));
+        dispatch(getNowReview(response.data));
       })
       .catch(function (error) {
         console.log(error);

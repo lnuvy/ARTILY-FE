@@ -38,7 +38,7 @@ const ReviewDetail = (props) => {
       {current.reviewData ? (
         <>
           <Wrap margin="16px 16px 8px">
-            <Text h1 contents={current.reviewData.reviewTitle}></Text>
+            <Text h1 contents={current.reviewData.buyer.reviewTitle}></Text>
             <Flex margin="8px 0 0 0" jc="space-between">
               <Flex>
                 <Image circle size="32" />
@@ -49,22 +49,22 @@ const ReviewDetail = (props) => {
               </Flex>
               <Flex>
                 {/* {isMe ? (
-              <>
-                <Text body2>수정하기</Text> &nbsp;
-                <Text body2>삭제하기</Text>
-              </>
-            ) : (
-              <>
-                <Text body2>팔로우</Text> &nbsp;
-                <Text body2>신고</Text>
-              </>
-            )} */}
+                  <>
+                    <Text body2>수정하기</Text> &nbsp;
+                    <Text body2>삭제하기</Text>
+                  </>
+                ) : (
+                  <>
+                    <Text body2>팔로우</Text> &nbsp;
+                    <Text body2>신고</Text>
+                  </>
+                )} */}
               </Flex>
             </Flex>
           </Wrap>
-          <ImageCarousel src={current.reviewData.imageUrl} />
+          <ImageCarousel src={current.reviewData.buyer.imageUrl} />
           <Wrap margin="16px">
-            <Text contents={current.reviewData.reviewContent}></Text>
+            <Text contents={current.reviewData.buyer.reviewContent}></Text>
           </Wrap>
           <Wrap padding="10px 16px 16px" bc={`${theme.pallete.primary100}`}>
             <Flex>
