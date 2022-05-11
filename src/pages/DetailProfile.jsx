@@ -20,12 +20,9 @@ const DetailProfile = () => {
 
   useEffect(() => {
     dispatch(getUserInfo());
-    setNickname(getProfile.nickname);
   }, []);
 
-  const fileInput = useRef();
-
-  const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useState(getProfile?.nickname || "");
   const [website1, setWebsite1] = useState("");
   const [website2, setWebsite2] = useState("");
   const [website3, setWebsite3] = useState("");
@@ -34,27 +31,17 @@ const DetailProfile = () => {
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
 
-  const selectFile = () => {
-    const reader = new FileReader();
-    console.log(reader);
-    const file = fileInput.current.files[0];
-    console.log(file);
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      dispatch(setProfileImage(reader.result));
-    };
-  };
+  // 닉네임 인풋에 보여주기
+  useEffect(() => {
+    setNickname(getProfile.nickname);
+  }, [getProfile.nickname]);
 
   const editUser = () => {
-    const file = fileInput.current.files[0];
-    console.log(file);
+    // const file = fileInput.current.files[0];
+    // console.log(file);
     //새로운 객체 생성
     const formData = new FormData();
 
-    //formData.append(name(키),value(값))
-    //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
-    // formData.append("profileImage", file);
-    // formData.append("nickName", nickname);
     formData.append("snsUrl", [website1]);
     formData.append("snsUrl", [website2]);
     formData.append("snsUrl", [website3]);
@@ -89,10 +76,6 @@ const DetailProfile = () => {
           />
         </Flex>
       </Wrapprofile>
-      <ImgBox>
-        <label htmlFor="image">🖍</label>
-        <input type="file" id="image" ref={fileInput} onChange={selectFile} />
-      </ImgBox>
       <Wrap padding="20px 20px">
         <Flex padding="10px 0">
           <Flex width="100%">
@@ -213,6 +196,7 @@ const DetailProfile = () => {
       <Flex
         jc="center"
         onClick={() => {
+          console.log("스킵");
           history.push("/");
         }}
       >

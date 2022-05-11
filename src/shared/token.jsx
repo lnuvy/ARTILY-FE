@@ -1,5 +1,11 @@
-const getToken = () => {
-  return localStorage.getItem("token");
+const getToken = async () => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    return `Bearer ${token}`;
+  } else {
+    return null;
+  }
 };
 
 const insertToken = (token) => {

@@ -16,7 +16,6 @@ const NoAuthRoute = () => {
   return (
     <Switch>
       <Route path={["/home", "/"]} exact component={Home} />
-      <Route path="/store" exact component={Store} />
       <Route path="/store/view/:postId" exact component={StoreDetail} />
       <Route path="/store" exact component={Store} />
       <Route exact path="/review" component={Review} />
