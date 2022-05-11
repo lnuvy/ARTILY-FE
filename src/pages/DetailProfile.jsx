@@ -12,17 +12,19 @@ import ToastMessage from "../shared/ToastMessage";
 import { Front, Back } from "../shared/NicknameDummy.js";
 //임시 아이콘
 import { BsPlusSquare } from "react-icons/bs";
+
 const DetailProfile = () => {
   const dispatch = useDispatch();
   const getProfile = useSelector((state) => state.user.user);
+  console.log(getProfile);
 
   useEffect(() => {
-    dispatch(getUserInfo());
+    // dispatch(getUserInfo());
   }, []);
 
   const fileInput = useRef();
 
-  const [nickname, setNickname] = useState(getProfile?.nickname || "");
+  const [nickname, setNickname] = useState(getProfile.nickname);
   const [website1, setWebsite1] = useState("");
   const [website2, setWebsite2] = useState("");
   const [website3, setWebsite3] = useState("");
@@ -71,7 +73,7 @@ const DetailProfile = () => {
         <h2>ARTILY</h2>
       </Flex>
       <Flex jc="center" margin="0 0 2em 0">
-        <p>내 프로필을 만들어주세요!</p>
+        <p>내 프로필을 완성해주세요!</p>
       </Flex>
       <Wrapprofile>
         <Flex jc="center">
@@ -81,9 +83,7 @@ const DetailProfile = () => {
             height="120px"
             br="60px"
             src={
-              getProfile && getProfile.profileImage
-                ? getProfile.profileImage
-                : ""
+              getProfile && getProfile.profileImage && getProfile.profileImage
             }
           />
         </Flex>

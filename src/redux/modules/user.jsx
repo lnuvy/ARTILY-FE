@@ -43,16 +43,16 @@ export const kakaoLogin = (code) => {
         insertToken(token); //local storage에 저장
 
         dispatch(setUser(user));
-
-        // 최초 로그인일 경우에만 로그인 후 프로필 설정하는 페이지로 이동
-        if (user.type === "new") {
-          //신규 회원이면
-          history.replace("/profile");
-          window.location.reload();
-        } else {
-          //기존 회원이면
-          history.push("/");
-        }
+        window.location.reload();
+        // // 최초 로그인일 경우에만 로그인 후 프로필 설정하는 페이지로 이동
+        // if (user.type === "new") {
+        //   //신규 회원이면
+        //   history.replace("/profile");
+        //   window.location.reload();
+        // } else {
+        //   //기존 회원이면
+        //   history.push("/");
+        // }
       })
       .catch((err) => {
         console.log("카카오로그인", err);
@@ -87,13 +87,14 @@ export const naverLogin = (code, state) => {
         };
         dispatch(setUser(user));
         insertToken(token); //local storage에 저장
-        if (user.type === "new") {
-          //신규 회원이면
-          history.replace("/profile");
-          window.location.reload();
-        }
-        //기존 회원이면
-        history.push("/");
+        window.location.reload();
+        // if (user.type === "new") {
+        //   //신규 회원이면
+        //   history.replace("/profile");
+        //   window.location.reload();
+        // }
+        // //기존 회원이면
+        // history.push("/");
       })
       .catch((err) => {
         console.log("네이버로그인 에러", err);

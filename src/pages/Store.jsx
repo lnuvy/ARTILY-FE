@@ -10,6 +10,7 @@ import _ from "lodash";
 import { AiOutlineSearch } from "react-icons/ai";
 import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
+import { Search } from "../assets/icons";
 
 const Store = () => {
   const dispatch = useDispatch();
@@ -86,7 +87,7 @@ const Store = () => {
         <Input
           margin="0 20px"
           placeholder="작가명, 작품명 검색..."
-          icon={<AiOutlineSearch size={28} />}
+          icon={<Search />}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

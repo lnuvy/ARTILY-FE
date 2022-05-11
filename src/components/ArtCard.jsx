@@ -157,7 +157,7 @@ const ArtCard = (props) => {
           <Image height="120px" src={imageUrl[0]} />
         </Label>
         <Flex margin="8px 0 0">
-          <Image circle size="20" src={nowuser.profileImage} />
+          <Image circle size="20" src={nowuser?.profileImage} />
           <Text margin="0 0 0 4px">{nowuser.nickname}</Text>
         </Flex>
         <Text>{postTitle}</Text>
