@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Api = axios.create({
-  baseURL: "http://13.124.169.236",
+  baseURL: "https://rusy7225.shop/",
 });
 
 Api.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem(
