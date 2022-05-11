@@ -53,9 +53,12 @@ const Home = () => {
           {bestPost.map((v, i) => {
             return (
               <ArtCard
+                home
                 onClick={() => move2detail(v, "/store")}
                 key={i}
                 {...v}
+                nickname={v.user.nickname}
+                profileImage={v.user.profileImage}
               />
             );
           })}
@@ -76,14 +79,19 @@ const Home = () => {
                   padding="16px 16px 10px"
                   onClick={modalOn}
                   width="268px"
+                  height="215px"
                 >
-                  <Image circle size="88" margin="8px auto 10px" />
+                  <Image
+                    circle
+                    size="88"
+                    margin="8px auto 10px"
+                    src={v.profileImage}
+                  />
                   <Text textAlign="center" margin="0 0 9px">
-                    작가명
+                    {v.nickname}
                   </Text>
                   <Text body2 textAlign="center" margin="0 0 6px">
-                    작가 본인이 작성한 소개를 보여주는 영역입니다. 작가 본인이
-                    작성한 소개를 보여주는 영역입니다.
+                    {v.introduce}
                   </Text>
                   <Text body3 textAlign="center" color={theme.pallete.gray3}>
                     작품타입 오브제 ∙ 등록작품 4개
@@ -100,13 +108,14 @@ const Home = () => {
         </Text>
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
           {bestReview.length
-            ? bestReview.map((l, i) => {
+            ? bestReview.map((v, i) => {
+                console.log(v);
                 return (
                   <ReviewCard
                     key={i}
-                    {...l}
-                    onClick={() => move2detail(l, "/review")}
-                    imageUrl={l.imageUrl[0]}
+                    {...v}
+                    onClick={() => move2detail(v, "/review")}
+                    imageUrl={v.imageUrl[0]}
                   />
                 );
               })

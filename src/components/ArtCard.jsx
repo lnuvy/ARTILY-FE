@@ -44,6 +44,7 @@ const ArtCard = (props) => {
     profileImage,
     address,
     changeAddress,
+    home,
   } = props;
   // const { userId, profileImage, address } = user;
   const nowuser = useSelector((state) => state.user.user);
@@ -121,9 +122,25 @@ const ArtCard = (props) => {
         </Sell>
       </>
     );
-  }
-
-  if (buylist) {
+  } else if (home) {
+    //마이페이지=> 구매내역 조회 / 리뷰 작성
+    return (
+      <Card onClick={onClick}>
+        <Image height="168px" border="none" src={imageUrl[0]} br="8px" />
+        <Flex margin="8px 0 ">
+          <Image circle size="32" src={profileImage} />
+          <Text margin="0 0 0 8px">{nickname}</Text>
+        </Flex>
+        <Text h3 medium margin="0 0 0 2px">
+          {postTitle}
+        </Text>
+        <Text body2 margin="0 0 0 2px" color={theme.pallete.gray3}>
+          {transaction} ∙ {changeAddress}
+        </Text>
+        <Text>{price && priceComma(price)}원</Text>
+      </Card>
+    );
+  } else if (buylist) {
     //마이페이지=> 구매내역 조회 / 리뷰 작성
     return (
       <>
@@ -145,9 +162,7 @@ const ArtCard = (props) => {
         </Card>
       </>
     );
-  }
-
-  if (sellLabel) {
+  } else if (sellLabel) {
     //마이페이지 하단 판매목록
     return (
       <Card onClick={onClick}>
@@ -180,8 +195,7 @@ const ArtCard = (props) => {
         </Flex>
       </Card>
     );
-  }
-  if (review) {
+  } else if (review) {
     //리뷰목록
     return (
       <Card onClick={onClick}>
@@ -200,8 +214,7 @@ const ArtCard = (props) => {
         </Flex>
       </Card>
     );
-  }
-  if (markup) {
+  } else if (markup) {
     //관심목록
     return (
       <Card onClick={onClick}>
@@ -256,30 +269,6 @@ const ArtCard = (props) => {
       </Card>
     );
   }
-
-  return (
-    <Card onClick={onClick}>
-      <Image height="168px" br="8px" src={imageUrl[0]} />
-      <Flex margin="8px 0 0">
-        <Image circle size="32" src={user.profileImage} />
-        <Text h3 margin="0 0 0 4px">
-          {user.nickname}
-        </Text>
-      </Flex>
-      <Text h3>{postTitle}</Text>
-      <Text color={theme.pallete.gray3}>
-        {transaction} ∙ {changeAddress}
-      </Text>
-      {price ? (
-        <Text fg="1" bold>
-          {priceComma(price)}원
-        </Text>
-      ) : (
-        ""
-      )}
-      <Text>{reviewContent}</Text>
-    </Card>
-  );
 };
 const Sell = styled.div`
   margin: 10px 0;
