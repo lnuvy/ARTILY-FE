@@ -29,7 +29,7 @@ const Home = () => {
     if (path === "/store") {
       console.log();
     }
-    history.push(`${path}/review/${data.postId}`);
+    history.push(`${path}/view/${data.postId}`);
   };
 
   const modalOn = () => {
