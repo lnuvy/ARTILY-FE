@@ -58,7 +58,7 @@ const DetailProfile = () => {
     //formData.append(name(키),value(값))
     //값은 문자열로 자동 변환됨. 배열을 넣어도 콤마로 구분한 문자열이 됨. 객체는 넣으면 무시됨
     // formData.append("profileImage", file);
-    // formData.append("nickName", nickname);
+    formData.append("nickname", nickname);
     formData.append("snsUrl", [website1]);
     formData.append("snsUrl", [website2]);
     formData.append("snsUrl", [website3]);
@@ -93,10 +93,6 @@ const DetailProfile = () => {
           />
         </Flex>
       </Wrapprofile>
-      <ImgBox>
-        <label htmlFor="image">🖍</label>
-        <input type="file" id="image" ref={fileInput} onChange={selectFile} />
-      </ImgBox>
       <Wrap padding="20px 20px">
         <Flex padding="10px 0">
           <Flex width="100%">

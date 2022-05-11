@@ -15,13 +15,13 @@ const BuyList = () => {
   const dispatch = useDispatch();
   const mybuyList = useSelector((state) => state.mystore.list);
   console.log(mybuyList);
-  const dummybuyList = useSelector((state) => state.mystore.buyList);
-  console.log(dummybuyList);
+  // const dummybuyList = useSelector((state) => state.mystore.nowList);
+  // console.log(dummybuyList);
 
   const nowUser = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    dispatch(getmyPageDB(nowUser?.userId));
+    dispatch(getmyPageDB());
   }, []);
 
   const handleClickData = (data) => {
@@ -29,9 +29,9 @@ const BuyList = () => {
     history.push(`/store/${data.postId}`);
   };
 
-  useEffect(() => {
-    dispatch(selectbuyList());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(selectbuyList());
+  // }, []);
   return (
     <>
       <Text h2 bold margin="10px 0 20px 10px">
@@ -41,7 +41,7 @@ const BuyList = () => {
       <Background>
         <Inner>
           <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0">
-            {mybuyList &&
+            {/* {mybuyList &&
               dummybuyList?.map((list) => {
                 return (
                   <ArtCard
@@ -52,7 +52,7 @@ const BuyList = () => {
                     onClick={() => handleClickData(list)}
                   ></ArtCard>
                 );
-              })}
+              })} */}
           </Grid>
         </Inner>
         {/* 스크롤이 안생겼으면 하는데 방법이 있을까요? */}

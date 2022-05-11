@@ -26,6 +26,8 @@ const ReviewCard = (props) => {
     seller,
     createdAt,
     likeCnt,
+    // 5.11 프로필 이미지 추가했습니다 -영경
+    profileImage,
   } = props;
 
   return (
@@ -38,7 +40,8 @@ const ReviewCard = (props) => {
         {reviewContent}
       </Text>
       <Flex margin="8px 0 0 0">
-        <Image circle size="24" />
+        {/* 5.11 프로필 이미지 src 추가했습니다 -영경*/}
+        <Image circle size="24" src={profileImage} />
         <Text fg="1" margin="0 0 0 8px">
           {nickname}
         </Text>

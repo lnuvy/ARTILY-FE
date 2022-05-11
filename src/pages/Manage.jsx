@@ -4,77 +4,72 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Grid, Text, Flex } from "../elements";
 import { useLocation } from "react-router-dom";
-import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
+import {
+  getmyPageDB,
+  getDetail,
+  getMySellListDB,
+  selectList,
+} from "../redux/modules/mypage";
 import { history } from "../redux/configureStore";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ArtCard } from "../components";
+
 const menus = ["판매목록"];
 
 const Manage = () => {
   const dispatch = useDispatch();
-  const mystoreList = useSelector((state) => state.mystore.list);
+  const mystoreList = useSelector((state) => state.mystore.sellList);
   console.log(mystoreList);
-  const nowList = useSelector((state) => state.mystore.nowList);
-
-  const nowUser = useSelector((state) => state.user.user);
-
-  //더미 데이터 주입
-  useEffect(() => {
-    dispatch(getmyPageDB(nowUser?.userId));
-  }, []);
 
   const handleClickData = (data) => {
     dispatch(getDetail(data));
-    history.push(`/store/${data.postId}`);
+    history.push(`/store/view/${data.postId}`);
   };
-
-  const [current, setCurrent] = useState(menus[0]);
-
   useEffect(() => {
-    dispatch(selectList(current));
-  }, [current]);
+    dispatch(getMySellListDB());
+  }, []);
   return (
     <>
-      <Text h2 bold margin="0 0 0 10px">
+      <Text h2 bold margin="10px 0 20px 10px">
         판매 작품 관리하기
       </Text>
 
       {/* 판매목록 */}
       <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0">
-        {mystoreList &&
-          nowList?.map((list) => {
-            //판매글이 없다면?
-            if (!list) {
-              return (
-                <p>
-                  아직 등록한 작품이 없어요.
-                  <br />
-                  작품을 등록하시겠어요?
-                </p>
-              );
-            }
+        {mystoreList?.map((list) => {
+          //판매글이 없다면?
+          if (!list) {
             return (
-              <ArtCard
-                mystore
-                key={list.postId}
-                className="sell"
-                {...list}
-                onClick={() => handleClickData(list)}
-              ></ArtCard>
+              <p>
+                아직 등록한 작품이 없어요.
+                <br />
+                작품을 등록하시겠어요?
+              </p>
             );
-          })}
+          }
+          return (
+            <ArtCard
+              mystore
+              key={list.postId}
+              className="sell"
+              {...list}
+              onClick={() => handleClickData(list)}
+            ></ArtCard>
+          );
+        })}
       </Grid>
-
-      <Button
-        width="90%"
-        margin="10px auto"
-        onClick={() => {
-          history.push("/store/write");
-        }}
-      >
-        판매 작품 등록하기
-      </Button>
+      <Flex width="90%" margin="0 auto">
+        <Button
+          width="100%"
+          margin="10px auto"
+          onClick={() => {
+            history.push("/store/write");
+          }}
+        >
+          판매 작품 등록하기
+        </Button>
+      </Flex>
     </>
   );
 };

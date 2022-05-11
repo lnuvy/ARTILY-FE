@@ -31,7 +31,7 @@ export const getReviewDB = () => {
     Apis.getReview(pageHandler)
       .then(function (response) {
         console.log(response);
-        dispatch(getReviewData(response.data));
+        dispatch(getReviewData(response.data.review));
       })
       .catch(function (error) {
         console.log(error);

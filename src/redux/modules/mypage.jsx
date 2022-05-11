@@ -1,35 +1,29 @@
 //마이페이지에서 판매목록을 불러올때 사용될 리덕스입니다. -영경
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { myPageDummy } from "../../shared/Dummy";
+
+import { Apis } from "../../shared/api";
 
 const BASE_URL = "https://rusy7225.shop";
 
 const initialState = {
   list: [],
   nowList: [],
-  buyList: [],
+  sellList: [],
   isFetching: false,
   infinityScroll: {},
   detailData: null,
+  done: false,
 };
+//마이페이지 조회
+//비로그인시에도 다른사람 프로필 조회를 위해 userId 같이 보내기
 
 export const getmyPageDB = (userId) => {
-  // return async function (dispatch, getState, { history }) {
-  //   // 더미데이터 리덕스 주입
-  //   dispatch(getmyPageData(myPageDummy)); //일단 한번에 가져와
-  //   console.log(myPageDummy);
-  // };
-  console.log(userId);
-  return function (dispatch, getState) {
-    axios({
-      method: "get",
-      url: `${BASE_URL}/api/profile/${userId}`,
-      // data: userId,
-    })
+  console.log("서버가 받을 userId :", userId);
+  return function (dispatch, getState, { history }) {
+    Apis.getMypageData(userId)
       .then((res) => {
         console.log(res);
-        dispatch(getmyPageData(myPageDummy));
+        dispatch(getmyPageData(res.data));
       })
       .catch((error) => {
         console.log("마이페이지 조회 실패", error);
@@ -37,25 +31,33 @@ export const getmyPageDB = (userId) => {
       });
   };
 };
-export const myBuylistDB = (userId) => {
-  // return async function (dispatch, getState, { history }) {
-  //   // 더미데이터 리덕스 주입
-  //   dispatch(getmyPageData(myPageDummy)); //일단 한번에 가져와
-  //   console.log(myPageDummy);
-  // };
-  return function (dispatch, getState) {
-    axios({
-      method: "get",
-      url: `${BASE_URL}/api/profile/:${userId}`,
-      // data: userId,
-    })
+//판매 목록 조회
+export const getMySellListDB = () => {
+  return function (dispatch, getState, { history }) {
+    Apis.getMyList()
       .then((res) => {
-        console.log(res);
-        dispatch(getmyPageData(myPageDummy));
+        console.log("판매목록 조회 :", res);
+        // dispatch(selectList());
+        const mySell = res.data;
+        dispatch(mySellList(mySell));
       })
       .catch((error) => {
-        console.log("마이페이지 조회 실패", error);
-        window.alert("마이페이지를 조회하는 데 문제가 발생했습니다!");
+        console.log("판매목록 조회 실패", error);
+        window.alert("판매목록을 조회하는 데 문제가 발생했습니다!");
+      });
+  };
+};
+//구매 목록 조회
+export const getMyBuyListDB = () => {
+  return function (dispatch, getState, { history }) {
+    Apis.getMyList()
+      .then((res) => {
+        console.log(res);
+        // dispatch(getmyPageData());
+      })
+      .catch((error) => {
+        console.log("구매목록 조회 실패", error);
+        window.alert("구매목록을 조회하는 데 문제가 발생했습니다!");
       });
   };
 };
@@ -66,6 +68,7 @@ const postsSlice = createSlice({
   reducers: {
     getmyPageData: (state, action) => {
       state.list = action.payload;
+      console.log(state.list);
     },
     // 데이터 하나 특정하기
     getDetail: (state, action) => {
@@ -74,21 +77,32 @@ const postsSlice = createSlice({
     selectList: (state, action) => {
       if (action.payload === "판매목록") {
         state.nowList = state.list.myPost;
+        console.log(state.nowList);
       } else if (action.payload === "리뷰목록") {
         state.nowList = state.list.myReview;
       } else if (action.payload === "관심목록") {
         state.nowList = state.list.myMarkup;
         // let newArr = state.list.find((l) => l === action.payload);
-        // console.log(newArr);
       }
     },
-    selectbuyList: (state, action) => {
-      state.list = state.list.myBuy;
-      console.log(state.list.myBuy);
+    mySellList: (state, action) => {
+      state.sellList = action.payload.myPost;
+      console.log(state.sellList);
+    },
+    SellStateCheck: (state, action) => {
+      state.done = action.payload;
+      state.done = true; //판매완료로 바꿔
+      console.log(state.done);
     },
   },
 });
 
 const { reducer, actions } = postsSlice;
-export const { getmyPageData, getDetail, selectList, selectbuyList } = actions;
+export const {
+  getmyPageData,
+  getDetail,
+  selectList,
+  mySellList,
+  SellStateCheck,
+} = actions;
 export default reducer;

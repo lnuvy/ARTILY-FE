@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Button, Text, Flex, Image, Grid, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
-import { go2detail } from "../redux/modules/store";
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard } from "../components";
 import theme from "../styles/theme";
+
 import { getUserInfo, userLogout } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
 
@@ -14,13 +14,31 @@ const menus = ["판매목록", "리뷰목록", "관심목록"];
 
 const MyPage = () => {
   const dispatch = useDispatch();
-  const mystoreList = useSelector((state) => state.mystore.list);
+  const myAllList = useSelector((state) => state.mystore.list);
   const nowList = useSelector((state) => state.mystore.nowList);
+  console.log(nowList);
 
   const getProfile = useSelector((state) => state.user.user);
 
   // 웹사이트 주소 외부링크 연결
-  const { user, isLogin } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
+  console.log(user);
+
+  const target = {
+    Url: user?.snsUrl,
+  };
+
+  let insta = target.Url.find((url) => {
+    return url.includes("instagram");
+  });
+  let Behance = target.Url.find((url) => {
+    return url.includes("behance");
+  });
+
+  //프로필 정보 불러오기
+  const isLogin = useSelector((state) => state.user.isLogin);
+  const userId = useSelector((state) => state.user?.user?.userId);
+  console.log("서버로 보낼 userId :", userId);
 
   useEffect(() => {
     if (isLogin) {
@@ -30,15 +48,15 @@ const MyPage = () => {
   }, []);
 
   const handleClickSellData = (data) => {
-    dispatch(go2detail(data));
-    history.push(`/store/${data.postId}`);
+    dispatch(getDetail(data));
+    history.push(`/store/view/${data.postId}`);
   };
   const handleClickReviewData = (data) => {
-    dispatch(go2detail(data));
+    dispatch(getDetail(data));
     history.push(`/review/${data.reviewId}`);
   };
   const handleClickMarkupData = (data) => {
-    dispatch(go2detail(data));
+    dispatch(getDetail(data));
     history.push(`/store/${data.postId}`);
   };
 
@@ -94,7 +112,7 @@ const MyPage = () => {
             명
           </Text>
           <Text body2>
-            등록한 작품 {mystoreList.myPost && mystoreList.myPost.length}개
+            등록한 작품 {myAllList.myPost && myAllList?.myPost.length}개
           </Text>
         </Wrap>
         <Wrap margin="0 0 50px">
@@ -111,30 +129,34 @@ const MyPage = () => {
 
       <Text margin="10px 10px">
         {getProfile && getProfile.introduce ? getProfile.introduce : ""}
-        {/* 자기소개 영역입니다아아아아자기소개 영역입니다아아아아자기소개
-        영역입니다아아아아자기소개 영역입니다아아아아자기소개
-        영역입니다아아아아자기소개 영역입니다아아아아자기소개 영역입니다아아아아 */}
       </Text>
       {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
-      <Wrap>
-        <Flex width="100%" margin="5px 0 10px 20px">
-          <Text className="site" fg="1">
-            {/* 유저에게 받은 웹사이트 주소 넣어서 외부링크로 연결해야 함. 아직 못함 */}
-            {/* <a href={`${getProfile.snsUrl[0]}`}>❤️ instagram</a> */}
-            <a href="google.com" target="_blank" rel="noreferrer">
-              ❤️ instagram
+      <Flex width="100%" jc="space-between" padding="10px 20px">
+        <Flex>
+          <img src="../../images/instagram.svg" />
+          <Text className="site" margin="0 0 0 5px">
+            <a href={`http://${insta}`} target="_blank" rel="noreferrer">
+              instagram
             </a>
-          </Text>
-          <Text className="site" fg="1">
-            <a href="naver.com" target="_blank" rel="noreferrer">
-              💙 Behance
-            </a>
-          </Text>
-          <Text className="site" fg="1">
-            <a href={``}>🌐 Website</a>
           </Text>
         </Flex>
-      </Wrap>
+        <Flex>
+          <img src="../../images/Behance.svg" />
+          <Text className="site" margin="0 0 0 5px">
+            <a href={`http://${Behance}`} target="_blank" rel="noreferrer">
+              Behance
+            </a>
+          </Text>
+        </Flex>
+        <Flex>
+          <img src="../../images/web.svg" />
+          <Text className="site" margin="0 0 0 5px">
+            <a href={`http://${user && user?.snsUrl[3]}}`}>
+              <p>Website</p>
+            </a>
+          </Text>
+        </Flex>
+      </Flex>
       <Mytab>
         <p
           onClick={() => {
@@ -195,9 +217,19 @@ const MyPage = () => {
 
       {/* ---------------------------------------------------- */}
       <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="10px 10px 20px">
-        {mystoreList &&
+        {myAllList &&
           nowList?.map((l) => {
-            if (current === "리뷰목록") {
+            if (current === "판매목록") {
+              return (
+                <ArtCard
+                  sellLabel
+                  key={`${l.postId}_mypost`}
+                  className="sell"
+                  {...l}
+                  onClick={() => handleClickSellData(l)}
+                />
+              );
+            } else if (current === "리뷰목록") {
               return (
                 <ArtCard
                   review
@@ -217,16 +249,7 @@ const MyPage = () => {
                   onClick={() => handleClickMarkupData(l)}
                 />
               );
-            } else
-              return (
-                <ArtCard
-                  sellLabel
-                  key={`${l.postId}_mypost`}
-                  className="sell"
-                  {...l}
-                  onClick={() => handleClickSellData(l)}
-                />
-              );
+            }
           })}
       </Grid>
     </>

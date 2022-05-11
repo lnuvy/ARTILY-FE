@@ -56,4 +56,8 @@ export const Apis = {
   patchEditProfile: (data) =>
     Api.patch(`/api/profile/update`, data, formDataConfig),
   postMarkUp: (postId) => Api.post(`/api/markup/${postId}`),
+
+  //mypage API
+  getMypageData: (userId) => Api.get(`/api/profile/${userId}`),
+  getMyList: () => Api.get(`/api/mypost`),
 };

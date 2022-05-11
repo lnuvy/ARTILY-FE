@@ -33,6 +33,9 @@ import { postMarkupToggle } from "../redux/modules/user";
 const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
+  //5.11 다른사람 마이페이지 조회할 userId -영경
+  const { userId } = useParams();
+  console.log({ userId });
 
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
@@ -91,7 +94,14 @@ const StoreDetail = () => {
             <Text h1>{current.postTitle}</Text>
             <Flex margin="8px 0 0 0" jc="space-between">
               <Flex>
-                <Image circle size="32" src={current.user.profileImage} />
+                <Image
+                  circle
+                  size="32"
+                  src={current.user.profileImage}
+                  onClick={() => {
+                    history.push(`/mypage/${current.user.userId}`);
+                  }}
+                />
                 <Text margin="0 0 0 4px">{current.user.nickname}</Text>
               </Flex>
               <Flex>

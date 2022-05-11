@@ -59,7 +59,7 @@ const MypageEdit = () => {
     const formData = new FormData();
 
     formData.append("profileImage", file);
-    formData.append("nickName", nickname);
+    formData.append("nickname", nickname);
     formData.append("snsUrl", [website1]);
     formData.append("snsUrl", [website2]);
     formData.append("snsUrl", [website3]);
@@ -87,6 +87,7 @@ const MypageEdit = () => {
             width="120px"
             height="120px"
             br="60px"
+            border="1px solid #666"
             src={preview ? preview : getProfile ? getProfile.profileImage : ""}
           />
 
@@ -139,24 +140,19 @@ const MypageEdit = () => {
             </Flex>
           </Flex>
         </Flex>
-        <Flex padding="5px 0 5px">
-          <Flex width="100%">
-            <Flex width="30%">
-              <Text></Text>
-            </Flex>
-            <Flex width="70%">
-              <Input
-                fg="1"
-                square
-                br="6px"
-                type="text"
-                placeholder="Behance 주소"
-                value={website2}
-                // icon={<BsPlusSquare size={28} color="#555" onClick={() => {}} />}
-                onChange={(e) => setWebsite2(e.target.value)}
-              />
-            </Flex>
-          </Flex>
+        {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
+        <Flex margin="10px 0">
+          <Text fg="1"></Text>
+          <Input
+            square
+            br="6px"
+            fg="0"
+            type="text"
+            placeholder="Behance 주소"
+            value={website2 || ""}
+            // icon={<BsPlusSquare size={28} color="#555" onClick={() => {}} />}
+            onChange={(e) => setWebsite2(e.target.value)}
+          ></Input>
         </Flex>
         <Flex padding="5px 0 10px">
           <Flex width="100%">
@@ -176,29 +172,28 @@ const MypageEdit = () => {
             </Flex>
           </Flex>
         </Flex>
-
-        {/* Input으로 했을때는 기존 정보가 불러와지는데 Textarea로 했을때는 안 불러와져요*/}
-        <Flex padding="10px 0">
-          <Flex width="100%">
-            <Flex width="30%">
-              <Text>소개</Text>
-            </Flex>
-            <Flex width="70%">
-              <Textarea
-                width="100%"
-                fg="1"
-                value={introduce || ""}
-                onChange={(e) => setIntroduce(e.target.value)}
-                maxLength="50"
-                br="6px"
-              />
-            </Flex>
-          </Flex>
+        <Flex padding="20px 0 10px 0">
+          <Text fg="1">소개</Text>
+          <Textarea
+            fg="0"
+            value={introduce || ""}
+            onChange={(e) => setIntroduce(e.target.value)}
+            maxLength="100"
+            br="6px"
+          ></Textarea>
         </Flex>
       </Wrap>
-      <Button margin="0 20px" width="90%" onClick={editUser}>
-        수정 완료
-      </Button>
+      <Flex width="90%" margin="0 auto">
+        <Button
+          width="100%"
+          onClick={() => {
+            window.alert("프로필이 저장되었습니다!");
+            editUser();
+          }}
+        >
+          수정 완료
+        </Button>
+      </Flex>
     </>
   );
 };

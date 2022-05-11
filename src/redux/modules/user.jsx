@@ -93,6 +93,13 @@ export const getUserInfo = () => {
         console.log("getUser 데이터모양", res);
         const { user } = res.data;
         dispatch(getUser(user));
+        // if (user.type === "new") {
+        //   //신규 회원이면
+        //   history.replace("/profile");
+        // } else {
+        //   //기존 회원이면
+        //   history.replace("/");
+        // }
       })
       .catch((err) => {
         console.log("getUser 에러", err);
@@ -139,6 +146,7 @@ export const editProfileDB = (formData) => {
         console.log(res);
         // dispatch(editUser({profileImage, nickname}));
         history.replace("/mypage");
+        // window.location.reload();
       })
       .catch((error) => {
         console.log("프로필 수정 정보 전달 실패", error);
