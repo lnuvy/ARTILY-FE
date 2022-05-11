@@ -12,6 +12,7 @@ const Wrap = (props) => {
     bc,
     position,
     br,
+    fg,
   } = props;
 
   const styles = {
@@ -25,6 +26,7 @@ const Wrap = (props) => {
     br,
     //5.8 높이 추가
     height,
+    fg,
   };
 
   return <WrapStyle {...styles}>{children}</WrapStyle>;
@@ -48,7 +50,7 @@ const WrapStyle = styled.div`
   background-color: ${({ bc }) => bc};
   position: ${({ position }) => position};
   border-radius: ${({ br }) => br};
-  height: ${({ height }) => height};
+  flex-grow: ${({ fg }) => fg}; // 5.12 추가 민경
 `;
 
 export default Wrap;

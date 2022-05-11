@@ -115,7 +115,9 @@ const ArtCard = (props) => {
         </Sell>
       </>
     );
-  } else if (buylist) {
+  }
+
+  if (buylist) {
     //마이페이지=> 구매내역 조회 / 리뷰 작성
     return (
       <>
@@ -137,7 +139,9 @@ const ArtCard = (props) => {
         </Card>
       </>
     );
-  } else if (sellLabel) {
+  }
+
+  if (sellLabel) {
     //마이페이지 하단 판매목록
     return (
       <Card onClick={onClick}>
@@ -171,7 +175,8 @@ const ArtCard = (props) => {
         </Flex>
       </Card>
     );
-  } else if (review) {
+  }
+  if (review) {
     //리뷰목록
     return (
       <Card onClick={onClick}>
@@ -190,7 +195,8 @@ const ArtCard = (props) => {
         </Flex>
       </Card>
     );
-  } else if (markup) {
+  }
+  if (markup) {
     //관심목록
     return (
       <Card onClick={onClick}>
@@ -221,31 +227,31 @@ const ArtCard = (props) => {
         </Flex>
       </Card>
     );
-  } else {
-    return (
-      <Card onClick={onClick}>
-        <Image height="168px" br="8px" src={imageUrl[0]} />
-        <Flex margin="8px 0 0">
-          <Image circle size="32" src={user.profileImage} />
-          <Text h3 margin="0 0 0 4px">
-            {user.nickname}
-          </Text>
-        </Flex>
-        <Text h3>{postTitle}</Text>
-        <Text color={theme.pallete.gray3}>
-          {transaction} ∙ {changeAddress}
-        </Text>
-        {price ? (
-          <Text fg="1" bold>
-            {priceComma(price)}원
-          </Text>
-        ) : (
-          ""
-        )}
-        <Text>{reviewContent}</Text>
-      </Card>
-    );
   }
+
+  return (
+    <Card onClick={onClick}>
+      <Image height="168px" br="8px" src={imageUrl[0]} />
+      <Flex margin="8px 0 0">
+        <Image circle size="32" src={user.profileImage} />
+        <Text h3 margin="0 0 0 4px">
+          {user.nickname}
+        </Text>
+      </Flex>
+      <Text h3>{postTitle}</Text>
+      <Text color={theme.pallete.gray3}>
+        {transaction} ∙ {changeAddress}
+      </Text>
+      {price ? (
+        <Text fg="1" bold>
+          {priceComma(price)}원
+        </Text>
+      ) : (
+        ""
+      )}
+      <Text>{reviewContent}</Text>
+    </Card>
+  );
 };
 const Sell = styled.div`
   margin: 10px 0;

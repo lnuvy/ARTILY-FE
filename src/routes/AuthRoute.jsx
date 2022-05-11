@@ -35,8 +35,8 @@ const AuthRoute = () => {
       <Route path="/follow" exact component={Follow} />
       <Route path="/store" exact component={Store} />
       <Route exact path="/review" component={Review} />
-      <Route exact path="/review/:reviewId" component={ReviewDetail} />
-      <Route exact path="/write" component={ReviewWrite} />
+      <Route exact path="/review/reviewId" component={ReviewDetail} />
+      <Route exact path="/review/write" component={ReviewWrite} />
       <Route path="/test" component={Test} />
       <Route path="/mypage" exact component={MyPage} />
       <Route path="/login" exact component={Login} />

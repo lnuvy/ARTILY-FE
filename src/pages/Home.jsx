@@ -56,7 +56,7 @@ const Home = () => {
             return (
               <ArtCard
                 onClick={() => move2detail(v, "/store")}
-                key={v.postId}
+                key={i}
                 {...v}
               />
             );

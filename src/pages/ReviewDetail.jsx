@@ -11,6 +11,7 @@ import {
   Wrap,
   ImageCarousel,
   Image,
+  Button,
 } from "../elements";
 import { Card, Navigation, ArtCard, OtherWorkCard } from "../components";
 import {
@@ -86,12 +87,26 @@ const ReviewDetail = (props) => {
             </Flex>
           </Wrap>
           <Wrap margin="16px">
-            <Flex>
+            <Flex margin="0 0 11px">
               <Text h2>작가명의 다른 작품</Text>
-              <Text margin="0 0 0 8px" fg="1" lineHeight="22px">
-                팔로우
+              <Wrap margin="0 0 0 8px" fg="1">
+                <Button
+                  fontSize="16px"
+                  color={`${theme.color.brandColor}`}
+                  text
+                >
+                  팔로우
+                </Button>
+              </Wrap>
+              <Text lineHeight="22px">
+                <Button
+                  fontSize="16px"
+                  color={`${theme.color.brandColor}`}
+                  text
+                >
+                  더보기
+                </Button>
               </Text>
-              <Text lineHeight="22px">더보기</Text>
             </Flex>
             <Grid gtc="auto auto">
               <OtherWorkCard />
