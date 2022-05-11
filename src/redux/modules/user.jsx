@@ -41,18 +41,9 @@ export const kakaoLogin = (code) => {
           introduce,
         };
         insertToken(token); //local storage에 저장
-
+        window.location.reload(); // TODO: 새로고침안하면 401 에러
         dispatch(setUser(user));
-        window.location.reload();
-        // // 최초 로그인일 경우에만 로그인 후 프로필 설정하는 페이지로 이동
-        // if (user.type === "new") {
-        //   //신규 회원이면
-        //   history.replace("/profile");
-        //   window.location.reload();
-        // } else {
-        //   //기존 회원이면
-        //   history.push("/");
-        // }
+        history.replace("/");
       })
       .catch((err) => {
         console.log("카카오로그인", err);
@@ -87,14 +78,14 @@ export const naverLogin = (code, state) => {
         };
         dispatch(setUser(user));
         insertToken(token); //local storage에 저장
-        window.location.reload();
+        window.location.reload(); // TODO: 새로고침안하면 401 에러
         // if (user.type === "new") {
         //   //신규 회원이면
         //   history.replace("/profile");
         //   window.location.reload();
         // }
         // //기존 회원이면
-        // history.push("/");
+        history.push("/");
       })
       .catch((err) => {
         console.log("네이버로그인 에러", err);
@@ -119,27 +110,28 @@ export const getUserInfo = () => {
 
 // 회원가입 후 프로필 설정
 // 프로필사진, 닉네임 필수 수집
-export const setProfileDB = (formData) => {
+export const setProfileDB = (formData, goDetail = null) => {
   return function (dispatch, getState, { history }) {
     Apis.patchProfile(formData)
       .then((res) => {
         console.log(res);
         // dispatch(editUser(formData));
-        MySwal.fire({
-          icon: "question",
-          title: "닉네임 설정 완료",
-          text: "더 자세한 프로필을 작성하실래요?",
-          showDenyButton: true,
-          confirmButtonText: "네",
-          denyButtonText: `아니오`,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // 유저 주소 변경시켜주기
-            history.push("/profile/detail");
-          } else {
-            history.replace("/");
-          }
-        });
+        if (goDetail) {
+          MySwal.fire({
+            icon: "question",
+            title: "닉네임 설정 완료",
+            text: "더 자세한 프로필을 작성하실래요?",
+            showDenyButton: true,
+            confirmButtonText: "네",
+            denyButtonText: `아니오`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              history.push("/profile/detail");
+            } else {
+              history.replace("/");
+            }
+          });
+        }
       })
       .catch((error) => {
         console.log("프로필 정보 전송 실패", error);

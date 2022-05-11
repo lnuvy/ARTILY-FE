@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { Logo } from "../assets/images/index";
 import { Notification, Chat, Close } from "../assets/icons/index";
-import { getToken, insertToken } from "../shared/token";
 // 뒤로가기 아이콘
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -51,7 +50,7 @@ const Header = (props) => {
             fg="1"
             height="22px"
             width="69px"
-            onClick={() => history.push("/")}
+            onClick={() => history.push("/home")}
           >
             <Logo />
           </Icon>

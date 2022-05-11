@@ -69,7 +69,7 @@ const Setprofile = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    dispatch(setProfileDB(formData));
+    dispatch(setProfileDB(formData, "goDetail"));
   };
 
   return (
