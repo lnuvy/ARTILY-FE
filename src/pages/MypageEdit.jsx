@@ -15,6 +15,7 @@ import { getPostClones } from "react-slick/lib/utils/innerSliderUtils";
 import { editProfileDB } from "../redux/modules/user";
 import { Refresh } from "../assets/icons";
 import { nicknameCheck } from "../shared/regCheck/RegCheck";
+import { Edit } from "../assets/icons";
 
 const randomnickFront = Front;
 const randomnickBack = Back;
@@ -97,7 +98,11 @@ const MypageEdit = () => {
           />
 
           <ImgBox>
-            <label htmlFor="image">🖍</label>
+            <label htmlFor="image">
+              <span className="pencil">
+                <Edit />
+              </span>
+            </label>
             <input
               type="file"
               id="image"
@@ -211,17 +216,18 @@ const Wrapprofile = styled.div`
 
 const ImgBox = styled.div`
   label {
+    .pencil {
+      color: #fff;
+    }
     position: absolute;
     bottom: 0;
     right: -1em;
     display: inline-block;
     padding: 0.5em 0.75em;
-    color: #666;
     line-height: normal;
     vertical-align: middle;
-    background-color: #fdfdfd;
+    background-color: ${({ theme }) => `${theme.color.brandColor}`};
     cursor: pointer;
-    border: 1px solid #666;
     border-radius: 50%;
   }
   input {
