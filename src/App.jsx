@@ -22,7 +22,7 @@ function App() {
   const { user, isLogin } = useSelector((state) => state.user);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    var token = localStorage.getItem("token");
     console.log(token);
     if (token) {
       dispatch(getUserInfo());

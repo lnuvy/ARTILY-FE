@@ -20,10 +20,7 @@ const MyPage = () => {
   const getProfile = useSelector((state) => state.user.user);
 
   // 웹사이트 주소 외부링크 연결
-  const user = useSelector((state) => state.user.user);
-  console.log(user);
-
-  const isLogin = useSelector((state) => state.user.isLogin);
+  const { user, isLogin } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (isLogin) {

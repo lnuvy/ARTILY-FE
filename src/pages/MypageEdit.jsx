@@ -1,17 +1,12 @@
 //마이페이지에서 수정하기를 눌렀을때 나오는 페이지 입니다
 //SetProfile 페이지와 다름
 //이미 설정 되어있는 프로필 정보를 불러와야 함
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
-import { history } from "../redux/configureStore";
-// import { actionCreators as userActions } from "../redux/modules/user";
 import { setProfileImage } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
-import { BsPlusSquareFill } from "react-icons/bs";
-import { BsArrowRepeat } from "react-icons/bs";
 import { Front, Back } from "../shared/NicknameDummy.js";
-import { getPostClones } from "react-slick/lib/utils/innerSliderUtils";
 import { editProfileDB } from "../redux/modules/user";
 import { Refresh } from "../assets/icons";
 import { nicknameCheck } from "../shared/regCheck/RegCheck";

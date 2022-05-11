@@ -40,8 +40,7 @@ export const kakaoLogin = (code) => {
           type,
           introduce,
         };
-        insertToken(token); //local storage에 저장
-        // window.location.reload(); // TODO: 새로고침안하면 401 에러
+        insertToken(token);
         dispatch(setUser(user));
         history.replace("/");
       })
@@ -77,14 +76,7 @@ export const naverLogin = (code, state) => {
           introduce,
         };
         dispatch(setUser(user));
-        insertToken(token); //local storage에 저장
-        // window.location.reload(); // TODO: 새로고침안하면 401 에러
-        // if (user.type === "new") {
-        //   //신규 회원이면
-        //   history.replace("/profile");
-        // }
-        // //기존 회원이면
-        // window.location.reload();
+        insertToken(token);
         history.push("/");
       })
       .catch((err) => {
@@ -98,6 +90,7 @@ export const getUserInfo = () => {
   return async function (dispatch, getState, { history }) {
     Apis.getUser()
       .then((res) => {
+        console.log("getUser 데이터모양", res);
         const { user } = res.data;
         dispatch(getUser(user));
       })
@@ -112,12 +105,9 @@ export const getUserInfo = () => {
 // 프로필사진, 닉네임 필수 수집
 export const setProfileDB = (formData, goDetail = null) => {
   return function (dispatch, getState, { history }) {
-    getToken();
-
     Apis.patchProfile(formData)
       .then((res) => {
-        console.log(res);
-        // dispatch(editUser(formData));
+        console.log("setProfileDB 데이터모양", res);
         if (goDetail) {
           MySwal.fire({
             icon: "question",

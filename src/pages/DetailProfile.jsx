@@ -33,6 +33,7 @@ const DetailProfile = () => {
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
 
+  // 닉네임 인풋에 보여주기
   useEffect(() => {
     setNickname(getProfile.nickname);
   }, [getProfile.nickname]);

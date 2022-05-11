@@ -83,9 +83,12 @@ const reviewSlice = createSlice({
         state.filterList = state.list;
         return;
       }
-      state.filterList = state.list.filter(
-        (post) => post.category === action.payload
-      );
+
+      if (state.list.length > 0) {
+        state.filterList = state.list.filter(
+          (post) => post.category === action.payload
+        );
+      }
     },
   },
 });
