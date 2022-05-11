@@ -5,9 +5,20 @@ const Api = axios.create({
   baseURL: "https://rusy7225.shop",
 });
 
-Api.defaults.headers.common["authorization"] = `Bearer ${getToken()}`;
+// 이걸넣으니까 회원가입직후 토큰 인증됨
+Api.interceptors.request.use(async (config) => {
+  config.headers["content-type"] = "application/json; charset=utf-8";
+  config.headers["X-Requested-With"] = "XMLHttpRequest";
+  config.headers["Accept"] = "*/*";
+  config.headers["authorization"] = await getToken();
+  return config;
+});
+
+// Api.defaults.headers.common["authorization"] = getToken();
 
 const formDataConfig = { headers: { "Content-Type": `multipart/form-data;` } };
+
+console.log(getToken());
 
 // 토큰
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMjIxNjkzNjE0IiwiaWF0IjoxNjUxODQ2NjI3fQ.O_LCYnV5NDxh5H2xfMcCEaIup0KU4DCbeyyJv7ar3Tg

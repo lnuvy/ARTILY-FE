@@ -12,9 +12,7 @@ import theme from "../styles/theme";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const getProfile = useSelector((state) => state.user.user);
-
-  console.log(getProfile);
+  // const getProfile = useSelector((state) => state.user.user);
 
   // 더미데이터 주입
   useEffect(() => {

@@ -22,15 +22,10 @@ function App() {
   const { user, isLogin } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (getToken()) {
+    var token = localStorage.getItem("token");
+    console.log(token);
+    if (token) {
       dispatch(getUserInfo());
-    }
-  }, []);
-
-  //닉네임이 설정되어 있지 않을 경우 다시 프로필 페이지로 보내
-  useEffect(() => {
-    if (user?.nickname === "") {
-      history.push("/profile");
     }
   }, []);
 
@@ -73,7 +68,7 @@ function App() {
       console.log("app.jsx에서 닉네임이 비었을때 지나치는 useEffect");
       history.replace("/profile");
     }
-  }, [user]);
+  }, [user?.nickname]);
 
   if (isLogin) {
     return (

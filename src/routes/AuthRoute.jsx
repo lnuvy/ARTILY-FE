@@ -33,7 +33,6 @@ const AuthRoute = () => {
       <Route path="/store/write" exact component={StoreWrite} />
       <Route path="/store/write/:postId" exact component={StoreEdit} />
       <Route path="/follow" exact component={Follow} />
-      <Route path="/store" exact component={Store} />
       <Route exact path="/review" component={Review} />
       <Route exact path="/review/:reviewId" component={ReviewDetail} />
       <Route exact path="/write" component={ReviewWrite} />

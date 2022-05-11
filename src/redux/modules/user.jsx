@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Apis } from "../../shared/api";
 
-import { insertToken } from "../../shared/token";
+import { getToken, insertToken } from "../../shared/token";
 
 // 찜하기
 import { markupToggle } from "./store";
@@ -40,7 +40,7 @@ export const kakaoLogin = (code) => {
           type,
           introduce,
         };
-        insertToken(token); //local storage에 저장
+        insertToken(token);
         dispatch(setUser(user));
         history.replace("/");
       })
@@ -76,14 +76,7 @@ export const naverLogin = (code, state) => {
           introduce,
         };
         dispatch(setUser(user));
-        insertToken(token); //local storage에 저장
-        window.location.reload(); // TODO: 새로고침안하면 401 에러
-        // if (user.type === "new") {
-        //   //신규 회원이면
-        //   history.replace("/profile");
-        //   window.location.reload();
-        // }
-        // //기존 회원이면
+        insertToken(token);
         history.push("/");
       })
       .catch((err) => {
@@ -97,6 +90,7 @@ export const getUserInfo = () => {
   return async function (dispatch, getState, { history }) {
     Apis.getUser()
       .then((res) => {
+        console.log("getUser 데이터모양", res);
         const { user } = res.data;
         dispatch(getUser(user));
         // if (user.type === "new") {
@@ -120,8 +114,7 @@ export const setProfileDB = (formData, goDetail = null) => {
   return function (dispatch, getState, { history }) {
     Apis.patchProfile(formData)
       .then((res) => {
-        console.log(res);
-        // dispatch(editUser(formData));
+        console.log("setProfileDB 데이터모양", res);
         if (goDetail) {
           MySwal.fire({
             icon: "question",
@@ -137,6 +130,13 @@ export const setProfileDB = (formData, goDetail = null) => {
               history.replace("/");
             }
           });
+        } else {
+          MySwal.fire({
+            icon: "success",
+            title: "프로필 작성 완료",
+            text: "고생하셨어요! 정상적으로 처리되었습니다!",
+          });
+          history.push("/home");
         }
       })
       .catch((error) => {
