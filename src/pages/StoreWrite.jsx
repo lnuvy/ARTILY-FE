@@ -150,33 +150,7 @@ const StoreWrite = () => {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    if (!nowUser.address) {
-      MySwal.fire({
-        icon: "question",
-        title: "주소 기본등록",
-        text: "현재 선택한 주소를 기본주소로 등록할까요?",
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: "네",
-        denyButtonText: `아니오`,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // 유저 주소 변경시켜주기
-          dispatch(changeAddressDB(receiveAddress));
-
-          Swal.fire(
-            "저장완료",
-            `"${receiveAddress}" 기본주소로 저장했어요!`,
-            "success"
-          );
-        } else if (result.isDenied) {
-          Swal.fire("", "저장하지 않고 게시글을 등록합니다!", "info");
-        }
-        dispatch(addPostDB(formData));
-      });
-    } else {
-      dispatch(addPostDB(formData));
-    }
+    dispatch(addPostDB(formData, receiveAddress));
   };
 
   return (

@@ -10,14 +10,13 @@ import { Front, Back } from "../shared/NicknameDummy.js";
 
 //아이콘
 import { Refresh } from "../assets/icons";
-import { setProfileDB } from "../redux/modules/user";
+import { getUserInfo, setProfileDB } from "../redux/modules/user";
 const Setprofile = () => {
   const dispatch = useDispatch();
 
   const fileInput = useRef();
 
   const preview = useSelector((state) => state.image.preview);
-  // console.log(preview);
 
   //랜덤 닉네임 생성
   const randomnickFront = Front;
@@ -28,7 +27,7 @@ const Setprofile = () => {
     " " +
     randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
-  const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useState(randomNick);
   const renameRandom = () => {
     const addNick =
       randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
@@ -37,7 +36,9 @@ const Setprofile = () => {
 
     setNickname(addNick);
   };
-  console.log(nickname);
+  // useEffect(() => {
+  //   dispatch(getUserInfo());
+  // }, []);
 
   const selectFile = (e) => {
     const reader = new FileReader();

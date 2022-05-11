@@ -10,16 +10,19 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ArtCard } from "../components";
 const menus = ["판매목록"];
+
 const Manage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);
   console.log(mystoreList);
   const nowList = useSelector((state) => state.mystore.nowList);
-  console.log(nowList);
+
+  const nowUser = useSelector((state) => state.user.user);
+
   //더미 데이터 주입
   useEffect(() => {
-    dispatch(getmyPageDB());
-  }, [dispatch]);
+    dispatch(getmyPageDB(nowUser?.userId));
+  }, []);
 
   const handleClickData = (data) => {
     dispatch(getDetail(data));

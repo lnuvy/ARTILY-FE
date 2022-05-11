@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { myPageDummy } from "../../shared/Dummy";
 
-const BASE_URL = "http://43.200.8.138";
+const BASE_URL = "https://rusy7225.shop";
 
 const initialState = {
   list: [],
@@ -20,10 +20,11 @@ export const getmyPageDB = (userId) => {
   //   dispatch(getmyPageData(myPageDummy)); //일단 한번에 가져와
   //   console.log(myPageDummy);
   // };
+  console.log(userId);
   return function (dispatch, getState) {
     axios({
       method: "get",
-      url: `${BASE_URL}/api/profile/:${userId}`,
+      url: `${BASE_URL}/api/profile/${userId}`,
       // data: userId,
     })
       .then((res) => {

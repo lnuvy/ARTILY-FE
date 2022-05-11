@@ -18,7 +18,7 @@ const Header = (props) => {
   //   "Navigation 보이는곳과 안보이는곳 여기서 주소로 특정하는게 좋아보임",
   //   path
   // );
-  const user = useSelector((state) => state.user);
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   const { cg, width, gtc, textAlign, padding, icon1, icon2 } = props;
 

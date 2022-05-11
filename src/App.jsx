@@ -44,7 +44,7 @@ function App() {
   const dispatch = useDispatch();
   // 리덕스에서 모달 정보 가져오기(디폴트는 false)
   const modalOn = useSelector((state) => state.modal.modalOn);
-  // const userInfo = useSelector((state) => state.user.user);
+  const userInfo = useSelector((state) => state.user.user);
 
   useEffect(() => {
     if (getToken()) {
@@ -52,45 +52,50 @@ function App() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   socket.on("session", ({ sessionID, userId }) => {
-  //     console.log(sessionID);
-  //     socket.auth = { sessionID };
-  //     if (sessionID) {
-  //       localStorage.setItem("sessionID", sessionID);
-  //     }
-  //     socket.userId = userId;
-  //   });
-  // }, []);
+  useEffect(() => {
+    socket.on("session", ({ sessionID, userId }) => {
+      console.log(sessionID);
+      socket.auth = { sessionID };
+      if (sessionID) {
+        localStorage.setItem("sessionID", sessionID);
+      }
+      socket.userId = userId;
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     const sessionID = localStorage.getItem("sessionID") || null;
-  //     socket.auth = { sessionID, userInfo };
-  //     socket.connect();
-  //   }
-  // }, [userInfo]);
+  useEffect(() => {
+    if (userInfo) {
+      const sessionID = localStorage.getItem("sessionID") || null;
+      socket.auth = { sessionID, userInfo };
+      socket.connect();
+    }
+  }, [userInfo]);
 
-  // useEffect(() => {
-  //   // 판매자 입장
-  //   socket.on("join_room", (data) => {
-  //     dispatch(receiveChatRoom(data));
-  //     socket.emit("enter_room", data.roomName);
-  //   });
-  // }, []);
+  useEffect(() => {
+    // 판매자 입장
+    socket.on("join_room", (data) => {
+      dispatch(receiveChatRoom(data));
+      socket.emit("enter_room", data.roomName);
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   socket.on("receive_message", (data) => {
-  //     dispatch(receiveChat(data));
-  //   });
-  // }, []);
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      dispatch(receiveChat(data));
+    });
+  }, []);
+
+  useEffect(() => {
+    if (userInfo?.nickname === "") {
+      history.replace("/profile");
+    }
+  }, []);
 
   return (
     <>
       <MaxContainer>
         <ConnectedRouter history={history}>
           <Header>ARTIN</Header>
-
           <Switch>
             <Route path={["/home", "/"]} exact component={Home} />
             <Route path="/chat" exact component={Chat} />

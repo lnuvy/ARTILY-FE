@@ -1,12 +1,11 @@
 import axios from "axios";
+import { getToken } from "./token";
 
 const Api = axios.create({
-  baseURL: "http://43.200.8.138",
+  baseURL: "https://rusy7225.shop",
 });
 
-Api.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem(
-  "token"
-)}`;
+Api.defaults.headers.common["authorization"] = `Bearer ${getToken()}`;
 
 const formDataConfig = { headers: { "Content-Type": `multipart/form-data;` } };
 

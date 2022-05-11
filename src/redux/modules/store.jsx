@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import { Apis } from "../../shared/api";
+import { addMyPost, changeAddressDB } from "./user";
 // import { storeDummy } from "../../shared/Dummy";
 const MySwal = withReactContent(Swal);
 
@@ -62,11 +63,36 @@ export const getPostOne = (postId) => {
   };
 };
 
-export const addPostDB = (data) => {
+export const addPostDB = (data, address) => {
   return async function (dispatch, getState, { history }) {
+    const nowUser = getState().user.user;
     Apis.postStore(data)
       .then((res) => {
-        alert("작성완료");
+        if (!nowUser.address) {
+          MySwal.fire({
+            icon: "question",
+            title: "주소 기본등록",
+            text: "현재 선택한 주소를 기본주소로 등록할까요?",
+            showDenyButton: true,
+            confirmButtonText: "네",
+            denyButtonText: `아니오`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // 유저 주소 변경시켜주기
+              dispatch(changeAddressDB(address));
+              Swal.fire(
+                "저장완료",
+                `"${address}" 기본주소로 저장했어요!`,
+                "success"
+              );
+            } else if (result.isDenied) {
+              Swal.fire("", "저장하지 않고 게시글을 등록합니다!", "info");
+            }
+          });
+        } else {
+          Swal.fire("", "게시글 등록 완료", "success");
+        }
+        // addMyPost()
         history.replace("/store");
       })
       .catch((err) => {

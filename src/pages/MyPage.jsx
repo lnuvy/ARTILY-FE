@@ -1,47 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Button, Text, Flex, Image, Grid, Wrap } from "../elements";
-import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
-import { getPostDB, go2detail, filteringData } from "../redux/modules/store";
+import { go2detail } from "../redux/modules/store";
 import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard } from "../components";
 import theme from "../styles/theme";
-import { getToken, insertToken, removeToken } from "../shared/token";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { getUserInfo, logout } from "../redux/modules/user";
+import { getUserInfo, userLogout } from "../redux/modules/user";
+import { removeToken } from "../shared/token";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
-const MyPage = (props) => {
+
+const MyPage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mystore.list);
   const nowList = useSelector((state) => state.mystore.nowList);
-  const getProfile = useSelector((state) => state.user.user);
 
-  const onlyUser = useSelector((state) => state.user);
-  console.log(onlyUser);
+  const getProfile = useSelector((state) => state.user.user);
 
   // 웹사이트 주소 외부링크 연결
   const user = useSelector((state) => state.user.user);
   console.log(user);
 
-  // const target = {
-  //   Url: user.snsUrl ? user.snsUrl : "",
-  // };
-
-  // let insta = target.Url.find((url) => {
-  //   return url.includes("instagram");
-  // });
-  // let Behance = target.Url.find((url) => {
-  //   return url.includes("behance");
-  // });
-
-  //프로필 정보 불러오기
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   useEffect(() => {
-    dispatch(getUserInfo()); //유저정보
-    dispatch(getmyPageDB()); //게시글 정보
+    if (isLogin) {
+      dispatch(getmyPageDB(user?.userId)); //게시글 정보
+      dispatch(getUserInfo()); //유저정보
+    }
   }, []);
 
   const handleClickSellData = (data) => {
@@ -167,9 +155,9 @@ const MyPage = (props) => {
         </p>
         <p
           onClick={() => {
-            logout();
-            history.push("/");
-            window.location.reload();
+            console.log("로그아웃!");
+            removeToken();
+            userLogout();
           }}
         >
           로그아웃
