@@ -1,13 +1,9 @@
 //마이페이지에서 판매목록을 불러올때 사용될 리덕스입니다. -영경
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-// import { is } from "immer/dist/internal";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-// import { myPageDummy } from "../../shared/Dummy";
-import { getPostDB } from "./store";
+
 import { Apis } from "../../shared/api";
-const BASE_URL = "http://43.200.8.138";
+
+const BASE_URL = "https://rusy7225.shop";
 
 const initialState = {
   list: [],

@@ -1,17 +1,14 @@
 //마이페이지 => 구매 내역 조회 / 리뷰 작성 눌렀을때 나오는 페이지
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Button, Grid, Text, Flex, Wrap } from "../elements";
-import { useLocation } from "react-router-dom";
 import {
   getmyPageDB,
   getDetail,
-  selectList,
   selectbuyList,
   // buyList,
 } from "../redux/modules/mypage";
 import { history } from "../redux/configureStore";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ArtCard } from "../components";
 const BuyList = () => {
@@ -20,6 +17,8 @@ const BuyList = () => {
   console.log(mybuyList);
   // const dummybuyList = useSelector((state) => state.mystore.nowList);
   // console.log(dummybuyList);
+
+  const nowUser = useSelector((state) => state.user.user);
 
   useEffect(() => {
     dispatch(getmyPageDB());

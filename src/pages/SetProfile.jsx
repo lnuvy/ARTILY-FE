@@ -11,24 +11,22 @@ import { Front, Back } from "../shared/NicknameDummy.js";
 //아이콘
 import { Refresh } from "../assets/icons";
 import { getUserInfo, setProfileDB } from "../redux/modules/user";
+import Swal from "sweetalert2";
 const Setprofile = () => {
   const dispatch = useDispatch();
 
   const fileInput = useRef();
-
   const preview = useSelector((state) => state.image.preview);
-  // console.log(preview);
 
   //랜덤 닉네임 생성
   const randomnickFront = Front;
   const randomnickBack = Back;
-
   const randomNick =
     randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
     " " +
     randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
-  const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useState(randomNick);
   const renameRandom = () => {
     const addNick =
       randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
@@ -37,11 +35,6 @@ const Setprofile = () => {
 
     setNickname(addNick);
   };
-
-  // useEffect(() => {
-  //   dispatch(getUserInfo());
-  // });
-  console.log(nickname);
 
   const selectFile = (e) => {
     const reader = new FileReader();
@@ -54,21 +47,29 @@ const Setprofile = () => {
     };
   };
   const editUser = () => {
+    // 닉네임 3 ~ 8 자로 제한
+    if (nickname.length < 3 || nickname.length > 8) {
+      Swal.fire({
+        title: "Oops!",
+        text: "유효한 닉네임 길이는 3~8자 입니다.",
+        timer: 2500,
+        icon: "warning",
+      });
+      return;
+    }
     const file = fileInput.current.files[0];
     //새로운 객체 생성
     const formData = new FormData();
 
     formData.append("profileImage", file);
     formData.append("nickname", nickname);
-    // formData.append("website", website);
-    // formData.append("introduce", introduce);
 
     console.log("formData", formData);
 
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    dispatch(setProfileDB(formData));
+    dispatch(setProfileDB(formData, "goDetail"));
   };
 
   return (
@@ -102,7 +103,9 @@ const Setprofile = () => {
       </Wrapprofile>
       <Wrap padding="0 20px 30px 20px">
         <Flex>
-          <Text fg="1">닉네임</Text>
+          <Text textAlign="center" fg="1">
+            닉네임
+          </Text>
           <Input
             icon={
               <span onClick={renameRandom}>
@@ -114,23 +117,14 @@ const Setprofile = () => {
             border="1px solid #d3d3d3"
             br="6px"
             type="text"
-            fg="0"
-            value={nickname || ""}
-            onChange={(e) => setNickname(randomNick)}
+            fg="1"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
           />
         </Flex>
       </Wrap>
-      <Flex width="90%" margin="0 auto">
-        <Button
-          width="100%"
-          type="submit"
-          outline
-          margin="20px auto"
-          onClick={() => {
-            editUser();
-            history.push("/profile/detail");
-          }}
-        >
+      <Flex>
+        <Button width="90%" outline margin="20px auto" onClick={editUser}>
           프로필 저장하기
         </Button>
       </Flex>

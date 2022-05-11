@@ -30,13 +30,11 @@ const OtherWorkCard = (props) => {
 
   return (
     <Card>
-      <Flex>
-        <Image width="96px" height="96px" />
-        <Wrap margin="0 0 0 16px ">
-          <Text>작품명</Text>
-          <Text>15,000원</Text>
-        </Wrap>
-      </Flex>
+      <Image height="168px" />
+      <Wrap margin="0 0 ">
+        <Text>작품명</Text>
+        <Text>15,000원</Text>
+      </Wrap>
     </Card>
   );
 };

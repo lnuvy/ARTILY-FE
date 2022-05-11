@@ -16,29 +16,32 @@ const Review = () => {
   useEffect(() => {
     // 더미데이터 주입된상태
     dispatch(getReviewDB());
+    console.log(reviewList);
   }, []);
 
   const handleClickData = (data) => {
-    dispatch(go2detail(data));
+    // dispatch(go2detail(data));
     history.push(`/review/${data.reviewId}`);
   };
 
   return (
     <>
       <Grid>
-        <Category review />
+        <Category />
         <Wrap margin="16px">
           <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
             {reviewList.length
               ? reviewList.map((l, i) => {
                   return (
-                    <ReviewCard
-                      key={i}
-                      nickname={l.nickname}
-                      {...l}
-                      onClick={() => handleClickData(l)}
-                      imageUrl={l.imageUrl[0]}
-                    />
+                    <>
+                      <ReviewCard
+                        key={i}
+                        nickname={l.nickname}
+                        {...l}
+                        onClick={() => handleClickData(l)}
+                        imageUrl={l.imageUrl[0]}
+                      />
+                    </>
                   );
                 })
               : null}

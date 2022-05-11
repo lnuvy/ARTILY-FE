@@ -19,6 +19,7 @@ import {
   getReviewOne,
 } from "../redux/modules/reviews";
 import { useParams } from "react-router-dom";
+import theme from "../styles/theme";
 
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
@@ -35,13 +36,13 @@ const ReviewDetail = (props) => {
     <>
       {current.reviewData ? (
         <>
-          <Wrap margin="16px">
+          <Wrap margin="16px 16px 8px">
             <Text h1 contents={current.reviewData.reviewTitle}></Text>
             <Flex margin="8px 0 0 0" jc="space-between">
               <Flex>
-                <Image circle size="20" />
+                <Image circle size="32" />
                 <Text
-                  margin="0 0 0 4px"
+                  margin="0 0 0 8px"
                   contents={current.reviewData.nickname}
                 ></Text>
               </Flex>
@@ -64,20 +65,22 @@ const ReviewDetail = (props) => {
           <Wrap margin="16px">
             <Text contents={current.reviewData.reviewContent}></Text>
           </Wrap>
-          <Wrap padding="16px" bc="rgba(0,0,0,0.1)">
+          <Wrap padding="10px 16px 16px" bc={`${theme.pallete.primary100}`}>
             <Flex>
-              <Text h2 lineHeight="22px">
+              <Text h2 lineHeight="22px" margin="0 0 8px">
                 구매한 작품
               </Text>
             </Flex>
             <Flex>
               <Image width="96px" height="96px" />
               <Wrap margin="0 0 0 16px ">
-                <Text>작품명</Text>
-                <Text>15,000원</Text>
+                <Text h3 medium margin="0 0 8px">
+                  작품명
+                </Text>
+                <Text margin="0 0 8px">15,000원</Text>
                 <Flex>
-                  <Image circle size="20" />
-                  <Text margin="0 0 0 4px">작가명</Text>
+                  <Image circle size="32" />
+                  <Text margin="0 0 0 8px">작가명</Text>
                 </Flex>
               </Wrap>
             </Flex>

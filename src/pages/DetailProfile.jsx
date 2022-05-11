@@ -1,6 +1,6 @@
 //소셜 로그인후 기본 프로필(사진, 닉네임) 설정=> 나머지 프로필 정보 설정하는 페이지
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
@@ -12,33 +12,20 @@ import ToastMessage from "../shared/ToastMessage";
 import { Front, Back } from "../shared/NicknameDummy.js";
 //임시 아이콘
 import { BsPlusSquare } from "react-icons/bs";
+import { AddBox } from "../assets/icons";
+
 const DetailProfile = () => {
   const dispatch = useDispatch();
   const getProfile = useSelector((state) => state.user.user);
-  // console.log(getProfile);
 
   useEffect(() => {
     dispatch(getUserInfo());
+    setNickname(getProfile.nickname);
   }, []);
 
-  useEffect(() => {
-    setNickname(getProfile?.nickname);
-  }, []);
+  const fileInput = useRef();
 
-  const fileInput = React.useRef();
-
-  //랜덤 닉네임 생성
-  const randomnickFront = Front;
-  const randomnickBack = Back;
-
-  const randomNick =
-    randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
-    " " +
-    randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
-
-  const [nickname, setNickname] = useState(
-    getProfile?.nickname ? getProfile.nickname : randomNick
-  );
+  const [nickname, setNickname] = useState("");
   const [website1, setWebsite1] = useState("");
   const [website2, setWebsite2] = useState("");
   const [website3, setWebsite3] = useState("");
@@ -47,7 +34,7 @@ const DetailProfile = () => {
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
 
-  const selectFile = (e) => {
+  const selectFile = () => {
     const reader = new FileReader();
     console.log(reader);
     const file = fileInput.current.files[0];
@@ -87,7 +74,7 @@ const DetailProfile = () => {
         <h2>ARTILY</h2>
       </Flex>
       <Flex jc="center" margin="0 0 2em 0">
-        <p>내 프로필을 만들어주세요!</p>
+        <p>내 프로필을 완성해주세요!</p>
       </Flex>
       <Wrapprofile>
         <Flex jc="center">
@@ -97,116 +84,131 @@ const DetailProfile = () => {
             height="120px"
             br="60px"
             src={
-              getProfile && getProfile.profileImage
-                ? getProfile.profileImage
-                : ""
+              getProfile && getProfile.profileImage && getProfile.profileImage
             }
-          ></Image>
+          />
         </Flex>
       </Wrapprofile>
       <Wrap padding="20px 20px">
         <Flex padding="10px 0">
-          <Text fg="1">닉네임</Text>
-          <Input
-            square
-            br="6px"
-            value={getProfile?.nickname}
-            // onChange={(e) => setNickname(e.target.value)}
-          ></Input>
+          <Flex width="100%">
+            <Flex width="30%">
+              <Text>닉네임</Text>
+            </Flex>
+            <Flex width="70%">
+              <Input square br="6px" fg="1" value={nickname} readOnly />
+            </Flex>
+          </Flex>
         </Flex>
-        <Flex>
-          <Text fg="1">웹사이트</Text>
-          <Input
-            square
-            br="6px"
-            fg="0"
-            type="text"
-            name="text"
-            placeholder="instargram 주소"
-            value={website1 || ""}
-            icon={
-              <BsPlusSquare
-                size={28}
-                color="#555"
-                onClick={() => {
-                  setVisible1(!visible1);
-                }}
+        <Flex padding="10px 0 5px">
+          <Flex width="100%">
+            <Flex width="30%">
+              <Text>웹사이트</Text>
+            </Flex>
+            <Flex width="70%">
+              <Input
+                fg="1"
+                square
+                br="6px"
+                type="text"
+                placeholder="instargram 주소"
+                value={website1 || ""}
+                icon={
+                  <Flex
+                    onClick={() => {
+                      setVisible1(!visible1);
+                    }}
+                  >
+                    <AddBox />
+                  </Flex>
+                }
+                onChange={(e) => setWebsite1(e.target.value)}
               />
-            }
-            onChange={(e) => setWebsite1(e.target.value)}
-          ></Input>
+            </Flex>
+          </Flex>
         </Flex>
-        {/* 나머지 input은 안보였다가 입력값이 들어갔을때 나타나야 함 */}
 
         {visible1 && (
-          <Flex margin="10px 0">
-            <Text fg="1"></Text>
-            <Input
-              square
-              br="6px"
-              fg="0"
-              type="text"
-              placeholder="Behance 주소"
-              value={website2 || ""}
-              icon={
-                <BsPlusSquare
-                  size={28}
-                  color="#555"
-                  onClick={() => {
-                    setVisible2(!visible2);
-                  }}
+          <Flex padding="10px 0 10px">
+            <Flex width="100%">
+              <Flex width="30%">
+                <Text></Text>
+              </Flex>
+              <Flex width="70%">
+                <Input
+                  square
+                  fg="1"
+                  br="6px"
+                  type="text"
+                  placeholder="Behance 주소"
+                  value={website2 || ""}
+                  icon={
+                    <Flex
+                      onClick={() => {
+                        setVisible2(!visible2);
+                      }}
+                    >
+                      <AddBox />
+                    </Flex>
+                  }
+                  onChange={(e) => setWebsite2(e.target.value)}
                 />
-              }
-              onChange={(e) => setWebsite2(e.target.value)}
-            ></Input>
+              </Flex>
+            </Flex>
           </Flex>
         )}
         {visible2 && (
-          <Flex>
-            <Text fg="1"></Text>
-            <Input
-              square
-              br="6px"
-              fg="0"
-              type="text"
-              placeholder="other website"
-              value={website3 || ""}
-              onChange={(e) => setWebsite3(e.target.value)}
-            ></Input>
+          <Flex padding="5px 0 10px">
+            <Flex width="100%">
+              <Flex width="30%">
+                <Text></Text>
+              </Flex>
+              <Flex width="70%">
+                <Input
+                  square
+                  br="6px"
+                  fg="1"
+                  type="text"
+                  placeholder="other website"
+                  value={website3 || ""}
+                  onChange={(e) => setWebsite3(e.target.value)}
+                />
+              </Flex>
+            </Flex>
           </Flex>
         )}
-        <Flex>
-          <Text fg="1">소개</Text>
-          <Textarea
-            width="100%"
-            fg="0"
-            value={introduce || ""}
-            onChange={(e) => setIntroduce(e.target.value)}
-            maxLength="100"
-            br="6px"
-          ></Textarea>
+        <Flex padding="10px 0">
+          <Flex width="100%">
+            <Flex width="30%">
+              <Text>소개</Text>
+            </Flex>
+            <Flex width="70%">
+              <Textarea
+                width="100%"
+                fg="1"
+                value={introduce || ""}
+                onChange={(e) => setIntroduce(e.target.value)}
+                maxLength="50"
+                br="6px"
+              />
+            </Flex>
+          </Flex>
         </Flex>
       </Wrap>
-      <Flex width="90%" margin="0 auto">
-        <Button
-          width="100%"
-          type="submit"
-          outline
-          margin="20px"
-          onClick={() => {
-            window.alert("프로필이 저장되었습니다!");
-            editUser();
-          }}
-        >
-          프로필 저장하기
-        </Button>
-      </Flex>
+      <Button
+        width="90%"
+        type="submit"
+        outline
+        margin="20px"
+        onClick={() => {
+          editUser();
+        }}
+      >
+        프로필 저장하기
+      </Button>
       <Flex
         jc="center"
         onClick={() => {
-          window.alert(
-            "프로필 설정 완료는 다음에 할게요! 메인홈으로 이동합니다"
-          );
           history.push("/");
         }}
       >

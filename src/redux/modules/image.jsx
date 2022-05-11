@@ -29,8 +29,6 @@ const imageSlice = createSlice({
     //프로필 설정
     setProfileImage: (state, action) => {
       state.preview = action.payload;
-      // state.preview = action.payload.preview;
-      console.log(action);
     },
     resetProfileImage: (state, action) => {
       state.preview = null;

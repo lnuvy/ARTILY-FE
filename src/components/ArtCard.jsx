@@ -156,6 +156,10 @@ const ArtCard = (props) => {
           )}
           <Image height="120px" br="8px" src={imageUrl} />
         </Label>
+        <Flex margin="8px 0 0">
+          <Image circle size="20" src={nowuser?.profileImage} />
+          <Text margin="0 0 0 4px">{nowuser.nickname}</Text>
+        </Flex>
         <Text>{postTitle}</Text>
         <Flex>
           {price ? (
@@ -197,8 +201,6 @@ const ArtCard = (props) => {
       <Card onClick={onClick}>
         <Label>
           {/* 판매중인 상품과 판매완료된 상품을 구별할 라벨입니다. */}
-          {/* done이 문자열 true? // TODO 한울 */}
-          {/* DB에 문자열로 들어가있어서 이렇게 적었습니다. 수정 후 -영경*/}
           {done === true ? ( //판매완료일 경우
             <p className="complete">판매완료</p>
           ) : (

@@ -22,7 +22,7 @@ import ReceiveAddress from "../shared/modal/modalContent/ReceiveAddress";
  * 리뷰와 공통으로 쓸수있는 컴포넌트: Preview.jsx ImagePreview.jsx
  */
 
-const StoreWrite = () => {
+const ReviewWrite = () => {
   const dispatch = useDispatch();
   // 인풋 한번에 받기 (체크박스는 e.target.id 가 아니라 e.target.checked 로 받아야해서 인라인에 적용함)
   const [inputs, setinputs] = useState({});
@@ -74,4 +74,4 @@ const StoreWrite = () => {
   );
 };
 
-export default StoreWrite;
+export default ReviewWrite;

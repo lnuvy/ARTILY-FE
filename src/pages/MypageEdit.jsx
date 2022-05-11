@@ -1,7 +1,7 @@
 //마이페이지에서 수정하기를 눌렀을때 나오는 페이지 입니다
 //SetProfile 페이지와 다름
 //이미 설정 되어있는 프로필 정보를 불러와야 함
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
@@ -13,22 +13,18 @@ import { BsArrowRepeat } from "react-icons/bs";
 import { Front, Back } from "../shared/NicknameDummy.js";
 import { getPostClones } from "react-slick/lib/utils/innerSliderUtils";
 import { editProfileDB } from "../redux/modules/user";
+import { Refresh } from "../assets/icons";
+import { nicknameCheck } from "../shared/regCheck/RegCheck";
+
+const randomnickFront = Front;
+const randomnickBack = Back;
 
 const MypageEdit = () => {
   const dispatch = useDispatch();
+  const fileInput = useRef();
 
-  const fileInput = React.useRef();
   const getProfile = useSelector((state) => state.user.user);
-
   const preview = useSelector((state) => state.image.preview);
-
-  const randomnickFront = Front;
-  const randomnickBack = Back;
-
-  const randomNick =
-    randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
-    " " +
-    randomnickBack[Math.floor(Math.random() * randomnickBack.length)];
 
   const [nickname, setNickname] = useState(
     getProfile?.nickname ? getProfile.nickname : ""
@@ -37,6 +33,7 @@ const MypageEdit = () => {
   const [website2, setWebsite2] = useState(getProfile?.snsUrl[1]);
   const [website3, setWebsite3] = useState(getProfile?.snsUrl[2]);
   const [introduce, setIntroduce] = useState(getProfile?.introduce);
+
   const renameRandom = () => {
     const addNick =
       randomnickFront[Math.floor(Math.random() * randomnickFront.length)] +
@@ -57,6 +54,9 @@ const MypageEdit = () => {
     };
   };
   const editUser = () => {
+    const isValid = nicknameCheck(nickname);
+    if (!isValid) return;
+
     const file = fileInput.current.files[0];
     console.log(file);
 
@@ -94,7 +94,7 @@ const MypageEdit = () => {
             br="60px"
             border="1px solid #666"
             src={preview ? preview : getProfile ? getProfile.profileImage : ""}
-          ></Image>
+          />
 
           <ImgBox>
             <label htmlFor="image">🖍</label>
@@ -108,36 +108,42 @@ const MypageEdit = () => {
         </Flex>
       </Wrapprofile>
       <Wrap margin="0 20px">
-        <Flex jc="center" padding="0 0 10px 0">
-          <Text fg="1">닉네임</Text>
-          <Input
-            icon={<BsArrowRepeat size={28} onClick={renameRandom} />}
-            square
-            width="100%"
-            border="1px solid #d3d3d3"
-            br="6px"
-            type="text"
-            fg="0"
-            value={nickname || ""}
-            onChange={(e) => setNickname(randomNick)}
-          />
+        <Flex padding="10px 0">
+          <Flex width="100%">
+            <Flex width="30%">
+              <Text>닉네임</Text>
+            </Flex>
+            <Flex width="70%">
+              <Input
+                icon={<Refresh onClick={renameRandom} />}
+                square
+                placeholder={getProfile?.nickname || "닉네임 자리"}
+                border="1px solid #d3d3d3"
+                br="6px"
+                fg="1"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+              />
+            </Flex>
+          </Flex>
         </Flex>
-        {/* 닉네임 입력시 웹사이트 입력창 나오게 */}
-        {/* 프로필 저장 버튼도 나타나게 */}
-        <Flex jc="center" margin="10px 0">
-          <Text fg="1">웹사이트</Text>
-          <Input
-            square
-            br="6px"
-            fg="0"
-            type="text"
-            placeholder="instagram 주소"
-            value={website1 || ""}
-            // icon={<BsPlusSquareFill size={28} />}
-            onChange={(e) => {
-              setWebsite1(e.target.value);
-            }}
-          ></Input>
+        <Flex padding="10px 0 5px">
+          <Flex width="100%">
+            <Flex width="30%">
+              <Text>웹사이트</Text>
+            </Flex>
+            <Flex width="70%">
+              <Input
+                fg="1"
+                square
+                br="6px"
+                type="text"
+                placeholder="instargram 주소"
+                value={website1 || ""}
+                onChange={(e) => setWebsite1(e.target.value)}
+              />
+            </Flex>
+          </Flex>
         </Flex>
         {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
         <Flex margin="10px 0">
@@ -153,17 +159,23 @@ const MypageEdit = () => {
             onChange={(e) => setWebsite2(e.target.value)}
           ></Input>
         </Flex>
-        <Flex>
-          <Text fg="1"></Text>
-          <Input
-            square
-            br="6px"
-            fg="0"
-            type="text"
-            placeholder="other website"
-            value={website3 || ""}
-            onChange={(e) => setWebsite3(e.target.value)}
-          ></Input>
+        <Flex padding="5px 0 10px">
+          <Flex width="100%">
+            <Flex width="30%">
+              <Text></Text>
+            </Flex>
+            <Flex width="70%">
+              <Input
+                fg="1"
+                square
+                br="6px"
+                type="text"
+                placeholder="other website"
+                value={website3 || ""}
+                onChange={(e) => setWebsite3(e.target.value)}
+              />
+            </Flex>
+          </Flex>
         </Flex>
         <Flex padding="20px 0 10px 0">
           <Text fg="1">소개</Text>

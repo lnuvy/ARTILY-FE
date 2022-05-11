@@ -46,7 +46,7 @@ const Input = (props) => {
             onKeyPress={onKeyPress}
             {...styles}
           />
-          {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}
+          {icon ? <InputIcon>{icon}</InputIcon> : ""}
         </InputBox>
         {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}
       </InputWrap>
@@ -162,13 +162,13 @@ const SquareInput = styled.input`
 `;
 
 const InputIcon = styled.div`
-  height: 28px;
-  width: 28px;
+  height: fit-content;
+  width: fit-content;
   /* background-image: url(); */
   /* background-color: grey; */
   position: absolute;
-  top: calc(${({ padding }) => padding} / 2);
-  right: calc(${({ padding }) => padding} / 2);
+  top: 11px;
+  right: 11px;
 `;
 
 const InputLabel = styled.label`

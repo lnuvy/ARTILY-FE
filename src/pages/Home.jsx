@@ -14,12 +14,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const getProfile = useSelector((state) => state.user.user);
 
-  // if (getToken) {
-  //   if (!getProfile.address) {
-  //     window.alert("추가 프로필을 작성해 보시겠어요?");
-  //     history.push("/profile/detail");
-  //   }
-  // }
+  console.log(getProfile);
 
   // 더미데이터 주입
   useEffect(() => {

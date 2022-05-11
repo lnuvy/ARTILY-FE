@@ -132,13 +132,26 @@ const StoreDetail = () => {
                   </>
                 ) : (
                   <>
-                    <Text body1 color={theme.pallete.primary900}>
-                      팔로우
-                    </Text>
-
-                    <Text body1 color={theme.pallete.primary900}>
-                      신고
-                    </Text>
+                    <Flex
+                      padding="6px"
+                      onClick={() => {
+                        console.log("팔로우 하기");
+                      }}
+                    >
+                      <Text body1 color={theme.pallete.primary900}>
+                        팔로우
+                      </Text>
+                    </Flex>
+                    <Flex
+                      padding="6px"
+                      onClick={() => {
+                        console.log("신고하기");
+                      }}
+                    >
+                      <Text body1 color={theme.pallete.primary900}>
+                        신고
+                      </Text>
+                    </Flex>
                   </>
                 )}
               </Flex>
@@ -193,7 +206,7 @@ const StoreDetail = () => {
             </Flex>
             <Flex jc="end">
               <Text h1 bold margin="0 10px">
-                {priceComma(current.price)}원
+                {current.price && priceComma(current.price)}원
               </Text>
               {isMe ? (
                 <Button>판매완료</Button>

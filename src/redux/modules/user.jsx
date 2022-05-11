@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Apis } from "../../shared/api";
 
-import { insertToken, removeToken } from "../../shared/token";
+import { insertToken } from "../../shared/token";
 
 // 찜하기
 import { markupToggle } from "./store";
@@ -20,31 +20,30 @@ export const kakaoLogin = (code) => {
   return async function (dispatch, getState, { history }) {
     Apis.getKakaoCode(code)
       .then((res) => {
-        console.log(res.data); // 토큰이 넘어옴
-        const { token, nickname, profileImage, provider, userId, address } =
-          res.data.user;
-        const ACCESS_TOKEN = token;
+        console.log("로그인 직후 데이터모양", res.data);
+
+        const {
+          token,
+          nickname,
+          profileImage,
+          provider,
+          userId,
+          type,
+          introduce,
+        } = res.data.user;
 
         const user = {
-          //서버 DB에 담긴 유저정보 가져오자
           userId,
           nickname,
           profileImage,
           provider,
-          address,
+          type,
+          introduce,
         };
+        insertToken(token); //local storage에 저장
+        window.location.reload(); // TODO: 새로고침안하면 401 에러
         dispatch(setUser(user));
-        insertToken(ACCESS_TOKEN); //local storage에 저장
-
-        // 최초 로그인일 경우에만 로그인 후 프로필 설정하는 페이지로 이동
-        if (res.data.user.type === "new") {
-          //신규 회원이면
-          history.replace("/profile");
-        } else {
-          //기존 회원이면
-          window.location.reload();
-          history.replace("/");
-        }
+        history.replace("/");
       })
       .catch((err) => {
         console.log("카카오로그인", err);
@@ -57,10 +56,16 @@ export const naverLogin = (code, state) => {
   return async function (dispatch, getState, { history }) {
     Apis.getNaverCode(code, state)
       .then((res) => {
-        console.log(res);
-        const { token, nickname, profileImage, provider, userId, address } =
-          res.data.user;
-        const ACCESS_TOKEN = token;
+        console.log("네이버로그인 직후 데이터모양", res.data);
+        const {
+          token,
+          nickname,
+          profileImage,
+          provider,
+          userId,
+          type,
+          introduce,
+        } = res.data.user;
 
         const user = {
           //서버 DB에 담긴 유저정보 가져오자
@@ -68,21 +73,22 @@ export const naverLogin = (code, state) => {
           nickname,
           profileImage,
           provider,
-          address,
+          type,
+          introduce,
         };
         dispatch(setUser(user));
-        insertToken(ACCESS_TOKEN); //local storage에 저장
-        if (res.data.user.type === "new") {
-          //신규 회원이면
-          history.replace("/profile");
-        } else {
-          //기존 회원이면
-          window.location.reload();
-          history.replace("/");
-        }
+        insertToken(token); //local storage에 저장
+        window.location.reload(); // TODO: 새로고침안하면 401 에러
+        // if (user.type === "new") {
+        //   //신규 회원이면
+        //   history.replace("/profile");
+        //   window.location.reload();
+        // }
+        // //기존 회원이면
+        history.push("/");
       })
       .catch((err) => {
-        console.log("네이버로그인", err);
+        console.log("네이버로그인 에러", err);
         console.log(err.response);
       });
   };
@@ -92,7 +98,6 @@ export const getUserInfo = () => {
   return async function (dispatch, getState, { history }) {
     Apis.getUser()
       .then((res) => {
-        console.log(res.data);
         const { user } = res.data;
         dispatch(getUser(user));
         // if (user.type === "new") {
@@ -112,27 +117,28 @@ export const getUserInfo = () => {
 
 // 회원가입 후 프로필 설정
 // 프로필사진, 닉네임 필수 수집
-export const setProfileDB = (formData) => {
+export const setProfileDB = (formData, goDetail = null) => {
   return function (dispatch, getState, { history }) {
     Apis.patchProfile(formData)
       .then((res) => {
         console.log(res);
         // dispatch(editUser(formData));
-        MySwal.fire({
-          icon: "question",
-          title: "닉네임 설정 완료",
-          text: "더 자세한 프로필을 작성하실래요?",
-          showDenyButton: true,
-          confirmButtonText: "네",
-          denyButtonText: `아니오`,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // 유저 주소 변경시켜주기
-            history.push("/profile/detail");
-          } else {
-            history.replace("/");
-          }
-        });
+        if (goDetail) {
+          MySwal.fire({
+            icon: "question",
+            title: "닉네임 설정 완료",
+            text: "더 자세한 프로필을 작성하실래요?",
+            showDenyButton: true,
+            confirmButtonText: "네",
+            denyButtonText: `아니오`,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              history.push("/profile/detail");
+            } else {
+              history.replace("/");
+            }
+          });
+        }
       })
       .catch((error) => {
         console.log("프로필 정보 전송 실패", error);
@@ -213,7 +219,8 @@ const userSlice = createSlice({
     },
     editUser: (state, action) => {},
     // 카테고리 필터 이름변경
-    logout: (state) => {
+    userLogout: (state) => {
+      console.log("액션 찍힘 ?");
       state.user = null;
       state.isLogin = false;
     },
@@ -235,5 +242,5 @@ const userSlice = createSlice({
 });
 
 const { reducer, actions } = userSlice;
-export const { setUser, getUser, editUser, logout, postMarkup } = actions;
+export const { setUser, getUser, editUser, userLogout, postMarkup } = actions;
 export default reducer;
