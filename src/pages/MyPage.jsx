@@ -152,7 +152,7 @@ const MyPage = () => {
 
         {(insta || behance || other) && (
           <>
-            <Flex width="100%" padding="0.5em 0">
+            <Flex padding="0.5em 0">
               {insta && (
                 <Flex margin="0 30px 0 0">
                   <img src="/images/instagram.svg" alt="인스타" />
@@ -167,7 +167,7 @@ const MyPage = () => {
               )}
 
               {behance && (
-                <Flex margin="0 25px 0 0">
+                <Flex margin="0 30px 0 0">
                   <img src="/images/Behance.svg" alt="비핸스" />
 
                   <Text className="site" margin="0 0 0 5px">
@@ -181,7 +181,7 @@ const MyPage = () => {
               )}
 
               {other && (
-                <Flex margin="0 25px 0 0">
+                <Flex margin="0 30px 0 0">
                   <img src="/images/web.svg" alt="포트폴리오" />
 
                   <Text className="site" margin="0 0 0 5px">
@@ -263,7 +263,6 @@ const MyPage = () => {
       <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 10px">
         {myAllList &&
           nowList?.map((l) => {
-            console.log(l);
             if (current === "판매목록") {
               return (
                 <ArtCard

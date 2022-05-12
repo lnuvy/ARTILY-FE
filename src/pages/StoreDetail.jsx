@@ -24,7 +24,6 @@ import theme from "../styles/theme";
 import { deleteSwal } from "../shared/commonAlert";
 
 // 임시 아이콘
-import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 
 // 채팅

@@ -16,6 +16,7 @@ import { SellingLabel, CompleteLabel } from "./index";
 // import SellLabel from "./SellLabel";
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 
+// 5/13 스토어에서 쓰는 ArtCard 컴포넌트로뺐습니다 props 주석처리된거 안쓰시는거면 지우셔도됨 -한울-
 const ArtCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -27,11 +28,11 @@ const ArtCard = (props) => {
   const {
     postId,
     onClick,
-    user,
+    // user,
     postTitle,
     price,
-    category,
-    transaction,
+    // category,
+    // transaction,
     done,
     imageUrl,
     nickname,
@@ -44,10 +45,10 @@ const ArtCard = (props) => {
     markup,
     reviewTitle,
     reviewContent,
-    userId,
-    profileImage,
-    address,
-    changeAddress,
+    // userId,
+    // profileImage,
+    // address,
+    // changeAddress,
   } = props;
   console.log(done);
   // const { userId, profileImage, address } = user;
@@ -236,43 +237,9 @@ const ArtCard = (props) => {
         </Flex>
       </Card>
     );
-  } else {
-    return (
-      <Card onClick={onClick}>
-        <Image height="168px" br="8px" src={imageUrl} />
-        <Flex margin="8px 0 0">
-          <Image circle size="32" src={user.profileImage} />
-          <Text h3 margin="0 0 0 4px">
-            {user.nickname}
-          </Text>
-        </Flex>
-        <Text h3 medium>
-          {postTitle}
-        </Text>
-        <Text color={theme.pallete.gray3}>
-          {transaction}
-          {changeAddress &&
-            (changeAddress.length > 9
-              ? ` ∙ ${changeAddress.substring(0, 9)}...`
-              : ` ∙ ${changeAddress}`)}
-        </Text>
-        <Flex>
-          {price ? <Text fg="1">{priceComma(price)}원</Text> : ""}
-          <Icon width="fit-content">
-            <Flex>
-              <Favorite />
-              <Text body2 margin="0 0 0 4px">
-                {markupCnt}
-              </Text>
-            </Flex>
-          </Icon>
-        </Flex>
-
-        {reviewContent && <Text>{reviewContent}</Text>}
-      </Card>
-    );
   }
 };
+
 const Sell = styled.div`
   border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};

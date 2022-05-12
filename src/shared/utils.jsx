@@ -35,3 +35,11 @@ export const inputSpaceReg = (text) => {
 //   const metadata = { type: `image/${ext}` };
 //   return new File([data], filename, metadata);
 // };
+
+export const isMeCheck = (nowUser, postUser) => {
+  if (nowUser === postUser) {
+    return true;
+  } else {
+    return false;
+  }
+};
