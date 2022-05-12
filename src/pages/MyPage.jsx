@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Text, Flex, Image, Grid, Wrap } from "../elements";
+import { Text, Flex, Image, Grid, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard } from "../components";
 import theme from "../styles/theme";

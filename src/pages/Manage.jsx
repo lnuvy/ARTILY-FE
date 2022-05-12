@@ -1,21 +1,12 @@
 //판매작품 등록/관리하기 페이지
 //마이페이지 판매목록과 동일한 목록
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Button, Grid, Text, Flex, Wrap } from "../elements";
-import { useLocation } from "react-router-dom";
-import {
-  getmyPageDB,
-  getDetail,
-  getMySellListDB,
-  selectList,
-} from "../redux/modules/mypage";
+import { getDetail, getMySellListDB } from "../redux/modules/mypage";
 import { history } from "../redux/configureStore";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ArtCard } from "../components";
-import { deletePostDB } from "../redux/modules/store";
-const menus = ["판매목록"];
 
 const Manage = () => {
   const dispatch = useDispatch();

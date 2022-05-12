@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Flex, Icon, Text, Grid } from "../elements/index";
+import { Flex, Icon, Text } from "../elements/index";
 import { Navigation } from "../components";
 import { useLocation } from "react-router-dom";
 import { history } from "../redux/configureStore";
