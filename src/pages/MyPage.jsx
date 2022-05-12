@@ -79,9 +79,6 @@ const MyPage = () => {
 
   useEffect(() => {
     dispatch(selectList(current));
-  }, [myAllList]);
-  useEffect(() => {
-    dispatch(selectList(current));
   }, [current]);
 
   // 네비게이션 탭을 직접 눌렀을때
@@ -149,15 +146,15 @@ const MyPage = () => {
           </Wrap>
         </Flex>
 
-        <Text body1 color="#555" margin="0.5em 1em">
+        <Text body1 color="#555" margin="0.5em 0">
           {getProfile && getProfile.introduce ? getProfile.introduce : ""}
         </Text>
 
         {(insta || behance || other) && (
           <>
-            <Flex width="100%" padding="0.5em 1em">
+            <Flex width="100%" padding="0.5em 0">
               {insta && (
-                <Flex margin="0 25px 0 0">
+                <Flex margin="0 30px 0 0">
                   <img src="/images/instagram.svg" alt="인스타" />
                   <Text className="site" margin="0 0 0 5px">
                     {insta && (
@@ -263,7 +260,7 @@ const MyPage = () => {
         })}
       </Grid>
 
-      <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="10px 10px 20px">
+      <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 10px">
         {myAllList &&
           nowList?.map((l) => {
             console.log(l);
@@ -322,7 +319,6 @@ const Mytab = styled.div`
   p:nth-of-type(1) {
     border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   }
-
   .logout {
     /* border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`}; */
   }

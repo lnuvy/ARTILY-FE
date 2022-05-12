@@ -12,13 +12,14 @@ import theme from "../styles/theme";
 import { SellStateCheck } from "../redux/modules/mypage";
 import { deleteSwal } from "../shared/commonAlert";
 import { deletePostDB } from "../redux/modules/store";
+import { SellingLabel, CompleteLabel } from "./index";
+// import SellLabel from "./SellLabel";
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 
 const ArtCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  let [sellButton, setSellbutton] = useState("판매완료");
   // ArtCard
   const location = useLocation();
   // const postList = useSelector((state) => state.store.list);
@@ -48,6 +49,7 @@ const ArtCard = (props) => {
     address,
     changeAddress,
   } = props;
+  console.log(done);
   // const { userId, profileImage, address } = user;
   const nowuser = useSelector((state) => state.user.user);
 
@@ -76,8 +78,8 @@ const ArtCard = (props) => {
             <Wrap>
               <Flex>
                 <Text fg="1">{postTitle}</Text>
-
                 <SmallLabel>
+                  {/* 판매중인 상품과 판매완료된 상품을 구별할 라벨입니다. */}
                   {done === true ? (
                     <p className="complete">판매완료</p>
                   ) : (
@@ -292,7 +294,6 @@ const Sell = styled.div`
     margin: auto;
   }
 `;
-
 const SmallLabel = styled.div`
   /* position: relative; */
   //판매완료 label
@@ -316,14 +317,14 @@ const SmallLabel = styled.div`
 `;
 const Label = styled.div`
   position: relative;
-
   .complete,
   .selling {
     position: absolute;
     top: 7px;
     left: 7px;
     height: 30px;
-    padding: 5px;
+    padding: 0 8px;
+    line-height: 30px;
     color: #fff;
     border-radius: 8px;
     font-size: 14px;

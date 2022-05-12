@@ -13,6 +13,8 @@ import Preview from "./Preview";
 import ReviewCard from "./ReviewCard";
 import OtherWorkCard from "./OtherWorkCard";
 import StoreMore from "./StoreMore";
+import SellingLabel from "./SellingLabel";
+import CompleteLabel from "./CompleteLabel";
 
 export {
   ArtCard,
@@ -30,4 +32,6 @@ export {
   ReviewCard,
   OtherWorkCard,
   StoreMore,
+  SellingLabel,
+  CompleteLabel,
 };
