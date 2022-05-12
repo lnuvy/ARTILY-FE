@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ArtCard, Card, Footer } from "../components";
+import { StoreCard, Footer } from "../components";
 import Category from "../components/Category";
-import { Button, Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
+import { Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostDB, go2detail, filteringData } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
@@ -16,8 +16,6 @@ const Store = () => {
   const dispatch = useDispatch();
   const { list, filterList } = useSelector((state) => state.store);
   // 카테고리 필터링
-
-  console.log(filterList);
 
   useEffect(() => {
     // store api 두번요청되는걸 막기위함
@@ -60,7 +58,7 @@ const Store = () => {
     })
     .map((l) => {
       return (
-        <ArtCard key={l.postId} {...l} onClick={() => handleClickData(l)} />
+        <StoreCard key={l.postId} {...l} onClick={() => handleClickData(l)} />
       );
     });
 
@@ -133,6 +131,8 @@ const Store = () => {
               }
             })}
         </Flex>
+
+        {/* 여기부터 컨텐츠 (리스트가 아무것도없을때 안내를 할건지?) */}
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
           {searchList && query !== ""
             ? searchList
@@ -140,7 +140,7 @@ const Store = () => {
                 if (isFree) {
                   if (l.price === 0) {
                     return (
-                      <ArtCard
+                      <StoreCard
                         key={l.postId}
                         {...l}
                         onClick={() => handleClickData(l)}
@@ -149,7 +149,7 @@ const Store = () => {
                   }
                 } else
                   return (
-                    <ArtCard
+                    <StoreCard
                       key={l.postId}
                       {...l}
                       onClick={() => handleClickData(l)}
