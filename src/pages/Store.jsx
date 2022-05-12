@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ArtCard, Card } from "../components";
+import { ArtCard, Card, Footer } from "../components";
 import Category from "../components/Category";
 import { Button, Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
@@ -84,68 +84,61 @@ const Store = () => {
 
   return (
     <>
-      <Grid>
+      <Category />
+      <Wrap margin="16px 16px 24px 16px">
         <Input
-          margin="0 20px"
+          square
+          br="8px"
+          padding="11px 16px"
+          margin="0 0 16px"
           placeholder="작가명, 작품명 검색..."
           icon={<Search />}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <Category />
-        <Wrap margin="16px">
-          <Flex margin="0 0 10px" jc="space-between">
-            <Checkbox id="checkFree" zoom={1.2} onChange={checkFree}>
-              <Text h3>나눔 작품만 보기</Text>
-            </Checkbox>
-            <Flex onClick={modalOn} jc="center" ai="center">
-              <Text h3>거래 방식/지역 선택하기</Text>
-              {filtering.transaction === "전체" &&
-              filtering.region[0] === "전체" ? (
-                <FilterFilled fill="gray" />
-              ) : (
-                <FilterFilled fill="black" />
-              )}
-            </Flex>
-          </Flex>
-          <Flex margin="5px 0 15px">
-            {filtering.transaction !== "전체" && (
-              <Text color={theme.pallete.gray3}>
-                {filtering.transaction},&nbsp;
-              </Text>
+        <Flex margin="0 0 10px" jc="space-between">
+          <Checkbox id="checkFree" zoom={1.3} onChange={checkFree}>
+            <Text h3>나눔 작품만 보기</Text>
+          </Checkbox>
+          <Flex onClick={modalOn} jc="center" ai="center">
+            <Text h3>거래 방식/지역 선택하기</Text>
+            {filtering.transaction === "전체" &&
+            filtering.region[0] === "전체" ? (
+              <FilterFilled fill="gray" />
+            ) : (
+              <FilterFilled fill="black" />
             )}
-            {filtering.region[0] !== "전체" &&
-              filtering.region.map((r, i, arr) => {
-                if (i + 1 === arr.length) {
-                  return (
-                    <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
-                      {r}&nbsp;
-                    </Text>
-                  );
-                } else {
-                  return (
-                    <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
-                      {r},&nbsp;
-                    </Text>
-                  );
-                }
-              })}
           </Flex>
-          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
-            {searchList && query !== ""
-              ? searchList
-              : filterList.map((l) => {
-                  if (isFree) {
-                    if (l.price === 0) {
-                      return (
-                        <ArtCard
-                          key={l.postId}
-                          {...l}
-                          onClick={() => handleClickData(l)}
-                        />
-                      );
-                    }
-                  } else
+        </Flex>
+        <Flex margin="5px 0 15px">
+          {filtering.transaction !== "전체" && (
+            <Text color={theme.pallete.gray3}>
+              {filtering.transaction},&nbsp;
+            </Text>
+          )}
+          {filtering.region[0] !== "전체" &&
+            filtering.region.map((r, i, arr) => {
+              if (i + 1 === arr.length) {
+                return (
+                  <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
+                    {r}&nbsp;
+                  </Text>
+                );
+              } else {
+                return (
+                  <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
+                    {r},&nbsp;
+                  </Text>
+                );
+              }
+            })}
+        </Flex>
+        <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
+          {searchList && query !== ""
+            ? searchList
+            : filterList.map((l) => {
+                if (isFree) {
+                  if (l.price === 0) {
                     return (
                       <ArtCard
                         key={l.postId}
@@ -153,10 +146,19 @@ const Store = () => {
                         onClick={() => handleClickData(l)}
                       />
                     );
-                })}
-          </Grid>
-        </Wrap>
-      </Grid>
+                  }
+                } else
+                  return (
+                    <ArtCard
+                      key={l.postId}
+                      {...l}
+                      onClick={() => handleClickData(l)}
+                    />
+                  );
+              })}
+        </Grid>
+      </Wrap>
+      <Footer />
     </>
   );
 };

@@ -31,16 +31,19 @@ import { IoMdHeart } from "react-icons/io";
 import { socket } from "../shared/socket";
 import { receiveChatRoom } from "../redux/modules/chat";
 import { postMarkupToggle } from "../redux/modules/user";
+import { Heart } from "../assets/icons";
+import { StoreMore } from "../components";
 
 const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
   //5.11 다른사람 마이페이지 조회할 userId -영경
   const { userId } = useParams();
-  console.log({ userId });
+  console.log(userId);
 
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
+  const otherPost = useSelector((state) => state.store.otherPost);
 
   useEffect(() => {
     dispatch(getPostOne(postId));
@@ -100,9 +103,9 @@ const StoreDetail = () => {
     <>
       {current && (
         <>
-          <Wrap margin="16px">
+          <Wrap margin="0 16px">
             <Text h1>{current.postTitle}</Text>
-            <Flex margin="8px 0 0 0" jc="space-between">
+            <Flex margin="8px 0" jc="space-between">
               <Flex>
                 <Image
                   circle
@@ -128,7 +131,7 @@ const StoreDetail = () => {
                         수정하기
                       </Text>
                     </Flex>
-                    <Flex padding="6px" onClick={deletePosting}>
+                    <Flex padding="6px 0 6px 6px" onClick={deletePosting}>
                       <Text body1 color={theme.pallete.primary900}>
                         삭제하기
                       </Text>
@@ -163,59 +166,81 @@ const StoreDetail = () => {
           </Wrap>
           <ImageCarousel src={current.imageUrl} />
 
-          <Wrap margin="16px">
-            <Flex>
-              <Text body3 fg="1">
-                분류
-              </Text>
-              <Text body3>{current.category}</Text>
+          <Wrap margin="16px 16px 56px">
+            <Flex margin="8px 0" jc="space-between">
+              <Text color={theme.pallete.gray3}>분류</Text>
+              <Text color={theme.pallete.gray3}>{current.category}</Text>
             </Flex>
-            <Flex>
-              <Text body3 fg="1">
+            {/* <Flex  margin="8px 0" jc="space-between">
+              <Text color={theme.pallete.gray3}>
                 크기
               </Text>
-              <Text body3>{current.size}</Text>
+              <Text color={theme.pallete.gray3}>{current.size}</Text>
+            </Flex> */}
+            <Flex margin="8px 0 10px" jc="space-between">
+              <Text color={theme.pallete.gray3}>거래 방식</Text>
+              <Text color={theme.pallete.gray3}>
+                {current.transaction}
+                {current.changeAddress && ` ∙ ${current.changeAddress}`}
+              </Text>
             </Flex>
-            <Flex margin="0 0 10px">
-              <Text body3 fg="1">
-                거래 방식
-              </Text>
-              <Text body3>
-                {current.transaction} ∙ {current.changeAddress}
+            <Flex>
+              <Text color="black" margin="0 0 16px">
+                {current.postContent}
               </Text>
             </Flex>
-            <Text>{current.postContent}</Text>
-            {/* <Flex margin="16px 0 0 ">
-              <Text h2 lineHeight="22px">
-                작가의 다른 작품
-              </Text>
-              <Text margin="0 0 0 8px" fg="1" lineHeight="22px">
-                팔로우
-              </Text>
-              <Text lineHeight="22px">더보기</Text>
-            </Flex>
-            <Grid gtc="auto auto" rg="8px" cg="8px" margin="0 0 20px"></Grid> */}
+            {otherPost.length > 0 && (
+              <>
+                <Flex margin="16px 0 10px">
+                  <Text h2 lineHeight="22px">
+                    작가의 다른 작품
+                  </Text>
+                  <Text
+                    margin="0 0 0 14px"
+                    fg="1"
+                    lineHeight="22px"
+                    color={theme.pallete.primary900}
+                  >
+                    팔로우
+                  </Text>
+                  <Text lineHeight="22px" color={theme.pallete.primary900}>
+                    더보기
+                  </Text>
+                </Flex>
+                <Grid gtc="1fr 1fr" rg="18px" cg="8px" margin="0 0 20px">
+                  {otherPost.map((post) => {
+                    return <StoreMore key={post.postId} {...post} />;
+                  })}
+                </Grid>
+              </>
+            )}
           </Wrap>
 
           <FixedChatBar>
             <Flex onClick={markupToggle}>
               {currentUser &&
               currentUser.myMarkup.find((id) => id === postId) ? (
-                <IoMdHeart size={36} color="red" />
+                <IoMdHeart size={24} color={theme.pallete.primary850} />
               ) : (
-                <IoMdHeartEmpty size={36} color="red" />
+                <Heart />
               )}
 
-              <Text h1>{current.markupCnt}</Text>
-            </Flex>
-            <Flex jc="end">
-              <Text h1 bold margin="0 10px">
+              <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
+                {current.markupCnt}
+              </Text>
+              <Text h3 medium margin="0 20px">
                 {current.price && priceComma(current.price)}원
               </Text>
+            </Flex>
+            <Flex jc="end">
               {isMe ? (
-                <Button>판매완료</Button>
+                <Button padding="8px 16px">
+                  <Text color="white">판매완료로 변경</Text>
+                </Button>
               ) : (
-                <Button onClick={startChat}>채팅하기</Button>
+                <Button padding="12px 16px" onClick={startChat}>
+                  채팅하기
+                </Button>
               )}
             </Flex>
           </FixedChatBar>
@@ -226,15 +251,17 @@ const StoreDetail = () => {
 };
 
 const FixedChatBar = styled.div`
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: fixed;
   bottom: 0;
   width: 100%;
-  padding: 10px 12px;
-  border-top: 1px solid gray;
-  max-width: ${theme.view.maxWidth}; ;
+  padding: 8px 16px;
+  border-top: 1px solid ${theme.pallete.gray1};
+  max-width: ${theme.view.maxWidth};
+  height: 56px;
 `;
 
 export default StoreDetail;

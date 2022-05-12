@@ -12,6 +12,7 @@ import NoInfo from "./NoInfo";
 import Preview from "./Preview";
 import ReviewCard from "./ReviewCard";
 import OtherWorkCard from "./OtherWorkCard";
+import StoreMore from "./StoreMore";
 
 export {
   ArtCard,
@@ -28,4 +29,5 @@ export {
   Preview,
   ReviewCard,
   OtherWorkCard,
+  StoreMore,
 };

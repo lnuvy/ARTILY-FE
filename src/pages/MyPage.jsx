@@ -173,7 +173,6 @@ const MyPage = () => {
           </Flex>
           <Flex margin="0 25px 0 0">
             {other && <img src="../../images/web.svg" alt="포트폴리오" />}
-
             <Text className="site" margin="0 0 0 5px">
               {other && (
                 <a href={other} target="_blank" rel="noreferrer">
@@ -181,6 +180,7 @@ const MyPage = () => {
                 </a>
               )}
             </Text>
+            h
           </Flex>
         </Flex>
       ) : null}

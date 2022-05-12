@@ -1,11 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
-
 
 * {
-  font-family: "Pretendard", "Noto Sans KR", sans-serif; // May8 서체 적용
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -16,6 +14,8 @@ const GlobalStyle = createGlobalStyle`
 
 body {
   background-color: rgba(0, 0, 0, 0.1);
+  
+  -webkit-font-smoothing: antialiased;
 }
 
 input, textarea { 

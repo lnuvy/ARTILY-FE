@@ -17,6 +17,7 @@ import Close from "./Close";
 import Edit from "./Edit";
 import FilterOutline from "./FilterOutline";
 import FilterFilled from "./FilterFilled";
+import Heart from "./Heart";
 import Mail from "./Mail";
 import MoreHoriz from "./MoreHoriz";
 import MoreVert from "./MoreVert";
@@ -48,6 +49,7 @@ export {
   Edit,
   FilterOutline,
   FilterFilled,
+  Heart,
   Mail,
   MoreHoriz,
   MoreVert,

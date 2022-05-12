@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Card } from "../components";
-import { Flex, Image, Text, Wrap, Button } from "../elements";
+import { Flex, Image, Text, Wrap, Button, Icon } from "../elements";
 import { priceComma } from "../shared/utils";
 import { useHistory } from "react-router-dom";
 import { myPageDummy } from "../shared/Dummy";
@@ -237,21 +237,28 @@ const ArtCard = (props) => {
             {user.nickname}
           </Text>
         </Flex>
-        <Text h3>{postTitle}</Text>
+        <Text h3 medium>
+          {postTitle}
+        </Text>
         <Text color={theme.pallete.gray3}>
           {transaction}
           {changeAddress &&
-            (changeAddress.length > 7
-              ? ` ∙ ${changeAddress.substring(0, 7)}...`
+            (changeAddress.length > 9
+              ? ` ∙ ${changeAddress.substring(0, 9)}...`
               : ` ∙ ${changeAddress}`)}
         </Text>
-        {price ? (
-          <Text fg="1" bold>
-            {priceComma(price)}원
-          </Text>
-        ) : (
-          ""
-        )}
+        <Flex>
+          {price ? <Text fg="1">{priceComma(price)}원</Text> : ""}
+          <Icon width="fit-content">
+            <Flex>
+              <Favorite />
+              <Text body2 margin="0 0 0 4px">
+                {markupCnt}
+              </Text>
+            </Flex>
+          </Icon>
+        </Flex>
+
         {reviewContent && <Text>{reviewContent}</Text>}
       </Card>
     );
