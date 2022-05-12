@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Favorite } from "../assets/icons";
 import { Flex, Icon, Image, Text } from "../elements";
-import { isMeCheck, priceComma } from "../shared/utils";
+import { priceComma } from "../shared/utils";
 import theme from "../styles/theme";
 import Card from "./Card";
 
@@ -25,8 +25,7 @@ const StoreCard = (props) => {
 
   const userInfo = useSelector((state) => state.user.user);
 
-  console.log(userInfo);
-  const isMyMarkup = userInfo.myMarkup.find((id) => id === postId);
+  const isMyMarkup = userInfo?.myMarkup?.find((id) => id === postId);
 
   return (
     <Card onClick={onClick}>

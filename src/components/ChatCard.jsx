@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Button, Flex, Image, Text } from "../elements";
-import { history } from "../redux/configureStore";
 import { changeTime } from "../shared/utils";
 
 const ChatCard = ({ room, onClick }) => {

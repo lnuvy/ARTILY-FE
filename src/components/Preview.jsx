@@ -1,18 +1,11 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Grid, Input, Icon, Text, Wrap, Flex } from "../elements";
+import { Button, Text, Flex } from "../elements";
 import { ImagePreview } from "./index";
-import {
-  accrueImage,
-  removePreview,
-  setRepresent,
-  clearPreview,
-  inputfileObj,
-} from "../redux/modules/image";
+import { accrueImage, inputfileObj } from "../redux/modules/image";
 import styled from "styled-components";
 
-import { AiOutlineCamera } from "react-icons/ai";
-import { AddPhoto, Camera } from "../assets/icons";
+import { AddPhoto } from "../assets/icons";
 
 /*
  * @한울 4/30

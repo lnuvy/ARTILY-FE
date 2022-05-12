@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Card } from "../components";
-import { Flex, Image, Text, Wrap, Button, Icon } from "../elements";
+import { Flex, Image, Text, Wrap, Button } from "../elements";
 import { priceComma } from "../shared/utils";
 import { useHistory } from "react-router-dom";
 import { Favorite } from "../assets/icons";
@@ -16,7 +16,6 @@ const ArtCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // ArtCard
   const {
     postId,
     onClick,

@@ -3,12 +3,10 @@ import { Favorite } from "../assets/icons";
 import { Flex, Icon, Image, Text } from "../elements";
 import { history } from "../redux/configureStore";
 import { priceComma } from "../shared/utils";
-import theme from "../styles/theme";
 import Card from "./Card";
 
 const StoreMore = (props) => {
-  const { postId, imageUrl, markupCnt, postTitle, price, transaction, user } =
-    props;
+  const { postId, imageUrl, markupCnt, postTitle, price } = props;
 
   if (postId) {
     return (

@@ -1,19 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Flex, Grid, Image, Text, Wrap, Icon } from "../elements";
-import {
-  accrueImage,
-  removePreview,
-  setRepresent,
-  clearPreview,
-} from "../redux/modules/image";
+import { Button, Grid, Image, Wrap } from "../elements";
+import { removePreview, setRepresent } from "../redux/modules/image";
 import styled from "styled-components";
 
 import { AiOutlineClose } from "react-icons/ai";
 
 const ImagePreview = () => {
   const dispatch = useDispatch();
-  const { represent, imageArr } = useSelector((state) => state.image);
+  const { imageArr } = useSelector((state) => state.image);
 
   const selectRepresent = (image) => {
     dispatch(setRepresent(image));
