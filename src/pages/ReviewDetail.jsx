@@ -21,50 +21,74 @@ import {
 } from "../redux/modules/reviews";
 import { useParams } from "react-router-dom";
 import theme from "../styles/theme";
+import { priceComma } from "../shared/utils";
+import { deleteReviewDB } from "../redux/modules/reviews.jsx";
 
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
   const reviewId = useParams();
-  const current = useSelector((state) => state.review);
+  const current = useSelector((state) => state.review.reviewData);
+  const userId = useSelector((state) => state.user.user.userId);
+
+  function editFunc() {
+    history.push(`/review/edit/${current.buyer.reviewId}`);
+  }
+
+  function deleteFunc() {
+    dispatch(deleteReviewDB(reviewId.reviewId));
+  }
 
   useEffect(() => {
     dispatch(getReviewOne(reviewId.reviewId));
   }, []);
 
-  // const isMe = userId === currentUser?.userId;
-
   return (
     <>
-      {current.reviewData ? (
+      {current ? (
         <>
           <Wrap margin="16px 16px 8px">
-            <Text h1 contents={current.reviewData.buyer.reviewTitle}></Text>
+            <Text h1 contents={current.buyer.reviewTitle}></Text>
             <Flex margin="8px 0 0 0" jc="space-between">
               <Flex>
-                <Image circle size="32" />
+                <Image circle size="32" src={`${current.buyer.profileImage}`} />
                 <Text
                   margin="0 0 0 8px"
-                  contents={current.reviewData.nickname}
+                  contents={current.buyer.nickname}
                 ></Text>
               </Flex>
               <Flex>
-                {/* {isMe ? (
+                {userId === current.buyer.userId ? (
                   <>
-                    <Text body2>수정하기</Text> &nbsp;
-                    <Text body2>삭제하기</Text>
+                    <Button
+                      fontSize="16px"
+                      text
+                      color={`${theme.color.brandColor}`}
+                      onClick={editFunc}
+                    >
+                      수정하기
+                    </Button>{" "}
+                    &nbsp;
+                    <Button
+                      fontSize="16px"
+                      text
+                      color={`${theme.color.brandColor}`}
+                      onClick={deleteFunc}
+                    >
+                      삭제하기
+                    </Button>
                   </>
                 ) : (
                   <>
                     <Text body2>팔로우</Text> &nbsp;
                     <Text body2>신고</Text>
                   </>
-                )} */}
+                )}
               </Flex>
             </Flex>
           </Wrap>
-          <ImageCarousel src={current.reviewData.buyer.imageUrl} />
+          <ImageCarousel src={current.buyer.imageUrl} />
           <Wrap margin="16px">
-            <Text contents={current.reviewData.buyer.reviewContent}></Text>
+            <Text contents={current.buyer.reviewContent}></Text>
           </Wrap>
           <Wrap padding="10px 16px 16px" bc={`${theme.pallete.primary100}`}>
             <Flex>
@@ -73,15 +97,30 @@ const ReviewDetail = (props) => {
               </Text>
             </Flex>
             <Flex>
-              <Image width="96px" height="96px" />
+              <Image
+                width="96px"
+                height="96px"
+                src={`${current.buyer.seller.imageUrl[0]}`}
+              />
               <Wrap margin="0 0 0 16px ">
                 <Text h3 medium margin="0 0 8px">
-                  작품명
+                  {current.buyer.seller.postTitle}
                 </Text>
-                <Text margin="0 0 8px">15,000원</Text>
+                <Text margin="0 0 8px">
+                  {current.sellItemInfo.price
+                    ? priceComma(current.sellItemInfo.price)
+                    : 0}
+                  원
+                </Text>
                 <Flex>
-                  <Image circle size="32" />
-                  <Text margin="0 0 0 8px">작가명</Text>
+                  <Image
+                    circle
+                    size="32"
+                    src={`${current.buyer.seller.user.profileImage}`}
+                  />
+                  <Text margin="0 0 0 8px">
+                    {current.buyer.seller.user.nickname}
+                  </Text>
                 </Flex>
               </Wrap>
             </Flex>
@@ -108,11 +147,16 @@ const ReviewDetail = (props) => {
                 </Button>
               </Text>
             </Flex>
-            <Grid gtc="auto auto">
-              <OtherWorkCard />
-              <OtherWorkCard />
-              <OtherWorkCard />
-              <OtherWorkCard />
+            <Grid gtc="1fr 1fr">
+              {current.defferent.length
+                ? current.defferent.map((l, i) => {
+                    return (
+                      <>
+                        <OtherWorkCard key={i} {...l} onClick={() => null} />
+                      </>
+                    );
+                  })
+                : null}
             </Grid>
           </Wrap>
         </>

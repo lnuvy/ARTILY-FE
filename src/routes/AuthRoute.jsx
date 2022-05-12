@@ -19,6 +19,7 @@ import {
   StoreDetail,
   StoreEdit,
   StoreWrite,
+  ReviewSelect,
   Test,
 } from "../pages";
 
@@ -35,7 +36,9 @@ const AuthRoute = () => {
       <Route path="/follow" exact component={Follow} />
       <Route path="/review/" exact component={Review} />
       <Route path="/review/view/:reviewId" exact component={ReviewDetail} />
-      <Route path="/review/write" exact component={ReviewWrite} />
+      <Route path="/review/write/select" exact component={ReviewSelect} />
+      <Route path="/review/write/:postId" exact component={ReviewWrite} />
+      <Route path="/review/edit/:reviewId" exact component={ReviewWrite} />
       <Route path="/test" component={Test} />
       <Route path="/mypage" exact component={MyPage} />
       <Route path="/login" exact component={Login} />
