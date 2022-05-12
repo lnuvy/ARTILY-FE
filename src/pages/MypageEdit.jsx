@@ -136,7 +136,7 @@ const MypageEdit = () => {
                 square
                 icon={
                   <Flex>
-                    <img src="../../images/instagram.svg" alt="인스타" />
+                    <img src="../../public/images/Instagram.svg" alt="인스타" />
                   </Flex>
                 }
                 fg="1"
@@ -161,7 +161,7 @@ const MypageEdit = () => {
               br="6px"
               icon={
                 <Flex>
-                  <img src="../../images/Behance.svg" alt="비핸스" />
+                  <img src="../../public/images/Behance.svg" alt="비핸스" />
                 </Flex>
               }
               type="text"
@@ -183,7 +183,7 @@ const MypageEdit = () => {
                 br="6px"
                 icon={
                   <Flex>
-                    <img src="../../images/web.svg" alt="포트폴리오" />
+                    <img src="../../public/images/web.svg" alt="포트폴리오" />
                   </Flex>
                 }
                 type="text"

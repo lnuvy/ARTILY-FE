@@ -138,13 +138,13 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
           <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
           <MapMarker
             position={position}
-            // image={{
-            //   src: "../../../assets/images/where@2x.png",
-            //   size: {
-            //     width: 64,
-            //     height: 69,
-            //   },
-            // }}
+            image={{
+              src: "/images/Marker.png",
+              size: {
+                width: 64,
+                height: 69,
+              },
+            }}
           />
         </Map>
       </Flex>

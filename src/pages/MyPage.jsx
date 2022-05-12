@@ -150,8 +150,7 @@ const MyPage = () => {
       {insta || behance || other ? (
         <Flex width="100%" padding="10px 20px">
           <Flex margin="0 25px 0 0">
-            {insta && <img src="../../images/instagram.svg" alt="인스타" />}
-
+            {insta && <img src="/images/Instagram.svg" alt="인스타" />}
             <Text className="site" margin="0 0 0 5px">
               {insta && (
                 <a href={insta} target="_blank" rel="noreferrer">
@@ -161,7 +160,7 @@ const MyPage = () => {
             </Text>
           </Flex>
           <Flex margin="0 25px 0 0">
-            {behance && <img src="../../images/Behance.svg" alt="비핸스" />}
+            {behance && <img src="/images/Behance.svg" alt="비핸스" />}
 
             <Text className="site" margin="0 0 0 5px">
               {behance && (
@@ -172,7 +171,7 @@ const MyPage = () => {
             </Text>
           </Flex>
           <Flex margin="0 25px 0 0">
-            {other && <img src="../../images/web.svg" alt="포트폴리오" />}
+            {other && <img src="/images/web.svg" alt="포트폴리오" />}
             <Text className="site" margin="0 0 0 5px">
               {other && (
                 <a href={other} target="_blank" rel="noreferrer">
