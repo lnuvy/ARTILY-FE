@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Card } from "../components";
 import { Flex, Image, Text, Wrap, Button, Icon } from "../elements";
 import { priceComma } from "../shared/utils";
 import { useHistory } from "react-router-dom";
-import { myPageDummy } from "../shared/Dummy";
 import { Favorite } from "../assets/icons";
-import theme from "../styles/theme";
-import { SellStateCheck } from "../redux/modules/mypage";
 import { deleteSwal } from "../shared/commonAlert";
 import { deletePostDB } from "../redux/modules/store";
-import { SellingLabel, CompleteLabel } from "./index";
 // import SellLabel from "./SellLabel";
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 
@@ -22,17 +17,11 @@ const ArtCard = (props) => {
   const history = useHistory();
 
   // ArtCard
-  const location = useLocation();
-  // const postList = useSelector((state) => state.store.list);
-  // console.log(postList);
   const {
     postId,
     onClick,
-    // user,
     postTitle,
     price,
-    // category,
-    // transaction,
     done,
     imageUrl,
     nickname,
@@ -45,13 +34,8 @@ const ArtCard = (props) => {
     markup,
     reviewTitle,
     reviewContent,
-    // userId,
-    // profileImage,
-    // address,
-    // changeAddress,
   } = props;
   console.log(done);
-  // const { userId, profileImage, address } = user;
   const nowuser = useSelector((state) => state.user.user);
 
   const deletePosting = async () => {
@@ -62,7 +46,6 @@ const ArtCard = (props) => {
     }
   };
 
-  //5.5 영경_마이페이지 -> 판매작품 관리하기에서 사용될 Artcard 추가
   if (mystore) {
     return (
       <>
@@ -80,7 +63,6 @@ const ArtCard = (props) => {
               <Flex>
                 <Text fg="1">{postTitle}</Text>
                 <SmallLabel>
-                  {/* 판매중인 상품과 판매완료된 상품을 구별할 라벨입니다. */}
                   {done === true ? (
                     <p className="complete">판매완료</p>
                   ) : (

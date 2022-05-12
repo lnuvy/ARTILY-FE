@@ -312,14 +312,15 @@ const Mytab = styled.div`
     .vector {
       position: absolute;
       top: 23px;
-      right: 16px;
+      right: 25px;
     }
   }
-  p:nth-of-type(1) {
+
+  p {
     border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   }
   .logout {
-    /* border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`}; */
+    border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   }
 `;
 
