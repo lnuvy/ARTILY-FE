@@ -40,6 +40,8 @@ const StoreEdit = () => {
 
   const { postId } = useParams();
 
+  console.log(postId);
+
   const nowPost = useSelector((state) => state.store.detailData);
 
   useEffect(() => {
@@ -67,6 +69,8 @@ const StoreEdit = () => {
     price: nowPost?.price,
   });
   const { represent, imageArr, fileObj } = useSelector((state) => state.image);
+
+  console.log(imageArr);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -112,14 +116,7 @@ const StoreEdit = () => {
     const { postTitle, price, postContent } = inputs;
     inputSpaceReg(postTitle);
     inputSpaceReg(postContent);
-    if (!imageArr.length) {
-      MySwal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "작품 등록시 사진은 반드시 1장 이상이어야 합니다.",
-      });
-      return;
-    }
+
     if (!(inputs.delivery || inputs.direct)) {
       MySwal.fire({
         icon: "error",
@@ -148,7 +145,13 @@ const StoreEdit = () => {
     formData.append("postTitle", postTitle);
     formData.append("postContent", postContent);
     formData.append("price", price);
-    for (let i = 0; i < imageArr.length; i++) {
+
+    for (let i = 1; i < imageArr.length; i++) {
+      if (imageArr[i].includes("https://artily-bucket.s3.ap-northeast-2")) {
+        formData.append("imgSave", imageArr[i]);
+      }
+    }
+    for (let i = 0; i < fileObj.length; i++) {
       formData.append("image", fileObj[i]);
     }
 
@@ -166,8 +169,7 @@ const StoreEdit = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-
-    dispatch(editPostDB(formData));
+    dispatch(editPostDB(postId, formData));
   };
 
   return (

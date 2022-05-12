@@ -21,6 +21,8 @@ import styled from "styled-components";
 import { priceComma } from "../shared/utils";
 import theme from "../styles/theme";
 
+import { deleteSwal } from "../shared/commonAlert";
+
 // 임시 아이콘
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
@@ -45,6 +47,14 @@ const StoreDetail = () => {
   }, []);
 
   const isMe = current?.user?.userId === currentUser?.userId;
+
+  const deletePosting = async () => {
+    const result = await deleteSwal();
+    console.log(result);
+    if (result) {
+      dispatch(deletePostDB(postId));
+    }
+  };
 
   // 찜하기
   const markupToggle = () => {
@@ -118,13 +128,7 @@ const StoreDetail = () => {
                         수정하기
                       </Text>
                     </Flex>
-                    <Flex
-                      padding="6px"
-                      onClick={() => {
-                        console.log("삭제", postId);
-                        dispatch(deletePostDB(postId));
-                      }}
-                    >
+                    <Flex padding="6px" onClick={deletePosting}>
                       <Text body1 color={theme.pallete.primary900}>
                         삭제하기
                       </Text>

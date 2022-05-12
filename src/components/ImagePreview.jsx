@@ -19,7 +19,7 @@ const ImagePreview = () => {
     dispatch(setRepresent(image));
   };
 
-  const removeImage = (image) => {
+  const removeImage = async (image) => {
     // 수정단계의 대표이미지일때
     if (
       image.includes("https://artily-bucket.s3.ap-northeast-2") &&
@@ -28,6 +28,9 @@ const ImagePreview = () => {
       alert("대표이미지는 삭제할수없어요!");
       return;
     }
+    // const testFile = await convertURLtoFile(image);
+    // console.log(testFile);
+
     dispatch(removePreview(image));
   };
 

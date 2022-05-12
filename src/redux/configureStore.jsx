@@ -36,11 +36,11 @@ const rootReducer = combineReducers({
 const middlewares = [thunk.withExtraArgument({ history })];
 
 // // 개발 환경일때, redux-logger 사용하기 5/11 너무 거추장스러워서 없앰 아래 주석풀면 다시 생김
-// const env = process.env.NODE_ENV;
-// if (env === "development") {
-//   const { logger } = require("redux-logger");
-//   middlewares.push(logger);
-// }
+const env = process.env.NODE_ENV;
+if (env === "development") {
+  const { logger } = require("redux-logger");
+  middlewares.push(logger);
+}
 
 const store = configureStore({
   reducer: rootReducer,

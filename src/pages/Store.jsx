@@ -7,7 +7,6 @@ import { getPostDB, go2detail, filteringData } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
 import _ from "lodash";
 
-import { AiOutlineSearch } from "react-icons/ai";
 import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
 import { FilterFilled, FilterOutline, Search } from "../assets/icons";
@@ -18,10 +17,11 @@ const Store = () => {
   const { list, filterList } = useSelector((state) => state.store);
   // 카테고리 필터링
 
+  console.log(filterList);
+
   useEffect(() => {
-    // 새로고침 등 리덕스데이터가 날아갔을때만 api 요청하게하기
-    // if (!list.length) dispatch(getPostDB());
-    dispatch(getPostDB());
+    // store api 두번요청되는걸 막기위함
+    if (list.length < 6) dispatch(getPostDB());
   }, []);
 
   // 모달 필터링

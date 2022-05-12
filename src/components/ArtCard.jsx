@@ -10,6 +10,8 @@ import { myPageDummy } from "../shared/Dummy";
 import { Favorite } from "../assets/icons";
 import theme from "../styles/theme";
 import { SellStateCheck } from "../redux/modules/mypage";
+import { deleteSwal } from "../shared/commonAlert";
+import { deletePostDB } from "../redux/modules/store";
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 
 const ArtCard = (props) => {
@@ -22,6 +24,7 @@ const ArtCard = (props) => {
   // const postList = useSelector((state) => state.store.list);
   // console.log(postList);
   const {
+    postId,
     onClick,
     user,
     postTitle,
@@ -47,6 +50,14 @@ const ArtCard = (props) => {
   } = props;
   // const { userId, profileImage, address } = user;
   const nowuser = useSelector((state) => state.user.user);
+
+  const deletePosting = async () => {
+    const result = await deleteSwal();
+    console.log(result);
+    if (result) {
+      dispatch(deletePostDB(postId));
+    }
+  };
 
   //5.5 영경_마이페이지 -> 판매작품 관리하기에서 사용될 Artcard 추가
   if (mystore) {
@@ -85,21 +96,12 @@ const ArtCard = (props) => {
           <Flex>
             <p
               onClick={() => {
-                //일단 넣어둠
-                history.push("/store/write");
+                history.push(`/store/write/${postId}`);
               }}
             >
               수정하기
             </p>
-            <p
-              onClick={() => {
-                window.confirm(
-                  "삭제 후에는 복구가 불가능 합니다. 정말 삭제하시겠습니까?"
-                );
-              }}
-            >
-              삭제하기
-            </p>
+            <p onClick={deletePosting}>삭제하기</p>
             {done === true ? (
               <p
                 onClick={() => {
@@ -237,7 +239,11 @@ const ArtCard = (props) => {
         </Flex>
         <Text h3>{postTitle}</Text>
         <Text color={theme.pallete.gray3}>
-          {transaction} ∙ {changeAddress}
+          {transaction}
+          {changeAddress &&
+            (changeAddress.length > 7
+              ? ` ∙ ${changeAddress.substring(0, 7)}...`
+              : ` ∙ ${changeAddress}`)}
         </Text>
         {price ? (
           <Text fg="1" bold>
@@ -246,7 +252,7 @@ const ArtCard = (props) => {
         ) : (
           ""
         )}
-        <Text>{reviewContent}</Text>
+        {reviewContent && <Text>{reviewContent}</Text>}
       </Card>
     );
   }

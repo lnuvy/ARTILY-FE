@@ -25,3 +25,13 @@ export const inputSpaceReg = (text) => {
   }
   return true;
 };
+
+// url을 파일객체로 수정
+// export const convertURLtoFile = async (url) => {
+//   const response = await fetch(url);
+//   const data = await response.blob();
+//   const ext = url.split(".").pop(); // url 구조에 맞게 수정할 것
+//   const filename = url.split("/").pop(); // url 구조에 맞게 수정할 것
+//   const metadata = { type: `image/${ext}` };
+//   return new File([data], filename, metadata);
+// };

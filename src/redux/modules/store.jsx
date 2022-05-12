@@ -37,9 +37,6 @@ export const getPostDB = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    // 더미데이터 리덕스 주입
-    // dispatch(getStoreData(storeDummy));
   };
 };
 
@@ -120,7 +117,11 @@ export const deletePostDB = (postId) => {
     Apis.deleteStore(postId)
       .then((res) => {
         console.log(res);
-        alert("삭제완료");
+        Swal.fire({
+          icon: "success",
+          title: "포스팅 삭제",
+          text: "삭제되었습니다.",
+        });
         dispatch(deletePost(postId));
         history.replace("/store");
       })

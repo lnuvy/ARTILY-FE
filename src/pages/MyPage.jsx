@@ -22,7 +22,6 @@ const MyPage = () => {
   // 웹사이트 주소 외부링크 연결
   const user = useSelector((state) => state.user.user);
 
-  console.log(user.snsUrl);
   const target = {
     Url: user?.snsUrl,
   };
@@ -40,12 +39,12 @@ const MyPage = () => {
       return url.includes("behance");
     }) || null;
 
-  other = target.Url[2] || null;
+  if (user.snsUrl[2] !== "") {
+    other = target?.Url[2];
+  }
 
   //프로필 정보 불러오기
   const isLogin = useSelector((state) => state.user.isLogin);
-  const userId = useSelector((state) => state.user?.user?.userId);
-  console.log("서버로 보낼 userId :", userId);
 
   useEffect(() => {
     if (isLogin) {
@@ -68,6 +67,12 @@ const MyPage = () => {
   };
 
   const [current, setCurrent] = useState(menus[0]);
+
+  // 이거 추가 (myAllList 는 api 요청이 새로되기전까지 변하지 않으므로 처음에 발동시키는거처럼 만듬)
+  useEffect(() => {
+    // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    dispatch(selectList(current));
+  }, [myAllList]);
 
   useEffect(() => {
     dispatch(selectList(current));
@@ -134,45 +139,51 @@ const MyPage = () => {
         </Wrap>
       </Flex>
 
-      <Text margin="10px 10px">
-        {getProfile && getProfile.introduce ? getProfile.introduce : ""}
-      </Text>
-      {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
-      <Flex width="100%" jc="space-between" padding="10px 20px">
-        <Flex>
-          <img src="../../images/instagram.svg" alt="인스타" />
-
-          <Text className="site" margin="0 0 0 5px">
-            {insta && (
-              <a href={insta} target="_blank" rel="noreferrer">
-                instagram
-              </a>
-            )}
-          </Text>
-        </Flex>
-        <Flex>
-          <img src="../../images/Behance.svg" alt="비핸스" />
-
-          <Text className="site" margin="0 0 0 5px">
-            {behance && (
-              <a href={behance} target="_blank" rel="noreferrer">
-                Behance
-              </a>
-            )}
-          </Text>
-        </Flex>
-        <Flex>
-          <img src="../../images/web.svg" alt="포트폴리오" />
-
-          <Text className="site" margin="0 0 0 5px">
-            {other && (
-              <a href={other} target="_blank" rel="noreferrer">
-                <p>Website</p>
-              </a>
-            )}
-          </Text>
-        </Flex>
+      <Flex padding="10px 20px">
+        <Text margin="10px 10px">
+          {getProfile && getProfile.introduce ? getProfile.introduce : ""}
+        </Text>
       </Flex>
+
+      {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
+
+      {insta || behance || other ? (
+        <Flex width="100%" padding="10px 20px">
+          <Flex margin="0 25px 0 0">
+            {insta && <img src="../../images/instagram.svg" alt="인스타" />}
+
+            <Text className="site" margin="0 0 0 5px">
+              {insta && (
+                <a href={insta} target="_blank" rel="noreferrer">
+                  instagram
+                </a>
+              )}
+            </Text>
+          </Flex>
+          <Flex margin="0 25px 0 0">
+            {behance && <img src="../../images/Behance.svg" alt="비핸스" />}
+
+            <Text className="site" margin="0 0 0 5px">
+              {behance && (
+                <a href={behance} target="_blank" rel="noreferrer">
+                  Behance
+                </a>
+              )}
+            </Text>
+          </Flex>
+          <Flex margin="0 25px 0 0">
+            {other && <img src="../../images/web.svg" alt="포트폴리오" />}
+
+            <Text className="site" margin="0 0 0 5px">
+              {other && (
+                <a href={other} target="_blank" rel="noreferrer">
+                  <p>Website</p>
+                </a>
+              )}
+            </Text>
+          </Flex>
+        </Flex>
+      ) : null}
       <Mytab>
         <p
           onClick={() => {
@@ -199,21 +210,6 @@ const MyPage = () => {
         </p>
       </Mytab>
 
-      {/* 임시 버튼 */}
-      <Button
-        onClick={() => {
-          history.push("/login");
-        }}
-      >
-        로그인
-      </Button>
-      <Button
-        onClick={() => {
-          history.push("/profile");
-        }}
-      >
-        최초 로그인시 프로필 설정
-      </Button>
       {/*--------------------------------------------------------------*/}
       <Grid gtc="auto auto auto" cg="20px" margin="10px 0">
         {menus.map((menu) => {

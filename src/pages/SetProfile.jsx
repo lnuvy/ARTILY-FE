@@ -12,6 +12,7 @@ import { Front, Back } from "../shared/NicknameDummy.js";
 import { Refresh } from "../assets/icons";
 import { getUserInfo, setProfileDB } from "../redux/modules/user";
 import Swal from "sweetalert2";
+import { nicknameCheck } from "../shared/regCheck/RegCheck";
 const Setprofile = () => {
   const dispatch = useDispatch();
 
@@ -55,16 +56,10 @@ const Setprofile = () => {
     };
   };
   const editUser = () => {
-    // 닉네임 3 ~ 8 자로 제한
-    if (nickname.length < 3 || nickname.length > 8) {
-      Swal.fire({
-        title: "Oops!",
-        text: "유효한 닉네임 길이는 3~8자 입니다.",
-        timer: 2500,
-        icon: "warning",
-      });
+    if (!nicknameCheck(nickname)) {
       return;
     }
+
     const file = fileInput.current.files[0];
     //새로운 객체 생성
     const formData = new FormData();

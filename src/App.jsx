@@ -5,7 +5,6 @@ import { history } from "./redux/configureStore";
 import ToastMessage from "./shared/ToastMessage";
 import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { getToken } from "./shared/token";
 import styled from "styled-components";
 
 import { getUserInfo } from "./redux/modules/user";
