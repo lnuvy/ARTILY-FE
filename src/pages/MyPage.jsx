@@ -6,7 +6,6 @@ import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard } from "../components";
 import theme from "../styles/theme";
-
 import { getUserInfo, userLogout } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
 
@@ -18,11 +17,16 @@ const MyPage = () => {
   const nowList = useSelector((state) => state.mystore.nowList);
 
   const getProfile = useSelector((state) => state.user.user);
-
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(getUserInfo());
+      dispatch(getmyPageDB(user?.userId)); //게시글 정보
+    }
+  }, [dispatch]);
   // 웹사이트 주소 외부링크 연결
   const user = useSelector((state) => state.user.user);
 
-  console.log(user.snsUrl);
+  console.log(user?.snsUrl);
   const target = {
     Url: user?.snsUrl,
   };
@@ -40,19 +44,18 @@ const MyPage = () => {
       return url.includes("behance");
     }) || null;
 
-  other = target.Url[2] || null;
+  // other = target.Url[2] || null;
 
   //프로필 정보 불러오기
   const isLogin = useSelector((state) => state.user.isLogin);
   const userId = useSelector((state) => state.user?.user?.userId);
   console.log("서버로 보낼 userId :", userId);
 
-  useEffect(() => {
-    if (isLogin) {
-      dispatch(getmyPageDB(user?.userId)); //게시글 정보
-      dispatch(getUserInfo());
-    }
-  }, []);
+  //userId가 본인일 경우에만 수정하기 버튼 나오게
+  const storeUserId = useSelector((state) => state.store?.list[0]?.user.userId); //게시글 아무거나 선택해서 userId 비교해
+  console.log(storeUserId);
+
+  const is_me = userId === storeUserId ? true : false;
 
   const handleClickSellData = (data) => {
     dispatch(getDetail(data));
@@ -71,6 +74,9 @@ const MyPage = () => {
 
   useEffect(() => {
     dispatch(selectList(current));
+  }, [myAllList]);
+  useEffect(() => {
+    dispatch(selectList(current));
   }, [current]);
 
   // 네비게이션 탭을 직접 눌렀을때
@@ -84,22 +90,23 @@ const MyPage = () => {
     <>
       <Flex>
         <Image
-          margin="0 10px"
+          margin="1em 1em"
           fg="1"
-          width="100px"
-          height="100px"
+          width="90px"
+          height="90px"
           bg="#ddd"
-          br="50px"
+          br="45px"
+          border="1px solid #ddd"
           src={
             getProfile && getProfile.profileImage ? getProfile.profileImage : ""
           }
         ></Image>
-        <Wrap padding="0 20px 0 0px">
-          <Text h2 bold margin="5px 0 10px 0">
+        <Wrap padding="0 30px 0 0">
+          <Text h3 bold margin="0 0 10px 0">
             {getProfile && getProfile.nickname ? getProfile.nickname : ""}
             {/* 유저명 */}
           </Text>
-          <Text body2>
+          <Text body2 color="#555">
             팔로워{" "}
             <Follower
               onClick={() => {
@@ -118,30 +125,31 @@ const MyPage = () => {
             </Follower>
             명
           </Text>
-          <Text body2>
+          <Text body2 color="#555" margin="0.5em 0 0 0">
             등록한 작품 {myAllList.myPost && myAllList?.myPost.length}개
           </Text>
         </Wrap>
         <Wrap margin="0 0 50px">
           {/* 본인의 마이페이지인 경우에만 수정하기 버튼이 보여야 함 */}
+          {/* {is_me || ( */}
           <Edit
             onClick={() => {
               history.push("/mypage/edit");
             }}
           >
-            <Text>수정하기</Text>
+            <Text margin="0 0 15px 0">수정하기</Text>
           </Edit>
+          {/* )} */}
         </Wrap>
       </Flex>
 
-      <Text margin="10px 10px">
+      <Text body1 color="#555" margin="0.5em 1em">
         {getProfile && getProfile.introduce ? getProfile.introduce : ""}
       </Text>
       {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
-      <Flex width="100%" jc="space-between" padding="10px 20px">
+      <Flex width="100%" jc="space-between" padding="0.5em 1em">
         <Flex>
-          {insta && <img src="../../images/instagram.svg" alt="인스타" />}
-
+          {insta && <img src="/images/instagram.svg" alt="인스타" />}
           <Text className="site" margin="0 0 0 5px">
             {insta && (
               <a href={insta} target="_blank" rel="noreferrer">
@@ -151,7 +159,7 @@ const MyPage = () => {
           </Text>
         </Flex>
         <Flex>
-          {behance && <img src="../../images/Behance.svg" alt="비핸스" />}
+          {behance && <img src="/images/Behance.svg" alt="비핸스" />}
 
           <Text className="site" margin="0 0 0 5px">
             {behance && (
@@ -162,58 +170,61 @@ const MyPage = () => {
           </Text>
         </Flex>
         <Flex>
-          {other && <img src="../../images/web.svg" alt="포트폴리오" />}
+          <img src="/images/web.svg" alt="포트폴리오" />
 
           <Text className="site" margin="0 0 0 5px">
-            {other && (
-              <a href={other} target="_blank" rel="noreferrer">
-                <p>Website</p>
-              </a>
-            )}
+            <a href={other} target="_blank" rel="noreferrer">
+              <p>Website</p>
+            </a>
           </Text>
         </Flex>
       </Flex>
       <Mytab>
-        <p
+        <Flex
           onClick={() => {
             history.push("/mypage/manage");
           }}
         >
-          판매 작품 등록 / 관리
-        </p>
-        <p
+          <p>
+            판매 작품 등록하기 / 관리하기
+            <img
+              src="../../images/Vector.svg"
+              alt="vector"
+              className="vector"
+            />
+          </p>
+        </Flex>
+        <Flex
           onClick={() => {
             history.push("/mypage/buyList");
           }}
         >
-          구매 내역 조회 / 리뷰 작성
-        </p>
-        <p
+          <p>
+            구매 내역 조회하기 / 리뷰 쓰기
+            <img
+              src="../../images/Vector.svg"
+              alt="vector"
+              className="vector"
+            />
+          </p>
+        </Flex>
+        <Flex
           onClick={() => {
             console.log("로그아웃!");
             removeToken();
             dispatch(userLogout());
           }}
         >
-          로그아웃
-        </p>
+          <p className="logout">
+            로그아웃
+            <img
+              src="../../images/Vector.svg"
+              alt="vector"
+              className="vector"
+            />
+          </p>
+        </Flex>
       </Mytab>
-
-      {/* 임시 버튼 */}
-      <Button
-        onClick={() => {
-          history.push("/login");
-        }}
-      >
-        로그인
-      </Button>
-      <Button
-        onClick={() => {
-          history.push("/profile");
-        }}
-      >
-        최초 로그인시 프로필 설정
-      </Button>
       {/*--------------------------------------------------------------*/}
       <Grid gtc="auto auto auto" cg="20px" margin="10px 0">
         {menus.map((menu) => {
@@ -235,6 +246,7 @@ const MyPage = () => {
       <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="10px 10px 20px">
         {myAllList &&
           nowList?.map((l) => {
+            console.log(l);
             if (current === "판매목록") {
               return (
                 <ArtCard
@@ -273,19 +285,26 @@ const MyPage = () => {
 };
 
 const Mytab = styled.div`
-  .mytab {
-    width: 100%;
-    height: 10vh;
-    padding-left: 1em;
-    cursor: pointer;
-  }
   p {
-    border-bottom: 1px solid #ddd;
-    padding: 1.2em 0.5em;
+    padding: 1.2em 1em;
     cursor: pointer;
+    flex-grow: 1;
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.41px;
+    .vector {
+      position: absolute;
+      top: 23px;
+      right: 16px;
+    }
   }
   p:nth-of-type(1) {
-    border-top: 1px solid #ddd;
+    border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
+  }
+
+  .logout {
+    /* border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`}; */
   }
 `;
 

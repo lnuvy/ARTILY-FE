@@ -70,6 +70,7 @@ const DetailProfile = () => {
             width="120px"
             height="120px"
             br="60px"
+            border="1px solid #999"
             src={
               getProfile && getProfile.profileImage && getProfile.profileImage
             }
@@ -185,7 +186,6 @@ const DetailProfile = () => {
       <Button
         width="90%"
         type="submit"
-        outline
         margin="20px"
         onClick={() => {
           editUser();
