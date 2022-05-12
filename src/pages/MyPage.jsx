@@ -6,7 +6,6 @@ import styled, { keyframes } from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard } from "../components";
 import theme from "../styles/theme";
-
 import { getUserInfo, userLogout } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
 
@@ -18,7 +17,12 @@ const MyPage = () => {
   const nowList = useSelector((state) => state.mystore.nowList);
 
   const getProfile = useSelector((state) => state.user.user);
-
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(getUserInfo());
+      dispatch(getmyPageDB(user?.userId)); //게시글 정보
+    }
+  }, [dispatch]);
   // 웹사이트 주소 외부링크 연결
   const user = useSelector((state) => state.user.user);
 
@@ -46,12 +50,11 @@ const MyPage = () => {
   //프로필 정보 불러오기
   const isLogin = useSelector((state) => state.user.isLogin);
 
-  useEffect(() => {
-    if (isLogin) {
-      dispatch(getmyPageDB(user?.userId)); //게시글 정보
-      dispatch(getUserInfo());
-    }
-  }, []);
+  //userId가 본인일 경우에만 수정하기 버튼 나오게
+  const storeUserId = useSelector((state) => state.store?.list[0]?.user.userId); //게시글 아무거나 선택해서 userId 비교해
+  console.log(storeUserId);
+
+  const isMe = user?.userId === storeUserId ? true : false;
 
   const handleClickSellData = (data) => {
     dispatch(getDetail(data));
@@ -76,6 +79,9 @@ const MyPage = () => {
 
   useEffect(() => {
     dispatch(selectList(current));
+  }, [myAllList]);
+  useEffect(() => {
+    dispatch(selectList(current));
   }, [current]);
 
   // 네비게이션 탭을 직접 눌렀을때
@@ -87,129 +93,160 @@ const MyPage = () => {
 
   return (
     <>
-      <Flex>
-        <Image
-          margin="0 10px"
-          fg="1"
-          width="100px"
-          height="100px"
-          bg="#ddd"
-          br="50px"
-          src={
-            getProfile && getProfile.profileImage ? getProfile.profileImage : ""
-          }
-        ></Image>
-        <Wrap padding="0 20px 0 0px">
-          <Text h2 bold margin="5px 0 10px 0">
-            {getProfile && getProfile.nickname ? getProfile.nickname : ""}
-            {/* 유저명 */}
-          </Text>
-          <Text body2>
-            팔로워{" "}
-            <Follower
+      <Wrap padding="16px">
+        <Flex jc="space-between">
+          <Flex>
+            <Image
+              fg="1"
+              width="90px"
+              height="90px"
+              bg="#ddd"
+              br="45px"
+              border="1px solid #ddd"
+              src={
+                getProfile && getProfile.profileImage
+                  ? getProfile.profileImage
+                  : ""
+              }
+            />
+            <Wrap margin="0 16px 0 16px">
+              <Text h3 bold margin="0 0 10px 0">
+                {getProfile && getProfile.nickname ? getProfile.nickname : ""}
+                {/* 유저명 */}
+              </Text>
+              <Text body2 color="#555">
+                팔로워{" "}
+                <Follower
+                  onClick={() => {
+                    history.push("/follow");
+                  }}
+                >
+                  1
+                </Follower>
+                명 · 팔로잉{" "}
+                <Follower
+                  onClick={() => {
+                    history.push("/follow");
+                  }}
+                >
+                  1
+                </Follower>
+                명
+              </Text>
+              <Text body2 color="#555" margin="0.5em 0 0 0">
+                등록한 작품 {myAllList.myPost && myAllList?.myPost.length}개
+              </Text>
+            </Wrap>
+          </Flex>
+          <Wrap margin="0 0 45px">
+            <Edit
               onClick={() => {
-                history.push("/follow");
+                history.push("/mypage/edit");
               }}
             >
-              1
-            </Follower>
-            명 · 팔로잉{" "}
-            <Follower
-              onClick={() => {
-                history.push("/follow");
-              }}
-            >
-              1
-            </Follower>
-            명
-          </Text>
-          <Text body2>
-            등록한 작품 {myAllList.myPost && myAllList?.myPost.length}개
-          </Text>
-        </Wrap>
-        <Wrap margin="0 0 50px">
-          {/* 본인의 마이페이지인 경우에만 수정하기 버튼이 보여야 함 */}
-          <Edit
-            onClick={() => {
-              history.push("/mypage/edit");
-            }}
-          >
-            <Text>수정하기</Text>
-          </Edit>
-        </Wrap>
-      </Flex>
+              <Text margin="0 0 15px 0">수정하기</Text>
+            </Edit>
+          </Wrap>
+        </Flex>
 
-      <Flex padding="10px 20px">
-        <Text margin="10px 10px">
+        <Text body1 color="#555" margin="0.5em 1em">
           {getProfile && getProfile.introduce ? getProfile.introduce : ""}
         </Text>
-      </Flex>
 
-      {/* 누르면 저장해둔 웹사이트 링크로 이동 */}
-
-      {insta || behance || other ? (
-        <Flex width="100%" padding="10px 20px">
-          <Flex margin="0 25px 0 0">
-            {insta && <img src="/images/Instagram.svg" alt="인스타" />}
-            <Text className="site" margin="0 0 0 5px">
+        {(insta || behance || other) && (
+          <>
+            <Flex width="100%" padding="0.5em 1em">
               {insta && (
-                <a href={insta} target="_blank" rel="noreferrer">
-                  instagram
-                </a>
+                <Flex margin="0 25px 0 0">
+                  <img src="/images/instagram.svg" alt="인스타" />
+                  <Text className="site" margin="0 0 0 5px">
+                    {insta && (
+                      <a href={insta} target="_blank" rel="noreferrer">
+                        instagram
+                      </a>
+                    )}
+                  </Text>
+                </Flex>
               )}
-            </Text>
-          </Flex>
-          <Flex margin="0 25px 0 0">
-            {behance && <img src="/images/Behance.svg" alt="비핸스" />}
 
-            <Text className="site" margin="0 0 0 5px">
               {behance && (
-                <a href={behance} target="_blank" rel="noreferrer">
-                  Behance
-                </a>
+                <Flex margin="0 25px 0 0">
+                  <img src="/images/Behance.svg" alt="비핸스" />
+
+                  <Text className="site" margin="0 0 0 5px">
+                    {behance && (
+                      <a href={behance} target="_blank" rel="noreferrer">
+                        Behance
+                      </a>
+                    )}
+                  </Text>
+                </Flex>
               )}
-            </Text>
-          </Flex>
-          <Flex margin="0 25px 0 0">
-            {other && <img src="/images/web.svg" alt="포트폴리오" />}
-            <Text className="site" margin="0 0 0 5px">
+
               {other && (
-                <a href={other} target="_blank" rel="noreferrer">
-                  <p>Website</p>
-                </a>
+                <Flex margin="0 25px 0 0">
+                  <img src="/images/web.svg" alt="포트폴리오" />
+
+                  <Text className="site" margin="0 0 0 5px">
+                    {other && (
+                      <a href={other} target="_blank" rel="noreferrer">
+                        <p>Website</p>
+                      </a>
+                    )}
+                  </Text>
+                </Flex>
               )}
-            </Text>
-            h
-          </Flex>
-        </Flex>
-      ) : null}
+            </Flex>
+          </>
+        )}
+      </Wrap>
       <Mytab>
-        <p
+        <Flex
           onClick={() => {
             history.push("/mypage/manage");
           }}
         >
-          판매 작품 등록 / 관리
-        </p>
-        <p
+          <p>
+            판매 작품 등록하기 / 관리하기
+            <img
+              src="../../images/Vector.svg"
+              alt="vector"
+              className="vector"
+            />
+          </p>
+        </Flex>
+        <Flex
           onClick={() => {
             history.push("/mypage/buyList");
           }}
         >
-          구매 내역 조회 / 리뷰 작성
-        </p>
-        <p
+          <p>
+            구매 내역 조회하기 / 리뷰 쓰기
+            <img
+              src="../../images/Vector.svg"
+              alt="vector"
+              className="vector"
+            />
+          </p>
+        </Flex>
+        <Flex
           onClick={() => {
             console.log("로그아웃!");
             removeToken();
             dispatch(userLogout());
           }}
         >
-          로그아웃
-        </p>
+          <p className="logout">
+            로그아웃
+            <img
+              src="../../images/Vector.svg"
+              alt="vector"
+              className="vector"
+            />
+          </p>
+        </Flex>
       </Mytab>
 
-      {/*--------------------------------------------------------------*/}
       <Grid gtc="auto auto auto" cg="20px" margin="10px 0">
         {menus.map((menu) => {
           return (
@@ -226,10 +263,10 @@ const MyPage = () => {
         })}
       </Grid>
 
-      {/* ---------------------------------------------------- */}
       <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="10px 10px 20px">
         {myAllList &&
           nowList?.map((l) => {
+            console.log(l);
             if (current === "판매목록") {
               return (
                 <ArtCard
@@ -268,19 +305,26 @@ const MyPage = () => {
 };
 
 const Mytab = styled.div`
-  .mytab {
-    width: 100%;
-    height: 10vh;
-    padding-left: 1em;
-    cursor: pointer;
-  }
   p {
-    border-bottom: 1px solid #ddd;
-    padding: 1.2em 0.5em;
+    padding: 1.2em 1em;
     cursor: pointer;
+    flex-grow: 1;
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.41px;
+    .vector {
+      position: absolute;
+      top: 23px;
+      right: 16px;
+    }
   }
   p:nth-of-type(1) {
-    border-top: 1px solid #ddd;
+    border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
+  }
+
+  .logout {
+    /* border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`}; */
   }
 `;
 

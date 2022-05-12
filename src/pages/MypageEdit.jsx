@@ -87,12 +87,15 @@ const MypageEdit = () => {
             width="120px"
             height="120px"
             br="60px"
-            border="1px solid #666"
+            border="1px solid #888"
             src={preview ? preview : getProfile ? getProfile.profileImage : ""}
           />
 
           <ImgBox>
-            <label htmlFor="image">🖍</label>
+            {/* 색상 변경하는법을 못찾겠어서 png로 넣었습니다 */}
+            <label htmlFor="image">
+              <img src="../../images/edit.png" alt="파일 선택" />
+            </label>
             <input
               type="file"
               id="image"
@@ -106,7 +109,7 @@ const MypageEdit = () => {
         <Flex padding="10px 0">
           <Flex width="100%">
             <Flex width="30%">
-              <Text textAlign="center" fg="1">
+              <Text textAlign="left" fg="1">
                 닉네임
               </Text>
             </Flex>
@@ -127,7 +130,7 @@ const MypageEdit = () => {
         <Flex padding="10px 0 5px">
           <Flex width="100%">
             <Flex width="30%">
-              <Text textAlign="center" fg="1">
+              <Text textAlign="left" fg="1">
                 웹사이트
               </Text>
             </Flex>
@@ -196,7 +199,7 @@ const MypageEdit = () => {
         </Flex>
         <Flex padding="20px 0 10px 0" width="100%">
           <Flex width="30%">
-            <Text textAlign="center" fg="1">
+            <Text textAlign="left" fg="1">
               소개
             </Text>
           </Flex>
@@ -236,15 +239,15 @@ const ImgBox = styled.div`
   label {
     position: absolute;
     bottom: 0;
-    right: -1em;
+    right: -0.5em;
     display: inline-block;
-    padding: 0.5em 0.75em;
-    color: #666;
+    padding: 0.5em 0.5em;
     line-height: normal;
     vertical-align: middle;
-    background-color: #fdfdfd;
+    background-color: ${({ theme }) => `${theme.color.brandColor}`};
+    width: 35px;
+    height: 35px;
     cursor: pointer;
-    border: 1px solid #666;
     border-radius: 50%;
   }
   input {
@@ -256,6 +259,8 @@ const ImgBox = styled.div`
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+  }
+  .image {
   }
 `;
 

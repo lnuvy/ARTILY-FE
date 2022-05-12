@@ -2,7 +2,7 @@
 //마이페이지 판매목록과 동일한 목록
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button, Grid, Text, Flex } from "../elements";
+import { Button, Grid, Text, Flex, Wrap } from "../elements";
 import { useLocation } from "react-router-dom";
 import {
   getmyPageDB,
@@ -14,7 +14,7 @@ import { history } from "../redux/configureStore";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ArtCard } from "../components";
-
+import { deletePostDB } from "../redux/modules/store";
 const menus = ["판매목록"];
 
 const Manage = () => {
@@ -31,45 +31,52 @@ const Manage = () => {
   }, []);
   return (
     <>
-      <Text h2 bold margin="10px 0 20px 10px">
+      <Text h2 bold margin="21px 0 13px 16px">
         판매 작품 관리하기
       </Text>
-
-      {/* 판매목록 */}
-      <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0">
-        {mystoreList?.map((list) => {
-          //판매글이 없다면?
-          if (!list) {
-            return (
-              <p>
-                아직 등록한 작품이 없어요.
-                <br />
-                작품을 등록하시겠어요?
-              </p>
-            );
-          }
-          return (
-            <ArtCard
-              mystore
-              key={list.postId}
-              className="sell"
-              {...list}
-              onClick={() => handleClickData(list)}
-            ></ArtCard>
-          );
-        })}
-      </Grid>
-      <Flex width="90%" margin="0 auto">
-        <Button
-          width="100%"
-          margin="10px auto"
-          onClick={() => {
-            history.push("/store/write");
-          }}
-        >
-          판매 작품 등록하기
-        </Button>
-      </Flex>
+      <Background>
+        {/* 판매목록 */}
+        <Inner>
+          <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0">
+            {mystoreList?.map((list) => {
+              //판매글이 없다면?
+              if (!list) {
+                return (
+                  <p>
+                    아직 등록한 작품이 없어요.
+                    <br />
+                    작품을 등록하시겠어요?
+                  </p>
+                );
+              }
+              return (
+                <ArtCard
+                  mystore
+                  key={list.postId}
+                  className="sell"
+                  {...list}
+                  onClick={() => handleClickData(list)}
+                ></ArtCard>
+              );
+            })}
+          </Grid>
+        </Inner>
+        <Sellbtn>
+          {/* 판매 작품 등록하기 버튼이 리스트가 많아져도 아래쪽에 고정되게 해야될까? */}
+          <Wrap height="30vh" padding="160px 0">
+            <Flex width="90%" margin="0 auto">
+              <Button
+                width="100%"
+                onClick={() => {
+                  history.push("/store/write");
+                }}
+              >
+                판매 작품 등록하기
+              </Button>
+            </Flex>
+          </Wrap>
+        </Sellbtn>
+      </Background>
     </>
   );
 };
@@ -117,4 +124,14 @@ const Nav = styled.div`
 //     margin: auto;
 //   }
 // `;
+
+const Background = styled.div`
+  background-color: #ddd;
+  height: 100%;
+`;
+const Inner = styled.div`
+  background-color: #fff;
+`;
+
+const Sellbtn = styled.div``;
 export default Manage;

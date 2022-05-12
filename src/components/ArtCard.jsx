@@ -65,11 +65,18 @@ const ArtCard = (props) => {
       <>
         <Card onClick={onClick}>
           <Flex>
-            <Image width="30%" src={imageUrl} br="8px" margin="0 10px 0 10px" />
+            <Image
+              width="96px"
+              height="96px"
+              src={imageUrl}
+              br="8px"
+              margin="6px 9px 6px 16px"
+            />
 
             <Wrap>
               <Flex>
                 <Text fg="1">{postTitle}</Text>
+
                 <SmallLabel>
                   {done === true ? (
                     <p className="complete">판매완료</p>
@@ -85,7 +92,7 @@ const ArtCard = (props) => {
               ) : (
                 ""
               )}
-              <Wrap fg="0" padding="10px 0 0 0">
+              <Wrap fg="0" padding="18px 0 0 0">
                 <Favorite color="#FD6A00" />
                 {markupCnt}
               </Wrap>
@@ -108,7 +115,7 @@ const ArtCard = (props) => {
                   //done이 true(판매완료)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
-                판매중으로 변경
+                판매중으로 상태변경하기
               </p>
             ) : (
               <p
@@ -116,7 +123,7 @@ const ArtCard = (props) => {
                   //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
-                판매완료로 변경
+                판매완료로 상태변경하기
               </p>
             )}
           </Flex>
@@ -160,7 +167,7 @@ const ArtCard = (props) => {
         </Label>
         <Flex margin="8px 0 0">
           <Image circle size="20" src={nowuser?.profileImage} />
-          <Text margin="0 0 0 4px">{nowuser.nickname}</Text>
+          <Text margin="0 0 0 4px">{nowuser?.nickname}</Text>
         </Flex>
         <Text>{postTitle}</Text>
         <Flex>
@@ -265,14 +272,14 @@ const ArtCard = (props) => {
   }
 };
 const Sell = styled.div`
-  margin: 10px 0;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  height: 50px;
+  border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
+  border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
+  height: 40px;
   p {
     border-right: 1px solid #ddd;
-    height: 50px;
-    line-height: 50px;
+    font-size: 14px;
+    color: ${({ theme }) => `${theme.pallete.gray4}`};
+    line-height: 40px;
     font-weight: bold;
     cursor: pointer;
   }
@@ -294,7 +301,7 @@ const SmallLabel = styled.div`
     height: 28px;
     padding: 5px;
     font-size: 13px;
-    margin-left: 10px;
+    margin-left: 8px;
     border-radius: 5px;
   }
   .complete {
