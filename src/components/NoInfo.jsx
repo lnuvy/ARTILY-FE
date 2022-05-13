@@ -7,7 +7,7 @@ const NoInfo = ({ list, text, children }) => {
   return (
     <Grid>
       {/* 해당 내용이랑 어울리는 디자인 이미지 */}
-      <Image />
+      {/* <Image /> */}
       <Text>{text}</Text>
     </Grid>
   );

@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Preview } from "../components";
-import ImagePreview from "../components/ImagePreview";
-import {
-  Button,
-  Flex,
-  Grid,
-  Image,
-  Input,
-  Text,
-  Textarea,
-  ToggleButton,
-  Wrap,
-} from "../elements";
+import { Button, Flex, Input, Textarea, ToggleButton, Wrap } from "../elements";
 import { clearPreview, editPosts3Url } from "../redux/modules/image";
 import { openModal } from "../redux/modules/modal";
 import MapModal from "../shared/modal/modalContent/MapModal";
@@ -69,8 +58,6 @@ const StoreEdit = () => {
     price: nowPost?.price,
   });
   const { represent, imageArr, fileObj } = useSelector((state) => state.image);
-
-  console.log(imageArr);
 
   const handleChange = (e) => {
     const { id, value } = e.target;

@@ -11,6 +11,7 @@ import NoInfo from "./NoInfo";
 import Preview from "./Preview";
 import ReviewCard from "./ReviewCard";
 import OtherWorkCard from "./OtherWorkCard";
+import SocialUrl from "./SocialUrl";
 import StoreCard from "./StoreCard";
 import StoreMore from "./StoreMore";
 
@@ -28,6 +29,7 @@ export {
   Preview,
   ReviewCard,
   OtherWorkCard,
+  SocialUrl,
   StoreCard,
   StoreMore,
 };
