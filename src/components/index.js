@@ -30,7 +30,7 @@ export {
   Preview,
   ReviewCard,
   OtherWorkCard,
-  SellLabel
+  SellLabel,
   SocialUrl,
   StoreCard,
   StoreMore,
