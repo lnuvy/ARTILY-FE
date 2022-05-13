@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { Favorite } from "../assets/icons";
 import { deleteSwal } from "../shared/commonAlert";
 import { deletePostDB } from "../redux/modules/store";
+import theme from "../styles/theme";
 // import SellLabel from "./SellLabel";
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 
@@ -35,6 +36,7 @@ const ArtCard = (props) => {
     reviewContent,
     userId,
     profileImage,
+    transaction,
     address,
     changeAddress,
     home,

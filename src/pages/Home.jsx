@@ -5,7 +5,6 @@ import { Card, ArtCard, ReviewCard, StoreCard } from "../components";
 import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
-import { getToken } from "../shared/token";
 import styled from "styled-components";
 import theme from "../styles/theme";
 
