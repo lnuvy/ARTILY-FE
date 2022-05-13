@@ -105,8 +105,10 @@ const InputContainer = styled.input`
     outline: none;
   }
   ::placeholder {
-    color: ${theme.color.black};
-    opacity: 0.3;
+    color: ${theme.pallete.gray3};
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.41px;
   }
   ${(props) =>
     props.alert
@@ -138,8 +140,10 @@ const SquareInput = styled.input`
     outline: none;
   }
   ::placeholder {
-    color: ${theme.color.black};
-    opacity: 0.3;
+    color: ${theme.pallete.gray3};
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.41px;
   }
   ${(props) =>
     props.alert

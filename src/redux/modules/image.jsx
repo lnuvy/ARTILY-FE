@@ -42,6 +42,10 @@ const imageSlice = createSlice({
       state.imageArr = state.imageArr.filter((el) => {
         return el !== action.payload;
       });
+
+      // state.fileObj = state.fileObj.filter((el) => {
+      //   return el !== action.payload;
+      // })
     },
     // 사용자가 대표이미지를 바꾸고싶을때
     setRepresent: (state, action) => {

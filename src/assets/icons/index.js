@@ -17,6 +17,7 @@ import Close from "./Close";
 import Edit from "./Edit";
 import FilterOutline from "./FilterOutline";
 import FilterFilled from "./FilterFilled";
+import Heart from "./Heart";
 import Mail from "./Mail";
 import MoreHoriz from "./MoreHoriz";
 import MoreVert from "./MoreVert";
@@ -29,7 +30,6 @@ import SendFILL0 from "./SendFILL0";
 import Refresh from "./Refresh";
 import Visibility from "./Visibility";
 import Web from "./Web";
-import Where from "./Where";
 
 export {
   Notification,
@@ -49,6 +49,7 @@ export {
   Edit,
   FilterOutline,
   FilterFilled,
+  Heart,
   Mail,
   MoreHoriz,
   MoreVert,
@@ -61,5 +62,4 @@ export {
   Refresh,
   Visibility,
   Web,
-  Where,
 };

@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-// import { actionCreators as userActions } from "../redux/modules/user";
 import { naverLogin } from "../redux/modules/user";
 
 const RedirectNaver = () => {

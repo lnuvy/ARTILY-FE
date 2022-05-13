@@ -1,17 +1,12 @@
 //소셜 로그인후 기본 프로필(사진, 닉네임) 설정=> 나머지 프로필 정보 설정하는 페이지
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
-// import { actionCreators as userActions } from "../redux/modules/user";
 import { getUserInfo, setProfileDB } from "../redux/modules/user";
-import { setProfileImage } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
-import ToastMessage from "../shared/ToastMessage";
-import { Front, Back } from "../shared/NicknameDummy.js";
-//임시 아이콘
-import { BsPlusSquare } from "react-icons/bs";
+
 import { AddBox } from "../assets/icons";
 
 const DetailProfile = () => {
@@ -70,6 +65,7 @@ const DetailProfile = () => {
             width="120px"
             height="120px"
             br="60px"
+            border="1px solid #999"
             src={
               getProfile && getProfile.profileImage && getProfile.profileImage
             }
@@ -185,7 +181,6 @@ const DetailProfile = () => {
       <Button
         width="90%"
         type="submit"
-        outline
         margin="20px"
         onClick={() => {
           editUser();

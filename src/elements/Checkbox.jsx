@@ -33,7 +33,6 @@ Checkbox.defaultProps = {};
 const CheckboxWrap = styled.div`
   flex-grow: ${({ fg }) => fg};
 
-  // 한울 추가
   display: flex;
   align-items: center;
   margin: ${({ margin }) => margin};
@@ -41,6 +40,7 @@ const CheckboxWrap = styled.div`
 
 const CheckboxStyle = styled.input`
   zoom: ${({ zoom }) => zoom};
+  border-radius: 0;
   :hover {
     cursor: pointer;
   }

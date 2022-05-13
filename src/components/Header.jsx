@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { Flex, Icon, Text, Grid } from "../elements/index";
+import { Flex, Icon, Text } from "../elements/index";
 import { Navigation } from "../components";
 import { useLocation } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { Logo } from "../assets/images/index";
 import { Notification, Chat, Close } from "../assets/icons/index";
 // 뒤로가기 아이콘
-import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
+import ArrowBack from "../assets/icons/ArrowBack";
 
 const Header = (props) => {
   const path = useLocation().pathname;
@@ -78,7 +78,6 @@ const Header = (props) => {
           </Icon>
         </Flex>
         <Navigation />
-        {/* <Grid gtc="1fr 1fr 1fr 1fr" cg="20px"></Grid> */}
       </HeaderStyle>
     );
   else if (isWrite) {
@@ -99,8 +98,8 @@ const Header = (props) => {
     return (
       <HeaderStyle>
         <Flex height="48px">
-          <Icon onClick={() => history.goBack()}>
-            <IoIosArrowBack size={36} color="black" />
+          <Icon margin="8px" onClick={() => history.goBack()}>
+            <ArrowBack />
           </Icon>
         </Flex>
       </HeaderStyle>

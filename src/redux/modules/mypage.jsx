@@ -77,7 +77,7 @@ const postsSlice = createSlice({
     selectList: (state, action) => {
       if (action.payload === "판매목록") {
         state.nowList = state.list.myPost;
-        console.log(state.nowList);
+        console.log(state.list.myPost);
       } else if (action.payload === "리뷰목록") {
         state.nowList = state.list.myReview;
       } else if (action.payload === "관심목록") {

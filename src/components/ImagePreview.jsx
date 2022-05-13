@@ -1,25 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Flex, Grid, Image, Text, Wrap, Icon } from "../elements";
-import {
-  accrueImage,
-  removePreview,
-  setRepresent,
-  clearPreview,
-} from "../redux/modules/image";
+import { Button, Grid, Image, Wrap } from "../elements";
+import { removePreview, setRepresent } from "../redux/modules/image";
 import styled from "styled-components";
 
 import { AiOutlineClose } from "react-icons/ai";
 
 const ImagePreview = () => {
   const dispatch = useDispatch();
-  const { represent, imageArr } = useSelector((state) => state.image);
+  const { imageArr } = useSelector((state) => state.image);
 
   const selectRepresent = (image) => {
     dispatch(setRepresent(image));
   };
 
-  const removeImage = (image) => {
+  const removeImage = async (image) => {
     // 수정단계의 대표이미지일때
     if (
       image.includes("https://artily-bucket.s3.ap-northeast-2") &&
@@ -28,6 +23,9 @@ const ImagePreview = () => {
       alert("대표이미지는 삭제할수없어요!");
       return;
     }
+    // const testFile = await convertURLtoFile(image);
+    // console.log(testFile);
+
     dispatch(removePreview(image));
   };
 

@@ -5,7 +5,6 @@ import { history } from "./redux/configureStore";
 import ToastMessage from "./shared/ToastMessage";
 import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { getToken } from "./shared/token";
 import styled from "styled-components";
 
 import { getUserInfo } from "./redux/modules/user";
@@ -23,30 +22,17 @@ function App() {
 
   useEffect(() => {
     var token = localStorage.getItem("token");
-    console.log(token);
     if (token) {
       dispatch(getUserInfo());
     }
   }, []);
 
   // useEffect(() => {
-  //   socket.on("session", ({ sessionID, userId }) => {
-  //     console.log(sessionID);
-  //     socket.auth = { sessionID };
-  //     if (sessionID) {
-  //       localStorage.setItem("sessionID", sessionID);
-  //     }
-  //     socket.userId = userId;
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     const sessionID = localStorage.getItem("sessionID") || null;
-  //     socket.auth = { sessionID, userInfo };
+  //   if (user) {
+  //     socket.auth = { user };
   //     socket.connect();
   //   }
-  // }, [userInfo]);
+  // }, [user]);
 
   // useEffect(() => {
   //   // 판매자 입장

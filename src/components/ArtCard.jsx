@@ -1,33 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Card } from "../components";
 import { Flex, Image, Text, Wrap, Button } from "../elements";
 import { priceComma } from "../shared/utils";
 import { useHistory } from "react-router-dom";
-import { myPageDummy } from "../shared/Dummy";
 import { Favorite } from "../assets/icons";
-import theme from "../styles/theme";
-import { SellStateCheck } from "../redux/modules/mypage";
+import { deleteSwal } from "../shared/commonAlert";
+import { deletePostDB } from "../redux/modules/store";
+// import SellLabel from "./SellLabel";
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 
+// 5/13 스토어에서 쓰는 ArtCard 컴포넌트로뺐습니다 props 주석처리된거 안쓰시는거면 지우셔도됨 -한울-
 const ArtCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  let [sellButton, setSellbutton] = useState("판매완료");
-  // ArtCard
-  const location = useLocation();
-  // const postList = useSelector((state) => state.store.list);
-  // console.log(postList);
   const {
+    postId,
     onClick,
-    user,
     postTitle,
     price,
-    category,
-    transaction,
     done,
     imageUrl,
     nickname,
@@ -46,21 +39,36 @@ const ArtCard = (props) => {
     changeAddress,
     home,
   } = props;
-  // const { userId, profileImage, address } = user;
+  console.log(done);
+
   const nowuser = useSelector((state) => state.user.user);
 
-  //5.5 영경_마이페이지 -> 판매작품 관리하기에서 사용될 Artcard 추가
+  const deletePosting = async () => {
+    const result = await deleteSwal();
+    console.log(result);
+    if (result) {
+      dispatch(deletePostDB(postId));
+    }
+  };
+
   if (mystore) {
     return (
       <>
         <Card onClick={onClick}>
           <Flex>
-            <Image width="30%" src={imageUrl} br="8px" margin="0 10px 0 10px" />
+            <Image
+              width="96px"
+              height="96px"
+              src={imageUrl}
+              br="8px"
+              margin="6px 9px 6px 16px"
+            />
 
             <Wrap>
               <Flex>
                 <Text fg="1">{postTitle}</Text>
                 <SmallLabel>
+                  {/* 판매중인 상품과 판매완료된 상품을 구별할 라벨입니다. */}
                   {done === true ? (
                     <p className="complete">판매완료</p>
                   ) : (
@@ -75,7 +83,7 @@ const ArtCard = (props) => {
               ) : (
                 ""
               )}
-              <Wrap fg="0" padding="10px 0 0 0">
+              <Wrap fg="0" padding="18px 0 0 0">
                 <Favorite color="#FD6A00" />
                 {markupCnt}
               </Wrap>
@@ -86,28 +94,19 @@ const ArtCard = (props) => {
           <Flex>
             <p
               onClick={() => {
-                //일단 넣어둠
-                history.push("/store/write");
+                history.push(`/store/write/${postId}`);
               }}
             >
               수정하기
             </p>
-            <p
-              onClick={() => {
-                window.confirm(
-                  "삭제 후에는 복구가 불가능 합니다. 정말 삭제하시겠습니까?"
-                );
-              }}
-            >
-              삭제하기
-            </p>
+            <p onClick={deletePosting}>삭제하기</p>
             {done === true ? (
               <p
                 onClick={() => {
                   //done이 true(판매완료)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
-                판매중으로 변경
+                판매중으로 상태변경하기
               </p>
             ) : (
               <p
@@ -115,7 +114,7 @@ const ArtCard = (props) => {
                   //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
-                판매완료로 변경
+                판매완료로 상태변경하기
               </p>
             )}
           </Flex>
@@ -177,7 +176,7 @@ const ArtCard = (props) => {
         </Label>
         <Flex margin="8px 0 0">
           <Image circle size="20" src={nowuser?.profileImage} />
-          <Text margin="0 0 0 4px">{nowuser.nickname}</Text>
+          <Text margin="0 0 0 4px">{nowuser?.nickname}</Text>
         </Flex>
         <Text>{postTitle}</Text>
         <Flex>
@@ -244,41 +243,18 @@ const ArtCard = (props) => {
         </Flex>
       </Card>
     );
-  } else {
-    return (
-      <Card onClick={onClick}>
-        <Image height="168px" br="8px" src={imageUrl} />
-        <Flex margin="8px 0 0">
-          <Image circle size="32" src={user.profileImage} />
-          <Text h3 margin="0 0 0 4px">
-            {user.nickname}
-          </Text>
-        </Flex>
-        <Text h3>{postTitle}</Text>
-        <Text color={theme.pallete.gray3}>
-          {transaction} ∙ {changeAddress}
-        </Text>
-        {price ? (
-          <Text fg="1" bold>
-            {priceComma(price)}원
-          </Text>
-        ) : (
-          ""
-        )}
-        <Text>{reviewContent}</Text>
-      </Card>
-    );
   }
 };
+
 const Sell = styled.div`
-  margin: 10px 0;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  height: 50px;
+  border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
+  border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
+  height: 40px;
   p {
     border-right: 1px solid #ddd;
-    height: 50px;
-    line-height: 50px;
+    font-size: 14px;
+    color: ${({ theme }) => `${theme.pallete.gray4}`};
+    line-height: 40px;
     font-weight: bold;
     cursor: pointer;
   }
@@ -291,7 +267,6 @@ const Sell = styled.div`
     margin: auto;
   }
 `;
-
 const SmallLabel = styled.div`
   /* position: relative; */
   //판매완료 label
@@ -300,7 +275,7 @@ const SmallLabel = styled.div`
     height: 28px;
     padding: 5px;
     font-size: 13px;
-    margin-left: 10px;
+    margin-left: 8px;
     border-radius: 5px;
   }
   .complete {
@@ -315,14 +290,14 @@ const SmallLabel = styled.div`
 `;
 const Label = styled.div`
   position: relative;
-
   .complete,
   .selling {
     position: absolute;
     top: 7px;
     left: 7px;
     height: 30px;
-    padding: 5px;
+    padding: 0 8px;
+    line-height: 30px;
     color: #fff;
     border-radius: 8px;
     font-size: 14px;

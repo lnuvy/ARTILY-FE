@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { ArtCard, Card } from "../components";
+import { StoreCard, Footer } from "../components";
 import Category from "../components/Category";
-import { Button, Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
+import { Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostDB, go2detail, filteringData } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
 import _ from "lodash";
 
-import { AiOutlineSearch } from "react-icons/ai";
 import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
-import { Search } from "../assets/icons";
+import { FilterFilled, FilterOutline, Search } from "../assets/icons";
+import theme from "../styles/theme";
 
 const Store = () => {
   const dispatch = useDispatch();
@@ -18,9 +18,8 @@ const Store = () => {
   // 카테고리 필터링
 
   useEffect(() => {
-    // 새로고침 등 리덕스데이터가 날아갔을때만 api 요청하게하기
-    // if (!list.length) dispatch(getPostDB());
-    dispatch(getPostDB());
+    // store api 두번요청되는걸 막기위함
+    if (list.length < 6) dispatch(getPostDB());
   }, []);
 
   // 모달 필터링
@@ -59,7 +58,7 @@ const Store = () => {
     })
     .map((l) => {
       return (
-        <ArtCard key={l.postId} {...l} onClick={() => handleClickData(l)} />
+        <StoreCard key={l.postId} {...l} onClick={() => handleClickData(l)} />
       );
     });
 
@@ -83,67 +82,83 @@ const Store = () => {
 
   return (
     <>
-      <Grid>
+      <Category />
+      <Wrap margin="16px 16px 24px 16px">
         <Input
-          margin="0 20px"
+          square
+          br="8px"
+          padding="11px 16px"
+          margin="0 0 16px"
           placeholder="작가명, 작품명 검색..."
           icon={<Search />}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <Category />
-        <Wrap margin="16px">
-          <Flex margin="0 0 10px" jc="space-between">
-            <Checkbox
-              id="checkFree"
-              zoom={1.3}
-              margin="0 10px"
-              onChange={checkFree}
-            >
-              <Text h3>나눔 작품만 보기</Text>
-            </Checkbox>
-            <Flex onClick={modalOn}>
-              <Text h3>거래 방식/지역 선택하기</Text>
-            </Flex>
-          </Flex>
-          <Flex>
-            {filtering.transaction !== "전체" && (
-              <Text>{filtering.transaction}</Text>
+        <Flex margin="0 0 10px" jc="space-between">
+          <Checkbox id="checkFree" zoom={1.3} onChange={checkFree}>
+            <Text h3>나눔 작품만 보기</Text>
+          </Checkbox>
+          <Flex onClick={modalOn} jc="center" ai="center">
+            <Text h3>거래 방식/지역 선택하기</Text>
+            {filtering.transaction === "전체" &&
+            filtering.region[0] === "전체" ? (
+              <FilterFilled fill="gray" />
+            ) : (
+              <FilterFilled fill="black" />
             )}
-            {filtering.region[0] !== "전체" &&
-              filtering.region.map((r, i) => {
-                return <Text key={`${i}_filter_${r}`}>{r}</Text>;
-              })}
           </Flex>
-          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
-            {searchList && query !== ""
-              ? searchList
-              : filterList.map((l) => {
-                  if (isFree) {
-                    if (l.price === 0) {
-                      return (
-                        <ArtCard
-                          key={l.postId}
-                          {...l}
-                          onClick={() => handleClickData(l)}
-                        />
-                      );
-                    }
-                  } else
+        </Flex>
+        <Flex margin="5px 0 15px">
+          {filtering.transaction !== "전체" && (
+            <Text color={theme.pallete.gray3}>
+              {filtering.transaction},&nbsp;
+            </Text>
+          )}
+          {filtering.region[0] !== "전체" &&
+            filtering.region.map((r, i, arr) => {
+              if (i + 1 === arr.length) {
+                return (
+                  <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
+                    {r}&nbsp;
+                  </Text>
+                );
+              } else {
+                return (
+                  <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
+                    {r},&nbsp;
+                  </Text>
+                );
+              }
+            })}
+        </Flex>
+
+        {/* 여기부터 컨텐츠 (리스트가 아무것도없을때 안내를 할건지?) */}
+        <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
+          {searchList && query !== ""
+            ? searchList
+            : filterList.map((l) => {
+                if (isFree) {
+                  if (l.price === 0) {
                     return (
-                      <ArtCard
+                      <StoreCard
                         key={l.postId}
                         {...l}
                         onClick={() => handleClickData(l)}
                       />
                     );
-                })}
-          </Grid>
-        </Wrap>
-      </Grid>
-
-      {/* 임시로 만들어둔 글쓰기 버튼 */}
-      <Button onClick={() => history.push("/store/write")}>글쓰기</Button>
+                  }
+                } else
+                  return (
+                    <StoreCard
+                      key={l.postId}
+                      {...l}
+                      onClick={() => handleClickData(l)}
+                    />
+                  );
+              })}
+        </Grid>
+      </Wrap>
+      <Footer />
     </>
   );
 };

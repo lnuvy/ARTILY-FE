@@ -1,5 +1,4 @@
 import React from "react";
-// import { IoIosArrowRoundBack } from "react-icons/io";
 import { Flex, Button, Wrap } from "../elements";
 
 const Login = () => {

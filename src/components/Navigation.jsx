@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { history } from "../redux/configureStore";
-import { Flex, Icon, Text, Tab, Grid } from "../elements";
-import theme from "../styles/theme";
-import { getToken, insertToken } from "../shared/token";
+import { Grid } from "../elements";
 import { useSelector } from "react-redux";
 
 // 경로를 같이 저장해야할거같아서 Object.entries로 사용

@@ -42,7 +42,6 @@ import {
   Refresh,
   Visibility,
   Web,
-  Where,
 } from "../assets/icons/index";
 import _ from "lodash";
 
@@ -91,7 +90,10 @@ const Test = () => {
       <Refresh />
       <Visibility />
       <Web />
-      <Where />
+      <img src="../../src/assets/icons/Marker.svg" alt="dfdf" />
+      <img src="../../src/assets/images/where.svg" alt="dfdf" />
+      <img src="../assets/images/where@2x.png" alt="dfdf" />
+      <img src="../../src/assets/images/where@2x.png" alt="dfdf" />
 
       <div>
         <label>Search:</label>

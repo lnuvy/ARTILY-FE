@@ -20,6 +20,7 @@ const initialState = {
   isFetching: false,
   infinityScroll: {},
   detailData: null,
+  otherPost: [],
 };
 
 export const getPostDB = () => {
@@ -37,9 +38,6 @@ export const getPostDB = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    // 더미데이터 리덕스 주입
-    // dispatch(getStoreData(storeDummy));
   };
 };
 
@@ -50,6 +48,7 @@ export const getPostOne = (postId) => {
         console.log(res.data);
         const { detail, getUser } = res.data.data;
         dispatch(go2detail(detail));
+        dispatch(otherPost(getUser));
       })
       .catch((err) => {
         console.log(err);
@@ -107,10 +106,19 @@ export const editPostDB = (postId, formData) => {
     Apis.patchStore(postId, formData)
       .then((res) => {
         console.log(res);
+
+        Swal.fire("게시글 수정", `게시글이 수정되었습니다!`, "success");
+        history.replace("/store");
       })
-      .then((err) => {
+      .catch((err) => {
         console.log(err);
-        console.log(err.response);
+        console.log(err.response.data.msg);
+        Swal.fire(
+          err.response.data.msg,
+          `수정중 문제가 발생했습니다!`,
+          "error"
+        );
+        history.replace("/store");
       });
   };
 };
@@ -120,7 +128,11 @@ export const deletePostDB = (postId) => {
     Apis.deleteStore(postId)
       .then((res) => {
         console.log(res);
-        alert("삭제완료");
+        Swal.fire({
+          icon: "success",
+          title: "포스팅 삭제",
+          text: "삭제되었습니다.",
+        });
         dispatch(deletePost(postId));
         history.replace("/store");
       })
@@ -191,6 +203,10 @@ const postsSlice = createSlice({
       state.list = newArr;
     },
 
+    otherPost: (state, action) => {
+      state.otherPost = action.payload;
+    },
+
     // 마크업 1 늘리고 줄이기
     markupToggle: (state, action) => {
       const { isUp } = action.payload;
@@ -227,6 +243,7 @@ export const {
   modalFiltering,
 
   // 리덕스 내에서만 처리하는 함수
+  otherPost,
   markupToggle,
   deletePost,
 } = actions;

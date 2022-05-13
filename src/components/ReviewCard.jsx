@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Card } from "../components";
 import { Flex, Image, Text, Icon } from "../elements/index";
@@ -8,8 +6,6 @@ import theme from "../styles/theme";
 import { Favorite } from "../assets/icons";
 
 const ReviewCard = (props) => {
-  const location = useLocation();
-
   // const postList = useSelector((state) => state.store.list);
   // console.log(postList);
 

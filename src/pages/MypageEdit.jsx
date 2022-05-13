@@ -10,7 +10,6 @@ import { Front, Back } from "../shared/NicknameDummy.js";
 import { editProfileDB } from "../redux/modules/user";
 import { Refresh } from "../assets/icons";
 import { nicknameCheck } from "../shared/regCheck/RegCheck";
-import { Edit } from "../assets/icons";
 
 const randomnickFront = Front;
 const randomnickBack = Back;
@@ -88,15 +87,14 @@ const MypageEdit = () => {
             width="120px"
             height="120px"
             br="60px"
-            border="1px solid #666"
+            border="1px solid #888"
             src={preview ? preview : getProfile ? getProfile.profileImage : ""}
           />
 
           <ImgBox>
+            {/* 색상 변경하는법을 못찾겠어서 png로 넣었습니다 */}
             <label htmlFor="image">
-              <span className="pencil">
-                <Edit />
-              </span>
+              <img src="../../images/edit.png" alt="파일 선택" />
             </label>
             <input
               type="file"
@@ -111,7 +109,7 @@ const MypageEdit = () => {
         <Flex padding="10px 0">
           <Flex width="100%">
             <Flex width="30%">
-              <Text textAlign="center" fg="1">
+              <Text textAlign="left" fg="1">
                 닉네임
               </Text>
             </Flex>
@@ -132,7 +130,7 @@ const MypageEdit = () => {
         <Flex padding="10px 0 5px">
           <Flex width="100%">
             <Flex width="30%">
-              <Text textAlign="center" fg="1">
+              <Text textAlign="left" fg="1">
                 웹사이트
               </Text>
             </Flex>
@@ -141,7 +139,7 @@ const MypageEdit = () => {
                 square
                 icon={
                   <Flex>
-                    <img src="../../images/instagram.svg" alt="인스타" />
+                    <img src="/images/Instagram.svg" alt="인스타" />
                   </Flex>
                 }
                 fg="1"
@@ -166,7 +164,7 @@ const MypageEdit = () => {
               br="6px"
               icon={
                 <Flex>
-                  <img src="../../images/Behance.svg" alt="비핸스" />
+                  <img src="/images/Behance.svg" alt="비핸스" />
                 </Flex>
               }
               type="text"
@@ -188,7 +186,7 @@ const MypageEdit = () => {
                 br="6px"
                 icon={
                   <Flex>
-                    <img src="../../images/web.svg" alt="포트폴리오" />
+                    <img src="/images/web.svg" alt="포트폴리오" />
                   </Flex>
                 }
                 type="text"
@@ -201,7 +199,7 @@ const MypageEdit = () => {
         </Flex>
         <Flex padding="20px 0 10px 0" width="100%">
           <Flex width="30%">
-            <Text textAlign="center" fg="1">
+            <Text textAlign="left" fg="1">
               소개
             </Text>
           </Flex>
@@ -239,17 +237,16 @@ const Wrapprofile = styled.div`
 
 const ImgBox = styled.div`
   label {
-    .pencil {
-      color: #fff;
-    }
     position: absolute;
     bottom: 0;
-    right: -1em;
+    right: -0.5em;
     display: inline-block;
-    padding: 0.5em 0.75em;
+    padding: 0.5em 0.5em;
     line-height: normal;
     vertical-align: middle;
     background-color: ${({ theme }) => `${theme.color.brandColor}`};
+    width: 35px;
+    height: 35px;
     cursor: pointer;
     border-radius: 50%;
   }
@@ -262,6 +259,8 @@ const ImgBox = styled.div`
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+  }
+  .image {
   }
 `;
 
