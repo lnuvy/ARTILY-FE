@@ -20,7 +20,7 @@ const NoAuthRoute = () => {
       <Route path="/store/view/:postId" exact component={StoreDetail} />
       <Route path="/store" exact component={Store} />
       <Route exact path="/review" component={Review} />
-      <Route exact path="/review/:reviewId" component={ReviewDetail} />
+      <Route path="/review/view/:reviewId" exact component={ReviewDetail} />
       <Route path="/userprofile/:userId" exact component={UserProfile} />
       <Route path="/test" component={Test} />
       <Route path="/login" exact component={Login} />

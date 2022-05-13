@@ -73,11 +73,12 @@ const postsSlice = createSlice({
       state.detailData = action.payload;
     },
     selectList: (state, action) => {
+      state.nowList = [];
       if (action.payload === "판매목록") {
         state.nowList = state.list.myPost;
       } else if (action.payload === "리뷰목록") {
         state.nowList = state.list.myReview;
-      } else if (action.payload === "관심목록") {
+      } else {
         state.nowList = state.list.myMarkup;
       }
     },

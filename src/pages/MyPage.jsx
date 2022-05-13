@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Text, Flex, Image, Grid, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
-import { getmyPageDB, getDetail, selectList } from "../redux/modules/mypage";
+import { getmyPageDB, getDetail } from "../redux/modules/mypage";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
-import { ArtCard, SocialUrl } from "../components";
+import { ArtCard, NoInfo, SocialUrl } from "../components";
 import theme from "../styles/theme";
-import { getUserInfo, userLogout } from "../redux/modules/user";
+import { userLogout } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
-import { compose } from "redux";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
 
 const MyPage = () => {
   const dispatch = useDispatch();
-  const myAllList = useSelector((state) => state.mystore.list);
-  const nowList = useSelector((state) => state.mystore.nowList);
 
   const getProfile = useSelector((state) => state.user.user);
-  useEffect(() => {
-    if (isLogin) {
-      dispatch(getUserInfo());
-      dispatch(getmyPageDB(user?.userId)); //게시글 정보
-    }
-  }, [dispatch]);
   // 웹사이트 주소 외부링크 연결
-  const user = useSelector((state) => state.user.user);
+  const myAllList = useSelector((state) => state.mystore.list);
 
-  //프로필 정보 불러오기
-  const isLogin = useSelector((state) => state.user.isLogin);
+  useEffect(() => {
+    if (getProfile) {
+      dispatch(getmyPageDB(getProfile?.userId)); //게시글 정보
+    }
+  }, [getProfile]);
+
+  const {
+    myMarkup = null,
+    myPost = null,
+    myReview = null,
+    myprofile = null,
+  } = myAllList;
 
   const handleClickSellData = (data) => {
     dispatch(getDetail(data));
@@ -45,20 +46,10 @@ const MyPage = () => {
 
   const [current, setCurrent] = useState(menus[0]);
 
-  // 이거 추가 (myAllList 는 api 요청이 새로되기전까지 변하지 않으므로 처음에 발동시키는거처럼 만듬)
-  useEffect(() => {
-    dispatch(selectList(current));
-  }, [myAllList]);
-
-  useEffect(() => {
-    dispatch(selectList(current));
-  }, [current]);
-
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
-    console.log(innerText);
-    setCurrent(menus.find((l) => l === innerText));
+    setCurrent(innerText);
   };
 
   return (
@@ -124,7 +115,7 @@ const MyPage = () => {
         <Text body1 color="#555" margin="0.5em 0">
           {getProfile && getProfile.introduce ? getProfile.introduce : ""}
         </Text>
-        <SocialUrl snsUrl={user?.snsUrl || null} />
+        <SocialUrl snsUrl={getProfile?.snsUrl || null} />
       </Wrap>
       <Mytab>
         <Flex
@@ -190,40 +181,64 @@ const MyPage = () => {
       </Grid>
 
       <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 10px">
-        {myAllList &&
-          nowList?.map((l) => {
-            if (current === "판매목록") {
-              return (
-                <ArtCard
-                  sellLabel
-                  key={`${l.postId}_mypost`}
-                  className="sell"
-                  {...l}
-                  onClick={() => handleClickSellData(l)}
-                />
-              );
-            } else if (current === "리뷰목록") {
-              return (
-                <ArtCard
-                  review
-                  key={`${l.postId}_review`}
-                  className="sell"
-                  {...l}
-                  onClick={() => handleClickReviewData(l)}
-                />
-              );
-            } else if (current === "관심목록") {
-              return (
-                <ArtCard
-                  markup
-                  key={`${l.postId}_markup`}
-                  className="sell"
-                  {...l}
-                  onClick={() => handleClickMarkupData(l)}
-                />
-              );
-            }
-          })}
+        {current === "판매목록" && (
+          <NoInfo list={myPost} text="아직 등록한 작품이 없어요.">
+            {myPost &&
+              current === "판매목록" &&
+              myPost.map((post) => {
+                console.log(post);
+                return (
+                  <ArtCard
+                    sellLabel
+                    key={`${post.postId}_mypost`}
+                    className="sell"
+                    {...post}
+                    userInfo={myprofile}
+                    onClick={() => history.push(`/store/view/${post.postId}`)}
+                  />
+                );
+              })}
+          </NoInfo>
+        )}
+        {current === "리뷰목록" && (
+          <NoInfo list={myReview} text="아직 등록한 작품이 없어요.">
+            {myReview &&
+              current === "리뷰목록" &&
+              myReview.map((review) => {
+                return (
+                  <ArtCard
+                    review
+                    key={`${review.reviewId}_myReview`}
+                    className="sell"
+                    userInfo={myprofile}
+                    {...review}
+                    onClick={() =>
+                      history.push(`/review/view/${review.postId}`)
+                    }
+                  />
+                );
+              })}
+          </NoInfo>
+        )}
+
+        {current === "관심목록" && (
+          <NoInfo list={myMarkup} text="아직 등록한 작품이 없어요.">
+            {myMarkup &&
+              current === "관심목록" &&
+              myMarkup.map((post) => {
+                return (
+                  <ArtCard
+                    markup
+                    key={`${post.postId}_myMarkup`}
+                    className="sell"
+                    userInfo={myprofile}
+                    {...post}
+                    onClick={() => history.push(`/store/view/${post.postId}`)}
+                  />
+                );
+              })}
+          </NoInfo>
+        )}
       </Grid>
     </>
   );

@@ -41,8 +41,9 @@ const ArtCard = (props) => {
     address,
     changeAddress,
     home,
+    userInfo, // 유저정보
   } = props;
-  const nowuser = useSelector((state) => state.user.user);
+  const nowuser = userInfo;
 
   const deletePosting = async () => {
     const result = await deleteSwal();
@@ -71,11 +72,7 @@ const ArtCard = (props) => {
                 <Text bold h2 fg="1" margin="10px 0 0 0">
                   {postTitle}
                 </Text>
-                {done === true ? (
-                  <SellLabel complete1 />
-                ) : (
-                  <SellLabel selling1 />
-                )}
+                <SellLabel manageLabel done={done} />
               </Flex>
               {price ? (
                 <Text fg="1" bold margin="8px 0 0 0">
@@ -172,7 +169,7 @@ const ArtCard = (props) => {
     return (
       <Card onClick={onClick}>
         <Label>
-          {done === true ? <SellLabel complete2 /> : <SellLabel selling2 />}
+          <SellLabel pageLabel done={done} />
           <Image
             height="168px"
             br="8px"
@@ -234,7 +231,7 @@ const ArtCard = (props) => {
     return (
       <Card onClick={onClick}>
         <Label>
-          {done === true ? <SellLabel complete2 /> : <SellLabel selling2 />}
+          <SellLabel done={done} pageLabel />
           <Image
             height="168px"
             br="8px"

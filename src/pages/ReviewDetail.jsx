@@ -28,7 +28,7 @@ const ReviewDetail = (props) => {
   const dispatch = useDispatch();
   const reviewId = useParams();
   const current = useSelector((state) => state.review.reviewData);
-  const userId = useSelector((state) => state.user.user.userId);
+  const userId = useSelector((state) => state.user.user?.userId);
 
   function editFunc() {
     history.push(`/review/edit/${current.buyer.reviewId}`);
