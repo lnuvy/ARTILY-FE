@@ -8,6 +8,7 @@ import { ArtCard } from "../components";
 import theme from "../styles/theme";
 import { getUserInfo, userLogout } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
+import { compose } from "redux";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
 
@@ -43,18 +44,12 @@ const MyPage = () => {
       return url.includes("behance");
     }) || null;
 
-  if (user.snsUrl[2] !== "") {
-    other = target?.Url[2];
-  }
+  // if (user.snsUrl[2] !== "") {
+  //   other = target?.Url[2];
+  // }
 
   //프로필 정보 불러오기
   const isLogin = useSelector((state) => state.user.isLogin);
-
-  //userId가 본인일 경우에만 수정하기 버튼 나오게
-  const storeUserId = useSelector((state) => state.store?.list[0]?.user.userId); //게시글 아무거나 선택해서 userId 비교해
-  console.log(storeUserId);
-
-  const isMe = user?.userId === storeUserId ? true : false;
 
   const handleClickSellData = (data) => {
     dispatch(getDetail(data));
@@ -66,7 +61,7 @@ const MyPage = () => {
   };
   const handleClickMarkupData = (data) => {
     dispatch(getDetail(data));
-    history.push(`/store/${data.postId}`);
+    history.push(`/store/view/${data.postId}`);
   };
 
   const [current, setCurrent] = useState(menus[0]);
@@ -99,7 +94,8 @@ const MyPage = () => {
               height="90px"
               bg="#ddd"
               br="45px"
-              border="1px solid #ddd"
+              shadow="1px 1px 2px #ddd"
+              border="1px solid #eee"
               src={
                 getProfile && getProfile.profileImage
                   ? getProfile.profileImage
@@ -118,7 +114,7 @@ const MyPage = () => {
                     history.push("/follow");
                   }}
                 >
-                  1
+                  {getProfile?.followerCnt}
                 </Follower>
                 명 · 팔로잉{" "}
                 <Follower
@@ -126,7 +122,7 @@ const MyPage = () => {
                     history.push("/follow");
                   }}
                 >
-                  1
+                  {getProfile?.followCnt}
                 </Follower>
                 명
               </Text>
@@ -135,6 +131,7 @@ const MyPage = () => {
               </Text>
             </Wrap>
           </Flex>
+          {/* 본인의 마이페이지일 경우에만 수정가능. 아직 구현중 */}
           <Wrap margin="0 0 45px">
             <Edit
               onClick={() => {
@@ -152,7 +149,7 @@ const MyPage = () => {
 
         {(insta || behance || other) && (
           <>
-            <Flex padding="0.5em 0">
+            <Flex padding="0.5em 0 0 0">
               {insta && (
                 <Flex margin="0 30px 0 0">
                   <img src="/images/instagram.svg" alt="인스타" />
@@ -244,7 +241,7 @@ const MyPage = () => {
         </Flex>
       </Mytab>
 
-      <Grid gtc="auto auto auto" cg="20px" margin="10px 0">
+      <Grid gtc="auto auto auto" cg="20px" margin="0 0 10px 0">
         {menus.map((menu) => {
           return (
             <CurrentDiv

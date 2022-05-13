@@ -20,7 +20,7 @@ import MypageEdit from "./MypageEdit";
 import Manage from "./Manage";
 import DetailProfile from "./DetailProfile";
 import ReviewWrite from "./ReviewWrite";
-import Buylist from "./BuyList";
+import BuyList from "./BuyList";
 
 export {
   Chat,
@@ -45,5 +45,5 @@ export {
   Manage,
   DetailProfile,
   ReviewWrite,
-  Buylist,
+  BuyList,
 };

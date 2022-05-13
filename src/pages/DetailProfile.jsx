@@ -6,7 +6,6 @@ import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
 import { getUserInfo, setProfileDB } from "../redux/modules/user";
 import { useDispatch, useSelector } from "react-redux";
-
 import { AddBox } from "../assets/icons";
 
 const DetailProfile = () => {
@@ -52,12 +51,12 @@ const DetailProfile = () => {
 
   return (
     <>
-      <Flex jc="center" margin="1em 0 0 0">
-        <h2>ARTILY</h2>
-      </Flex>
-      <Flex jc="center" margin="0 0 2em 0">
-        <p>내 프로필을 완성해주세요!</p>
-      </Flex>
+      <Wrap textAlign="center">
+        <img src="/images/artily.svg" alt="logo" />
+        <Text body1 color="#999">
+          내 프로필을 완성해주세요!
+        </Text>
+      </Wrap>
       <Wrapprofile>
         <Flex jc="center">
           <Image
@@ -65,7 +64,8 @@ const DetailProfile = () => {
             width="120px"
             height="120px"
             br="60px"
-            border="1px solid #999"
+            border="1px solid #eee"
+            shadow="1px 1px 3px #ddd"
             src={
               getProfile && getProfile.profileImage && getProfile.profileImage
             }
@@ -235,4 +235,5 @@ const ImgBox = styled.div`
     border: 0;
   }
 `;
+
 export default DetailProfile;

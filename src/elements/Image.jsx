@@ -19,6 +19,7 @@ const Image = (props) => {
     width,
     height,
     br, //5.3 영경 변경
+    shadow,
   } = props;
 
   const styles = {
@@ -34,6 +35,8 @@ const Image = (props) => {
     bs,
     bc,
     br,
+    //5.13 그림자 추가
+    shadow,
   };
 
   if (circle) {
@@ -58,6 +61,8 @@ Image.defaultProps = {
   //border-radius 추가했습니다. -영경
   br: "",
   border: "none", // May8 수정
+  //5.13 shadow 추가
+  shadow: "none",
 };
 
 const ImageCircle = styled.div`
@@ -73,6 +78,8 @@ const ImageCircle = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   border: ${({ border }) => border};
+  //5.13 box-shadow 추가 -영경
+  box-shadow: ${({ shadow }) => shadow};
 `;
 
 const ImageSqure = styled.div`
@@ -88,6 +95,8 @@ const ImageSqure = styled.div`
   background-repeat: no-repeat;
   border: ${({ border }) => border};
   border-radius: ${({ br }) => br};
+  //5.13 box-shadow 추가 -영경
+  box-shadow: ${({ shadow }) => shadow};
 `;
 
 export default Image;

@@ -18,7 +18,6 @@ const initialState = {
 //비로그인시에도 다른사람 프로필 조회를 위해 userId 같이 보내기
 
 export const getmyPageDB = (userId) => {
-  console.log("서버가 받을 userId :", userId);
   return function (dispatch, getState, { history }) {
     Apis.getMypageData(userId)
       .then((res) => {
@@ -68,7 +67,6 @@ const postsSlice = createSlice({
   reducers: {
     getmyPageData: (state, action) => {
       state.list = action.payload;
-      console.log(state.list);
     },
     // 데이터 하나 특정하기
     getDetail: (state, action) => {
@@ -77,7 +75,6 @@ const postsSlice = createSlice({
     selectList: (state, action) => {
       if (action.payload === "판매목록") {
         state.nowList = state.list.myPost;
-        console.log(state.list.myPost);
       } else if (action.payload === "리뷰목록") {
         state.nowList = state.list.myReview;
       } else if (action.payload === "관심목록") {
@@ -87,12 +84,10 @@ const postsSlice = createSlice({
     },
     mySellList: (state, action) => {
       state.sellList = action.payload.myPost;
-      console.log(state.sellList);
     },
     SellStateCheck: (state, action) => {
       state.done = action.payload;
       state.done = true; //판매완료로 바꿔
-      console.log(state.done);
     },
   },
 });

@@ -40,6 +40,7 @@ const Header = (props) => {
 
   const reviewWrite = path === "/review/write";
   const storeWrite = path === "/store/write";
+  const profile = path === "/profile" || path === "/profiledetail";
 
   if (isShowNow)
     return (
@@ -65,7 +66,7 @@ const Header = (props) => {
           </Icon>
           <Icon
             onClick={(e) => {
-              //로그인 시에만 채팅 목록을 볼 수 있도록 조건 추가했습니다 -영경
+              //로그인 시에만 채팅 목록을 볼 수 있도록 조건 추가
               if (!isLogin) {
                 history.push("/login");
               } else {
@@ -94,7 +95,7 @@ const Header = (props) => {
         </Flex>
       </HeaderStyle>
     );
-  } else
+  } else if (!profile) {
     return (
       <HeaderStyle>
         <Flex height="48px">
@@ -104,6 +105,7 @@ const Header = (props) => {
         </Flex>
       </HeaderStyle>
     );
+  }
 };
 
 Header.defaultProps = {

@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
+import {
+  Flex,
+  Input,
+  Text,
+  Textarea,
+  Button,
+  Image,
+  Wrap,
+  Grid,
+} from "../elements";
 import { history } from "../redux/configureStore";
 // import { actionCreators as userActions } from "../redux/modules/user";
 import { setProfileImage } from "../redux/modules/image";
@@ -9,6 +18,7 @@ import ToastMessage from "../shared/ToastMessage";
 import { Front, Back } from "../shared/NicknameDummy.js";
 //아이콘
 import { Refresh } from "../assets/icons";
+import { Logo } from "../assets/images";
 import { getUserInfo, setProfileDB } from "../redux/modules/user";
 import Swal from "sweetalert2";
 import { nicknameCheck } from "../shared/regCheck/RegCheck";
@@ -76,12 +86,12 @@ const Setprofile = () => {
 
   return (
     <>
-      <Flex jc="center" margin="2em 0 0 0">
-        <h2>ARTILY</h2>
-      </Flex>
-      <Flex jc="center" margin="0 0 2em 0">
-        <p>내 프로필을 만들어주세요!</p>
-      </Flex>
+      <Wrap textAlign="center">
+        <img src="/images/artily.svg" alt="logo" />
+        <Text body1 color="#999">
+          내 프로필을 완성해주세요!
+        </Text>
+      </Wrap>
       <Wrapprofile>
         <Flex jc="center" margin="50px 0">
           <Image
@@ -89,7 +99,8 @@ const Setprofile = () => {
             width="120px"
             height="120px"
             br="60px"
-            border="1px solid #999"
+            border="1px solid #eee"
+            shadow="1px 1px 3px #ddd"
             src={preview ? preview : ""}
           ></Image>
 
