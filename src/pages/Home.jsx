@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Flex, Text, Grid, Image, Wrap } from "../elements";
-import { Card, ArtCard, ReviewCard } from "../components";
+import { Card, ArtCard, ReviewCard, StoreCard } from "../components";
 import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
-import { openModal } from "../redux/modules/modal";
 import { getToken } from "../shared/token";
 import styled from "styled-components";
 import theme from "../styles/theme";
@@ -33,16 +32,6 @@ const Home = () => {
     history.push(`${path}/view/${data.postId}`);
   };
 
-  const modalOn = () => {
-    dispatch(
-      openModal({
-        title: "모달제목",
-        // text 를 content 로 변경, 태그 직접 넣으면 됩니다
-        content: <Text body2>안녕안녕</Text>,
-      })
-    );
-  };
-
   return (
     <>
       <Image height="220px" width="100%" br="0" border="none" src={banner} />
@@ -51,18 +40,16 @@ const Home = () => {
           인기 작품
         </Text>
         <Grid gtc="1fr 1fr" rg="16px" cg="16px">
-          {bestPost.map((v, i) => {
-            return (
-              <ArtCard
-                home
-                onClick={() => move2detail(v, "/store")}
-                key={i}
-                {...v}
-                nickname={v.user && v.user.nickname}
-                profileImage={v.user && v.user.profileImage}
-              />
-            );
-          })}
+          {bestPost.length > 0 &&
+            bestPost.map((v, i) => {
+              return (
+                <StoreCard
+                  onClick={() => move2detail(v, "/store")}
+                  key={v.postId}
+                  {...v}
+                />
+              );
+            })}
         </Grid>
       </Wrap>
       <Wrap padding="0 0 24px">
@@ -72,34 +59,38 @@ const Home = () => {
 
         <BestArtistWrap>
           <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
-            {bestWriter.map((v, i) => {
-              return (
-                <Card
-                  key={i}
-                  border={`1px solid ${theme.pallete.gray1}`}
-                  padding="16px 16px 10px"
-                  onClick={modalOn}
-                  width="268px"
-                  height="215px"
-                >
-                  <Image
-                    circle
-                    size="88"
-                    margin="8px auto 10px"
-                    src={v && v.profileImage}
-                  />
-                  <Text textAlign="center" margin="0 0 9px">
-                    {v && v.nickname}
-                  </Text>
-                  <Text body2 textAlign="center" margin="0 0 6px">
-                    {v && v.introduce}
-                  </Text>
-                  <Text body3 textAlign="center" color={theme.pallete.gray3}>
-                    작품타입 오브제 ∙ 등록작품 4개
-                  </Text>
-                </Card>
-              );
-            })}
+            {bestWriter.length > 0 &&
+              bestWriter.map((artist, i) => {
+                return (
+                  <Card
+                    key={i}
+                    border={`1px solid ${theme.pallete.gray1}`}
+                    padding="16px 16px 10px"
+                    onClick={() =>
+                      history.push(`/userprofile/${artist?.userId}`)
+                    }
+                    width="268px"
+                  >
+                    <Image
+                      circle
+                      size="88"
+                      margin="8px auto 10px"
+                      src={artist?.profileImage}
+                    />
+                    <Text textAlign="center" margin="0 0 9px">
+                      {artist?.nickname}
+                    </Text>
+                    <Text body2 textAlign="center" margin="0 0 6px">
+                      {artist?.introduce}
+                    </Text>
+                    <Text body3 textAlign="center" color={theme.pallete.gray3}>
+                      {/* 작품타입 오브제 ∙  */}
+                      등록작품{" "}
+                      {artist?.myPost?.length + artist?.myReview?.length}개
+                    </Text>
+                  </Card>
+                );
+              })}
           </Grid>
         </BestArtistWrap>
       </Wrap>
@@ -108,14 +99,14 @@ const Home = () => {
           Best 후기
         </Text>
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
-          {bestReview.length
-            ? bestReview.map((v, i) => {
+          {bestReview.length > 0
+            ? bestReview.map((l, i) => {
                 return (
                   <ReviewCard
                     key={i}
-                    {...v}
-                    onClick={() => move2detail(v && v, "/review")}
-                    imageUrl={v && v.imageUrl[0]}
+                    {...l}
+                    onClick={() => move2detail(l, "/review")}
+                    imageUrl={l.imageUrl[0]}
                   />
                 );
               })

@@ -177,14 +177,14 @@ const StoreWrite = () => {
           <Input
             readOnly
             value={receiveAddress ? receiveAddress : "위치 선택"}
-            icon={<IoIosArrowForward size={28} />}
+            icon={<img src="/images/Vector.svg" alt="vector" />}
             onClick={modalOn}
           />
         )}
         <Input
           readOnly
           value={receiveCategory || "카테고리 선택 "}
-          icon={<IoIosArrowForward size={28} />}
+          icon={<img src="/images/Vector.svg" alt="vector" />}
           onClick={() => {
             modalOn("category");
           }}
@@ -193,14 +193,12 @@ const StoreWrite = () => {
           id="postTitle"
           placeholder="작품명을 입력해 주세요."
           padding="16px 12px"
-          // label="작품명"
-          // margin="0 0 10px"
           value={inputs?.postTitle}
           onChange={handleChange}
         />
         <Input
           id="price"
-          placeholder="\ 가격"
+          placeholder="&#8361; 가격"
           type="number"
           margin="0 0 10px"
           padding="16px 12px"

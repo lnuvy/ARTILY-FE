@@ -18,7 +18,7 @@ const Header = (props) => {
   // );
   const isLogin = useSelector((state) => state.user.isLogin);
 
-  const { cg, width, gtc, textAlign, padding, icon1, icon2 } = props;
+  const { cg, width, gtc, textAlign, padding } = props;
 
   const styles = {
     gtc,
@@ -40,6 +40,8 @@ const Header = (props) => {
 
   const reviewWrite = path === "/review/write";
   const storeWrite = path === "/store/write";
+
+  const profile = path === "/profile" || path === "/profiledetail";
 
   if (isShowNow)
     return (
@@ -94,7 +96,7 @@ const Header = (props) => {
         </Flex>
       </HeaderStyle>
     );
-  } else
+  } else if (!profile)
     return (
       <HeaderStyle>
         <Flex height="48px">

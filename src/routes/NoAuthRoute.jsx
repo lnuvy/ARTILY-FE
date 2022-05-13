@@ -10,6 +10,7 @@ import {
   Store,
   StoreDetail,
   Test,
+  UserProfile,
 } from "../pages";
 
 const NoAuthRoute = () => {
@@ -20,6 +21,7 @@ const NoAuthRoute = () => {
       <Route path="/store" exact component={Store} />
       <Route exact path="/review" component={Review} />
       <Route exact path="/review/:reviewId" component={ReviewDetail} />
+      <Route path="/userprofile/:userId" exact component={UserProfile} />
       <Route path="/test" component={Test} />
       <Route path="/login" exact component={Login} />
       <Route path="/oauth/kakao/callback" component={RedirectKakao} />

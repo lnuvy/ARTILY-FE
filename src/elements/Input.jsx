@@ -26,6 +26,7 @@ const Input = (props) => {
     br, // border-radius
     onClick,
     type,
+    autoComplete,
   } = props;
 
   const styles = { width, fg, margin, alert, icon, padding, br };
@@ -44,6 +45,7 @@ const Input = (props) => {
             onChange={onChange}
             readOnly={readOnly}
             onKeyPress={onKeyPress}
+            autoComplete={autoComplete} // autoComplete off 추가
             {...styles}
           />
           {icon ? <InputIcon>{icon}</InputIcon> : ""}
@@ -65,6 +67,7 @@ const Input = (props) => {
             readOnly={readOnly}
             onKeyPress={onKeyPress}
             onClick={onClick}
+            autoComplete={autoComplete} // autoComplete off 추가
             {...styles}
           ></InputContainer>
           {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}
@@ -84,6 +87,7 @@ Input.defaultProps = {
   padding: "12px",
   readOnly: false,
   onChange: () => {},
+  autoComplete: "off",
 };
 
 const InputWrap = styled.div`

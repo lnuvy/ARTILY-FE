@@ -31,9 +31,9 @@ const StoreCard = (props) => {
     <Card onClick={onClick}>
       <Image height="168px" br="8px" src={imageUrl} />
       <Flex margin="8px 0">
-        <Image circle size="32" src={user && user.profileImage} />
+        <Image circle size="32" src={user?.profileImage} />
         <Text h3 margin="0 0 0 4px">
-          {user && user.nickname}
+          {user?.nickname}
         </Text>
       </Flex>
       <Text h3 medium>
@@ -42,8 +42,8 @@ const StoreCard = (props) => {
       <Text color={theme.pallete.gray3}>
         {transaction}
         {changeAddress &&
-          (changeAddress.length > 9
-            ? ` ∙ ${changeAddress.substring(0, 9)}...`
+          (changeAddress.length > 8
+            ? ` ∙ ${changeAddress.substring(0, 8)}...`
             : ` ∙ ${changeAddress}`)}
       </Text>
       <Flex>
