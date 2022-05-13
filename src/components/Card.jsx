@@ -11,6 +11,7 @@ const Card = (props) => {
     padding,
     border,
     onClick,
+    height,
     ...data
   } = props;
 
@@ -19,6 +20,7 @@ const Card = (props) => {
     textAlign,
     cg,
     width,
+    height,
     padding,
     border,
     onClick,
@@ -35,12 +37,13 @@ Card.defaultProps = {
   padding: "0",
   border: "none",
   width: "100%",
+  height: "fit-content",
   onClick: () => {},
 };
 
 const CardStyle = styled.div`
   width: ${({ width }) => width};
-  height: fit-content;
+  height: ${({ height }) => height};
   border-radius: 16px;
   padding: ${({ padding }) => padding};
   border: ${({ border }) => border};

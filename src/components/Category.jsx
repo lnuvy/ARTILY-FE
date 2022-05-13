@@ -30,10 +30,12 @@ const Category = (props) => {
   return (
     <Grid
       gtc="1fr 1fr 1fr 1fr"
-      cg="0px"
-      rg="0px"
+      cg="1px"
+      rg="1px"
       textAlign="center"
       width="100%"
+      bc={`${theme.pallete.gray2}`}
+      border={`1px solid ${theme.pallete.gray2}`}
     >
       {cate.map((c, i) => {
         if (c === current) {

@@ -3,7 +3,9 @@ import { ArtCard, Card, ReviewCard } from "../components";
 import Category from "../components/Category";
 import { Button, Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
+import { getPostDB } from "../redux/modules/store";
 import { getReviewDB, go2detail } from "../redux/modules/reviews";
+import { postReviewDB, getBuyList } from "../redux/modules/reviews.jsx";
 
 import { history } from "../redux/configureStore";
 
@@ -16,12 +18,11 @@ const Review = () => {
   useEffect(() => {
     // 더미데이터 주입된상태
     dispatch(getReviewDB());
-    console.log(reviewList);
   }, []);
 
   const handleClickData = (data) => {
     // dispatch(go2detail(data));
-    history.push(`/review/${data.reviewId}`);
+    history.push(`/review/view/${data.reviewId}`);
   };
 
   return (
@@ -37,6 +38,7 @@ const Review = () => {
                       <ReviewCard
                         key={i}
                         nickname={l.nickname}
+                        profileImage={l.profileImage}
                         {...l}
                         onClick={() => handleClickData(l)}
                         imageUrl={l.imageUrl[0]}
@@ -48,7 +50,13 @@ const Review = () => {
           </Grid>
         </Wrap>
       </Grid>
-      <Button onClick={() => history.push("/review/write")}>글쓰기</Button>
+      <Button
+        onClick={() => {
+          history.push("/review/write/select");
+        }}
+      >
+        글쓰기
+      </Button>
     </>
   );
 };

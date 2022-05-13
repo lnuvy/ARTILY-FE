@@ -22,6 +22,7 @@ import DetailProfile from "./DetailProfile";
 import ReviewWrite from "./ReviewWrite";
 import Buylist from "./BuyList";
 import UserProfile from "./UserProfile";
+import ReviewSelect from "./ReviewSelect";
 
 export {
   Chat,
@@ -48,4 +49,5 @@ export {
   ReviewWrite,
   Buylist,
   UserProfile,
+  ReviewSelect,
 };

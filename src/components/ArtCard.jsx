@@ -33,6 +33,11 @@ const ArtCard = (props) => {
     markup,
     reviewTitle,
     reviewContent,
+    userId,
+    profileImage,
+    address,
+    changeAddress,
+    home,
   } = props;
   console.log(done);
 
@@ -115,6 +120,24 @@ const ArtCard = (props) => {
           </Flex>
         </Sell>
       </>
+    );
+  } else if (home) {
+    //마이페이지=> 구매내역 조회 / 리뷰 작성
+    return (
+      <Card onClick={onClick}>
+        <Image height="168px" border="none" src={imageUrl[0]} br="8px" />
+        <Flex margin="8px 0 ">
+          <Image circle size="32" src={profileImage} />
+          <Text margin="0 0 0 8px">{nickname}</Text>
+        </Flex>
+        <Text h3 medium margin="0 0 0 2px">
+          {postTitle}
+        </Text>
+        <Text body2 margin="0 0 0 2px" color={theme.pallete.gray3}>
+          {transaction} ∙ {changeAddress}
+        </Text>
+        <Text>{price && priceComma(price)}원</Text>
+      </Card>
     );
   } else if (buylist) {
     //마이페이지=> 구매내역 조회 / 리뷰 작성
