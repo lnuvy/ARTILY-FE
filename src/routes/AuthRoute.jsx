@@ -38,6 +38,7 @@ const AuthRoute = () => {
       <Route exact path="/write" component={ReviewWrite} />
       <Route path="/test" component={Test} />
       <Route path="/mypage" exact component={MyPage} />
+      {/* <Route path="/profile/:userId" exact component={} /> */}
       <Route path="/login" exact component={Login} />
       <Route path="/profile" exact component={Setprofile} />
       <Route path="/oauth/kakao/callback" component={RedirectKakao} />

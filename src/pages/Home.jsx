@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Flex, Text, Grid, Image, Wrap } from "../elements";
-import { Card, ArtCard, ReviewCard } from "../components";
+import { Card, ArtCard, ReviewCard, StoreCard } from "../components";
 import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
@@ -52,7 +52,7 @@ const Home = () => {
         <Grid gtc="1fr 1fr" rg="16px" cg="16px">
           {bestPost.map((v, i) => {
             return (
-              <ArtCard
+              <StoreCard
                 onClick={() => move2detail(v, "/store")}
                 key={v.postId}
                 {...v}
@@ -68,7 +68,7 @@ const Home = () => {
 
         <BestArtistWrap>
           <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
-            {bestWriter.map((v, i) => {
+            {bestWriter.map((artist, i) => {
               return (
                 <Card
                   key={i}
@@ -77,16 +77,21 @@ const Home = () => {
                   onClick={modalOn}
                   width="268px"
                 >
-                  <Image circle size="88" margin="8px auto 10px" />
+                  <Image
+                    circle
+                    size="88"
+                    margin="8px auto 10px"
+                    src={artist.profileImage}
+                  />
                   <Text textAlign="center" margin="0 0 9px">
-                    작가명
+                    {artist.nickname}
                   </Text>
                   <Text body2 textAlign="center" margin="0 0 6px">
-                    작가 본인이 작성한 소개를 보여주는 영역입니다. 작가 본인이
-                    작성한 소개를 보여주는 영역입니다.
+                    {artist.introduce}
                   </Text>
                   <Text body3 textAlign="center" color={theme.pallete.gray3}>
-                    작품타입 오브제 ∙ 등록작품 4개
+                    {/* 작품타입 오브제 ∙  */}
+                    등록작품 {artist.myPost.length + artist.myReview.length}개
                   </Text>
                 </Card>
               );

@@ -60,4 +60,7 @@ export const Apis = {
   //mypage API
   getMypageData: (userId) => Api.get(`/api/profile/${userId}`),
   getMyList: () => Api.get(`/api/mypost`),
+
+  // chat API
+  getChatList: () => Api.get(`/api/chat`),
 };

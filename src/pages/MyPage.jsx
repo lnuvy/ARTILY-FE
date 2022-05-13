@@ -43,7 +43,7 @@ const MyPage = () => {
       return url.includes("behance");
     }) || null;
 
-  if (user.snsUrl[2] !== "") {
+  if (user?.snsUrl) {
     other = target?.Url[2];
   }
 
@@ -73,7 +73,6 @@ const MyPage = () => {
 
   // 이거 추가 (myAllList 는 api 요청이 새로되기전까지 변하지 않으므로 처음에 발동시키는거처럼 만듬)
   useEffect(() => {
-    // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     dispatch(selectList(current));
   }, [myAllList]);
 
@@ -319,7 +318,7 @@ const Mytab = styled.div`
     border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   }
   .logout {
-    /* border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`}; */
+    border-bottom: ${({ theme }) => `8px solid ${theme.pallete.gray1}`};
   }
 `;
 

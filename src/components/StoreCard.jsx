@@ -42,8 +42,8 @@ const StoreCard = (props) => {
       <Text color={theme.pallete.gray3}>
         {transaction}
         {changeAddress &&
-          (changeAddress.length > 9
-            ? ` ∙ ${changeAddress.substring(0, 9)}...`
+          (changeAddress.length > 8
+            ? ` ∙ ${changeAddress.substring(0, 8)}...`
             : ` ∙ ${changeAddress}`)}
       </Text>
       <Flex>
