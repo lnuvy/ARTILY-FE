@@ -9,6 +9,7 @@ import { Notification, Chat, Close } from "../assets/icons/index";
 // 뒤로가기 아이콘
 import { useSelector } from "react-redux";
 import ArrowBack from "../assets/icons/ArrowBack";
+import theme from "../styles/theme";
 
 const Header = (props) => {
   const path = useLocation().pathname;
@@ -44,66 +45,75 @@ const Header = (props) => {
 
   if (isShowNow)
     return (
-      <HeaderStyle {...styles}>
-        {/* May9 아이콘 버튼의 경우 Icon 컴포넌트 안에 이미지를 넣어 감싸는식으로 작업 */}
-        <Flex margin="0 0 18px">
-          <Icon
-            fg="1"
-            height="22px"
-            width="69px"
-            onClick={() => history.push("/home")}
-          >
-            <Logo />
-          </Icon>
-          <Icon
-            onClick={(e) => {
-              e.stopPropagation();
-              history.push("/chat");
-            }}
-            margin="0 16px 0 0"
-          >
-            <Notification margin="0 16px 0 0" />
-          </Icon>
-          <Icon
-            onClick={(e) => {
-              //로그인 시에만 채팅 목록을 볼 수 있도록 조건 추가
-              if (!isLogin) {
-                history.push("/login");
-              } else {
+      <>
+        <HeaderStyle {...styles}>
+          {/* May9 아이콘 버튼의 경우 Icon 컴포넌트 안에 이미지를 넣어 감싸는식으로 작업 */}
+          <Flex margin="0 0 18px">
+            <Icon
+              fg="1"
+              height="22px"
+              width="69px"
+              onClick={() => history.push("/home")}
+            >
+              <Logo />
+            </Icon>
+            <Icon
+              onClick={(e) => {
                 e.stopPropagation();
                 history.push("/chat");
-              }
-            }}
-          >
-            <Chat margin="0 16px 0 0" />
-          </Icon>
-        </Flex>
-        <Navigation />
-      </HeaderStyle>
+              }}
+              margin="0 16px 0 0"
+            >
+              <Notification margin="0 16px 0 0" />
+            </Icon>
+            <Icon
+              onClick={(e) => {
+                //로그인 시에만 채팅 목록을 볼 수 있도록 조건 추가
+                if (!isLogin) {
+                  history.push("/login");
+                } else {
+                  e.stopPropagation();
+                  history.push("/chat");
+                }
+              }}
+            >
+              <Chat margin="0 16px 0 0" />
+            </Icon>
+          </Flex>
+          <Navigation />
+        </HeaderStyle>
+        <ContentsContainer />
+      </>
     );
   else if (isWrite) {
     return (
-      <HeaderStyle>
-        <Flex height="48px" margin="0 60px 0 0">
-          <Icon margin="0 0 0 16px" onClick={() => history.goBack()}>
-            <Close />
-          </Icon>
-          <Text fg="1" textAlign="center">
-            {reviewWrite && "리뷰 등록"}
-            {storeWrite && "작품 등록"}
-          </Text>
-        </Flex>
-      </HeaderStyle>
+      <>
+        <HeaderStyle>
+          <Flex height="48px" margin="0 60px 0 0">
+            <Icon margin="0 0 0 16px" onClick={() => history.goBack()}>
+              <Close />
+            </Icon>
+            <Text fg="1" textAlign="center">
+              {reviewWrite && "리뷰 등록"}
+              {storeWrite && "작품 등록"}
+            </Text>
+          </Flex>
+        </HeaderStyle>
+        <ContentsContainer2 />
+      </>
     );
   } else if (!profile) {
     return (
-      <HeaderStyle>
-        <Flex height="48px">
-          <Icon margin="8px" onClick={() => history.goBack()}>
-            <ArrowBack />
-          </Icon>
-        </Flex>
-      </HeaderStyle>
+      <>
+        <HeaderStyle>
+          <Flex height="48px">
+            <Icon margin="8px" onClick={() => history.goBack()}>
+              <ArrowBack />
+            </Icon>
+          </Flex>
+        </HeaderStyle>
+        <ContentsContainer2 />
+      </>
     );
   }
 };
@@ -113,10 +123,21 @@ Header.defaultProps = {
 };
 
 const HeaderStyle = styled.div`
-  width: 100%;
+  width: ${theme.view.maxWidth};
   height: fit-content;
   padding: ${({ padding }) => padding};
   padding-bottom: 0;
+  position: fixed;
+  background-color: white;
+  z-index: 99;
+`;
+
+const ContentsContainer = styled.div`
+  padding-top: 98px;
+`;
+
+const ContentsContainer2 = styled.div`
+  padding-top: 48px;
 `;
 
 export default Header;

@@ -62,6 +62,7 @@ export const getReviewOne = (reviewId) => {
 
 export const postReviewDB = (postID, contents) => {
   return async function (dispatch, getState, { history }) {
+    console.log("hi");
     Apis.postReview(postID, contents)
       .then(function (response) {
         console.log(response);
@@ -108,6 +109,9 @@ const reviewSlice = createSlice({
     getReviewData: (state, action) => {
       state.list = action.payload;
     },
+    getBuyList: (state, action) => {
+      state.buyList = action.payload;
+    },
     getNowReview: (state, action) => {
       console.log(action.payload.defferent);
       state.reviewData = action.payload;
@@ -140,6 +144,11 @@ const reviewSlice = createSlice({
 });
 
 const { reducer, actions } = reviewSlice;
-export const { getReviewData, go2detail, getNowReview, filteringReviewData } =
-  actions;
+export const {
+  getReviewData,
+  go2detail,
+  getNowReview,
+  filteringReviewData,
+  getBuyList,
+} = actions;
 export default reducer;

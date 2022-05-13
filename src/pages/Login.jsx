@@ -11,6 +11,10 @@ const Login = () => {
   // const NAVER_CLIENT_SECRET = process.env.REACT_APP_NAVER_CLIENT_SECRET;
 
   const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=asdf`;
+  console.log(process.env.REACT_APP_KAKAO_KEY);
+  console.log(process.env.REACT_APP_KAKAO_REDIRECT_URL);
+  console.log(process.env.REACT_APP_NAVER_CLIENT_ID);
+
   return (
     <>
       <Flex jc="center" margin="80px 0 10px 0">

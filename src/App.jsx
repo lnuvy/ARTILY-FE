@@ -61,7 +61,6 @@ function App() {
       <MaxContainer>
         <ConnectedRouter history={history}>
           <Header>ARTIN</Header>
-
           <AuthRoute />
 
           {modalOn && <Modal />}
@@ -74,7 +73,6 @@ function App() {
       <MaxContainer>
         <ConnectedRouter history={history}>
           <Header>ARTIN</Header>
-
           <NoAuthRoute />
 
           {/* modalOn 값이 true 일때만 모달 켜기 */}
