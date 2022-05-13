@@ -78,25 +78,14 @@ const postsSlice = createSlice({
         state.nowList = state.list.myReview;
       } else if (action.payload === "관심목록") {
         state.nowList = state.list.myMarkup;
-        // let newArr = state.list.find((l) => l === action.payload);
       }
     },
     mySellList: (state, action) => {
       state.sellList = action.payload.myPost;
     },
-    SellStateCheck: (state, action) => {
-      state.done = action.payload;
-      state.done = true; //판매완료로 바꿔
-    },
   },
 });
 
 const { reducer, actions } = postsSlice;
-export const {
-  getmyPageData,
-  getDetail,
-  selectList,
-  mySellList,
-  SellStateCheck,
-} = actions;
+export const { getmyPageData, getDetail, selectList, mySellList } = actions;
 export default reducer;

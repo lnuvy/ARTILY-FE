@@ -16,13 +16,11 @@ import {
   getPostDB,
   getPostOne,
 } from "../redux/modules/store";
-
-import { addFollowListDB } from "../redux/modules/follow";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { priceComma } from "../shared/utils";
 import theme from "../styles/theme";
-import SellLabel from "../components/SellLabel";
+
 import { deleteSwal } from "../shared/commonAlert";
 
 // 임시 아이콘
@@ -42,6 +40,7 @@ const StoreDetail = () => {
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
   const otherPost = useSelector((state) => state.store.otherPost);
+
   useEffect(() => {
     dispatch(getPostOne(postId));
   }, []);
@@ -101,11 +100,7 @@ const StoreDetail = () => {
       {current && (
         <>
           <Wrap margin="0 16px">
-            <Flex>
-              <Text h1>{current.postTitle}</Text>
-              {/* 판매완료일때만 보여야함 */}
-              <SellLabel complete3 />
-            </Flex>
+            <Text h1>{current.postTitle}</Text>
             <Flex margin="8px 0" jc="space-between">
               <Flex>
                 <Image
@@ -146,13 +141,7 @@ const StoreDetail = () => {
                         console.log("팔로우 하기");
                       }}
                     >
-                      <Text
-                        body1
-                        color={theme.pallete.primary900}
-                        onClick={() => {
-                          dispatch(addFollowListDB());
-                        }}
-                      >
+                      <Text body1 color={theme.pallete.primary900}>
                         팔로우
                       </Text>
                     </Flex>

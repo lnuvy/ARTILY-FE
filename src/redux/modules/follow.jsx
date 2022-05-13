@@ -26,7 +26,6 @@
 //   initialState: initialState,
 //   reducers: {
 //     getmyfollowdata: (state, action) => {
-//       state.list = action.payload;
 //     },
 //   },
 // });
