@@ -1,6 +1,5 @@
 //마이페이지에서 판매목록을 불러올때 사용될 리덕스입니다. -영경
 import { createSlice } from "@reduxjs/toolkit";
-
 import { Apis } from "../../shared/api";
 
 const BASE_URL = "https://rusy7225.shop";
