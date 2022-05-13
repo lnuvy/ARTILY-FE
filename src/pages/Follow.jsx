@@ -4,15 +4,14 @@ import styled from "styled-components";
 import { Grid, Flex, Text, Image, Button } from "../elements";
 
 const Follow = () => {
-  const getProfile = useSelector((state) => state.user.user);
-  console.log(getProfile);
-  // const nowfollowerList = "";
+  const getfollowList = useSelector((state) => state.user.user);
+  console.log(getfollowList);
+  const nowfollowerList = useSelector((state) => state);
+  console.log(nowfollowerList);
   // const nowfollowList = "";
   const menus = [
-    // `팔로워 ${getProfile.followerList}`,
-    // `팔로잉 ${getProfile.followList}`,
-    "팔로워 1명",
-    "팔로잉 1명",
+    `팔로워 ${getfollowList?.followerCnt}명`,
+    `팔로잉 ${getfollowList?.followCnt}명`,
   ];
   const [current, setCurrent] = useState(menus[0]);
 
@@ -39,73 +38,22 @@ const Follow = () => {
           );
         })}
       </Grid>
-      {/* 팔로워 */}
-      {/* {nowfollowerList?.map((l) => { */}
-      {/* if (current === "팔로잉 1명") { */}
-      {/* return ( */}
-      {current === "팔로워 1명" ? (
-        <Profile>
-          <Flex>
-            <Image
-              margin="0 10px"
-              width="60px"
-              height="60px"
-              bg="#ddd"
-              br="30px"
-              // src={getProfile.ProfileImage}
-              src=""
-            ></Image>
-            <Text fg="1" body2 bold margin="5px 0 10px 0">
-              {getProfile && getProfile.nickname ? getProfile.nickname : ""}
-            </Text>
-
-            <Button fg="0" outline margin="0 10px 0 0" padding="10px">
-              삭제
-            </Button>
-          </Flex>
-        </Profile>
-      ) : (
-        ""
-      )}
-      {/* ); */}
-      {/* } */}
-      {/* })} */}
-
       {/* 팔로잉 */}
-      {/* {nowfollowList?.map((l) => { */}
-      {/* if (current === "팔로잉 1명") { */}
-      {/* return ( */}
-      {current === "팔로잉 1명" ? (
-        <Profile>
-          <Flex>
-            <Image
-              margin="0 10px"
-              width="60px"
-              height="60px"
-              bg="#ddd"
-              br="30px"
-              // src={getProfile.ProfileImage}
-              src=""
-            ></Image>
-            <Text fg="1" body2 bold margin="5px 0 10px 0">
-              용감한 나무늘보
-            </Text>
-            <Button fg="0" outline margin="0 10px 0 0" padding="10px">
-              팔로잉
-            </Button>
-            {/* 내가 팔로우를 누른 사람 */}
-            <Button fg="0" margin="0 10px 0 0" padding="10px">
-              팔로우
-            </Button>
-          </Flex>
-        </Profile>
-      ) : (
-        ""
-      )}
-
-      {/* ); */}
-      {/* } */}
-      {/* })} */}
+      <Profile>
+        <Flex>
+          <Image
+            margin="0 10px"
+            width="60px"
+            height="60px"
+            bg="#ddd"
+            br="30px"
+            src=""
+          ></Image>
+          <Text fg="1" body2 bold margin="5px 0 10px 0">
+            {getfollowList && getfollowList.follow ? getfollowList.follow : ""}
+          </Text>
+        </Flex>
+      </Profile>
     </>
   );
 };

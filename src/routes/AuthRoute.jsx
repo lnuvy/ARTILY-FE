@@ -21,6 +21,7 @@ import {
   StoreWrite,
   ReviewSelect,
   Test,
+  BuyList,
   UserProfile,
 } from "../pages";
 
@@ -49,6 +50,7 @@ const AuthRoute = () => {
       <Route path="/oauth/naver/callback" component={RedirectNaver} />
       <Route path="/mypage/edit" exact component={MypageEdit} />
       <Route path="/mypage/manage" exact component={Manage} />
+      <Route path="/mypage/buyList" exact component={BuyList} />
       <Route path="/profile/detail" exact component={DetailProfile} />
       <Route path="/*" component={Test} />
     </Switch>

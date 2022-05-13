@@ -1,6 +1,5 @@
 //마이페이지에서 판매목록을 불러올때 사용될 리덕스입니다. -영경
 import { createSlice } from "@reduxjs/toolkit";
-
 import { Apis } from "../../shared/api";
 
 const BASE_URL = "https://rusy7225.shop";
@@ -20,7 +19,6 @@ const initialState = {
 //마이페이지 조회
 //비로그인시에도 다른사람 프로필 조회를 위해 userId 같이 보내기
 export const getmyPageDB = (userId) => {
-  console.log("서버가 받을 userId :", userId);
   return function (dispatch, getState, { history }) {
     Apis.getMypageData(userId)
       .then((res) => {
@@ -77,32 +75,18 @@ const postsSlice = createSlice({
     selectList: (state, action) => {
       if (action.payload === "판매목록") {
         state.nowList = state.list.myPost;
-        console.log(state.list.myPost);
       } else if (action.payload === "리뷰목록") {
         state.nowList = state.list.myReview;
       } else if (action.payload === "관심목록") {
         state.nowList = state.list.myMarkup;
-        // let newArr = state.list.find((l) => l === action.payload);
       }
     },
     mySellList: (state, action) => {
       state.sellList = action.payload.myPost;
-      console.log(state.sellList);
-    },
-    SellStateCheck: (state, action) => {
-      state.done = action.payload;
-      state.done = true; //판매완료로 바꿔
-      console.log(state.done);
     },
   },
 });
 
 const { reducer, actions } = postsSlice;
-export const {
-  getmyPageData,
-  getDetail,
-  selectList,
-  mySellList,
-  SellStateCheck,
-} = actions;
+export const { getmyPageData, getDetail, selectList, mySellList } = actions;
 export default reducer;

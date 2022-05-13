@@ -22,7 +22,7 @@ const Manage = () => {
   }, []);
   return (
     <>
-      <Text h2 bold margin="21px 0 13px 16px">
+      <Text h2 bold margin="8px 0 13px 16px">
         판매 작품 관리하기
       </Text>
       <Background>

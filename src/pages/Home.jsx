@@ -7,6 +7,7 @@ import { history } from "../redux/configureStore";
 
 import styled from "styled-components";
 import theme from "../styles/theme";
+import banner from "../assets/images/banner.png";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Home = () => {
 
   return (
     <>
-      <Image height="200px" width="100%" br="0" border="none" />
+      <Image height="220px" width="100%" br="0" border="none" src={banner} />
       <Wrap padding="16px 16px 28px">
         <Text bold h3 margin="0 0 10px 0">
           인기 작품

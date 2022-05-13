@@ -76,8 +76,9 @@ const MypageEdit = () => {
   return (
     <>
       <Flex>
+        {/* 뒤로가기 버튼이랑 같은 라인에 있어야 함 */}
         <Text h2 bold margin="10px">
-          프로필 수정
+          프로필 수정하기
         </Text>
       </Flex>
       <Wrapprofile>
@@ -87,7 +88,8 @@ const MypageEdit = () => {
             width="120px"
             height="120px"
             br="60px"
-            border="1px solid #888"
+            shadow="1px 1px 3px #ddd"
+            border="1px solid #eee"
             src={preview ? preview : getProfile ? getProfile.profileImage : ""}
           />
 

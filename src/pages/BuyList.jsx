@@ -28,7 +28,7 @@ const BuyList = () => {
   // }, []);
   return (
     <>
-      <Text h2 bold margin="10px 0 20px 10px">
+      <Text h2 bold margin="8px 0 20px 14px">
         내가 구입한 상품
       </Text>
       {/* 구매목록 */}
@@ -50,7 +50,7 @@ const BuyList = () => {
           </Grid>
         </Inner>
         {/* 스크롤이 안생겼으면 하는데 방법이 있을까요? */}
-        <Wrap textAlign="center" height="70vh" padding="30px 0 0 0">
+        <Wrap textAlign="center" height="100vh" padding="30px 0 0 0">
           <Text body2>구매한 작품이 없으신가요?</Text>
           <Text body3 textDeco="underline">
             판매자에게 판매 확정을 요청하기
