@@ -18,7 +18,7 @@ const Header = (props) => {
   // );
   const isLogin = useSelector((state) => state.user.isLogin);
 
-  const { cg, width, gtc, textAlign, padding, icon1, icon2 } = props;
+  const { cg, width, gtc, textAlign, padding } = props;
 
   const styles = {
     gtc,

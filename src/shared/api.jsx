@@ -29,13 +29,14 @@ console.log(getToken());
 export const Apis = {
   getHome: () => Api.get("/api/post"),
   getReview: (pageHandler) => Api.get("api/review", pageHandler),
-  // getReviewDetail: (reviewId) => Api.get(`api/review/:${reviewId}`),
-  getReviewDetail: (reviewId) => Api.get(`api/review/480d33d1bf3d`),
-  postReview: (reviewContents) => Api.post("api/review", reviewContents),
+  getReviewDetail: (reviewId) => Api.get(`api/review/${reviewId}`),
+  likeReview: (reviewId) => Api.post(`api/like/${reviewId}`),
+  postReview: (postId, reviewContents) =>
+    Api.post(`api/review/${postId}`, reviewContents),
   editReview: (reviewId, reviewContents) =>
-    Api.patch(`api/review/:${reviewId}`, reviewContents),
+    Api.patch(`api/review/${reviewId}`, reviewContents),
   deleteReview: (reviewId) =>
-    Api.delete(`api/review/:${reviewId}`, { reviewId: reviewId }),
+    Api.delete(`api/review/${reviewId}`, { reviewId: reviewId }),
 
   // store API
   // getStore: (pageHandler) =>
@@ -63,4 +64,6 @@ export const Apis = {
 
   //follow API
   getMyFollow: (followId) => Api.post(`/api/follow/${followId}`),
+  // chat API
+  getChatList: () => Api.get(`/api/chat`),
 };

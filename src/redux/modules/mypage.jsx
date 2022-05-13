@@ -12,10 +12,12 @@ const initialState = {
   infinityScroll: {},
   detailData: null,
   done: false,
+
+  // 다른사람 프로필 넣을곳
+  userInfo: {},
 };
 //마이페이지 조회
 //비로그인시에도 다른사람 프로필 조회를 위해 userId 같이 보내기
-
 export const getmyPageDB = (userId) => {
   return function (dispatch, getState, { history }) {
     Apis.getMypageData(userId)
@@ -51,7 +53,6 @@ export const getMyBuyListDB = () => {
     Apis.getMyList()
       .then((res) => {
         console.log(res);
-        // dispatch(getmyPageData());
       })
       .catch((error) => {
         console.log("구매목록 조회 실패", error);

@@ -24,6 +24,8 @@ const Button = (props) => {
     text,
     border,
     borderRight,
+    fontSize,
+    color,
   } = props;
 
   const styles = {
@@ -45,6 +47,8 @@ const Button = (props) => {
     text,
     border,
     borderRight,
+    fontSize,
+    color,
   };
 
   return (
@@ -92,19 +96,19 @@ const ButtonStyle = styled.button`
   right: ${({ right }) => right};
   border: ${({ border }) => border};
   border-right: ${({ borderRight }) => borderRight};
+  font-size: ${({ fontSize }) => fontSize}; // 5.12 민경
+  color: ${({ color }) => color}; // 5.12 민경
   justify-content: center;
 
   ${(props) =>
     props.text
       ? `
     background-color: transparent;
-    color: ${theme.color.black};
-    :focus {
-      background-color: ${theme.color.lightGray};
-      opacity: 0.8;
+    padding: 8px;
+    
+    :focus {      
     }
     :hover {
-      opacity: 0.8;
       cursor: pointer;
     }
     `

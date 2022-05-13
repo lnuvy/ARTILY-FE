@@ -19,8 +19,10 @@ import {
   StoreDetail,
   StoreEdit,
   StoreWrite,
+  ReviewSelect,
   Test,
   BuyList,
+  UserProfile,
 } from "../pages";
 
 const AuthRoute = () => {
@@ -34,11 +36,14 @@ const AuthRoute = () => {
       <Route path="/store/write" exact component={StoreWrite} />
       <Route path="/store/write/:postId" exact component={StoreEdit} />
       <Route path="/follow" exact component={Follow} />
-      <Route exact path="/review" component={Review} />
-      <Route exact path="/review/:reviewId" component={ReviewDetail} />
-      <Route exact path="/write" component={ReviewWrite} />
+      <Route path="/review/" exact component={Review} />
+      <Route path="/review/view/:reviewId" exact component={ReviewDetail} />
+      <Route path="/review/write/select" exact component={ReviewSelect} />
+      <Route path="/review/write/:postId" exact component={ReviewWrite} />
+      <Route path="/review/edit/:reviewId" exact component={ReviewWrite} />
       <Route path="/test" component={Test} />
       <Route path="/mypage" exact component={MyPage} />
+      <Route path="/userprofile/:userId" exact component={UserProfile} />
       <Route path="/login" exact component={Login} />
       <Route path="/profile" exact component={Setprofile} />
       <Route path="/oauth/kakao/callback" component={RedirectKakao} />

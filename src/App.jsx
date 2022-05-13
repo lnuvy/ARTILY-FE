@@ -95,4 +95,5 @@ const MaxContainer = styled.div`
   height: fit-content;
   background-color: white;
   margin: 0 auto;
+  position: relative;
 `;

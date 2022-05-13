@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Flex, Grid, Text, Wrap } from "../../../elements";
+import { Button, Flex, Grid, Wrap } from "../../../elements";
 import { closeModal } from "../../../redux/modules/modal";
 
 import styled from "styled-components";
@@ -71,7 +71,7 @@ const CategoryModal = ({ setReceiveCategory }) => {
             );
         })}
       </Grid>
-      <Button width="100%" margin="40px 0 0" onClick={submitCategory}>
+      <Button width="100%" margin="20px 0 0" onClick={submitCategory}>
         선택 완료
       </Button>
     </Wrap>
