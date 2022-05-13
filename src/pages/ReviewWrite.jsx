@@ -124,27 +124,6 @@ const ReviewWrite = () => {
       <Button text position="absolute" top="0" right="0" onClick={reviewSubmit}>
         완료
       </Button>
-      {/* {reviewWrite ? (
-        <Button
-          text
-          position="absolute"
-          top="0"
-          right="0"
-          onClick={reviewSubmit}
-        >
-          완료
-        </Button>
-      ) : (
-        <Button
-          text
-          position="absolute"
-          top="0"
-          right="0"
-          onClick={reviewEditSubmit}
-        >
-          완료
-        </Button>
-      )} */}
     </Wrap>
   );
 };

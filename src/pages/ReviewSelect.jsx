@@ -43,23 +43,35 @@ const ReviewSelect = () => {
 
   return (
     <>
-      <Text h1 medium>
+      <Text h1 medium textAlign="center">
         내가 구입한 작품
       </Text>
-      {mybuyList.map((l, i) => {
-        return (
-          <Flex>
-            <Image width="80px" height="80px" src={`${l.imageUrl[0]}`}></Image>
-            <Wrap fg="1">
-              <Text>{l.postTitle}</Text>
-              <Text>{l.user.nickname}</Text>
-            </Wrap>
-            <Button onClick={() => history.push(`/review/write/${l.postId}`)}>
-              리뷰쓰기
-            </Button>
-          </Flex>
-        );
-      })}
+
+      {!mybuyList.length === 0 ? (
+        mybuyList.map((l, i) => {
+          return (
+            <Flex>
+              <Image
+                width="80px"
+                height="80px"
+                src={`${l.imageUrl[0]}`}
+              ></Image>
+              <Wrap fg="1">
+                <Text>{l.postTitle}</Text>
+                <Text>{l.user.nickname}</Text>
+              </Wrap>
+              <Button onClick={() => history.push(`/review/write/${l.postId}`)}>
+                리뷰쓰기
+              </Button>
+            </Flex>
+          );
+        })
+      ) : (
+        <>
+          <Text textAlign="center">구매한 작업이 없습니다.</Text>
+          <Button onClick={() => history.goBack()}>돌아가기</Button>
+        </>
+      )}
 
       {/* <Text>구매한 작품이 없으신가요?</Text>
       <Button text>판매자에게 판매 확정을 요청하기</Button> */}
