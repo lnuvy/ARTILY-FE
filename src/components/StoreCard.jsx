@@ -31,9 +31,9 @@ const StoreCard = (props) => {
     <Card onClick={onClick}>
       <Image height="168px" br="8px" src={imageUrl} />
       <Flex margin="8px 0">
-        <Image circle size="32" src={user.profileImage} />
+        <Image circle size="32" src={user && user.profileImage} />
         <Text h3 margin="0 0 0 4px">
-          {user.nickname}
+          {user && user.nickname}
         </Text>
       </Flex>
       <Text h3 medium>

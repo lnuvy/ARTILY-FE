@@ -9,6 +9,7 @@ import { openModal } from "../redux/modules/modal";
 import { getToken } from "../shared/token";
 import styled from "styled-components";
 import theme from "../styles/theme";
+import banner from "../assets/images/banner.png";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const Home = () => {
 
   return (
     <>
-      <Image height="200px" width="100%" br="0" border="none" />
+      <Image height="220px" width="100%" br="0" border="none" src={banner} />
       <Wrap padding="16px 16px 28px">
         <Text bold h3 margin="0 0 10px 0">
           인기 작품
@@ -57,8 +58,8 @@ const Home = () => {
                 onClick={() => move2detail(v, "/store")}
                 key={i}
                 {...v}
-                nickname={v.user.nickname}
-                profileImage={v.user.profileImage}
+                nickname={v.user && v.user.nickname}
+                profileImage={v.user && v.user.profileImage}
               />
             );
           })}
@@ -85,13 +86,13 @@ const Home = () => {
                     circle
                     size="88"
                     margin="8px auto 10px"
-                    src={v.profileImage}
+                    src={v && v.profileImage}
                   />
                   <Text textAlign="center" margin="0 0 9px">
-                    {v.nickname}
+                    {v && v.nickname}
                   </Text>
                   <Text body2 textAlign="center" margin="0 0 6px">
-                    {v.introduce}
+                    {v && v.introduce}
                   </Text>
                   <Text body3 textAlign="center" color={theme.pallete.gray3}>
                     작품타입 오브제 ∙ 등록작품 4개
@@ -109,13 +110,12 @@ const Home = () => {
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
           {bestReview.length
             ? bestReview.map((v, i) => {
-                console.log(v);
                 return (
                   <ReviewCard
                     key={i}
                     {...v}
-                    onClick={() => move2detail(v, "/review")}
-                    imageUrl={v.imageUrl[0]}
+                    onClick={() => move2detail(v && v, "/review")}
+                    imageUrl={v && v.imageUrl[0]}
                   />
                 );
               })

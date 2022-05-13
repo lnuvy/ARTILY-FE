@@ -8,6 +8,8 @@ import { useHistory } from "react-router-dom";
 import { Favorite } from "../assets/icons";
 import { deleteSwal } from "../shared/commonAlert";
 import { deletePostDB } from "../redux/modules/store";
+import theme from "../styles/theme";
+
 // import SellLabel from "./SellLabel";
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
 
@@ -38,6 +40,7 @@ const ArtCard = (props) => {
     address,
     changeAddress,
     home,
+    transaction,
   } = props;
   console.log(done);
 
@@ -134,7 +137,7 @@ const ArtCard = (props) => {
           {postTitle}
         </Text>
         <Text body2 margin="0 0 0 2px" color={theme.pallete.gray3}>
-          {transaction} ∙ {changeAddress}
+          {transaction} {changeAddress && `∙${changeAddress}`}
         </Text>
         <Text>{price && priceComma(price)}원</Text>
       </Card>
