@@ -132,7 +132,7 @@ const StoreWrite = () => {
     formData.append("postContent", postContent);
     formData.append("price", price);
     for (let i = 0; i < imageArr.length; i++) {
-      formData.append("image", fileObj[i]);
+      formData.append("image", fileObj[i][1]);
     }
 
     if (inputs.delivery && !inputs.direct) {
