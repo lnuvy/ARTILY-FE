@@ -32,7 +32,6 @@ const imageSlice = createSlice({
     },
     resetProfileImage: (state, action) => {
       state.preview = null;
-      console.log("hi");
     },
 
     // 프리뷰 사진을 지울때

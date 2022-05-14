@@ -222,7 +222,7 @@ const MyPage = () => {
         )}
 
         {current === "관심목록" && (
-          <NoInfo list={myMarkup} text="아직 등록한 작품이 없어요.">
+          <NoInfo list={myMarkup} text="아직 관심있는 작품이 없어요.">
             {myMarkup &&
               current === "관심목록" &&
               myMarkup.map((post) => {
