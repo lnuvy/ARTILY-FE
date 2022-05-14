@@ -136,7 +136,7 @@ const reviewSlice = createSlice({
 
       if (state.list.length > 0) {
         state.filterList = state.list.filter(
-          (post) => post.category === action.payload
+          (review) => review.category === action.payload
         );
       }
     },

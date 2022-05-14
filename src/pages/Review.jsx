@@ -16,7 +16,6 @@ const Review = () => {
   const reviewList = useSelector((state) => state.review.list);
 
   useEffect(() => {
-    // 더미데이터 주입된상태
     dispatch(getReviewDB());
   }, []);
 
@@ -28,7 +27,7 @@ const Review = () => {
   return (
     <>
       <Grid>
-        <Category />
+        <Category review />
         <Wrap margin="16px">
           <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
             {reviewList.length
