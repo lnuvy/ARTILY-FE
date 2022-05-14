@@ -33,7 +33,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout source code. # 레포지토리 체크아웃
         uses: actions/checkout@main
@@ -52,6 +52,8 @@ jobs:
 
       - name: Build # React Build
         run: yarn run build
+        env:
+          Deploy to Amazon ECS: "" # 경고를 에러로 보지 않게 함
 
       - name: Deploy # S3에 배포하기
         env:
