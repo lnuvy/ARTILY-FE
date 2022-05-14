@@ -50,13 +50,13 @@ const Review = () => {
           </Grid>
         </Wrap>
       </Grid>
-      <Button
+      {/* <Button
         onClick={() => {
           history.push("/review/write/select");
         }}
       >
         글쓰기
-      </Button>
+      </Button> */}
     </>
   );
 };

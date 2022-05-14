@@ -16,7 +16,7 @@ import {
 } from "../elements";
 import { clearPreview } from "../redux/modules/image";
 import { openModal } from "../redux/modules/modal";
-import MapModal from "../shared/modal/modalContent/MapModal";
+// import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
 import { inputSpaceReg, priceComma } from "../shared/utils";
 
@@ -80,10 +80,10 @@ const StoreWrite = () => {
           title: "위치 선택",
           content: (
             <>
-              <MapModal
+              {/* <MapModal
                 setReceiveAddress={setReceiveAddress}
                 currentAddress={receiveAddress}
-              />
+              /> */}
             </>
           ),
         })

@@ -24,6 +24,7 @@ import { inputSpaceReg, priceComma } from "../shared/utils";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import styled from "styled-components";
 
 /*
  * @한울
@@ -73,7 +74,6 @@ const ReviewWrite = () => {
     setinputs({ ...inputs, imageUrl: imageArr, category: "도자기" });
 
     const formData = new FormData();
-    formData.append("category", "도자기");
     formData.append("reviewTitle", inputs.reviewTitle);
     formData.append("reviewContent", inputs.reviewContent);
     for (let i = 0; i < imageArr.length; i++) {
@@ -84,6 +84,7 @@ const ReviewWrite = () => {
     }
 
     if (reviewWrite) {
+      console.log("reviewWrite");
       dispatch(postReviewDB(postId, formData));
     } else if (reviewEdit) {
       dispatch(editReviewDB(reviewId, formData));
@@ -121,32 +122,19 @@ const ReviewWrite = () => {
         onChange={InputChange}
         textLine={100}
       />
-      <Button text position="absolute" top="0" right="0" onClick={reviewSubmit}>
-        완료
-      </Button>
-      {/* {reviewWrite ? (
-        <Button
-          text
-          position="absolute"
-          top="0"
-          right="0"
-          onClick={reviewSubmit}
-        >
+      <ButtonWrap>
+        <Button text onClick={reviewSubmit}>
           완료
         </Button>
-      ) : (
-        <Button
-          text
-          position="absolute"
-          top="0"
-          right="0"
-          onClick={reviewEditSubmit}
-        >
-          완료
-        </Button>
-      )} */}
+      </ButtonWrap>
     </Wrap>
   );
 };
 
 export default ReviewWrite;
+const ButtonWrap = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+`;

@@ -23,7 +23,7 @@ const Login = () => {
         <p>회원 서비스 이용을 위해 로그인 해주세요!</p>
       </Flex>
       <Wrap jc="center" margin="100px 0 0 0" padding="0 16px" width="100%">
-        {/* <Button
+        <Button
           outline
           bc="white"
           width="100%"
@@ -31,8 +31,8 @@ const Login = () => {
           onClick={() => (window.location.href = KAKAO_AUTH_URL)}
         >
           카카오로 시작하기
-        </Button> */}
-        <Button
+        </Button>
+        {/* <Button
           outline
           bc="white"
           width="100%"
@@ -40,7 +40,7 @@ const Login = () => {
           onClick={() => (window.location.href = localKakao)}
         >
           카카오로 시작하기
-        </Button>
+        </Button> */}
         <Button
           outline
           bc="white"

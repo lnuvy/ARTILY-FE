@@ -12,7 +12,26 @@ import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 
 const initialState = {
-  user: null,
+  user: {
+    address: null,
+    blacklist: [],
+    follow: [],
+    followCnt: 0,
+    follower: [],
+    followerCnt: 0,
+    introduce: null,
+    myBuy: [],
+    myMarkup: [],
+    myPost: [],
+    myReview: [],
+    nickname: null,
+    profileImage: null,
+    provider: null,
+    role: false,
+    snsUrl: [],
+    type: null,
+    userId: null,
+  },
   isLogin: false,
 };
 
@@ -211,6 +230,7 @@ const userSlice = createSlice({
       state.user = action.payload;
       state.isLogin = true;
     },
+
     // 데이터 하나 특정하기
     getUser: (state, action) => {
       state.user = action.payload;

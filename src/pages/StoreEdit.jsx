@@ -4,7 +4,7 @@ import { Preview } from "../components";
 import { Button, Flex, Input, Textarea, ToggleButton, Wrap } from "../elements";
 import { clearPreview, editPosts3Url } from "../redux/modules/image";
 import { openModal } from "../redux/modules/modal";
-import MapModal from "../shared/modal/modalContent/MapModal";
+// import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
 import { inputSpaceReg, priceComma } from "../shared/utils";
 
@@ -88,10 +88,10 @@ const StoreEdit = () => {
           title: "위치 선택",
           content: (
             <>
-              <MapModal
+              {/* <MapModal
                 setReceiveAddress={setReceiveAddress}
                 currentAddress={receiveAddress}
-              />
+              /> */}
             </>
           ),
         })

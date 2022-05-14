@@ -1,34 +1,31 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import {
   Flex,
-  Icon,
   Text,
-  Tab,
   Grid,
-  Checkbox,
   Wrap,
   ImageCarousel,
   Image,
   Button,
 } from "../elements";
-import { Card, Navigation, ArtCard, OtherWorkCard } from "../components";
-import {
-  getNowReview,
-  getReview,
-  getReviewOne,
-} from "../redux/modules/reviews";
+import { OtherWorkCard } from "../components";
+import { getReviewOne } from "../redux/modules/reviews";
 import { useParams } from "react-router-dom";
 import theme from "../styles/theme";
 import { priceComma } from "../shared/utils";
 import { deleteReviewDB } from "../redux/modules/reviews.jsx";
+import { IoMdHeart } from "react-icons/io";
+import { Heart } from "../assets/icons";
+import styled from "styled-components";
 
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
   const reviewId = useParams();
   const current = useSelector((state) => state.review.reviewData);
-  const userId = useSelector((state) => state.user.user?.userId);
+  const user = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.user?.user);
 
   function editFunc() {
     history.push(`/review/edit/${current.buyer.reviewId}`);
@@ -36,6 +33,10 @@ const ReviewDetail = (props) => {
 
   function deleteFunc() {
     dispatch(deleteReviewDB(reviewId.reviewId));
+  }
+
+  function loginAlert() {
+    alert("로그인하세요.");
   }
 
   useEffect(() => {
@@ -57,31 +58,35 @@ const ReviewDetail = (props) => {
                 ></Text>
               </Flex>
               <Flex>
-                {userId === current.buyer.userId ? (
-                  <>
-                    <Button
-                      fontSize="16px"
-                      text
-                      color={`${theme.color.brandColor}`}
-                      onClick={editFunc}
-                    >
-                      수정하기
-                    </Button>{" "}
-                    &nbsp;
-                    <Button
-                      fontSize="16px"
-                      text
-                      color={`${theme.color.brandColor}`}
-                      onClick={deleteFunc}
-                    >
-                      삭제하기
-                    </Button>
-                  </>
+                {!user ? (
+                  user.user.userId === current.buyer.userId ? (
+                    <>
+                      <Button
+                        fontSize="16px"
+                        text
+                        color={`${theme.color.brandColor}`}
+                        onClick={editFunc}
+                      >
+                        수정하기
+                      </Button>{" "}
+                      &nbsp;
+                      <Button
+                        fontSize="16px"
+                        text
+                        color={`${theme.color.brandColor}`}
+                        onClick={deleteFunc}
+                      >
+                        삭제하기
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button text>팔로우</Button> &nbsp;
+                      <Button text>신고</Button>
+                    </>
+                  )
                 ) : (
-                  <>
-                    <Text body2>팔로우</Text> &nbsp;
-                    <Text body2>신고</Text>
-                  </>
+                  <></>
                 )}
               </Flex>
             </Flex>
@@ -159,6 +164,20 @@ const ReviewDetail = (props) => {
                 : null}
             </Grid>
           </Wrap>
+          <FixedChatBar>
+            <Flex onClick={null}>
+              {currentUser &&
+              currentUser.myMarkup.find((id) => id === reviewId) ? (
+                <IoMdHeart size={24} color={theme.pallete.primary850} />
+              ) : (
+                <Heart />
+              )}
+
+              <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
+                {current.markupCnt ? current.markupCnt : 0}
+              </Text>
+            </Flex>
+          </FixedChatBar>
         </>
       ) : null}
     </>
@@ -166,3 +185,17 @@ const ReviewDetail = (props) => {
 };
 
 export default ReviewDetail;
+
+const FixedChatBar = styled.div`
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 8px 16px;
+  border-top: 1px solid ${theme.pallete.gray1};
+  max-width: ${theme.view.maxWidth};
+  height: 56px;
+`;
