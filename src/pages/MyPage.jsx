@@ -9,6 +9,7 @@ import theme from "../styles/theme";
 import { getUserInfo, userLogout } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
 import { compose } from "redux";
+import { saveFollowDB } from "../redux/modules/follow";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
 
@@ -90,6 +91,7 @@ const MyPage = () => {
                 <Follower
                   onClick={() => {
                     history.push("/follow");
+                    // dispatch(saveFollowDB());
                   }}
                 >
                   {getProfile?.followerCnt}
@@ -98,6 +100,7 @@ const MyPage = () => {
                 <Follower
                   onClick={() => {
                     history.push("/follow");
+                    // dispatch(saveFollowDB());
                   }}
                 >
                   {getProfile?.followCnt}

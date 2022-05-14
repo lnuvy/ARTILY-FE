@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Grid, Flex, Text, Image, Button } from "../elements";
-import { addFollowDB } from "../redux/modules/follow";
+import { addFollowDB, saveFollowDB } from "../redux/modules/follow";
 const Follow = () => {
   const getfollowList = useSelector((state) => state.user.user);
   console.log(getfollowList);
-  const nowfollowerList = useSelector((state) => state).user.user.follower;
-  console.log(nowfollowerList);
+  //내가 팔로잉한 목록
+  const nowfollowList = useSelector((state) => state.user.user.follow);
+  console.log("내가 팔로잉한 목록:", nowfollowList);
+  //나를 팔로우한 목록
+  const nowfollowerList = useSelector((state) => state.user.user.follower);
+  console.log("나를 팔로우한 목록:", nowfollowerList);
+
+  const currentfollow = useSelector((state) => state.store.detailData);
+  const followId = currentfollow?.user?.userId;
+
   // const nowfollowList = "";
   const menus = [
     `팔로워 ${getfollowList?.followerCnt}명`,
@@ -22,9 +30,11 @@ const Follow = () => {
     setCurrent(menus.find((l) => l === innerText));
   };
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(addFollowDB());
+    dispatch(addFollowDB(followId));
   }, []);
+
   return (
     <>
       <Grid gtc="auto auto" cg="20px" margin="10px 0">
@@ -42,9 +52,9 @@ const Follow = () => {
           );
         })}
       </Grid>
-      {/* 팔로잉 */}
-      {getfollowList &&
-        nowfollowerList.map(() => {
+      {/* 팔로워 */}
+      {/* {getfollowList &&
+        nowfollowList?.map(() => {
           return (
             <Profile>
               <Flex>
@@ -64,7 +74,7 @@ const Follow = () => {
               </Flex>
             </Profile>
           );
-        })}
+        })} */}
     </>
   );
 };

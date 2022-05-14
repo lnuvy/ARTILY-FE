@@ -66,6 +66,7 @@ export const Apis = {
 
   //follow API
   getMyFollow: (followId) => Api.post(`/api/follow/${followId}`),
+  saveMyFollow: (followId) => Api.get(`/api/follow/${followId}`),
   // chat API
   getChatList: () => Api.get(`/api/chat`),
 };
