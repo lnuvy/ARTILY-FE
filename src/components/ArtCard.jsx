@@ -85,7 +85,7 @@ const ArtCard = (props) => {
               )}
               <Flex fg="0" padding="8px 0 0 0">
                 <Favorite color="#FD6A00" />
-                <Text margin="0 0 0 7px">{markupCnt}</Text>
+                <Text margin="0 0 0 4px">{markupCnt}</Text>
               </Flex>
             </Wrap>
           </Flex>
@@ -179,7 +179,7 @@ const ArtCard = (props) => {
             src={imageUrl}
           />
         </Label>
-        <Flex margin="8px 0 0">
+        <Flex margin="8px 0 0 0">
           <Image
             circle
             size="20"
@@ -199,7 +199,7 @@ const ArtCard = (props) => {
           )}
           <Flex fg="0">
             <Favorite color="#FD6A00" />
-            <Text margin="0 0 0 7px">{markupCnt}</Text>
+            <Text margin="0 0 0 4px">{markupCnt}</Text>
           </Flex>
         </Flex>
       </Card>
@@ -223,7 +223,7 @@ const ArtCard = (props) => {
           </Text>
           <Flex fg="0">
             <Favorite color="#FD6A00" />
-            <Text margin="0 0 0 7px">{markupCnt}</Text>
+            <Text margin="0 0 0 4px">{markupCnt}</Text>
           </Flex>
         </Flex>
       </Card>
@@ -241,7 +241,7 @@ const ArtCard = (props) => {
             shadow="0.5px 0.5px 2px #ddd"
           />
         </Label>
-        <Text>{postTitle}</Text>
+        <Text margin="8px 0 0 0">{postTitle}</Text>
         <Flex>
           {price ? (
             <Text fg="1" bold>
@@ -253,7 +253,7 @@ const ArtCard = (props) => {
 
           <Flex fg="0">
             <Favorite color="#FD6A00" />
-            <Text margin="0 0 0 7px">{markupCnt}</Text>
+            <Text margin="0 0 0 4px">{markupCnt}</Text>
           </Flex>
         </Flex>
       </Card>

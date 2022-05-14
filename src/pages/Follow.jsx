@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Grid, Flex, Text, Image, Button } from "../elements";
-
+import { addFollowDB } from "../redux/modules/follow";
 const Follow = () => {
   const getfollowList = useSelector((state) => state.user.user);
   console.log(getfollowList);
-  const nowfollowerList = useSelector((state) => state);
+  const nowfollowerList = useSelector((state) => state).user.user.follower;
   console.log(nowfollowerList);
   // const nowfollowList = "";
   const menus = [
@@ -21,6 +21,10 @@ const Follow = () => {
     console.log(innerText);
     setCurrent(menus.find((l) => l === innerText));
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addFollowDB());
+  }, []);
   return (
     <>
       <Grid gtc="auto auto" cg="20px" margin="10px 0">
@@ -39,21 +43,28 @@ const Follow = () => {
         })}
       </Grid>
       {/* 팔로잉 */}
-      <Profile>
-        <Flex>
-          <Image
-            margin="0 10px"
-            width="60px"
-            height="60px"
-            bg="#ddd"
-            br="30px"
-            src=""
-          ></Image>
-          <Text fg="1" body2 bold margin="5px 0 10px 0">
-            {getfollowList && getfollowList.follow ? getfollowList.follow : ""}
-          </Text>
-        </Flex>
-      </Profile>
+      {getfollowList &&
+        nowfollowerList.map(() => {
+          return (
+            <Profile>
+              <Flex>
+                <Image
+                  margin="0 10px"
+                  width="60px"
+                  height="60px"
+                  bg="#ddd"
+                  br="30px"
+                  src=""
+                ></Image>
+                <Text fg="1" body2 bold margin="5px 0 10px 0">
+                  {getfollowList && getfollowList.follow
+                    ? getfollowList.follow
+                    : ""}
+                </Text>
+              </Flex>
+            </Profile>
+          );
+        })}
     </>
   );
 };

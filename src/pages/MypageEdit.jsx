@@ -3,18 +3,28 @@
 //이미 설정 되어있는 프로필 정보를 불러와야 함
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
+import {
+  Flex,
+  Input,
+  Text,
+  Textarea,
+  Button,
+  Image,
+  Wrap,
+  Icon,
+} from "../elements";
 import { setProfileImage } from "../redux/modules/image";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Front, Back } from "../shared/NicknameDummy.js";
 import { editProfileDB } from "../redux/modules/user";
-import { Refresh } from "../assets/icons";
+import { ArrowBack, Refresh } from "../assets/icons";
 import { nicknameCheck } from "../shared/regCheck/RegCheck";
-
 const randomnickFront = Front;
 const randomnickBack = Back;
 
 const MypageEdit = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const fileInput = useRef();
 
@@ -75,9 +85,12 @@ const MypageEdit = () => {
 
   return (
     <>
-      <Flex>
+      <Flex padding="13px 0 0 5px">
         {/* 뒤로가기 버튼이랑 같은 라인에 있어야 함 */}
-        <Text h2 bold margin="10px">
+        <Icon margin="8px" onClick={() => history.goBack()}>
+          <ArrowBack />
+        </Icon>
+        <Text h2 bold margin="13px 0">
           프로필 수정하기
         </Text>
       </Flex>
@@ -216,7 +229,7 @@ const MypageEdit = () => {
           </Flex>
         </Flex>
       </Wrap>
-      <Flex width="90%" margin="0 auto">
+      <Flex width="90%" margin="15px auto">
         <Button
           width="100%"
           onClick={() => {
@@ -233,7 +246,7 @@ const MypageEdit = () => {
 
 const Wrapprofile = styled.div`
   position: relative;
-  margin: 0 auto 20px auto;
+  margin: 20px auto;
   width: 120px;
 `;
 
