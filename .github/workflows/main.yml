@@ -16,12 +16,8 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Build dependencies
-        run: yarn run build
-      - name: Archive produnction artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: build
+        run: yarn build
+
   deploy:
     name: Deploy
     needs: build
