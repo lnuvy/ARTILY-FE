@@ -51,7 +51,9 @@ jobs: # Job 설정
         run: yarn install
 
       - name: Build # React Build
-        run: npm build
+        run: yarn build
+        env:
+          CI: "" # 경고를 에러로 보지 않게 함
 
       - name: Deploy # S3에 배포하기
         env:
