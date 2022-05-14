@@ -53,7 +53,7 @@ const Home = () => {
       </Wrap>
       <Wrap padding="0 0 24px">
         <Text bold h3 margin="0 0 18px 16px">
-          아틀리가 주목하는 작가
+          아틀리가 주목하는 작가 테스트!!!!ddd
         </Text>
 
         <BestArtistWrap>
