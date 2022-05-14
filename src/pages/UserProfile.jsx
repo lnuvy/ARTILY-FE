@@ -6,7 +6,6 @@ import { ArtCard, NoInfo, SocialUrl } from "../components";
 import { Flex, Grid, Image, Text, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
 import { getmyPageDB } from "../redux/modules/mypage";
-import theme from "../styles/theme";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
 
