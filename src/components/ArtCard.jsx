@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { Favorite } from "../assets/icons";
 import { deleteSwal } from "../shared/commonAlert";
 import { deletePostDB } from "../redux/modules/store";
+import theme from "../styles/theme";
 import SellLabel from "./SellLabel";
 // import SellLabel from "./SellLabel";
 // key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
@@ -36,12 +37,13 @@ const ArtCard = (props) => {
     reviewContent,
     userId,
     profileImage,
+    transaction,
     address,
     changeAddress,
     home,
-    transaction,
+    userInfo, // 유저정보
   } = props;
-  const nowuser = useSelector((state) => state.user.user);
+  const nowuser = userInfo;
 
   const deletePosting = async () => {
     const result = await deleteSwal();
@@ -70,11 +72,7 @@ const ArtCard = (props) => {
                 <Text bold h2 fg="1" margin="10px 0 0 0">
                   {postTitle}
                 </Text>
-                {done === true ? (
-                  <SellLabel complete1 />
-                ) : (
-                  <SellLabel selling1 />
-                )}
+                <SellLabel manageLabel done={done} />
               </Flex>
               {price ? (
                 <Text fg="1" bold margin="8px 0 0 0">
@@ -171,7 +169,7 @@ const ArtCard = (props) => {
     return (
       <Card onClick={onClick}>
         <Label>
-          {done === true ? <SellLabel complete2 /> : <SellLabel selling2 />}
+          <SellLabel pageLabel done={done} />
           <Image
             height="168px"
             br="8px"
@@ -233,7 +231,7 @@ const ArtCard = (props) => {
     return (
       <Card onClick={onClick}>
         <Label>
-          {done === true ? <SellLabel complete2 /> : <SellLabel selling2 />}
+          <SellLabel done={done} pageLabel />
           <Image
             height="168px"
             br="8px"

@@ -173,7 +173,7 @@ const StoreDetail = () => {
           </Wrap>
           <ImageCarousel src={current.imageUrl} />
 
-          <Wrap margin="16px 16px 56px">
+          <Wrap margin="16px 16px 56px" padding="0 0 12px">
             <Flex margin="8px 0" jc="space-between">
               <Text color={theme.pallete.gray3}>분류</Text>
               <Text color={theme.pallete.gray3}>{current.category}</Text>

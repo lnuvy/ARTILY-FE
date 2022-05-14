@@ -6,7 +6,6 @@ import { ArtCard, NoInfo, SocialUrl } from "../components";
 import { Flex, Grid, Image, Text, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
 import { getmyPageDB } from "../redux/modules/mypage";
-import theme from "../styles/theme";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
 
@@ -26,6 +25,8 @@ const UserProfile = () => {
     myReview = null,
     myprofile = null,
   } = currentUser;
+
+  console.log(myprofile);
 
   const [current, setCurrent] = useState(menus[0]);
 
@@ -110,12 +111,14 @@ const UserProfile = () => {
             {myPost &&
               current === "판매목록" &&
               myPost.map((post) => {
+                console.log(post);
                 return (
                   <ArtCard
                     sellLabel
                     key={`${post.postId}_mypost`}
                     className="sell"
                     {...post}
+                    userInfo={myprofile}
                     onClick={() => history.push(`/store/view/${post.postId}`)}
                   />
                 );
@@ -126,14 +129,17 @@ const UserProfile = () => {
           <NoInfo list={myReview} text="아직 등록한 작품이 없어요.">
             {myReview &&
               current === "리뷰목록" &&
-              myReview.map((post) => {
+              myReview.map((review) => {
                 return (
                   <ArtCard
                     review
-                    key={`${post.postId}_myReview`}
+                    key={`${review.reviewId}_myReview`}
                     className="sell"
-                    {...post}
-                    onClick={() => history.push(`/review/view/${post.postId}`)}
+                    userInfo={myprofile}
+                    {...review}
+                    onClick={() =>
+                      history.push(`/review/view/${review.reviewId}`)
+                    }
                   />
                 );
               })}
@@ -150,6 +156,7 @@ const UserProfile = () => {
                     markup
                     key={`${post.postId}_myMarkup`}
                     className="sell"
+                    userInfo={myprofile}
                     {...post}
                     onClick={() => history.push(`/store/view/${post.postId}`)}
                   />

@@ -8,11 +8,7 @@ import { AiOutlineClose } from "react-icons/ai";
 
 const ImagePreview = () => {
   const dispatch = useDispatch();
-  const { imageArr } = useSelector((state) => state.image);
-
-  const selectRepresent = (image) => {
-    dispatch(setRepresent(image));
-  };
+  const { imageArr, fileObj } = useSelector((state) => state.image);
 
   const removeImage = async (image) => {
     // 수정단계의 대표이미지일때
@@ -25,7 +21,6 @@ const ImagePreview = () => {
     }
     // const testFile = await convertURLtoFile(image);
     // console.log(testFile);
-
     dispatch(removePreview(image));
   };
 

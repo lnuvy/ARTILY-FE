@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Flex, Text, Grid, Image, Wrap } from "../elements";
-import { Card, ArtCard, ReviewCard, StoreCard } from "../components";
+import { Text, Grid, Image, Wrap } from "../elements";
+import { Card, ReviewCard, StoreCard } from "../components";
 import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
-import { getToken } from "../shared/token";
 import styled from "styled-components";
 import theme from "../styles/theme";
 import banner from "../assets/images/banner.png";
@@ -54,7 +53,7 @@ const Home = () => {
       </Wrap>
       <Wrap padding="0 0 24px">
         <Text bold h3 margin="0 0 18px 16px">
-          아틀리가 주목하는 작가
+          아틀리가 주목하는 작가 etestestedfadfsafds
         </Text>
 
         <BestArtistWrap>
