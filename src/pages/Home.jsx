@@ -23,6 +23,8 @@ const Home = () => {
     (state) => state.main
   );
 
+  console.log(bestPost, bestWriter, bestReview);
+
   const move2detail = (data, path) => {
     console.log(data, path);
     if (path === "/store") {
