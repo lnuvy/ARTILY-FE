@@ -1,3 +1,4 @@
+import BuyList from "./BuyList";
 import Chat from "./Chat";
 import ChatRoom from "./ChatRoom";
 import Follow from "./Follow";
@@ -20,11 +21,11 @@ import MypageEdit from "./MypageEdit";
 import Manage from "./Manage";
 import DetailProfile from "./DetailProfile";
 import ReviewWrite from "./ReviewWrite";
-import BuyList from "./BuyList";
 import UserProfile from "./UserProfile";
 import ReviewSelect from "./ReviewSelect";
 
 export {
+  BuyList,
   Chat,
   ChatRoom,
   Follow,
@@ -47,7 +48,6 @@ export {
   Manage,
   DetailProfile,
   ReviewWrite,
-  BuyList,
   UserProfile,
   ReviewSelect,
 };

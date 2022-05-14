@@ -1,52 +1,64 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 const SellLabel = (props) => {
-  const { done, complete1, complete2, complete3, selling1, selling2 } = props;
+  const {
+    done = false,
+    manageLabel = null,
+    pageLabel = null,
+    storeLabel = null,
+  } = props;
 
-  if (complete1) {
+  console.log(done);
+
+  if (manageLabel) {
     //마이페이지 판매작품 관리하기 탭
     return (
       <>
-        <SmallLabel>
-          <p className="complete">판매완료</p>
-        </SmallLabel>
+        {done ? (
+          <SmallLabel>
+            <p className="complete">판매완료</p>
+          </SmallLabel>
+        ) : (
+          <SmallLabel>
+            <p className="selling">판매중</p>
+          </SmallLabel>
+        )}
       </>
     );
-  } else if (selling1) {
-    return (
-      <SmallLabel>
-        <p className="selling">판매중</p>
-      </SmallLabel>
-    );
-  } else if (complete2) {
+  } else if (pageLabel) {
     //마이페이지 하단 판매목록
     return (
-      <Label>
-        <p className="complete">판매완료</p>
-      </Label>
+      <>
+        {done ? (
+          <Label>
+            <p className="complete">판매완료</p>
+          </Label>
+        ) : (
+          <Label>
+            <p className="selling">판매중</p>
+          </Label>
+        )}
+      </>
     );
-  } else if (selling2) {
-    return (
-      <Label>
-        <p className="selling">판매중</p>
-      </Label>
-    );
-  } else if (complete3) {
+  } else if (storeLabel) {
     //스토어 상세
     return (
-      <StoreLabel>
-        <p className="complete">판매완료</p>
-      </StoreLabel>
+      <>
+        {done ? (
+          <StoreLabel>
+            <p className="complete">판매완료</p>
+          </StoreLabel>
+        ) : (
+          <StoreLabel>
+            <p className="selling">판매중</p>
+          </StoreLabel>
+        )}
+      </>
     );
   } else {
     return null;
   }
-};
-
-SellLabel.defaultProps = {
-  done: false,
 };
 
 //마이페이지=> 판매작품 관리하기에서 사용되는 라벨

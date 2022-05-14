@@ -18,7 +18,7 @@ const SocialUrl = ({ snsUrl }) => {
     other = snsUrl[2];
   }
 
-  console.log(`insta ${insta} behance ${behance} other ${other}`);
+  // console.log(`insta ${insta} behance ${behance} other ${other}`);
 
   return (
     <>
