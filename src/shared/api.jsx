@@ -37,6 +37,8 @@ export const Apis = {
     Api.patch(`api/review/${reviewId}`, reviewContents),
   deleteReview: (reviewId) =>
     Api.delete(`api/review/${reviewId}`, { reviewId: reviewId }),
+  likeReview: (reviewId) =>
+    Api.post(`api/like/${reviewId}`, { reviewId: reviewId }),
 
   // store API
   // getStore: (pageHandler) =>

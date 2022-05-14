@@ -12,6 +12,8 @@
     "dotenv": "^16.0.0",
     "expo-image-picker": "^13.1.1",
     "expo-modules-core": "^0.9.1",
+    "firebase-tools": "^10.9.2",
+    "global": "^4.4.0",
     "history": "4.10.1",
     "immer": "^9.0.12",
     "lodash": "^4.17.21",

@@ -13,6 +13,8 @@ const Wrap = (props) => {
     position,
     br,
     fg,
+    border,
+    borderBottom,
   } = props;
 
   const styles = {
@@ -27,6 +29,8 @@ const Wrap = (props) => {
     //5.8 높이 추가
     height,
     fg,
+    border,
+    borderBottom,
   };
 
   return <WrapStyle {...styles}>{children}</WrapStyle>;
@@ -51,6 +55,8 @@ const WrapStyle = styled.div`
   position: ${({ position }) => position};
   border-radius: ${({ br }) => br};
   flex-grow: ${({ fg }) => fg}; // 5.12 추가 민경
+  border: ${({ border }) => border}; // 5.14 추가 민경
+  border-bottom: ${({ borderBottom }) => borderBottom}; // 5.14 추가 민경
 `;
 
 export default Wrap;
