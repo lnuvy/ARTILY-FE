@@ -41,12 +41,12 @@ const StoreDetail = () => {
 
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
-  const otherPost = useSelector((state) => state.store.otherPost);
-  const followId = current?.user?.userId;
+  // const otherPost = useSelector((state) => state.store.otherPost);
+  // const followId = current?.user?.userId;
 
-  const clickFollow = () => {
-    dispatch(addFollowDB(followId));
-  };
+  // const clickFollow = () => {
+  //   dispatch(addFollowDB(followId));
+  // };
   useEffect(() => {
     dispatch(getPostOne(postId));
   }, []);
@@ -149,7 +149,7 @@ const StoreDetail = () => {
                       padding="6px"
                       onClick={() => {
                         console.log("팔로우 버튼 눌렀다");
-                        clickFollow();
+                        // clickFollow();
                       }}
                     >
                       <Text body1 color={theme.pallete.primary900}>
