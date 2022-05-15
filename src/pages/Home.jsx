@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, Grid, Image, Wrap } from "../elements";
 import { Card, ReviewCard, StoreCard } from "../components";
-import { getHomeDataDB } from "../redux/modules/main";
+import { getHomeDataDB, getHomeData } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
 import styled from "styled-components";
@@ -15,6 +15,9 @@ const Home = () => {
 
   // 더미데이터 주입
   useEffect(() => {
+    // data 리셋
+    dispatch(getHomeData([{ bestPost: [], bestWriter: [], bestReview: [] }]));
+    // data 불러오기
     dispatch(getHomeDataDB());
   }, []);
 
@@ -39,7 +42,7 @@ const Home = () => {
           인기 작품
         </Text>
         <Grid gtc="1fr 1fr" rg="16px" cg="16px">
-          {bestPost.length > 0 &&
+          {bestPost &&
             bestPost.map((v, i) => {
               return (
                 <StoreCard
@@ -58,7 +61,7 @@ const Home = () => {
 
         <BestArtistWrap>
           <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
-            {bestWriter.length > 0 &&
+            {bestWriter &&
               bestWriter.map((artist, i) => {
                 return (
                   <Card
@@ -98,7 +101,7 @@ const Home = () => {
           Best 후기
         </Text>
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
-          {bestReview.length > 0
+          {bestReview
             ? bestReview.map((l, i) => {
                 return (
                   <ReviewCard

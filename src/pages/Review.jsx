@@ -13,7 +13,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 const Review = () => {
   const dispatch = useDispatch();
-  const reviewList = useSelector((state) => state.review.list);
+  const reviewList = useSelector((state) => state.review.filterList);
 
   useEffect(() => {
     dispatch(getReviewDB());
