@@ -108,13 +108,22 @@ const reviewSlice = createSlice({
   reducers: {
     getReviewData: (state, action) => {
       state.list = action.payload;
+      state.filterList = state.list;
     },
     getBuyList: (state, action) => {
       state.buyList = action.payload;
     },
     getNowReview: (state, action) => {
-      console.log(action.payload.defferent);
       state.reviewData = action.payload;
+      function checkSellItem(element) {
+        if (element.postId === action.payload.buyer.seller.postId) {
+          return true;
+        }
+      }
+      state.reviewData.sellItemInfo =
+        action.payload.defferent.find(checkSellItem);
+    },
+    getSellItem: (state, action) => {
       function checkSellItem(element) {
         if (element.postId === action.payload.buyer.seller.postId) {
           return true;
@@ -129,6 +138,7 @@ const reviewSlice = createSlice({
     },
     // 카테고리 필터 이름변경
     filteringReviewData: (state, action) => {
+      console.log("filter");
       if (action.payload === "전체") {
         state.filterList = state.list;
         return;

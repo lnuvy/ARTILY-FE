@@ -3,8 +3,13 @@ import { ArtCard, Card, ReviewCard } from "../components";
 import Category from "../components/Category";
 import { Button, Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostDB } from "../redux/modules/store";
-import { getReviewDB, go2detail } from "../redux/modules/reviews";
+
+import {
+  getReviewData,
+  getReviewDB,
+  go2detail,
+  filteringReviewData,
+} from "../redux/modules/reviews";
 import { postReviewDB, getBuyList } from "../redux/modules/reviews.jsx";
 
 import { history } from "../redux/configureStore";
@@ -13,9 +18,12 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 const Review = () => {
   const dispatch = useDispatch();
-  const reviewList = useSelector((state) => state.review.filterList);
+  const reviewList = useSelector((state) => state.review.list);
+  const filteringList = useSelector((state) => state.review.filterList);
 
   useEffect(() => {
+    dispatch(getReviewData([]));
+
     dispatch(getReviewDB());
   }, []);
 
@@ -30,12 +38,12 @@ const Review = () => {
         <Category review />
         <Wrap margin="16px">
           <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
-            {reviewList.length
-              ? reviewList.map((l, i) => {
+            {reviewList && filteringList
+              ? filteringList.map((l, i) => {
                   return (
                     <>
                       <ReviewCard
-                        key={i}
+                        _key={i}
                         nickname={l.nickname}
                         profileImage={l.profileImage}
                         {...l}

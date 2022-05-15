@@ -12,6 +12,7 @@ const Card = (props) => {
     border,
     onClick,
     height,
+    _key,
     ...data
   } = props;
 
@@ -27,7 +28,7 @@ const Card = (props) => {
   };
 
   return (
-    <CardStyle onClick={onClick} {...styles} {...data}>
+    <CardStyle onClick={onClick} {...styles} {...data} key={_key}>
       {children}
     </CardStyle>
   );

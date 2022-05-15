@@ -15,6 +15,9 @@ import {
   getNowPost,
   getPostDB,
   getPostOne,
+  go2detail,
+  otherPost,
+  filteringData,
 } from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -39,9 +42,14 @@ const StoreDetail = () => {
 
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
-  const otherPost = useSelector((state) => state.store.otherPost);
+  const otherPosts = useSelector((state) => state.store.otherPost);
 
   useEffect(() => {
+    // reset
+    dispatch(go2detail([]));
+    dispatch(otherPost([]));
+    dispatch(filteringData("전체"));
+    // getdata
     dispatch(getPostOne(postId));
   }, []);
 
@@ -97,7 +105,7 @@ const StoreDetail = () => {
 
   return (
     <>
-      {current && (
+      {current && current.user && (
         <>
           <Wrap margin="0 16px">
             <Text h1>{current.postTitle}</Text>
@@ -185,7 +193,7 @@ const StoreDetail = () => {
                 {current.postContent}
               </Text>
             </Flex>
-            {otherPost.length > 0 && (
+            {otherPosts && (
               <>
                 <Flex margin="16px 0 10px">
                   <Text h2 lineHeight="22px">
@@ -204,7 +212,7 @@ const StoreDetail = () => {
                   </Text>
                 </Flex>
                 <Grid gtc="1fr 1fr" rg="18px" cg="8px" margin="0 0 20px">
-                  {otherPost.map((post) => {
+                  {otherPosts.map((post) => {
                     return <StoreMore key={post.postId} {...post} />;
                   })}
                 </Grid>

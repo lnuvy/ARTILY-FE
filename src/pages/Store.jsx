@@ -3,7 +3,12 @@ import { StoreCard, Footer } from "../components";
 import Category from "../components/Category";
 import { Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostDB, go2detail, filteringData } from "../redux/modules/store";
+import {
+  getStoreData,
+  getPostDB,
+  go2detail,
+  filteringData,
+} from "../redux/modules/store";
 import { history } from "../redux/configureStore";
 import _ from "lodash";
 
@@ -18,8 +23,10 @@ const Store = () => {
   // 카테고리 필터링
 
   useEffect(() => {
+    // store data reset
+    dispatch(getStoreData([]));
     // store api 두번요청되는걸 막기위함
-    if (list.length < 6) dispatch(getPostDB());
+    dispatch(getPostDB());
   }, []);
 
   // 모달 필터링
@@ -136,7 +143,8 @@ const Store = () => {
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
           {searchList && query !== ""
             ? searchList
-            : filterList.map((l) => {
+            : filterList &&
+              filterList.map((l) => {
                 if (isFree) {
                   if (l.price === 0) {
                     return (
