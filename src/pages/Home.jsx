@@ -15,9 +15,7 @@ const Home = () => {
 
   // 더미데이터 주입
   useEffect(() => {
-    // data 리셋
     dispatch(getHomeData([{ bestPost: [], bestWriter: [], bestReview: [] }]));
-    // data 불러오기
     dispatch(getHomeDataDB());
   }, []);
 
@@ -48,6 +46,11 @@ const Home = () => {
                 <StoreCard
                   onClick={() => move2detail(v, "/store")}
                   key={v.postId}
+                  imageUrl={
+                    v.imageUrl &&
+                    v.imageUrl[0].imageUrl &&
+                    v.imageUrl[0].imageUrl
+                  }
                   {...v}
                 />
               );
@@ -56,7 +59,7 @@ const Home = () => {
       </Wrap>
       <Wrap padding="0 0 24px">
         <Text bold h3 margin="0 0 18px 16px">
-          아틀리가 주목하는 작가 테스트!!!!ddd
+          아틀리가 주목하는 작가
         </Text>
 
         <BestArtistWrap>
@@ -108,7 +111,7 @@ const Home = () => {
                     key={i}
                     {...l}
                     onClick={() => move2detail(l, "/review")}
-                    imageUrl={l.imageUrl[0]}
+                    imageUrl={l.imageUrl && l.imageUrl[0]}
                   />
                 );
               })

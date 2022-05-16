@@ -22,7 +22,7 @@ const ImageCarousel = (props) => {
   return (
     <>
       <StyledSlider {...settings}>
-        {src.length > 0
+        {src && src.length > 0
           ? src.map((img, i) => {
               return (
                 <Grid key={`${i}_번째_${img}`}>

@@ -12,7 +12,12 @@ const initialState = {
   filterList: [],
   isFetching: false,
   infinityScroll: {},
-  detailData: null,
+  detailData: {
+    buyer: undefined,
+    defferent: undefined,
+    sellItemInfo: undefined,
+    myLike: 0,
+  },
   detailSeller: null,
   detailSellerAnother: null,
   reviewData: null,
@@ -102,6 +107,20 @@ export const deleteReviewDB = (reviewId) => {
   };
 };
 
+export const likeReviewDB = (reviewId) => {
+  return async function (dispatch, getState, { history }) {
+    Apis.likeReview(reviewId)
+      .then(function (response) {
+        console.log(response);
+        dispatch(getMyLike(response.data.totalLike));
+        dispatch(getReviewOne(reviewId));
+      })
+      .catch(function (error) {
+        console.error(error.message);
+      });
+  };
+};
+
 const reviewSlice = createSlice({
   name: "reivew",
   initialState: initialState,
@@ -115,13 +134,18 @@ const reviewSlice = createSlice({
     },
     getNowReview: (state, action) => {
       state.reviewData = action.payload;
-      function checkSellItem(element) {
-        if (element.postId === action.payload.buyer.seller.postId) {
-          return true;
-        }
-      }
-      state.reviewData.sellItemInfo =
-        action.payload.defferent.find(checkSellItem);
+      // function checkSellItem(element) {
+      //   if (element.postId === action.payload.buyer.seller.postId) {
+      //     return true;
+      //   }
+      // }
+      // if (action.payload.defferent) {
+      //   state.reviewData.sellItemInfo =
+      //     action.payload.defferent.find(checkSellItem);
+      // }
+    },
+    getMyLike: (state, action) => {
+      state.detailData.myLike = action.payload;
     },
     getSellItem: (state, action) => {
       function checkSellItem(element) {
@@ -160,5 +184,6 @@ export const {
   getNowReview,
   filteringReviewData,
   getBuyList,
+  getMyLike,
 } = actions;
 export default reducer;

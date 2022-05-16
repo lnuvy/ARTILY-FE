@@ -44,7 +44,7 @@ const ReviewCard = (props) => {
         </Text>
         <Icon width="fit-content">
           <Flex>
-            <Favorite />
+            <Favorite size="16" color={`${theme.color.brandColor}`} />
             <Text body2 margin="0 0 0 4px">
               {likeCnt}
             </Text>

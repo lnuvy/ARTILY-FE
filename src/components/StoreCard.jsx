@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Favorite } from "../assets/icons";
+import { Favorite, FavoriteFilled } from "../assets/icons";
 import { Flex, Icon, Image, Text } from "../elements";
 import { priceComma } from "../shared/utils";
 import theme from "../styles/theme";
@@ -51,9 +51,9 @@ const StoreCard = (props) => {
         <Icon width="fit-content">
           <Flex>
             {isMyMarkup ? (
-              <IoMdHeart size={16} color={theme.pallete.primary850} />
+              <FavoriteFilled size="16" color={theme.color.brandColor} />
             ) : (
-              <Favorite />
+              <Favorite size="16" color={theme.color.brandColor} />
             )}
 
             <Text body2 margin="0 0 0 2px">
