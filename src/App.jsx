@@ -94,4 +94,5 @@ const MaxContainer = styled.div`
   background-color: white;
   margin: 0 auto;
   position: relative;
+  overflow-x: hidden;
 `;

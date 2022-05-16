@@ -32,18 +32,19 @@ const StoreCard = (props) => {
       <Image height="168px" br="8px" src={imageUrl} />
       <Flex margin="8px 0">
         <Image circle size="32" src={user?.profileImage} />
-        <Text h3 margin="0 0 0 4px">
+        <Text h3 margin="0 0 0 8px">
           {user?.nickname}
         </Text>
       </Flex>
       <Text h3 medium>
         {postTitle}
       </Text>
-      <Text color={theme.pallete.gray3}>
+      <Text body2 color={theme.pallete.gray3}>
         {transaction}
+
         {changeAddress &&
           (changeAddress.length > 8
-            ? ` ∙ ${changeAddress.substring(0, 8)}...`
+            ? ` ∙ ${changeAddress.substring(0, 10)}...`
             : ` ∙ ${changeAddress}`)}
       </Text>
       <Flex>
