@@ -8,6 +8,7 @@ import { markupToggle } from "./store";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { authAlert } from "../../shared/commonAlert";
 
 const MySwal = withReactContent(Swal);
 
@@ -198,7 +199,7 @@ export const changeAddressDB = (address) => {
 };
 
 export const postMarkupToggle = (postId) => {
-  return function (dispatch, getState) {
+  return function (dispatch, getState, { history }) {
     Apis.postMarkUp(postId)
       .then((res) => {
         console.log(res);
@@ -215,9 +216,14 @@ export const postMarkupToggle = (postId) => {
           dispatch(markupToggle({ isUp: true }));
         }
       })
-      .catch((err) => {
+      .catch(async (err) => {
         console.log("마크업 에러", err);
         console.log(err.response);
+
+        const result = await authAlert(err.response.data.errorMessage);
+        if (result) {
+          history.push("/login");
+        }
       });
   };
 };

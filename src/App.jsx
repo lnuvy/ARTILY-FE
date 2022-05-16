@@ -13,12 +13,15 @@ import { receiveChat, receiveChatRoom } from "./redux/modules/chat";
 import theme from "./styles/theme";
 import AuthRoute from "./routes/AuthRoute";
 import NoAuthRoute from "./routes/NoAuthRoute";
+import DragModal from "./shared/modal/DragModal";
 
 function App() {
   const dispatch = useDispatch();
   // 리덕스에서 모달 정보 가져오기(디폴트는 false)
-  const modalOn = useSelector((state) => state.modal.modalOn);
+  const { modalOn, title } = useSelector((state) => state.modal);
   const { user, isLogin } = useSelector((state) => state.user);
+
+  console.log(modalOn, title);
 
   useEffect(() => {
     var token = localStorage.getItem("token");
@@ -63,7 +66,7 @@ function App() {
           <Header>ARTIN</Header>
           <AuthRoute />
 
-          {modalOn && <Modal />}
+          {modalOn && (title ? <Modal /> : <DragModal />)}
           <ToastMessage />
         </ConnectedRouter>
       </MaxContainer>
@@ -75,8 +78,7 @@ function App() {
           <Header>ARTIN</Header>
           <NoAuthRoute />
 
-          {/* modalOn 값이 true 일때만 모달 켜기 */}
-          {modalOn && <Modal />}
+          {modalOn && (title ? <Modal /> : <DragModal />)}
 
           <ToastMessage />
         </ConnectedRouter>

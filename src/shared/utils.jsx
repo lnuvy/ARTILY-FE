@@ -7,8 +7,8 @@ export const priceComma = (price) => {
 };
 
 // YYYY-MM-DD HH:mm:ss 형식 moment 현재시간기준으로 '00 전' 포맷으로 리턴
-export const changeTime = (momentDate) => {
-  const text = moment(momentDate).fromNow();
+export const changeTime = (date) => {
+  const text = moment(date).fromNow();
   // const text = moment(insert_dt).add(9, "hours").fromNow();
   return text;
 };
@@ -17,7 +17,6 @@ export const changeTime = (momentDate) => {
  * 유효성 검사 파트
  *
  */
-
 // 띄어쓰기, 엔터만 있으면 false
 export const inputSpaceReg = (text) => {
   if (!text.replace(/(^\s*)|(\s*$)/gi, "")) {

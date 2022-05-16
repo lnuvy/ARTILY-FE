@@ -2,20 +2,18 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Button, Flex, Grid, Icon, Text, Wrap } from "../../elements";
-import ModalPortal from "./Portals";
+import DragProtals from "./DragPortals";
 
 // X 아이콘
 import { IoCloseOutline } from "react-icons/io5";
 import { closeModal } from "../../redux/modules/modal";
 
-const Modal = () => {
+const DragModal = () => {
   const dispatch = useDispatch();
 
   const modal = useSelector((state) => state.modal);
 
-  const modalClose = () => {
-    dispatch(closeModal());
-  };
+  console.log(modal);
 
   // 모달 띄웠을때 배경 스크롤 막기
   useEffect(() => {
@@ -26,30 +24,29 @@ const Modal = () => {
   }, []);
 
   return (
-    <ModalPortal>
-      <Flex fd="column" margin="0" width="100%">
-        <Flex
-          width="100%"
-          padding="15px 20px 0px 28px"
-          height="55px"
-          jc="space-between"
-        >
-          <Text h1 bold>
-            {modal.title}
-          </Text>
-          <IoCloseOutline onClick={modalClose} size={36} />
-        </Flex>
-        <ContentWrap>{modal.content}</ContentWrap>
-      </Flex>
-    </ModalPortal>
+    <DragProtals>
+      <Wrap margin="12px 0 0 0">
+        <DragBar />
+        <Wrap margin="32px 0 0 0">
+          <ContentWrap>{modal.content}</ContentWrap>
+        </Wrap>
+      </Wrap>
+    </DragProtals>
   );
 };
 
 const ContentWrap = styled.div`
   width: 100%;
-  height: calc(67vh - 55px);
-  padding: 12px;
-  margin: 0;
+  /* padding: 12px; */
+  margin: 12px 0 0 0;
+  padding: 0;
 `;
 
-export default Modal;
+const DragBar = styled.div`
+  width: 64px;
+  height: 4px;
+  background-color: #e0e0e0;
+  margin: 0 auto;
+`;
+
+export default DragModal;

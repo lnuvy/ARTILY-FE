@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { closeModal } from "../../redux/modules/modal";
 
-const Portals = ({ children }) => {
+const DragProtals = ({ children }) => {
   const el = document.getElementById("portals");
 
   const dispatch = useDispatch();
@@ -38,14 +38,13 @@ const Background = styled.div`
 // 컨텐츠: 모달 본체
 const Content = styled.div`
   z-index: 204;
-  height: 67vh;
-  max-width: 580px;
-  width: 92%;
-  border-radius: 8px;
+  height: 90vh;
+  width: 100%;
+  border-radius: 16px 16px 0 0;
   background-color: #fff;
-
-  position: relative;
+  position: absolute;
+  bottom: 0;
   overflow: scroll;
 `;
 
-export default Portals;
+export default DragProtals;
