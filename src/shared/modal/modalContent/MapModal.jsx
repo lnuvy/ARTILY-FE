@@ -1,4 +1,4 @@
-import React, { useEffect, useState, forwardRef, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Flex, Grid, Text, Wrap, Button, InputRef } from "../../../elements";
 import {
   Map,
@@ -7,9 +7,8 @@ import {
   MapMarker,
 } from "react-kakao-maps-sdk";
 import { AiOutlineSearch } from "react-icons/ai";
-import { MdGpsFixed } from "react-icons/md";
 
-import { changeMarker, currentmap } from "../../api/KakaoGeolocation";
+import { changeMarker, currentmap } from "../../geolocation/KakaoGeolocation";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../../redux/modules/modal";
 import { MyLocation } from "../../../assets/icons";
