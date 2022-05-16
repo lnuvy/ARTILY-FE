@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 import theme from "../styles/theme";
 import { priceComma } from "../shared/utils";
 import { deleteReviewDB } from "../redux/modules/reviews.jsx";
+import { addFollowDB } from "../redux/modules/follow";
 import { IoMdHeart } from "react-icons/io";
 import { Heart } from "../assets/icons";
 import styled from "styled-components";
@@ -24,9 +25,15 @@ const ReviewDetail = (props) => {
   const dispatch = useDispatch();
   const reviewId = useParams();
   const current = useSelector((state) => state.review.reviewData);
+  console.log(current);
   const user = useSelector((state) => state.user);
   const currentUser = useSelector((state) => state.user?.user);
 
+  const followId = current?.buyer?.userId;
+  const isMe = current?.user?.userId === currentUser?.userId;
+  const clickFollow = () => {
+    dispatch(addFollowDB(followId));
+  };
   function editFunc() {
     history.push(`/review/edit/${current.buyer.reviewId}`);
   }
@@ -57,7 +64,7 @@ const ReviewDetail = (props) => {
                   contents={current.buyer.nickname}
                 ></Text>
               </Flex>
-              <Flex>
+              {/* <Flex>
                 {!user ? (
                   user.user.userId === current.buyer.userId ? (
                     <>
@@ -87,6 +94,52 @@ const ReviewDetail = (props) => {
                   )
                 ) : (
                   <></>
+                )}
+              </Flex> */}
+              <Flex>
+                {isMe ? (
+                  <>
+                    <Flex
+                      padding="6px"
+                      onClick={() => {
+                        console.log("수정");
+                        history.push(`/store/write/${reviewId}`);
+                      }}
+                    >
+                      <Text body1 color={theme.pallete.primary900}>
+                        수정하기
+                      </Text>
+                    </Flex>
+                    <Flex padding="6px 0 6px 6px" onClick={deleteFunc}>
+                      <Text body1 color={theme.pallete.primary900}>
+                        삭제하기
+                      </Text>
+                    </Flex>
+                  </>
+                ) : (
+                  <>
+                    <Flex
+                      padding="6px"
+                      onClick={() => {
+                        console.log("팔로우 버튼 눌렀다");
+                        clickFollow();
+                      }}
+                    >
+                      <Text body1 color={theme.pallete.primary900}>
+                        팔로우
+                      </Text>
+                    </Flex>
+                    <Flex
+                      padding="6px"
+                      onClick={() => {
+                        console.log("신고하기");
+                      }}
+                    >
+                      <Text body1 color={theme.pallete.primary900}>
+                        신고
+                      </Text>
+                    </Flex>
+                  </>
                 )}
               </Flex>
             </Flex>
@@ -133,24 +186,46 @@ const ReviewDetail = (props) => {
           <Wrap margin="16px">
             <Flex margin="0 0 11px">
               <Text h2>작가명의 다른 작품</Text>
-              <Wrap margin="0 0 0 8px" fg="1">
-                <Button
-                  fontSize="16px"
-                  color={`${theme.color.brandColor}`}
-                  text
-                >
-                  팔로우
-                </Button>
-              </Wrap>
-              <Text lineHeight="22px">
-                <Button
-                  fontSize="16px"
-                  color={`${theme.color.brandColor}`}
-                  text
-                >
-                  더보기
-                </Button>
-              </Text>
+              {isMe ? (
+                <>
+                  <Wrap fg="1"></Wrap>
+                  <Text lineHeight="22px">
+                    <Button
+                      fontSize="16px"
+                      color={`${theme.color.brandColor}`}
+                      text
+                    >
+                      더보기
+                    </Button>
+                  </Text>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <Wrap margin="0 0 0 8px" fg="1">
+                    <Button
+                      fontSize="16px"
+                      color={`${theme.color.brandColor}`}
+                      text
+                      onClick={() => {
+                        console.log("팔로우 버튼 눌렀다");
+                        clickFollow();
+                      }}
+                    >
+                      팔로우
+                    </Button>
+                  </Wrap>
+                  <Text lineHeight="22px">
+                    <Button
+                      fontSize="16px"
+                      color={`${theme.color.brandColor}`}
+                      text
+                    >
+                      더보기
+                    </Button>
+                  </Text>
+                </>
+              )}
             </Flex>
             <Grid gtc="1fr 1fr">
               {current.defferent.length

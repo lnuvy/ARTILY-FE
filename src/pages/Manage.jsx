@@ -91,30 +91,6 @@ const Nav = styled.div`
   display: grid;
   width: 100%;
 `;
-// const Sell = styled.div`
-//   margin: 10px 0;
-//   border-top: 1px solid #ddd;
-//   border-bottom: 1px solid #ddd;
-//   height: 50px;
-//   p {
-//     border-right: 1px solid #ddd;
-//     /* width: 33%; */
-//     /* text-align: center; */
-//     height: 50px;
-//     line-height: 50px;
-//     font-weight: bold;
-//     cursor: pointer;
-//   }
-//   p:nth-of-type(1),
-//   p:nth-of-type(2) {
-//     padding: 0 1em;
-//   }
-//   //판매완료로 변경 버튼 전체영역이 눌렸으면 좋겠는데 아직 해결 못함
-//   p:nth-of-type(3) {
-//     border-right: none;
-//     margin: auto;
-//   }
-// `;
 
 const Background = styled.div`
   background-color: #ddd;

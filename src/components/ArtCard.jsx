@@ -177,16 +177,7 @@ const ArtCard = (props) => {
             src={imageUrl}
           />
         </Label>
-        <Flex margin="8px 0 0 0">
-          <Image
-            circle
-            size="20"
-            src={nowuser?.profileImage}
-            border="1px solid #ddd"
-          />
-          <Text margin="0 0 0 4px">{nowuser?.nickname}</Text>
-        </Flex>
-        <Text>{postTitle}</Text>
+        <Text margin="8px 0 0 0">{postTitle}</Text>
         <Flex margin="0 0 8px 0">
           {price ? (
             <Text fg="1" bold>
@@ -240,7 +231,7 @@ const ArtCard = (props) => {
           />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
-        <Flex>
+        <Flex margin="0 0 8px 0">
           {price ? (
             <Text fg="1" bold>
               {priceComma(price)}원
@@ -280,51 +271,9 @@ const Sell = styled.div`
     margin: auto;
   }
 `;
-// const SmallLabel = styled.div`
-//   /* position: relative; */
-//   //판매완료 label
-//   .complete,
-//   .selling {
-//     height: 28px;
-//     padding: 0 5px;
-//     font-size: 13px;
-//     margin: 10px 0 0 8px;
-//     border-radius: 5px;
-//     line-height: 28px;
-//   }
-//   .complete {
-//     color: #fff;
-//     background-color: ${({ theme }) => `${theme.color.brandColor}`};
-//   }
-//   .selling {
-//     color: ${({ theme }) => `${theme.color.brandColor}`};
-//     border: 1px solid ${({ theme }) => `${theme.color.brandColor}`};
-//     background-color: #fff;
-//   }
-// `;
+
 const Label = styled.div`
   position: relative;
-  /* .complete,
-  .selling {
-    position: absolute;
-    top: 7px;
-    left: 7px;
-    height: 30px;
-    padding: 0 8px;
-    line-height: 30px;
-    color: #fff;
-    border-radius: 8px;
-    font-size: 14px;
-  }
-  //판매완료 label
-  .complete {
-    background-color: ${({ theme }) => `${theme.color.black}`};
-  }
-  //판매중 label
-  .selling {
-    background-color: #fff;
-    background-color: ${({ theme }) => `${theme.color.brandColor}`};
-  } */
 `;
 const Border = styled.div`
   padding-top: 10px;

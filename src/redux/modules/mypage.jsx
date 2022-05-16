@@ -75,15 +75,15 @@ const postsSlice = createSlice({
     selectList: (state, action) => {
       state.nowList = [];
       if (action.payload === "판매목록") {
-        state.nowList = state.list.myPost;
+        state.nowList = state.list.myPosts;
       } else if (action.payload === "리뷰목록") {
-        state.nowList = state.list.myReview;
+        state.nowList = state.list.myReviews;
       } else {
-        state.nowList = state.list.myMarkup;
+        state.nowList = state.list.myMarkups;
       }
     },
     mySellList: (state, action) => {
-      state.sellList = action.payload.myPost;
+      state.sellList = action.payload.myPosts;
     },
   },
 });

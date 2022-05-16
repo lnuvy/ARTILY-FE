@@ -53,7 +53,7 @@ const Home = () => {
       </Wrap>
       <Wrap padding="0 0 24px">
         <Text bold h3 margin="0 0 18px 16px">
-          아틀리가 주목하는 작가 etestestedfadfsafds
+          아틀리가 주목하는 작가
         </Text>
 
         <BestArtistWrap>
@@ -105,7 +105,7 @@ const Home = () => {
                     key={i}
                     {...l}
                     onClick={() => move2detail(l, "/review")}
-                    imageUrl={l.imageUrl[0]}
+                    // imageUrl={l.imageUrl[0]}
                   />
                 );
               })

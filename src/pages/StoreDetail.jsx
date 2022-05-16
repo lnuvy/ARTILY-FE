@@ -41,12 +41,15 @@ const StoreDetail = () => {
 
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
-  // const otherPost = useSelector((state) => state.store.otherPost);
-  // const followId = current?.user?.userId;
+  const otherPost = useSelector((state) => state.store.otherPost);
+  const followId = current?.user?.userId;
 
-  // const clickFollow = () => {
-  //   dispatch(addFollowDB(followId));
-  // };
+  console.log("팔로우 하려는 userId", followId);
+
+  const clickFollow = () => {
+    dispatch(addFollowDB(followId));
+  };
+
   useEffect(() => {
     dispatch(getPostOne(postId));
   }, []);
@@ -149,7 +152,7 @@ const StoreDetail = () => {
                       padding="6px"
                       onClick={() => {
                         console.log("팔로우 버튼 눌렀다");
-                        // clickFollow();
+                        clickFollow();
                       }}
                     >
                       <Text body1 color={theme.pallete.primary900}>
@@ -173,7 +176,7 @@ const StoreDetail = () => {
           </Wrap>
           <ImageCarousel src={current.imageUrl} />
 
-          <Wrap margin="16px 16px 56px" padding="0 0 12px">
+          <Wrap margin="16px 16px 56px">
             <Flex margin="8px 0" jc="space-between">
               <Text color={theme.pallete.gray3}>분류</Text>
               <Text color={theme.pallete.gray3}>{current.category}</Text>
@@ -202,17 +205,47 @@ const StoreDetail = () => {
                   <Text h2 lineHeight="22px">
                     작가의 다른 작품
                   </Text>
-                  <Text
-                    margin="0 0 0 14px"
-                    fg="1"
-                    lineHeight="22px"
-                    color={theme.pallete.primary900}
-                  >
-                    팔로우
-                  </Text>
-                  <Text lineHeight="22px" color={theme.pallete.primary900}>
-                    더보기
-                  </Text>
+                  {/* 작가의 다른작품 팔로우도 본인이 아닐경우만 뜨도록 isMe 넣었습니다 */}
+                  {isMe ? (
+                    <>
+                      <Wrap fg="1"></Wrap>
+                      <Text lineHeight="22px">
+                        <Button
+                          fontSize="16px"
+                          color={`${theme.color.brandColor}`}
+                          text
+                        >
+                          더보기
+                        </Button>
+                      </Text>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      <Wrap margin="0 0 0 8px" fg="1">
+                        <Button
+                          fontSize="16px"
+                          color={`${theme.color.brandColor}`}
+                          text
+                          onClick={() => {
+                            console.log("팔로우 버튼 눌렀다");
+                            clickFollow();
+                          }}
+                        >
+                          팔로우
+                        </Button>
+                      </Wrap>
+                      <Text lineHeight="22px">
+                        <Button
+                          fontSize="16px"
+                          color={`${theme.color.brandColor}`}
+                          text
+                        >
+                          더보기
+                        </Button>
+                      </Text>
+                    </>
+                  )}
                 </Flex>
                 <Grid gtc="1fr 1fr" rg="18px" cg="8px" margin="0 0 20px">
                   {otherPost.map((post) => {
@@ -226,7 +259,7 @@ const StoreDetail = () => {
           <FixedChatBar>
             <Flex onClick={markupToggle}>
               {currentUser &&
-              currentUser.myMarkup.find((id) => id === postId) ? (
+              currentUser?.myMarkup?.find((id) => id === postId) ? (
                 <IoMdHeart size={24} color={theme.pallete.primary850} />
               ) : (
                 <Heart />

@@ -65,8 +65,10 @@ export const Apis = {
   getMyList: () => Api.get(`/api/mypost`),
 
   //follow API
-  getMyFollow: (followId) => Api.post(`/api/follow/${followId}`),
-  saveMyFollow: (followId) => Api.get(`/api/follow/${followId}`),
+  postAddFollow: (followId) => Api.post(`/api/follow/${followId}`),
+  getMyFollowlist: () => Api.get(`/api/follow/followlist`),
+  getMyFollowerlist: () => Api.get(`/api/follow/followerlist`),
+
   // chat API
   getChatList: () => Api.get(`/api/chat`),
 };
