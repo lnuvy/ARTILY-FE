@@ -2,7 +2,8 @@ import axios from "axios";
 import { getToken } from "./token";
 
 const Api = axios.create({
-  baseURL: "https://rusy7225.shop",
+  baseURL:
+    "http://artily-github-action-1.s3-website.ap-northeast-2.amazonaws.com",
 });
 
 // 이걸넣으니까 회원가입직후 토큰 인증됨
