@@ -1,21 +1,40 @@
 import React from "react";
 import styled from "styled-components";
-import { Text, Wrap } from "../elements";
+import { Flex, Text, Wrap } from "../elements";
 import theme from "../styles/theme";
 
 const Footer = () => {
   return (
     <Container>
-      <Wrap width="100vw" height="168px" padding="23px 31px 35px">
-        <Text color="white" margin="0 0 12px 0">
-          footer 영역
+      <Wrap width="100vw" height="150px" padding="23px 31px 28px">
+        <Text h2 color="white" margin="0 0 12px 0">
+          ARTILY
         </Text>
-        <Text color="white" margin="0 0 12px 0">
+        <Flex margin="0 0 12px 0">
+          <Text body2 color="white" margin="0 8px 0 0">
+            Team Github
+          </Text>
+          <Text color={theme.pallete.primary800}>
+            <a
+              href="https://github.com/lnuvy/mvp-project"
+              target="_blank"
+              rel="noreferrer"
+            >
+              FrontEnd
+            </a>
+            &nbsp;<span style={{ color: "white" }}>/</span>&nbsp;
+            <a
+              href="https://github.com/OhJinwooo/Project-BE"
+              target="_blank"
+              rel="noreferrer"
+            >
+              BackEnd
+            </a>
+          </Text>
+        </Flex>
+        {/* <Text color="white" margin="0 0 12px 0">
           footer 영역
-        </Text>
-        <Text color="white" margin="0 0 12px 0">
-          footer 영역
-        </Text>
+        </Text> */}
       </Wrap>
     </Container>
   );

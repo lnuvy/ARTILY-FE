@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Grid, Image, Wrap } from "../elements";
-import { removePreview, setRepresent } from "../redux/modules/image";
+import { removeFileObj, removePreview } from "../redux/modules/image";
 import styled from "styled-components";
 
 import { AiOutlineClose } from "react-icons/ai";
@@ -19,9 +19,12 @@ const ImagePreview = () => {
       alert("대표이미지는 삭제할수없어요!");
       return;
     }
+    const fileIndex = imageArr.findIndex((img) => img === image);
+    console.log(fileIndex);
     // const testFile = await convertURLtoFile(image);
     // console.log(testFile);
     dispatch(removePreview(image));
+    dispatch(removeFileObj(fileIndex));
   };
 
   return (

@@ -22,7 +22,7 @@ export const getmyPageDB = (userId) => {
   return function (dispatch, getState, { history }) {
     Apis.getMypageData(userId)
       .then((res) => {
-        console.log(res);
+        console.log("mypage get요청", res.data);
         dispatch(getmyPageData(res.data));
       })
       .catch((error) => {

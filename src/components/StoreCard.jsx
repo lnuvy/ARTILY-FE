@@ -15,12 +15,12 @@ const StoreCard = (props) => {
     postId,
     postTitle,
     price,
-    // category,
     transaction,
     imageUrl,
     changeAddress,
     markupCnt,
     onClick,
+    isHome = false, // 홈에서 이미지 24로 바꾸기
   } = props;
 
   const userInfo = useSelector((state) => state.user.user);
@@ -31,7 +31,12 @@ const StoreCard = (props) => {
     <Card onClick={onClick}>
       <Image height="168px" br="8px" src={imageUrl} />
       <Flex margin="8px 0">
-        <Image circle size="32" src={user?.profileImage} />
+        {isHome ? (
+          <Image circle size="24" src={user?.profileImage} />
+        ) : (
+          <Image circle size="32" src={user?.profileImage} />
+        )}
+
         <Text h3 margin="0 0 0 4px">
           {user?.nickname}
         </Text>

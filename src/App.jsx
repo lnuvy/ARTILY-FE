@@ -9,15 +9,20 @@ import styled from "styled-components";
 
 import { getUserInfo } from "./redux/modules/user";
 import { socket } from "./shared/socket";
-import { receiveChat, receiveChatRoom } from "./redux/modules/chat";
+import {
+  getChatList,
+  receiveChat,
+  receiveChatRoom,
+} from "./redux/modules/chat";
 import theme from "./styles/theme";
 import AuthRoute from "./routes/AuthRoute";
 import NoAuthRoute from "./routes/NoAuthRoute";
+import DragModal from "./shared/modal/DragModal";
 
 function App() {
   const dispatch = useDispatch();
   // 리덕스에서 모달 정보 가져오기(디폴트는 false)
-  const modalOn = useSelector((state) => state.modal.modalOn);
+  const { modalOn, title } = useSelector((state) => state.modal);
   const { user, isLogin } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -27,26 +32,26 @@ function App() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     socket.auth = { user };
-  //     socket.connect();
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user) {
+      socket.auth = { user };
+      socket.connect();
+    }
+  }, [user]);
 
-  // useEffect(() => {
-  //   // 판매자 입장
-  //   socket.on("join_room", (data) => {
-  //     dispatch(receiveChatRoom(data));
-  //     socket.emit("enter_room", data.roomName);
-  //   });
-  // }, []);
+  useEffect(() => {
+    // 판매자 입장
+    socket.on("join_room", (data) => {
+      dispatch(receiveChatRoom(data));
+      socket.emit("enter_room", data.roomName);
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   socket.on("receive_message", (data) => {
-  //     dispatch(receiveChat(data));
-  //   });
-  // }, []);
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      dispatch(receiveChat(data));
+    });
+  }, []);
 
   // // 닉네임이 비어있을때
   useEffect(() => {
@@ -63,7 +68,7 @@ function App() {
           <Header>ARTIN</Header>
           <AuthRoute />
 
-          {modalOn && <Modal />}
+          {modalOn && (title ? <Modal /> : <DragModal />)}
           <ToastMessage />
         </ConnectedRouter>
       </MaxContainer>
@@ -75,8 +80,7 @@ function App() {
           <Header>ARTIN</Header>
           <NoAuthRoute />
 
-          {/* modalOn 값이 true 일때만 모달 켜기 */}
-          {modalOn && <Modal />}
+          {modalOn && (title ? <Modal /> : <DragModal />)}
 
           <ToastMessage />
         </ConnectedRouter>

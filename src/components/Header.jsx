@@ -126,7 +126,8 @@ Header.defaultProps = {
 };
 
 const HeaderStyle = styled.div`
-  width: ${theme.view.maxWidth};
+  width: 100vw;
+  max-width: ${theme.view.maxWidth};
   height: fit-content;
   padding: ${({ padding }) => padding};
   padding-bottom: 0;
