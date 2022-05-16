@@ -10,6 +10,11 @@ const GlobalStyle = createGlobalStyle`
   border: none;
   text-decoration: none;
   user-select: none;
+
+  a {
+    all: unset;
+    text-decoration: none;
+  }
 }
 
 body {

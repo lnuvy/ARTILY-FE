@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, Grid, Image, Wrap } from "../elements";
-import { Card, ReviewCard, StoreCard } from "../components";
+import { Card, Footer, ReviewCard, StoreCard } from "../components";
 import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
@@ -40,12 +40,13 @@ const Home = () => {
         <Text bold h3 margin="0 0 10px 0">
           인기 작품
         </Text>
-        <Grid gtc="1fr 1fr" rg="16px" cg="16px">
+        <Grid gtc="1fr 1fr" rg="16px" cg="7px">
           {bestPost.length > 0 &&
             bestPost.map((v, i) => {
               return (
                 <StoreCard
                   onClick={() => move2detail(v, "/store")}
+                  isHome
                   key={v.postId}
                   {...v}
                 />
@@ -114,6 +115,7 @@ const Home = () => {
             : null}
         </Grid>
       </Wrap>
+      <Footer />
     </>
   );
 };
