@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   modalOn: false,
-  title: "모달 제목",
+  title: null,
   content: <></>,
 };
 
@@ -11,17 +11,21 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openModal: (state, action) => {
-      console.log(action.payload);
       state.title = action.payload.title;
       state.content = action.payload.content;
       state.modalOn = true;
     },
+    openDragModal: (state, action) => {
+      state.content = action.payload;
+      state.modalOn = true;
+    },
     closeModal: (state) => {
       state.modalOn = false;
+      state.title = null;
     },
   },
 });
 
 const { reducer, actions } = modalSlice;
-export const { openModal, closeModal } = actions;
+export const { openModal, openDragModal, closeModal } = actions;
 export default reducer;

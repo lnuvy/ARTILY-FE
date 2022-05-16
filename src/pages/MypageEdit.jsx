@@ -24,9 +24,9 @@ const MypageEdit = () => {
   const [nickname, setNickname] = useState(
     getProfile?.nickname ? getProfile.nickname : ""
   );
-  const [website1, setWebsite1] = useState(getProfile?.snsUrl[0]);
-  const [website2, setWebsite2] = useState(getProfile?.snsUrl[1]);
-  const [website3, setWebsite3] = useState(getProfile?.snsUrl[2]);
+  const [website1, setWebsite1] = useState(getProfile?.snsUrl[0] || "");
+  const [website2, setWebsite2] = useState(getProfile?.snsUrl[1] || "");
+  const [website3, setWebsite3] = useState(getProfile?.snsUrl[2] || "");
   const [introduce, setIntroduce] = useState(getProfile?.introduce);
 
   const renameRandom = () => {

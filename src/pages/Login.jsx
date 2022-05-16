@@ -12,8 +12,8 @@ const Login = () => {
 
   const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=asdf`;
 
-  const local = process.env.REACT_APP_LOCAL_KAKAO_REDIRECT_URL;
-  const localKakao = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${local}&response_type=code`;
+  // const local = process.env.REACT_APP_LOCAL_KAKAO_REDIRECT_URL;
+  // const localKakao = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${local}&response_type=code`;
   return (
     <>
       <Flex jc="center" margin="80px 0 10px 0">

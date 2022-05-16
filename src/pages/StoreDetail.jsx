@@ -43,7 +43,7 @@ const StoreDetail = () => {
 
   useEffect(() => {
     dispatch(getPostOne(postId));
-  }, []);
+  }, [postId]);
 
   const isMe = current?.user?.userId === currentUser?.userId;
 

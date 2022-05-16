@@ -139,7 +139,7 @@ const StoreEdit = () => {
       }
     }
     for (let i = 0; i < fileObj.length; i++) {
-      formData.append("image", fileObj[i]);
+      formData.append("image", fileObj[i][1]);
     }
 
     if (inputs.delivery && !inputs.direct) {
