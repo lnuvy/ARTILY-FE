@@ -97,21 +97,26 @@ const Store = () => {
           padding="11px 16px"
           margin="0 0 16px"
           placeholder="작가명, 작품명 검색..."
-          icon={<Search />}
+          icon={<Search color={theme.pallete.gray2} />}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
         <Flex margin="0 0 10px" jc="space-between">
-          <Checkbox id="checkFree" zoom={1.3} onChange={checkFree}>
-            <Text h3>나눔 작품만 보기</Text>
+          <Checkbox
+            checked={isFree}
+            id="checkFree"
+            zoom={1.3}
+            onChange={checkFree}
+          >
+            <Text body2>나눔 작품만 보기</Text>
           </Checkbox>
           <Flex onClick={modalOn} jc="center" ai="center">
-            <Text h3>거래 방식/지역 선택하기</Text>
+            <Text body2>거래 방식 / 지역 선택하기</Text>
             {filtering.transaction === "전체" &&
             filtering.region[0] === "전체" ? (
-              <FilterFilled fill="gray" />
+              <FilterFilled fill={theme.pallete.gray3} />
             ) : (
-              <FilterFilled fill="black" />
+              <FilterFilled fill={theme.pallete.gray3} />
             )}
           </Flex>
         </Flex>

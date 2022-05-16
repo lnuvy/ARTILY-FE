@@ -5,6 +5,7 @@ import { Button, Flex, Grid, Icon, Text, Wrap } from "../../elements";
 import ModalPortal from "./Portals";
 
 // X 아이콘
+import { Close } from "../../assets/icons";
 import { IoCloseOutline } from "react-icons/io5";
 import { closeModal } from "../../redux/modules/modal";
 
@@ -27,17 +28,19 @@ const Modal = () => {
 
   return (
     <ModalPortal>
-      <Flex fd="column" margin="0" width="100%">
+      <Flex fd="column" margin="0" width="100%" height="fit-content">
         <Flex
           width="100%"
-          padding="15px 20px 0px 28px"
-          height="55px"
+          padding="16px 16px 0px"
+          height="fit-content"
           jc="space-between"
         >
           <Text h1 bold>
             {modal.title}
           </Text>
-          <IoCloseOutline onClick={modalClose} size={36} />
+          <Icon onClick={modalClose}>
+            <Close />
+          </Icon>
         </Flex>
         <ContentWrap>{modal.content}</ContentWrap>
       </Flex>
@@ -47,8 +50,8 @@ const Modal = () => {
 
 const ContentWrap = styled.div`
   width: 100%;
-  height: calc(67vh - 55px);
-  padding: 12px;
+  height: fit-content;
+  padding: 0 16px;
   margin: 0;
 `;
 
