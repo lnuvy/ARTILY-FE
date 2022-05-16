@@ -23,8 +23,6 @@ const StoreCard = (props) => {
     isHome = false, // 홈에서 이미지 24로 바꾸기
   } = props;
 
-  console.log(isHome);
-
   const userInfo = useSelector((state) => state.user.user);
 
   const isMyMarkup = userInfo?.myMarkup?.find((id) => id === postId);

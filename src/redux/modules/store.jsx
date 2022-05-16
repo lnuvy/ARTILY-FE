@@ -32,7 +32,7 @@ export const getPostDB = () => {
 
     Apis.getStore()
       .then((res) => {
-        console.log(res.data);
+        console.log("스토어 get요청", res.data);
         dispatch(getStoreData(res.data.data));
       })
       .catch((err) => {
@@ -45,7 +45,7 @@ export const getPostOne = (postId) => {
   return async function (dispatch, getState, { history }) {
     Apis.getStoreDetail(postId)
       .then((res) => {
-        console.log(res.data);
+        console.log("스토어 상세페이지", res.data);
         const { detail, getUser } = res.data.data;
         dispatch(go2detail(detail));
         dispatch(otherPost(getUser));
