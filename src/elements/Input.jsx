@@ -43,7 +43,7 @@ const Input = (props) => {
             id={id}
             type={type}
             value={value}
-            placeholder="하하하하하"
+            placeholder={placeholder}
             onChange={onChange}
             readOnly={readOnly}
             onKeyPress={onKeyPress}
@@ -51,7 +51,7 @@ const Input = (props) => {
             {...styles}
           />
           <BtnWrap>
-            <Button padding="13px 16px">하이</Button>
+            <Button padding="9px">{icon}</Button>
           </BtnWrap>
         </InputBox>
         {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}

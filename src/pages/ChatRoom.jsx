@@ -197,10 +197,15 @@ const ChatRoom = () => {
           ) : (
             <Input
               withBtn
+              icon={
+                <Icon padding="0">
+                  <ArrowUpward />
+                </Icon>
+              }
               fg="1"
               square
               br="8px"
-              placeholder="메세지를 변경변경 작성해주세요"
+              placeholder="메세지를 작성해주세요"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyPress={(e) => {
@@ -209,11 +214,11 @@ const ChatRoom = () => {
             />
           )}
         </Flex>
-        <ChatSubmit>
+        {/* <ChatSubmit>
           <Icon>
             <ArrowUpward />
           </Icon>
-        </ChatSubmit>
+        </ChatSubmit> */}
         {/* {uploadFile ? (
             <Button onClick={sendFile}>전송</Button>
           ) : (
