@@ -19,13 +19,13 @@ const ReviewCard = (props) => {
     reviewTitle,
     reviewContent,
     likeCnt,
-    imageUrl,
+    images,
     createdAt,
   } = props;
 
   return (
     <Card onClick={onClick} _key={_key}>
-      <Image height="168px" br="8px" src={imageUrl} />
+      <Image height="168px" br="8px" src={images} />
       <Text medium margin="8px 0 0">
         {reviewTitle}
       </Text>
