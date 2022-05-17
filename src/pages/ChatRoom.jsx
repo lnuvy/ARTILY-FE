@@ -15,6 +15,7 @@ import {
 import { ChatFileInput } from "../components";
 import { clearPreview } from "../redux/modules/image";
 import { ArrowUpward } from "../assets/icons";
+import { priceComma } from "../shared/utils";
 
 const { color } = theme;
 
@@ -30,6 +31,8 @@ const ChatRoom = () => {
   const nowChat = useSelector((state) => state.chat.roomList).find(
     (room) => room.roomName === roomName
   );
+
+  const isDone = nowChat?.post?.done;
 
   const [message, setMessage] = useState("");
   // 사진업로드
@@ -115,12 +118,44 @@ const ChatRoom = () => {
   return (
     <>
       {/* 상품 정보 */}
-      <Wrap>
+      <Wrap padding="10px 16px">
         <Flex>
-          <Image src={nowChat?.post?.imageUrl} width="50px" height="50px" />
-          <Flex fd="column">
-            <Text h1>{nowChat?.post?.postTitle}</Text>
-            <Text h2>{nowChat?.post?.price}</Text>
+          {isDone ? (
+            <ImageDark>
+              <Image
+                br="8px"
+                src={nowChat?.post?.imageUrl}
+                width="48px"
+                height="48px"
+              />
+            </ImageDark>
+          ) : (
+            <Image
+              br="8px"
+              src={nowChat?.post?.imageUrl}
+              width="48px"
+              height="48px"
+            />
+          )}
+
+          <Flex fd="column" ai="flex-start">
+            <Flex>
+              <Text body2 bold margin="0 4px 0 23px">
+                {isDone ? "판매완료" : "판매중"}
+              </Text>
+              <Text body2>{nowChat?.post?.postTitle}</Text>
+            </Flex>
+            <Flex>
+              <p
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "700",
+                  marginLeft: "23px",
+                }}
+              >
+                {priceComma(nowChat?.post?.price)}
+              </p>
+            </Flex>
           </Flex>
         </Flex>
         <Flex>{/* <Button onClick={leaveRoom}>나가기</Button> */}</Flex>
@@ -130,28 +165,40 @@ const ChatRoom = () => {
         {messages.map((msg, i) => {
           if (msg.from === from)
             return (
-              <Flex key={i} width="100%" height="auto" fd="column">
-                <Flex
-                  width="fit-content"
-                  height="fit-content"
-                  padding="8px"
-                  margin="15px 20px 5px 5px"
-                  bc={theme.pallete.primary700}
-                  br="8px"
-                  // jc="right"
-                  // jc="flex-end"
-                  ai="flex-end"
-                >
-                  <Text>{msg.message}</Text>
-                </Flex>
-                <Flex>
-                  <Text body3>{moment(msg.time).format("hh:mm")}</Text>
+              <Flex
+                key={`${i}_msg_${msg}`}
+                // width="100%"
+                height="auto"
+                fd="column"
+                ai="flex-end"
+              >
+                <Flex fd="column" ai="start">
+                  <Flex
+                    width="fit-content"
+                    height="fit-content"
+                    padding="8px"
+                    margin="15px 20px 5px 5px"
+                    bc={theme.pallete.primary700}
+                    br="8px"
+                  >
+                    <Text>{msg.message}</Text>
+                  </Flex>
+                  <Flex>
+                    <p
+                      style={{
+                        fontSize: "10px",
+                        color: `${theme.pallete.gray3}`,
+                      }}
+                    >
+                      {moment(msg.time).format("hh:mm")}
+                    </p>
+                  </Flex>
                 </Flex>
               </Flex>
             );
           else
             return (
-              <Wrap padding="19px">
+              <Wrap padding="19px 19px 0 19px">
                 <Flex width="fit-content">
                   <Image
                     circle
@@ -159,8 +206,10 @@ const ChatRoom = () => {
                     margin="0 8px 0 0"
                     src={nowChat.profileImage}
                   />
-                  <Flex fd="column">
-                    <p style={{ fontSize: "12px" }}>{nowChat.nickname}</p>
+                  <Flex fd="column" ai="start">
+                    <p style={{ fontSize: "12px", margin: "4px 0" }}>
+                      {nowChat.nickname}
+                    </p>
                     <Flex
                       width="fit-content"
                       height="fit-content"
@@ -171,9 +220,19 @@ const ChatRoom = () => {
                     >
                       <Text>{msg.message}</Text>
                     </Flex>
-                  </Flex>
 
-                  <Text body3>{moment(msg.time).format("hh:mm")}</Text>
+                    <Flex>
+                      <p
+                        style={{
+                          fontSize: "10px",
+                          color: `${theme.pallete.gray3}`,
+                          margin: "5px 5px 5px 0",
+                        }}
+                      >
+                        {moment(msg.time).format("hh:mm")}
+                      </p>
+                    </Flex>
+                  </Flex>
                 </Flex>
               </Wrap>
             );
@@ -212,12 +271,14 @@ const ChatRoom = () => {
 };
 
 const Container = styled.div`
-  height: calc(100vh - 172px);
+  height: calc(100vh - 188px);
   background-color: #e0e0e0;
-  /* display: flex; */
-  /* flex-direction: column; */
   overflow-y: scroll;
   margin: 0 0 72px;
+`;
+
+const ImageDark = styled.div`
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 const FixedChatBar = styled.div`
@@ -225,7 +286,7 @@ const FixedChatBar = styled.div`
   align-items: center;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  /* width: 100%; */
   padding: 10px 12px;
   border-top: 1px solid gray;
   z-index: 20;

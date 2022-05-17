@@ -33,7 +33,7 @@ const ChatCard = ({ room, onClick }) => {
             {room?.lastTime ? changeTime(room?.lastTime) : null}
           </Text>
           {room?.newMessage > 0 && (
-            <Button width="16px" height="10px" padding="5px" margin="0 4px">
+            <Button width="16px" height="20px" padding="5px" margin="0 4px">
               <p style={{ fontSize: "8px", fontWeight: "bold" }}>
                 {room?.newMessage || null}
               </p>

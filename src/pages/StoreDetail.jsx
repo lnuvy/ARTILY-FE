@@ -91,11 +91,13 @@ const StoreDetail = () => {
       imageUrl: current.imageUrl[0],
       postTitle: current.postTitle,
       price: current.price,
+      done: current.done,
       // TODO: 판매중/판매완료 상태 추가
     };
 
     socket.emit("join_room", roomName, postUser, chatPostData);
 
+    console.log(current.done);
     dispatch(
       receiveChatRoom({
         roomName,
