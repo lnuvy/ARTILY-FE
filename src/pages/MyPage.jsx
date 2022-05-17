@@ -6,8 +6,10 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard, NoInfo, SocialUrl } from "../components";
 import theme from "../styles/theme";
-import { userLogout } from "../redux/modules/user";
+import { getUserInfo, userLogout } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
+import { compose } from "redux";
+import { getFollowDB, getFollowerDB } from "../redux/modules/follow";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
 
@@ -16,33 +18,37 @@ const MyPage = () => {
 
   const getProfile = useSelector((state) => state.user.user);
   // 웹사이트 주소 외부링크 연결
-  const myAllList = useSelector((state) => state.mystore.list);
+  const myAllList = useSelector((state) => state.mypage.list);
+  console.log(myAllList);
+
+  // 팔로워 목록 불러오기 위해 사용함
+  useEffect(() => {
+    dispatch(getUserInfo());
+  }, []);
 
   useEffect(() => {
-    if (getProfile) {
-      dispatch(getmyPageDB(getProfile?.userId)); //게시글 정보
-    }
-  }, [getProfile]);
+    dispatch(getmyPageDB()); //게시글 정보
+  }, []);
 
   const {
-    myMarkup = null,
-    myPost = null,
-    myReview = null,
-    myprofile = null,
+    myMarkups = null,
+    myPosts = null,
+    myReviews = null,
+    // myprofile = null,
   } = myAllList;
 
-  const handleClickSellData = (data) => {
-    dispatch(getDetail(data));
-    history.push(`/store/view/${data.postId}`);
-  };
-  const handleClickReviewData = (data) => {
-    dispatch(getDetail(data));
-    history.push(`/review/${data.reviewId}`);
-  };
-  const handleClickMarkupData = (data) => {
-    dispatch(getDetail(data));
-    history.push(`/store/view/${data.postId}`);
-  };
+  // const handleClickSellData = (data) => {
+  //   dispatch(getDetail(data));
+  //   history.push(`/store/view/${data.postId}`);
+  // };
+  // const handleClickReviewData = (data) => {
+  //   dispatch(getDetail(data));
+  //   history.push(`/review/${data.reviewId}`);
+  // };
+  // const handleClickMarkupData = (data) => {
+  //   dispatch(getDetail(data));
+  //   history.push(`/store/view/${data.postId}`);
+  // };
 
   const [current, setCurrent] = useState(menus[0]);
 
@@ -76,27 +82,23 @@ const MyPage = () => {
                 {getProfile && getProfile.nickname ? getProfile.nickname : ""}
                 {/* 유저명 */}
               </Text>
-              <Text body2 color="#555">
-                팔로워{" "}
-                <Follower
-                  onClick={() => {
-                    history.push("/follow");
-                  }}
-                >
-                  {getProfile?.followerCnt}
-                </Follower>
-                명 · 팔로잉{" "}
-                <Follower
-                  onClick={() => {
-                    history.push("/follow");
-                  }}
-                >
-                  {getProfile?.followCnt}
-                </Follower>
-                명
-              </Text>
+              <Grid
+                onClick={() => {
+                  history.push("/follow");
+                  // dispatch(saveFollowDB());
+                }}
+              >
+                <Text body2 color="#555">
+                  팔로워 <Follower>{getProfile?.followerCnt}</Follower>명 ·
+                  팔로잉 <Follower>{getProfile?.followCnt}</Follower>명
+                </Text>
+              </Grid>
               <Text body2 color="#555" margin="0.5em 0 0 0">
-                등록한 작품 {myAllList.myPost && myAllList?.myPost.length}개
+                등록한 작품{" "}
+                {myAllList.myPosts && myAllList?.myPosts.length
+                  ? myAllList?.myPosts.length
+                  : "0"}
+                개
               </Text>
             </Wrap>
           </Flex>
@@ -119,11 +121,12 @@ const MyPage = () => {
       </Wrap>
       <Mytab>
         <Flex
+          className="top"
           onClick={() => {
             history.push("/mypage/manage");
           }}
         >
-          <p>
+          <p class="sell">
             판매 작품 등록하기 / 관리하기
             <img
               src="../../images/Vector.svg"
@@ -182,10 +185,10 @@ const MyPage = () => {
 
       <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 10px">
         {current === "판매목록" && (
-          <NoInfo list={myPost} text="아직 등록한 작품이 없어요.">
-            {myPost &&
+          <NoInfo list={myPosts} text="아직 등록한 작품이 없어요.">
+            {myPosts &&
               current === "판매목록" &&
-              myPost.map((post) => {
+              myPosts.map((post) => {
                 console.log(post);
                 return (
                   <ArtCard
@@ -193,24 +196,25 @@ const MyPage = () => {
                     key={`${post.postId}_mypost`}
                     className="sell"
                     {...post}
-                    userInfo={myprofile}
+                    // userInfo={myprofile}
                     onClick={() => history.push(`/store/view/${post.postId}`)}
                   />
                 );
               })}
           </NoInfo>
         )}
+
         {current === "리뷰목록" && (
-          <NoInfo list={myReview} text="아직 등록한 작품이 없어요.">
-            {myReview &&
+          <NoInfo list={myReviews} text="아직 작성한 리뷰가 없어요.">
+            {myReviews &&
               current === "리뷰목록" &&
-              myReview.map((review) => {
+              myReviews.map((review) => {
                 return (
                   <ArtCard
                     review
                     key={`${review.reviewId}_myReview`}
                     className="sell"
-                    userInfo={myprofile}
+                    // userInfo={myprofile}
                     {...review}
                     onClick={() =>
                       history.push(`/review/view/${review.postId}`)
@@ -222,16 +226,16 @@ const MyPage = () => {
         )}
 
         {current === "관심목록" && (
-          <NoInfo list={myMarkup} text="아직 관심있는 작품이 없어요.">
-            {myMarkup &&
+          <NoInfo list={myMarkups} text="아직 관심있는 작품이 없어요.">
+            {myMarkups &&
               current === "관심목록" &&
-              myMarkup.map((post) => {
+              myMarkups.map((post) => {
                 return (
                   <ArtCard
                     markup
                     key={`${post.postId}_myMarkup`}
                     className="sell"
-                    userInfo={myprofile}
+                    // userInfo={myprofile}
                     {...post}
                     onClick={() => history.push(`/store/view/${post.postId}`)}
                   />
@@ -258,13 +262,13 @@ const Mytab = styled.div`
       top: 23px;
       right: 25px;
     }
-  }
-
-  p {
     border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   }
+  .sell {
+    border-top: ${({ theme }) => `8px solid ${theme.pallete.gray1}`};
+  }
   .logout {
-    border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
+    border-bottom: ${({ theme }) => `8px solid ${theme.pallete.gray1}`};
   }
 `;
 
@@ -298,7 +302,6 @@ const Edit = styled.div`
 
 const Follower = styled.span`
   font-weight: bold;
-  text-decoration: underline;
   cursor: pointer;
 `;
 export default MyPage;

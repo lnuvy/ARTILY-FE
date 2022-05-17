@@ -23,6 +23,16 @@ jobs:
             ${{ runner.OS }}-build- 
             ${{ runner.OS }}-
 
+      - name: Generate Environment Variables
+        run: |
+          echo "REACT_APP_KAKAO_KEY=$REACT_APP_KAKAO_KEY" >> .env.production
+          echo "REACT_APP_KAKAO_REDIRECT_URL=$REACT_APP_KAKAO_REDIRECT_URL" >> .env.production
+          echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=$REACT_APP_KAKAO_JAVASCRIPT_KEY" >> .env.production
+        env:
+          REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}
+          REACT_APP_KAKAO_REDIRECT_URL: ${{ secrets.REACT_APP_KAKAO_REDIRECT_URL }}
+          REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}
+
       - name: Install dependencies
         run: yarn install
 

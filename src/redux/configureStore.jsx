@@ -25,11 +25,11 @@ const rootReducer = combineReducers({
   modal: ModalReducer,
   main: MainReducer,
   store: StoresReducer,
-  mystore: MyStoresReducer,
+  mypage: MyStoresReducer,
   //5.6 구매내역 리스트 불러올 모듈
   buylist: BuyReducer,
   //5.13 follow 모듈
-  follow: FollowReducer,
+  followUser: FollowReducer,
   review: ReviewReducer,
 
   image: ImageReducer,

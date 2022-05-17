@@ -10,7 +10,7 @@ import { ArtCard } from "../components";
 
 const Manage = () => {
   const dispatch = useDispatch();
-  const mystoreList = useSelector((state) => state.mystore.sellList);
+  const mystoreList = useSelector((state) => state.mypage.sellList);
   console.log(mystoreList);
 
   const handleClickData = (data) => {
@@ -42,7 +42,7 @@ const Manage = () => {
               }
               return (
                 <ArtCard
-                  mystore
+                  mypage
                   key={list.postId}
                   className="sell"
                   {...list}
@@ -53,8 +53,7 @@ const Manage = () => {
           </Grid>
         </Inner>
         <Sellbtn>
-          {/* 판매 작품 등록하기 버튼이 리스트가 많아져도 아래쪽에 고정되게 해야될까? */}
-          <Wrap height="30vh" padding="160px 0">
+          <Wrap height="70vh">
             <Flex width="90%" margin="0 auto">
               <Button
                 width="100%"
@@ -91,30 +90,6 @@ const Nav = styled.div`
   display: grid;
   width: 100%;
 `;
-// const Sell = styled.div`
-//   margin: 10px 0;
-//   border-top: 1px solid #ddd;
-//   border-bottom: 1px solid #ddd;
-//   height: 50px;
-//   p {
-//     border-right: 1px solid #ddd;
-//     /* width: 33%; */
-//     /* text-align: center; */
-//     height: 50px;
-//     line-height: 50px;
-//     font-weight: bold;
-//     cursor: pointer;
-//   }
-//   p:nth-of-type(1),
-//   p:nth-of-type(2) {
-//     padding: 0 1em;
-//   }
-//   //판매완료로 변경 버튼 전체영역이 눌렸으면 좋겠는데 아직 해결 못함
-//   p:nth-of-type(3) {
-//     border-right: none;
-//     margin: auto;
-//   }
-// `;
 
 const Background = styled.div`
   background-color: #ddd;

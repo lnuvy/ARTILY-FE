@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ChatCard, NoInfo } from "../components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
-import { notificationCheck } from "../redux/modules/chat";
+import { getChatList, notificationCheck } from "../redux/modules/chat";
 import { socket } from "../shared/socket";
 
 const Chat = () => {
@@ -12,7 +12,7 @@ const Chat = () => {
 
   useEffect(() => {
     // 방목록 가져오기
-    // dispatch()
+    dispatch(getChatList());
     // socket.on("join_room", (data) => {
     //   dispatch(receiveChatRoom(data));
     // });
