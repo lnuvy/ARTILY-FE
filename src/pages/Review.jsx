@@ -9,8 +9,13 @@ import { getReviewData, getReviewDB } from "../redux/modules/reviews";
 
 const Review = () => {
   const dispatch = useDispatch();
+
   const reviewList = useSelector((state) => state.review.list);
   const filteringList = useSelector((state) => state.review.filterList);
+
+  function clickCard(reviewId) {
+    history.push(`/review/view/${reviewId}`);
+  }
 
   useEffect(() => {
     // reset
@@ -18,10 +23,6 @@ const Review = () => {
     // get
     dispatch(getReviewDB());
   }, []);
-
-  const clickCard = (reviewId) => {
-    history.push(`/review/view/${reviewId}`);
-  };
 
   return (
     <>
@@ -31,12 +32,13 @@ const Review = () => {
           <Grid gtc="1fr 1fr" margin="0 0 20px">
             {filteringList &&
               filteringList.map((v, i) => {
+                console.log(v.images);
                 return (
                   <ReviewCard
                     _key={i}
-                    onClick={clickCard(v.reviewId)}
-                    imageUrl={v.imageUrl[0].imageUrl}
+                    onClick={() => clickCard(v.reviewId)}
                     {...v}
+                    images={v.images[0].imageUrl}
                   />
                 );
               })}
