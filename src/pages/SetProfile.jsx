@@ -94,9 +94,12 @@ const Setprofile = () => {
       <Outline>
         <div className="box">
           <Wrap textAlign="center">
-            <img src="/images/artily.png" alt="logo" />
+            <img
+              src={process.env.PUBLIC_URL + "/images/artily.png"}
+              alt="logo"
+            />
             <Text body1 color="#999" margin="20px 0 0 0">
-              내 프로필을 완성해주세요!
+              내 프로필을 만들어주세요!
             </Text>
             <Wrapprofile>
               <Flex jc="center" margin="40px 0">
