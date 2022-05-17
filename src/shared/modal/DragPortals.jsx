@@ -35,12 +35,13 @@ const Background = styled.div`
   text-align: center;
   background-color: rgba(0, 0, 0, 0.8);
   overflow: hidden;
+  padding-top: 20px;
 `;
 
 // 컨텐츠: 모달 본체
 const Content = styled.div`
   z-index: 204;
-  height: fit-content;
+  height: 100%;
 
   margin: 0 auto;
   width: calc(${({ theme }) => theme.view.maxWidth} - 32px);
