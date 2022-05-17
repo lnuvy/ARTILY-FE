@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
 import { Apis } from "../../shared/api";
+import { socket } from "../../shared/socket";
 /*
  * @ 한울
  */
@@ -75,6 +76,7 @@ const chatSlice = createSlice({
     },
     receiveChat: (state, action) => {
       const { from, message, roomName, time } = action.payload;
+      const myId = socket?.id;
 
       state.roomList.forEach((room) => {
         if (room.roomName === roomName) {
@@ -83,7 +85,7 @@ const chatSlice = createSlice({
           room.lastMessage = message;
           room.lastTime = time;
           // 남이보낸거면 카운트 추가
-          if (!from) {
+          if (from !== myId) {
             room.newMessage++;
           }
         }
