@@ -273,16 +273,6 @@ const ChatRoom = () => {
             />
           )}
         </Flex>
-        {/* <ChatSubmit>
-          <Icon>
-            <ArrowUpward />
-          </Icon>
-        </ChatSubmit> */}
-        {/* {uploadFile ? (
-            <Button onClick={sendFile}>전송</Button>
-          ) : (
-            <Button onClick={sendMessage}>전송</Button>
-          )} */}
       </FixedChatBar>
     </>
   );
@@ -310,14 +300,6 @@ const FixedChatBar = styled.div`
   border-top: 1px solid gray;
   z-index: 20;
   background-color: white;
-`;
-
-const ChatSubmit = styled.div`
-  background-color: ${({ theme }) => theme.pallete.primary900};
-  padding: 8px;
-  border-radius: 8px;
-  position: relative;
-  right: 40px;
 `;
 
 export default ChatRoom;
