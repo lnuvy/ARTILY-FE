@@ -7,9 +7,9 @@ import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 const BuyList = () => {
   const dispatch = useDispatch();
-  const mybuyList = useSelector((state) => state.mystore.list);
+  const mybuyList = useSelector((state) => state.mypage.list);
   console.log(mybuyList);
-  // const dummybuyList = useSelector((state) => state.mystore.nowList);
+  // const dummybuyList = useSelector((state) => state.mypage.nowList);
   // console.log(dummybuyList);
 
   const nowUser = useSelector((state) => state.user.user);
@@ -65,9 +65,5 @@ const Background = styled.div`
 `;
 const Inner = styled.div`
   background-color: #fff;
-`;
-const Border = styled.div`
-  /* height: 40px; */
-  border-bottom: 1px solid #ddd;
 `;
 export default BuyList;

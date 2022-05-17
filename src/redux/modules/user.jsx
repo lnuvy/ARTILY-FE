@@ -220,7 +220,7 @@ export const postMarkupToggle = (postId) => {
         console.log("마크업 에러", err);
         console.log(err.response);
 
-        const result = await authAlert(err.response.data.errorMessage);
+        const result = await authAlert(err.response?.data.errorMessage);
         if (result) {
           history.push("/login");
         }

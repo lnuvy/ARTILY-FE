@@ -13,6 +13,7 @@ import {
 const Follow = () => {
   const history = useHistory();
   const getfollowList = useSelector((state) => state.user.user);
+  console.log(getfollowList);
   //내가 팔로잉한 목록
   const nowfollowList = useSelector((state) => state.followUser.list); //나를 팔로워한 유저도 담기겠지? 현재 카카오 로그인 오류로 인해 확인불가. 5/15
   console.log("내가 팔로잉한 목록:", nowfollowList);
@@ -28,8 +29,8 @@ const Follow = () => {
   //나를 팔로우한 목록
 
   const menus = [
-    `팔로워 ${getfollowList?.followerCnt}명`,
-    `팔로잉 ${getfollowList?.followCnt}명`,
+    `팔로워 ${getfollowList.followerCnt}명`,
+    `팔로잉 ${getfollowList.followCnt}명`,
     // `팔로잉 ${getfollowList?.followCnt}명`,
   ];
   const [current, setCurrent] = useState(menus[0]);
@@ -90,7 +91,7 @@ const Follow = () => {
             </Profile>
           );
         })}
-      {current === `팔로잉 ${getfollowList?.followCnt}명` &&
+      {current === `팔로잉 ${getfollowList.followCnt}명` &&
         nowfollowList?.map((follow, l) => {
           console.log(follow);
           return (
@@ -110,7 +111,7 @@ const Follow = () => {
                   br="30px"
                   src={follow?.profileImage}
                   onClick={() => {
-                    history.push(`/userprofile/${follow.userId}`);
+                    history.push(`/userprofile/${follow.followId}`);
                   }}
                 ></Image>
                 <Text fg="1" body2 bold margin="5px 0 10px 0">

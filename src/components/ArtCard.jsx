@@ -28,7 +28,7 @@ const ArtCard = (props) => {
     nickname,
     likeCnt,
     markupCnt,
-    mystore,
+    mypage,
     sellLabel,
     buylist,
     review,
@@ -53,7 +53,7 @@ const ArtCard = (props) => {
     }
   };
 
-  if (mystore) {
+  if (mypage) {
     return (
       <>
         <Card onClick={onClick}>
@@ -206,9 +206,9 @@ const ArtCard = (props) => {
         <Text bold>{reviewTitle}</Text>
         <Text body2>{reviewContent}</Text>
         <Flex margin="8px 0 0">
-          <Image circle size="20" src={nowuser.profileImage} />
+          <Image circle size="20" src={nowuser?.profileImage} />
           <Text fg="1" margin="0 0 0 4px">
-            {nowuser.nickname}
+            {nowuser?.nickname}
           </Text>
           <Flex fg="0">
             <Favorite color="#FD6A00" />

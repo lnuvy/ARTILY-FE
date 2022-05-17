@@ -31,7 +31,7 @@ const Review = () => {
         <Category />
         <Wrap margin="16px">
           <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
-            {reviewList.length
+            {reviewList?.length
               ? reviewList.map((l, i) => {
                   return (
                     <>

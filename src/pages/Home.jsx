@@ -106,7 +106,7 @@ const Home = () => {
                     key={i}
                     {...l}
                     onClick={() => move2detail(l, "/review")}
-                    // imageUrl={l.imageUrl[0]}
+                    imageUrl={l.imageUrl[0]}
                   />
                 );
               })

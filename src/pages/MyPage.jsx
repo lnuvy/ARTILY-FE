@@ -18,7 +18,7 @@ const MyPage = () => {
 
   const getProfile = useSelector((state) => state.user.user);
   // 웹사이트 주소 외부링크 연결
-  const myAllList = useSelector((state) => state.mystore.list);
+  const myAllList = useSelector((state) => state.mypage.list);
   console.log(myAllList);
 
   // 팔로워 목록 불러오기 위해 사용함
@@ -27,10 +27,8 @@ const MyPage = () => {
   }, []);
 
   useEffect(() => {
-    if (getProfile) {
-      dispatch(getmyPageDB(getProfile?.userId)); //게시글 정보
-    }
-  }, [getProfile]);
+    dispatch(getmyPageDB()); //게시글 정보
+  }, []);
 
   const {
     myMarkups = null,
@@ -96,7 +94,11 @@ const MyPage = () => {
                 </Text>
               </Grid>
               <Text body2 color="#555" margin="0.5em 0 0 0">
-                등록한 작품 {myAllList.myPosts && myAllList?.myPosts.length}개
+                등록한 작품{" "}
+                {myAllList.myPosts && myAllList?.myPosts.length
+                  ? myAllList?.myPosts.length
+                  : "0"}
+                개
               </Text>
             </Wrap>
           </Flex>

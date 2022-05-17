@@ -119,12 +119,12 @@ const StoreDetail = () => {
                 <Image
                   circle
                   size="32"
-                  src={current.user.profileImage}
+                  src={current?.user?.profileImage}
                   onClick={() => {
-                    history.push(`/mypage/${current.user.userId}`);
+                    history.push(`/userprofile/${current.user.userId}`);
                   }}
                 />
-                <Text margin="0 0 0 4px">{current.user.nickname}</Text>
+                <Text margin="0 0 0 4px">{current?.user?.nickname}</Text>
               </Flex>
               <Flex>
                 {isMe ? (

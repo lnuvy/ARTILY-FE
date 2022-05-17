@@ -17,12 +17,11 @@ const initialState = {
   userInfo: {},
 };
 //마이페이지 조회
-//비로그인시에도 다른사람 프로필 조회를 위해 userId 같이 보내기
-export const getmyPageDB = (userId) => {
+export const getmyPageDB = () => {
   return function (dispatch, getState, { history }) {
-    Apis.getMypageData(userId)
+    Apis.getMypageData()
       .then((res) => {
-        console.log("mypage get요청", res.data);
+        console.log("mypage get요청", res);
         dispatch(getmyPageData(res.data));
       })
       .catch((error) => {
@@ -31,6 +30,22 @@ export const getmyPageDB = (userId) => {
       });
   };
 };
+
+//다른사람 프로필 조회
+export const getUserProfile = (userId) => {
+  return function (dispatch, getState, { history }) {
+    Apis.getUserProfile(userId)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(getUserPageData(res.data));
+      })
+      .catch((error) => {
+        console.log("유저프로필 조회 실패", error);
+        // window.alert("마이페이지를 조회하는 데 문제가 발생했습니다!");
+      });
+  };
+};
+
 //판매 목록 조회
 export const getMySellListDB = () => {
   return function (dispatch, getState, { history }) {
@@ -62,11 +77,14 @@ export const getMyBuyListDB = () => {
 };
 
 const postsSlice = createSlice({
-  name: "mystore",
+  name: "mypage",
   initialState: initialState,
   reducers: {
     getmyPageData: (state, action) => {
       state.list = action.payload;
+    },
+    getUserPageData: (state, action) => {
+      state.userInfo = action.payload;
     },
     // 데이터 하나 특정하기
     getDetail: (state, action) => {
@@ -89,5 +107,11 @@ const postsSlice = createSlice({
 });
 
 const { reducer, actions } = postsSlice;
-export const { getmyPageData, getDetail, selectList, mySellList } = actions;
+export const {
+  getmyPageData,
+  getDetail,
+  selectList,
+  mySellList,
+  getUserPageData,
+} = actions;
 export default reducer;
