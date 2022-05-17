@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import {
@@ -9,9 +9,15 @@ import {
   ImageCarousel,
   Image,
   Button,
+  Icon,
 } from "../elements";
 import { OtherWorkCard } from "../components";
-import { getReviewOne } from "../redux/modules/reviews";
+import {
+  getReviewOne,
+  getNowReview,
+  likeReviewDB,
+  getMyLike,
+} from "../redux/modules/reviews";
 import { useParams } from "react-router-dom";
 import theme from "../styles/theme";
 import { priceComma } from "../shared/utils";
@@ -19,13 +25,14 @@ import { deleteReviewDB } from "../redux/modules/reviews.jsx";
 import { addFollowDB } from "../redux/modules/follow";
 import { IoMdHeart } from "react-icons/io";
 import { Heart } from "../assets/icons";
+import { FavoriteFilled, Favorite } from "../assets/icons";
 import styled from "styled-components";
 
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
   const reviewId = useParams();
   const current = useSelector((state) => state.review.reviewData);
-  console.log(current);
+  const detailData = useSelector((state) => state.review.detailData);
   const user = useSelector((state) => state.user);
   const currentUser = useSelector((state) => state.user?.user);
 
@@ -38,6 +45,10 @@ const ReviewDetail = (props) => {
     history.push(`/review/edit/${current.buyer.reviewId}`);
   }
 
+  function likeFunc() {
+    dispatch(likeReviewDB(reviewId.reviewId));
+  }
+
   function deleteFunc() {
     dispatch(deleteReviewDB(reviewId.reviewId));
   }
@@ -47,21 +58,31 @@ const ReviewDetail = (props) => {
   }
 
   useEffect(() => {
+    dispatch(getNowReview([]));
     dispatch(getReviewOne(reviewId.reviewId));
   }, []);
 
   return (
     <>
-      {current ? (
-        <>
+      <>
+        <Wrap padding="0 0 72px">
           <Wrap margin="16px 16px 8px">
-            <Text h1 contents={current.buyer.reviewTitle}></Text>
+            <Text
+              h1
+              contents={current && current.buyer && current.buyer.reviewTitle}
+            ></Text>
             <Flex margin="8px 0 0 0" jc="space-between">
               <Flex>
-                <Image circle size="32" src={`${current.buyer.profileImage}`} />
+                <Image
+                  circle
+                  size="32"
+                  src={`${
+                    current && current.buyer && current.buyer.profileImage
+                  }`}
+                />
                 <Text
                   margin="0 0 0 8px"
-                  contents={current.buyer.nickname}
+                  contents={current && current.buyer && current.buyer.nickname}
                 ></Text>
               </Flex>
               {/* <Flex>
@@ -144,9 +165,13 @@ const ReviewDetail = (props) => {
               </Flex>
             </Flex>
           </Wrap>
-          <ImageCarousel src={current.buyer.imageUrl} />
+          <ImageCarousel
+            src={current && current.buyer && current.buyer.imageUrl}
+          />
           <Wrap margin="16px">
-            <Text contents={current.buyer.reviewContent}></Text>
+            <Text
+              contents={current && current.buyer && current.buyer.reviewContent}
+            ></Text>
           </Wrap>
           <Wrap padding="10px 16px 16px" bc={`${theme.pallete.primary100}`}>
             <Flex>
@@ -158,14 +183,22 @@ const ReviewDetail = (props) => {
               <Image
                 width="96px"
                 height="96px"
-                src={`${current.buyer.seller.imageUrl[0]}`}
+                src={`${
+                  current &&
+                  current.buyer &&
+                  current.buyer.seller &&
+                  current.buyer.seller.imageUrl[0]
+                }`}
               />
               <Wrap margin="0 0 0 16px ">
                 <Text h3 medium margin="0 0 8px">
-                  {current.buyer.seller.postTitle}
+                  {current &&
+                    current.buyer &&
+                    current.buyer.seller &&
+                    current.buyer.seller.postTitle}
                 </Text>
                 <Text margin="0 0 8px">
-                  {current.sellItemInfo.price
+                  {current && current.sellItemInfo && current.sellItemInfo.price
                     ? priceComma(current.sellItemInfo.price)
                     : 0}
                   원
@@ -174,10 +207,18 @@ const ReviewDetail = (props) => {
                   <Image
                     circle
                     size="32"
-                    src={`${current.buyer.seller.user.profileImage}`}
+                    src={`${
+                      current &&
+                      current.buyer &&
+                      current.buyer.seller &&
+                      current.buyer.seller.user.profileImage
+                    }`}
                   />
                   <Text margin="0 0 0 8px">
-                    {current.buyer.seller.user.nickname}
+                    {current &&
+                      current.buyer &&
+                      current.buyer.seller &&
+                      current.buyer.seller.user.nickname}
                   </Text>
                 </Flex>
               </Wrap>
@@ -228,7 +269,7 @@ const ReviewDetail = (props) => {
               )}
             </Flex>
             <Grid gtc="1fr 1fr">
-              {current.defferent.length
+              {current && current.defferent
                 ? current.defferent.map((l, i) => {
                     return (
                       <>
@@ -239,22 +280,25 @@ const ReviewDetail = (props) => {
                 : null}
             </Grid>
           </Wrap>
-          <FixedChatBar>
-            <Flex onClick={null}>
-              {currentUser &&
-              currentUser.myMarkup.find((id) => id === reviewId) ? (
-                <IoMdHeart size={24} color={theme.pallete.primary850} />
+        </Wrap>
+        <FixedChatBar>
+          <Icon width="fit-content" height="fit-content" onClick={likeFunc}>
+            <Flex>
+              {detailData && detailData.myLike === 1 ? (
+                <FavoriteFilled color={theme.color.brandColor} />
               ) : (
-                <Heart />
+                <Favorite color={theme.color.brandColor} />
               )}
-
               <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
-                {current.markupCnt ? current.markupCnt : 0}
+                {current &&
+                  current.buyer &&
+                  current.buyer.likeCnt &&
+                  current.buyer.likeCnt}
               </Text>
             </Flex>
-          </FixedChatBar>
-        </>
-      ) : null}
+          </Icon>
+        </FixedChatBar>
+      </>
     </>
   );
 };

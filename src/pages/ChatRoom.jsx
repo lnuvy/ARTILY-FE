@@ -26,8 +26,6 @@ const ChatRoom = () => {
   const from = useSelector((state) => state.user.user?.userId);
   // const target = JSON.parse(targetInfo)?.userId;
 
-  console.log(from);
-
   const nowChat = useSelector((state) => state.chat.roomList).find(
     (room) => room.roomName === roomName
   );

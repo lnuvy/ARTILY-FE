@@ -31,7 +31,7 @@ const CategoryModal = ({ setReceiveCategory }) => {
   };
   return (
     <Wrap padding="0" bc="white">
-      <Text h1 medium textAlign="center" margin="10px">
+      <Text h1 medium textAlign="center" margin="32px 0 10px">
         카테고리 선택
       </Text>
       <Grid rg="0" height="fit-content" cg="0px" bc="white">
@@ -40,7 +40,7 @@ const CategoryModal = ({ setReceiveCategory }) => {
             <Flex
               key={`${c}_type_idx${i}`}
               jc="space-between"
-              height="48px"
+              height="fit-content"
               // margin="0 20px"
               borderTop={`1px solid ${theme.pallete.gray1}`}
               onClick={() => divClickChange(c)}
@@ -89,9 +89,8 @@ const Radio = styled.input`
 
 const SubmitDiv = styled.div`
   width: calc(100% - 32px);
-  margin: 0 16px;
   position: absolute;
-  bottom: 12px;
+  bottom: 16px;
 `;
 
 export default CategoryModal;

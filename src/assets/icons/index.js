@@ -3,6 +3,7 @@
 import Notification from "./Notification";
 import Chat from "./Chat";
 import Favorite from "./Favorite";
+import FavoriteFilled from "./FavoriteFilled";
 import Search from "./Search";
 import AddPhoto from "./AddPhoto";
 import AddBox from "./AddBox";
@@ -35,6 +36,7 @@ export {
   Notification,
   Chat,
   Favorite,
+  FavoriteFilled,
   Search,
   AddPhoto,
   AddBox,

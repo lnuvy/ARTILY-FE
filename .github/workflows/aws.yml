@@ -1,76 +1,76 @@
-# This workflow will build and push a new container image to Amazon ECR,
-# and then will deploy a new task definition to Amazon ECS, when there is a push to the main branch.
-#
-# To use this workflow, you will need to complete the following set-up steps:
-#
-# 1. Create an ECR repository to store your images.
-#    For example: `aws ecr create-repository --repository-name my-ecr-repo --region us-east-2`.
-#    Replace the value of the `ECR_REPOSITORY` environment variable in the workflow below with your repository's name.
-#    Replace the value of the `AWS_REGION` environment variable in the workflow below with your repository's region.
-#
-# 2. Create an ECS task definition, an ECS cluster, and an ECS service.
-#    For example, follow the Getting Started guide on the ECS console:
-#      https://us-east-2.console.aws.amazon.com/ecs/home?region=us-east-2#/firstRun
-#    Replace the value of the `ECS_SERVICE` environment variable in the workflow below with the name you set for the Amazon ECS service.
-#    Replace the value of the `ECS_CLUSTER` environment variable in the workflow below with the name you set for the cluster.
-#
-# 3. Store your ECS task definition as a JSON file in your repository.
-#    The format should follow the output of `aws ecs register-task-definition --generate-cli-skeleton`.
-#    Replace the value of the `ECS_TASK_DEFINITION` environment variable in the workflow below with the path to the JSON file.
-#    Replace the value of the `CONTAINER_NAME` environment variable in the workflow below with the name of the container
-#    in the `containerDefinitions` section of the task definition.
-#
-# 4. Store an IAM user access key in GitHub Actions secrets named `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
-#    See the documentation for each action used below for the recommended IAM policies for this IAM user,
-#    and best practices on handling the access key credentials.
+# # This workflow will build and push a new container image to Amazon ECR,
+# # and then will deploy a new task definition to Amazon ECS, when there is a push to the main branch.
+# #
+# # To use this workflow, you will need to complete the following set-up steps:
+# #
+# # 1. Create an ECR repository to store your images.
+# #    For example: `aws ecr create-repository --repository-name my-ecr-repo --region us-east-2`.
+# #    Replace the value of the `ECR_REPOSITORY` environment variable in the workflow below with your repository's name.
+# #    Replace the value of the `AWS_REGION` environment variable in the workflow below with your repository's region.
+# #
+# # 2. Create an ECS task definition, an ECS cluster, and an ECS service.
+# #    For example, follow the Getting Started guide on the ECS console:
+# #      https://us-east-2.console.aws.amazon.com/ecs/home?region=us-east-2#/firstRun
+# #    Replace the value of the `ECS_SERVICE` environment variable in the workflow below with the name you set for the Amazon ECS service.
+# #    Replace the value of the `ECS_CLUSTER` environment variable in the workflow below with the name you set for the cluster.
+# #
+# # 3. Store your ECS task definition as a JSON file in your repository.
+# #    The format should follow the output of `aws ecs register-task-definition --generate-cli-skeleton`.
+# #    Replace the value of the `ECS_TASK_DEFINITION` environment variable in the workflow below with the path to the JSON file.
+# #    Replace the value of the `CONTAINER_NAME` environment variable in the workflow below with the name of the container
+# #    in the `containerDefinitions` section of the task definition.
+# #
+# # 4. Store an IAM user access key in GitHub Actions secrets named `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
+# #    See the documentation for each action used below for the recommended IAM policies for this IAM user,
+# #    and best practices on handling the access key credentials.
 
-name: CI
+# name: CI
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs: # Job 설정
-  build: # Job ID
-    runs-on: ubuntu-latest # Job 가상환경 인스턴스
-    steps: # Steps
-      - name: Checkout source code. # Step 이름
-        uses: actions/checkout@main # Uses를 통한 외부 설정 가져오기: 자신의 레포지토리 소스 받아오기
+# jobs: # Job 설정
+#   build: # Job ID
+#     runs-on: ubuntu-latest # Job 가상환경 인스턴스
+#     steps: # Steps
+#       - name: Checkout source code. # Step 이름
+#         uses: actions/checkout@main # Uses를 통한 외부 설정 가져오기: 자신의 레포지토리 소스 받아오기
 
-      - name: Cache node modules # node modules 캐싱 # 노드모듈즈
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build- 
-            ${{ runner.OS }}-
+#       - name: Cache node modules # node modules 캐싱 # 노드모듈즈
+#         uses: actions/cache@v1
+#         with:
+#           path: node_modules
+#           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+#           restore-keys: |
+#             ${{ runner.OS }}-build-
+#             ${{ runner.OS }}-
 
-      - name: Generate Environment Variables
-        run: |
-          echo "REACT_APP_KAKAO_KEY=$REACT_APP_KAKAO_KEY" >> .env.production
-          echo "REACT_APP_KAKAO_REDIRECT_URL=$REACT_APP_KAKAO_REDIRECT_URL" >> .env.production
-          echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=$REACT_APP_KAKAO_JAVASCRIPT_KEY" >> .env.production
-        env:
-          REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}
-          REACT_APP_KAKAO_REDIRECT_URL: ${{ secrets.REACT_APP_KAKAO_REDIRECT_URL }}
-          REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}
+# - name: Generate Environment Variables
+#   run: |
+#     echo "REACT_APP_KAKAO_KEY=$REACT_APP_KAKAO_KEY" >> .env.production
+#     echo "REACT_APP_KAKAO_REDIRECT_URL=$REACT_APP_KAKAO_REDIRECT_URL" >> .env.production
+#     echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=$REACT_APP_KAKAO_JAVASCRIPT_KEY" >> .env.production
+#   env:
+#     REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}
+#     REACT_APP_KAKAO_REDIRECT_URL: ${{ secrets.REACT_APP_KAKAO_REDIRECT_URL }}
+#     REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}
 
-      - name: Install Dependencies # 의존 파일 설치
-        run: yarn install
+#       - name: Install Dependencies # 의존 파일 설치
+#         run: yarn install
 
-      - name: Build # React Build
-        run: yarn build
-        env:
-          CI: "" # 경고를 에러로 보지 않게 함
+#       - name: Build # React Build
+#         run: yarn build
+#         env:
+#           CI: "" # 경고를 에러로 보지 않게 함
 
-      - name: Deploy # S3에 배포하기
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 cp \
-            --recursive \
-            --region ap-northeast-2 \
-            build s3://artily-github-action-1
+#       - name: Deploy # S3에 배포하기
+#         env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#         run: |
+#           aws s3 cp \
+#             --recursive \
+#             --region ap-northeast-2 \
+#             build s3://artily-github-action-1

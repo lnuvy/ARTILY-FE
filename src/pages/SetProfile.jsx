@@ -64,8 +64,13 @@ const Setprofile = () => {
       dispatch(setProfileImage(reader.result));
     };
   };
+
   const editUser = () => {
     if (!nicknameCheck(nickname)) {
+      return;
+    }
+    if (!preview) {
+      alert("프로필 이미지를 선택해주세요!");
       return;
     }
 

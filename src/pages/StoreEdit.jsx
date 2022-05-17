@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Preview } from "../components";
 import { Button, Flex, Input, Textarea, ToggleButton, Wrap } from "../elements";
 import { clearPreview, editPosts3Url } from "../redux/modules/image";
-import { openModal } from "../redux/modules/modal";
+import { openDragModal } from "../redux/modules/modal";
 // import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
 import { inputSpaceReg, priceComma } from "../shared/utils";
@@ -16,6 +16,7 @@ import { useParams } from "react-router-dom";
 // alert
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import MapModal from "../shared/modal/modalContent/MapModal";
 
 /*
  * @한울
@@ -57,7 +58,7 @@ const StoreEdit = () => {
     postContent: nowPost?.postContent,
     price: nowPost?.price,
   });
-  const { represent, imageArr, fileObj } = useSelector((state) => state.image);
+  const { imageArr, fileObj } = useSelector((state) => state.image);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -77,24 +78,16 @@ const StoreEdit = () => {
   const modalOn = (reg) => {
     if (reg === "category") {
       dispatch(
-        openModal({
-          title: "카테고리 선택",
-          content: <CategoryModal setReceiveCategory={setReceiveCategory} />,
-        })
+        openDragModal(<CategoryModal setReceiveCategory={setReceiveCategory} />)
       );
     } else {
       dispatch(
-        openModal({
-          title: "위치 선택",
-          content: (
-            <>
-              {/* <MapModal
-                setReceiveAddress={setReceiveAddress}
-                currentAddress={receiveAddress}
-              /> */}
-            </>
-          ),
-        })
+        openDragModal(
+          <MapModal
+            setReceiveAddress={setReceiveAddress}
+            currentAddress={receiveAddress}
+          />
+        )
       );
     }
   };

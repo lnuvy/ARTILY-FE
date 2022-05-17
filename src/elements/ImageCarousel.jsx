@@ -22,7 +22,7 @@ const ImageCarousel = (props) => {
   return (
     <>
       <StyledSlider {...settings}>
-        {src?.length > 0
+        {src && src.length > 0
           ? src.map((img, i) => {
               return (
                 <Grid key={`${i}_번째_${img}`}>
@@ -45,7 +45,7 @@ const StyledSlider = styled(Slider)`
 
   // 점을 이미지 안에 넣기
   .slick-dots {
-    bottom: 5px;
+    bottom: 11px;
 
     // 점 간격 좁히기
     li {

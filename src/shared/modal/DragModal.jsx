@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Button, Flex, Grid, Icon, Text, Wrap } from "../../elements";
 import DragProtals from "./DragPortals";
+import theme from "../../styles/theme";
 
 // X 아이콘
 import { IoCloseOutline } from "react-icons/io5";
@@ -37,16 +38,17 @@ const DragModal = () => {
 
 const ContentWrap = styled.div`
   width: 100%;
-  /* padding: 12px; */
-  margin: 12px 0 0 0;
-  padding: 0;
+  height: 100%;
+  padding: 0 16px;
+  margin: 0;
 `;
 
 const DragBar = styled.div`
   width: 64px;
   height: 4px;
-  background-color: #e0e0e0;
+  background-color: ${({ theme }) => `${theme.pallete.gray1}`};
   margin: 0 auto;
+  border-radius: 4px;
 `;
 
 export default DragModal;

@@ -15,6 +15,9 @@ import {
   getNowPost,
   getPostDB,
   getPostOne,
+  go2detail,
+  otherPost,
+  filteringData,
 } from "../redux/modules/store";
 
 import { addFollowDB } from "../redux/modules/follow";
@@ -51,6 +54,11 @@ const StoreDetail = () => {
   };
 
   useEffect(() => {
+    // reset
+    dispatch(go2detail([]));
+    dispatch(otherPost([]));
+    dispatch(filteringData("전체"));
+    // getdata
     dispatch(getPostOne(postId));
   }, [postId]);
 
@@ -106,7 +114,7 @@ const StoreDetail = () => {
 
   return (
     <>
-      {current && (
+      {current && current.user && (
         <>
           <Wrap margin="0 16px">
             <Flex>
@@ -199,7 +207,7 @@ const StoreDetail = () => {
                 {current.postContent}
               </Text>
             </Flex>
-            {otherPost.length > 0 && (
+            {otherPosts && (
               <>
                 <Flex margin="16px 0 10px">
                   <Text h2 lineHeight="22px">
@@ -248,7 +256,7 @@ const StoreDetail = () => {
                   )}
                 </Flex>
                 <Grid gtc="1fr 1fr" rg="18px" cg="8px" margin="0 0 20px">
-                  {otherPost.map((post) => {
+                  {otherPosts.map((post) => {
                     return <StoreMore key={post.postId} {...post} />;
                   })}
                 </Grid>
@@ -258,12 +266,12 @@ const StoreDetail = () => {
 
           <FixedChatBar>
             <Flex onClick={markupToggle}>
-              {currentUser &&
+              {/* {currentUser &&
               currentUser?.myMarkup?.find((id) => id === postId) ? (
                 <IoMdHeart size={24} color={theme.pallete.primary850} />
               ) : (
                 <Heart />
-              )}
+              )} */}
 
               <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
                 {current.markupCnt}

@@ -219,10 +219,12 @@ export const postMarkupToggle = (postId) => {
       .catch(async (err) => {
         console.log("마크업 에러", err);
         console.log(err.response);
-
-        const result = await authAlert(err.response?.data.errorMessage);
-        if (result) {
-          history.push("/login");
+        // 401 에러일때 띄우기
+        if (err.response.status === 401) {
+          const result = await authAlert(err.response.data.errorMessage);
+          if (result) {
+            history.push("/login");
+          }
         }
       });
   };

@@ -156,15 +156,13 @@ const SquareInput = styled.input`
       border: 1px solid ${theme.color.danger};
       :focus {
         border: 1px solid ${theme.color.danger};
-        box-shadow: 0px 0px 6px ${theme.color.danger};
       }
     `
       : `
       color: ${theme.color.black};
-      border: 1px solid ${theme.color.black};
+      border: 1px solid ${theme.pallete.gray3};
       :focus {
         border: 1px solid ${theme.color.brandColor};
-        box-shadow: 0px 0px 6px ${theme.color.brandColor};
       }
     `}
 `;
@@ -175,8 +173,8 @@ const InputIcon = styled.div`
   /* background-image: url(); */
   /* background-color: grey; */
   position: absolute;
-  top: 11px;
-  right: 11px;
+  top: 8px;
+  right: 8px;
 `;
 
 const InputLabel = styled.label`

@@ -47,7 +47,7 @@ const Image = (props) => {
 
 Image.defaultProps = {
   circle: false,
-  src: "",
+  src: "url('')",
   width: "100%",
   height: "100px",
   size: 36,
@@ -72,7 +72,7 @@ const ImageCircle = styled.div`
   border-radius: var(--size);
   background-color: ${({ bc }) => bc};
 
-  background-image: url("${(props) => props.src}");
+  background-image: url(${({ src }) => src});
   background-size: cover;
   margin: ${({ margin }) => margin};
   background-position: center;
@@ -88,7 +88,7 @@ const ImageSqure = styled.div`
   background-color: ${({ bc }) => bc};
   border-radius: 2px;
 
-  background-image: url("${(props) => props.src}");
+  background-image: url(${({ src }) => src});
   background-size: ${({ bs }) => bs};
   margin: ${({ margin }) => margin};
   background-position: center;

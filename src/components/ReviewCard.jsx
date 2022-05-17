@@ -22,12 +22,13 @@ const ReviewCard = (props) => {
     seller,
     createdAt,
     likeCnt,
+    _key,
     // 5.11 프로필 이미지 추가했습니다 -영경
     profileImage,
   } = props;
 
   return (
-    <Card onClick={onClick}>
+    <Card onClick={onClick} _key={_key}>
       <Image height="168px" br="8px" src={imageUrl} />
       <Text medium margin="8px 0 0">
         {reviewTitle}
@@ -43,7 +44,7 @@ const ReviewCard = (props) => {
         </Text>
         <Icon width="fit-content">
           <Flex>
-            <Favorite />
+            <Favorite size="16" color={`${theme.color.brandColor}`} />
             <Text body2 margin="0 0 0 4px">
               {likeCnt}
             </Text>
