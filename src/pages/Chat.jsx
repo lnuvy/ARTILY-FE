@@ -9,6 +9,7 @@ import {
   receiveChatRoom,
 } from "../redux/modules/chat";
 import { socket } from "../shared/socket";
+import theme from "../styles/theme";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const Chat = () => {
 
   return (
     <>
-      <Grid>
+      <Grid border={`1px solid ${theme.pallete.gray1}`}>
         <NoInfo list={roomList} text="아직 대화중인 사람이 없어요!">
           {roomList.map((room, i) => {
             return (

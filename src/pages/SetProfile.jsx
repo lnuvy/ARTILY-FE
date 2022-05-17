@@ -90,66 +90,74 @@ const Setprofile = () => {
   };
 
   return (
-    <>
-      <Wrap textAlign="center">
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Wrap textAlign="center" margin="0 0 50px">
         <img src="/images/artily.svg" alt="logo" />
         <Text body1 color="#999">
           내 프로필을 완성해주세요!
         </Text>
-      </Wrap>
-      <Wrapprofile>
-        <Flex jc="center" margin="50px 0">
-          <Image
-            alt="profile"
-            width="120px"
-            height="120px"
-            br="60px"
-            border="1px solid #eee"
-            shadow="1px 1px 3px #ddd"
-            src={preview ? preview : ""}
-          ></Image>
 
-          <ImgBox>
-            <label htmlFor="image">
-              <img src="../../images/edit.png" alt="파일 선택" />
-            </label>
-            <input
-              type="file"
-              id="image"
-              ref={fileInput}
-              onChange={selectFile}
+        <Wrapprofile>
+          <Flex jc="center" margin="50px 0">
+            <Image
+              alt="profile"
+              width="120px"
+              height="120px"
+              br="60px"
+              border="1px solid #eee"
+              shadow="1px 1px 3px #ddd"
+              src={preview ? preview : ""}
+            ></Image>
+
+            <ImgBox>
+              <label htmlFor="image">
+                <img src="../../images/edit.png" alt="파일 선택" />
+              </label>
+              <input
+                type="file"
+                id="image"
+                ref={fileInput}
+                onChange={selectFile}
+              />
+            </ImgBox>
+          </Flex>
+        </Wrapprofile>
+        <Wrap padding="0 20px 30px 20px">
+          <Flex>
+            <Text textAlign="left" fg="1">
+              닉네임
+            </Text>
+            <Input
+              icon={
+                <span onClick={renameRandom}>
+                  <Refresh />
+                </span>
+              }
+              square
+              width="100%"
+              border="1px solid #d3d3d3"
+              br="6px"
+              type="text"
+              fg="1"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
             />
-          </ImgBox>
-        </Flex>
-      </Wrapprofile>
-      <Wrap padding="0 20px 30px 20px">
+          </Flex>
+        </Wrap>
         <Flex>
-          <Text textAlign="left" fg="1">
-            닉네임
-          </Text>
-          <Input
-            icon={
-              <span onClick={renameRandom}>
-                <Refresh />
-              </span>
-            }
-            square
-            width="100%"
-            border="1px solid #d3d3d3"
-            br="6px"
-            type="text"
-            fg="1"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
+          <Button width="90%" margin="20px auto" onClick={editUser}>
+            프로필 저장하기
+          </Button>
         </Flex>
       </Wrap>
-      <Flex>
-        <Button width="90%" margin="20px auto" onClick={editUser}>
-          프로필 저장하기
-        </Button>
-      </Flex>
-    </>
+    </div>
   );
 };
 

@@ -207,7 +207,7 @@ const ChatRoom = () => {
             );
           else
             return (
-              <Wrap padding="19px 19px 0 19px">
+              <Wrap padding="19px 19px 0 19px" key={`${i}_msg_${msg}`}>
                 <Flex width="fit-content">
                   <Image
                     circle
