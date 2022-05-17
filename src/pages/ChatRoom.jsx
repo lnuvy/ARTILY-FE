@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Button, Flex, Grid, Image, Input, Text, Wrap } from "../elements";
+import {
+  Button,
+  Flex,
+  Grid,
+  Image,
+  Input,
+  Text,
+  Wrap,
+  Icon,
+} from "../elements";
 import { socket } from "../shared/socket";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -238,13 +247,20 @@ const ChatRoom = () => {
             );
         })}
         <div ref={messagesEndRef} />
-
-        <FixedChatBar>
+      </Container>
+      <FixedChatBar>
+        <Flex>
           <ChatFileInput />
           {uploadFile ? (
             <Image width="60px" height="50px" src={uploadFile} />
           ) : (
             <Input
+              withBtn
+              icon={
+                <Icon padding="0">
+                  <ArrowUpward />
+                </Icon>
+              }
               fg="1"
               square
               br="8px"
@@ -256,16 +272,18 @@ const ChatRoom = () => {
               }}
             />
           )}
-          <ChatSubmit>
+        </Flex>
+        {/* <ChatSubmit>
+          <Icon>
             <ArrowUpward />
-          </ChatSubmit>
-          {/* {uploadFile ? (
+          </Icon>
+        </ChatSubmit> */}
+        {/* {uploadFile ? (
             <Button onClick={sendFile}>전송</Button>
           ) : (
             <Button onClick={sendMessage}>전송</Button>
           )} */}
-        </FixedChatBar>
-      </Container>
+      </FixedChatBar>
     </>
   );
 };
@@ -282,18 +300,18 @@ const ImageDark = styled.div`
 `;
 
 const FixedChatBar = styled.div`
-  display: flex;
   align-items: center;
+
   position: fixed;
   bottom: 0;
-  /* width: 100%; */
+  width: ${({ theme }) => `${theme.view.maxWidth}`};
   padding: 10px 12px;
   border-top: 1px solid gray;
   z-index: 20;
   background-color: white;
 `;
 
-const ChatSubmit = styled.button`
+const ChatSubmit = styled.div`
   background-color: ${({ theme }) => theme.pallete.primary900};
   padding: 8px;
   border-radius: 8px;
