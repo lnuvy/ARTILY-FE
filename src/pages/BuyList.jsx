@@ -5,14 +5,15 @@ import { Grid, Text, Wrap } from "../elements";
 import { getmyPageDB, getDetail } from "../redux/modules/mypage";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
+import { myPageDummy } from "../shared/Dummy";
+import { ArtCard } from "../components";
+
 const BuyList = () => {
   const dispatch = useDispatch();
   const mybuyList = useSelector((state) => state.mypage.list);
   console.log(mybuyList);
-  // const dummybuyList = useSelector((state) => state.mypage.nowList);
-  // console.log(dummybuyList);
-
-  const nowUser = useSelector((state) => state.user.user);
+  const dummybuyList = myPageDummy.myBuy;
+  // const nowUser = useSelector((state) => state.user.user);
 
   useEffect(() => {
     dispatch(getmyPageDB());
@@ -34,8 +35,8 @@ const BuyList = () => {
       {/* 구매목록 */}
       <Background>
         <Inner>
-          <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0">
-            {/* {mybuyList &&
+          <Wrap>
+            {mybuyList &&
               dummybuyList?.map((list) => {
                 return (
                   <ArtCard
@@ -46,10 +47,10 @@ const BuyList = () => {
                     onClick={() => handleClickData(list)}
                   ></ArtCard>
                 );
-              })} */}
-          </Grid>
+              })}
+          </Wrap>
         </Inner>
-        <Wrap textAlign="center" height="100vh" padding="30px 0 0 0">
+        <Wrap textAlign="center" height="100%" padding="30px 0 0 0">
           <Text body2>구매한 작품이 없으신가요?</Text>
           <Text body3 textDeco="underline">
             판매자에게 판매 확정을 요청하기
@@ -62,6 +63,8 @@ const BuyList = () => {
 
 const Background = styled.div`
   background-color: #ddd;
+  height: 100vh;
+  overflow: hidden;
 `;
 const Inner = styled.div`
   background-color: #fff;

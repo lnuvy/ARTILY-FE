@@ -155,7 +155,6 @@ const Setprofile = () => {
           </Wrap>
         </div>
       </Outline>
-      {/* </div> */}
     </>
   );
 };
@@ -204,7 +203,7 @@ const Outline = styled.div`
     left: 50%;
     transform: translate(-50%, -50%); /* translate(x축,y축) */
     //요소의 가장 좌측과 상단을 기준으로 50%를 이동하는 것이므로, 요소자체를 마이너스 값을 통해 다시 절반을 좌측, 상단으로 당겨오는 것.
-    //translate 값을 적용하기 전에는 왼쪽 위 꼭짓점이 정 중앙에 배치된 상태.
+    //transform 값을 적용하기 전에는 왼쪽 위 꼭짓점이 정 중앙에 배치된 상태.
   }
 `;
 export default Setprofile;

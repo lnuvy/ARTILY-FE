@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Grid, Flex, Text, Image, Button } from "../elements";
+import { Grid, Flex, Text, Image, Button, Icon } from "../elements";
 import {
   addFollowDB,
   DeleteFollowDB,
   getFollowDB,
   getFollowerDB,
 } from "../redux/modules/follow";
+import { ArrowBack } from "../assets/icons";
 const Follow = () => {
   const history = useHistory();
   const getfollowList = useSelector((state) => state.user.user);
@@ -44,6 +45,10 @@ const Follow = () => {
 
   return (
     <>
+      {/* 여러번 눌러야만 뒤로 가기가 되는 현상 해결 */}
+      <Icon margin="8px" onClick={() => history.push("/mypage")}>
+        <ArrowBack />
+      </Icon>
       <Grid gtc="auto auto" cg="20px" margin="10px 0 0 0">
         {menus.map((menu) => {
           return (

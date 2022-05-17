@@ -266,12 +266,12 @@ const StoreDetail = () => {
 
           <FixedChatBar>
             <Flex onClick={markupToggle}>
-              {/* {currentUser &&
+              {currentUser &&
               currentUser?.myMarkup?.find((id) => id === postId) ? (
                 <IoMdHeart size={24} color={theme.pallete.primary850} />
               ) : (
                 <Heart />
-              )} */}
+              )}
 
               <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
                 {current.markupCnt}

@@ -147,7 +147,7 @@ const ArtCard = (props) => {
               <Image
                 width="140px"
                 src={imageUrl}
-                margin="0 10px 0 10px"
+                margin="0 10px 10px 10px"
                 border="1px solid #eee"
               />
               <Wrap width="60%">
@@ -203,7 +203,9 @@ const ArtCard = (props) => {
           src={imageUrl}
           shadow="0.5px 0.5px 2px #ddd"
         />
-        <Text bold>{reviewTitle}</Text>
+        <Text margin="8px 0 0 0" bold>
+          {reviewTitle}
+        </Text>
         <Text body2>{reviewContent}</Text>
         <Flex margin="8px 0 0">
           <Image circle size="20" src={nowuser?.profileImage} />
