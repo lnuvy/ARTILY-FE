@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 
 // const URL = "http://localhost:5000";
 const URL = "https://rusy7225.shop";
-export const socket = io(URL, { autoConnect: false });
+export const socket = io.connect(URL);
 // export const siofu = SocketIOFileUpload(socket);
 // export const stream = ss.createStream();
 
