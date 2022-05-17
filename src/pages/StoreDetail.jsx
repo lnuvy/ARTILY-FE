@@ -44,7 +44,7 @@ const StoreDetail = () => {
 
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
-  const otherPost = useSelector((state) => state.store.otherPost);
+  const otherPosts = useSelector((state) => state.store.otherPost);
   const followId = current?.user?.userId;
 
   console.log("팔로우 하려는 userId", followId);
