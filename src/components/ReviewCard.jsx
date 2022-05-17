@@ -1,35 +1,31 @@
 import React from "react";
 import styled from "styled-components";
-import { Card } from "../components";
-import { Flex, Image, Text, Icon } from "../elements/index";
 import theme from "../styles/theme";
+// components
+import { Card } from "../components/index";
+import { Flex, Image, Text, Icon } from "../elements/index";
 import { Favorite } from "../assets/icons";
 
 const ReviewCard = (props) => {
   // const postList = useSelector((state) => state.store.list);
-  // console.log(postList);
 
   const {
     onClick,
-    user,
-    reviewTitle,
-    category,
-    transaction,
-    imageUrl,
-    reviewId,
-    reviewContent,
-    nickname,
-    seller,
-    createdAt,
-    likeCnt,
     _key,
-    // 5.11 프로필 이미지 추가했습니다 -영경
+    //
+    nickname,
     profileImage,
+    reviewId,
+    reviewTitle,
+    reviewContent,
+    likeCnt,
+    images,
+    createdAt,
   } = props;
 
   return (
     <Card onClick={onClick} _key={_key}>
-      <Image height="168px" br="8px" src={imageUrl} />
+      <Image height="168px" br="8px" src={images} />
       <Text medium margin="8px 0 0">
         {reviewTitle}
       </Text>
@@ -37,7 +33,6 @@ const ReviewCard = (props) => {
         {reviewContent}
       </Text>
       <Flex margin="8px 0 0 0">
-        {/* 5.11 프로필 이미지 src 추가했습니다 -영경*/}
         <Image circle size="24" src={profileImage} />
         <Text fg="1" margin="0 0 0 8px">
           {nickname}
@@ -52,7 +47,7 @@ const ReviewCard = (props) => {
         </Icon>
       </Flex>
       <DisplayNone>
-        <Text margin="0 0 0 4px">{createdAt}</Text>
+        {/* <Text margin="0 0 0 4px">{createdAt}</Text> */}
       </DisplayNone>
     </Card>
   );

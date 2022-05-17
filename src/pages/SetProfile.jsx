@@ -91,14 +91,6 @@ const Setprofile = () => {
 
   return (
     <>
-      {/* <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      > */}
       <Outline>
         <div className="box">
           <Wrap textAlign="center">

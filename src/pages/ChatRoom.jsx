@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Button, Flex, Grid, Image, Input, Text, Wrap } from "../elements";
+import {
+  Button,
+  Flex,
+  Grid,
+  Image,
+  Input,
+  Text,
+  Wrap,
+  Icon,
+} from "../elements";
 import { socket } from "../shared/socket";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +23,8 @@ import {
 } from "../redux/modules/chat";
 import { ChatFileInput } from "../components";
 import { clearPreview } from "../redux/modules/image";
+import { ArrowUpward } from "../assets/icons";
+import { priceComma } from "../shared/utils";
 
 const { color } = theme;
 
@@ -29,6 +40,8 @@ const ChatRoom = () => {
   const nowChat = useSelector((state) => state.chat.roomList).find(
     (room) => room.roomName === roomName
   );
+
+  const isDone = nowChat?.post?.done;
 
   const [message, setMessage] = useState("");
   // 사진업로드
@@ -114,102 +127,175 @@ const ChatRoom = () => {
   return (
     <>
       {/* 상품 정보 */}
-      <Wrap>
+      <Wrap padding="10px 16px">
         <Flex>
-          <Image src={nowChat?.post?.imageUrl} width="50px" height="50px" />
-          <Flex fd="column">
-            <Text h1>{nowChat?.post?.postTitle}</Text>
-            <Text h2>{nowChat?.post?.price}</Text>
+          {isDone ? (
+            <ImageDark>
+              <Image
+                br="8px"
+                src={nowChat?.post?.imageUrl}
+                width="48px"
+                height="48px"
+              />
+            </ImageDark>
+          ) : (
+            <Image
+              br="8px"
+              src={nowChat?.post?.imageUrl}
+              width="48px"
+              height="48px"
+            />
+          )}
+
+          <Flex fd="column" ai="flex-start">
+            <Flex>
+              <Text body2 bold margin="0 4px 0 23px">
+                {isDone ? "판매완료" : "판매중"}
+              </Text>
+              <Text body2>{nowChat?.post?.postTitle}</Text>
+            </Flex>
+            <Flex>
+              <p
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "700",
+                  marginLeft: "23px",
+                }}
+              >
+                {priceComma(nowChat?.post?.price)}
+              </p>
+            </Flex>
           </Flex>
         </Flex>
-        <Flex>
-          <Button onClick={leaveRoom}>나가기</Button>
-        </Flex>
+        <Flex>{/* <Button onClick={leaveRoom}>나가기</Button> */}</Flex>
       </Wrap>
 
-      {/* 채팅 */}
       <Container>
         {messages.map((msg, i) => {
           if (msg.from === from)
             return (
-              <Flex key={i} width="80%" jc="end" height="auto">
-                <Text>{moment(msg.time).format("hh:mm")}</Text>
-                <Flex
-                  width="fit-content"
-                  height="fit-content"
-                  padding="10px 20px"
-                  margin="15px 20px 5px"
-                  bc={color.brandColor}
-                  br="8px"
-                  jc="end"
-                >
-                  <Text h1 color="white">
-                    {msg.message}
-                  </Text>
+              <Flex
+                key={`${i}_msg_${msg}`}
+                // width="100%"
+                height="auto"
+                fd="column"
+                ai="flex-end"
+              >
+                <Flex fd="column" ai="start">
+                  <Flex
+                    width="fit-content"
+                    height="fit-content"
+                    padding="8px"
+                    margin="15px 20px 5px 5px"
+                    bc={theme.pallete.primary700}
+                    br="8px"
+                  >
+                    <Text>{msg.message}</Text>
+                  </Flex>
+                  <Flex>
+                    <p
+                      style={{
+                        fontSize: "10px",
+                        color: `${theme.pallete.gray3}`,
+                      }}
+                    >
+                      {moment(msg.time).format("hh:mm")}
+                    </p>
+                  </Flex>
                 </Flex>
               </Flex>
             );
           else
             return (
-              <Flex key={i} width="80%" height="auto">
-                <Image circle size={50} src={nowChat.profileImage} />
-                <Flex
-                  width="fit-content"
-                  height="fit-content"
-                  padding="10px 20px"
-                  margin="20px"
-                  bc={color.brandColor}
-                  br="8px"
-                  jc="start"
-                >
-                  <Text>{msg.message}</Text>
+              <Wrap padding="19px 19px 0 19px" key={`${i}_msg_${msg}`}>
+                <Flex width="fit-content">
+                  <Image
+                    circle
+                    size={56}
+                    margin="0 8px 0 0"
+                    src={nowChat.profileImage}
+                  />
+                  <Flex fd="column" ai="start">
+                    <p style={{ fontSize: "12px", margin: "4px 0" }}>
+                      {nowChat.nickname}
+                    </p>
+                    <Flex
+                      width="fit-content"
+                      height="fit-content"
+                      padding="8px"
+                      br="8px"
+                      jc="start"
+                      bc="white"
+                    >
+                      <Text>{msg.message}</Text>
+                    </Flex>
+
+                    <Flex>
+                      <p
+                        style={{
+                          fontSize: "10px",
+                          color: `${theme.pallete.gray3}`,
+                          margin: "5px 5px 5px 0",
+                        }}
+                      >
+                        {moment(msg.time).format("hh:mm")}
+                      </p>
+                    </Flex>
+                  </Flex>
                 </Flex>
-                <Text>{moment(msg.time).format("hh:mm")}</Text>
-              </Flex>
+              </Wrap>
             );
         })}
         <div ref={messagesEndRef} />
-
-        <FixedChatBar>
-          <Flex>
-            <ChatFileInput />
-            {uploadFile ? (
-              <Image width="60px" height="50px" src={uploadFile} />
-            ) : (
-              <Input
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") sendMessage();
-                }}
-              />
-            )}
-          </Flex>
-          {uploadFile ? (
-            <Button onClick={sendFile}>전송</Button>
-          ) : (
-            <Button onClick={sendMessage}>전송</Button>
-          )}
-        </FixedChatBar>
       </Container>
+      <FixedChatBar>
+        <Flex>
+          <ChatFileInput />
+          {uploadFile ? (
+            <Image width="60px" height="50px" src={uploadFile} />
+          ) : (
+            <Input
+              withBtn
+              icon={
+                <Icon padding="0">
+                  <ArrowUpward />
+                </Icon>
+              }
+              fg="1"
+              square
+              br="8px"
+              placeholder="메세지를 작성해주세요"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") sendMessage();
+              }}
+            />
+          )}
+        </Flex>
+      </FixedChatBar>
     </>
   );
 };
 
 const Container = styled.div`
-  height: calc(100vh - 275px);
-  display: flex;
-  flex-direction: column;
+  height: calc(100vh - 188px);
+  background-color: #e0e0e0;
   overflow-y: scroll;
+  margin: 0 0 72px;
+`;
+
+const ImageDark = styled.div`
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 const FixedChatBar = styled.div`
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 100vw;
+  max-width: ${({ theme }) => `${theme.view.maxWidth}`};
   padding: 10px 12px;
   border-top: 1px solid gray;
   z-index: 20;

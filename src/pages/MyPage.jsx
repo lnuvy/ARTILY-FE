@@ -10,6 +10,7 @@ import { getUserInfo, userLogout } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
 import { compose } from "redux";
 import { getFollowDB, getFollowerDB } from "../redux/modules/follow";
+import { socket } from "../shared/socket";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
 
@@ -153,6 +154,9 @@ const MyPage = () => {
           onClick={() => {
             console.log("로그아웃!");
             removeToken();
+            socket.emit("disconnect", () => {
+              console.log("disconnect");
+            });
             dispatch(userLogout());
           }}
         >

@@ -4,27 +4,24 @@ import styled from "styled-components";
 const Card = (props) => {
   const {
     children,
-    gtc,
-    textAlign,
-    cg,
+    onClick,
+    _key,
+    //
+    height,
     width,
     padding,
     border,
-    onClick,
-    height,
-    _key,
+    br,
+    //
     ...data
   } = props;
 
   const styles = {
-    gtc,
-    textAlign,
-    cg,
-    width,
     height,
+    width,
     padding,
     border,
-    onClick,
+    br,
   };
 
   return (
@@ -35,19 +32,25 @@ const Card = (props) => {
 };
 
 Card.defaultProps = {
-  padding: "0",
-  border: "none",
+  onClick: () => {},
   width: "100%",
   height: "fit-content",
-  onClick: () => {},
+
+  padding: "0",
+
+  border: "none",
+  br: "16px",
 };
 
 const CardStyle = styled.div`
   width: ${({ width }) => width};
   height: ${({ height }) => height};
-  border-radius: 16px;
+
   padding: ${({ padding }) => padding};
+
   border: ${({ border }) => border};
+  border-radius: ${({ br }) => br};
+
   :hover {
     cursor: pointer;
     opacity: 0.8;

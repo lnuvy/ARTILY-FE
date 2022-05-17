@@ -38,6 +38,7 @@ const Text = (props) => {
     lineHeight,
     contents,
     textDeco,
+    size,
   };
 
   if (h1) {
