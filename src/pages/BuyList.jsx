@@ -22,7 +22,7 @@ const BuyList = () => {
 
   const handleClickData = (data) => {
     dispatch(getDetail(data));
-    history.push(`/store/${data.postId}`);
+    // history.push(`/review/write/${postId}`);
   };
 
   // useEffect(() => {
