@@ -179,34 +179,33 @@ const ChatRoom = () => {
             );
         })}
         <div ref={messagesEndRef} />
-
-        <FixedChatBar>
-          <ChatFileInput />
-          {uploadFile ? (
-            <Image width="60px" height="50px" src={uploadFile} />
-          ) : (
-            <Input
-              fg="1"
-              square
-              br="8px"
-              placeholder="메세지를 작성해주세요"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") sendMessage();
-              }}
-            />
-          )}
-          <ChatSubmit>
-            <ArrowUpward />
-          </ChatSubmit>
-          {/* {uploadFile ? (
+      </Container>
+      <FixedChatBar>
+        <ChatFileInput />
+        {uploadFile ? (
+          <Image width="60px" height="50px" src={uploadFile} />
+        ) : (
+          <Input
+            fg="1"
+            square
+            br="8px"
+            placeholder="메세지를 작성해주세요"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") sendMessage();
+            }}
+          />
+        )}
+        <ChatSubmit>
+          <ArrowUpward />
+        </ChatSubmit>
+        {/* {uploadFile ? (
             <Button onClick={sendFile}>전송</Button>
           ) : (
             <Button onClick={sendMessage}>전송</Button>
           )} */}
-        </FixedChatBar>
-      </Container>
+      </FixedChatBar>
     </>
   );
 };
@@ -221,7 +220,6 @@ const Container = styled.div`
 `;
 
 const FixedChatBar = styled.div`
-  display: flex;
   align-items: center;
   position: fixed;
   bottom: 0;
