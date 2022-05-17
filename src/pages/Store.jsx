@@ -14,7 +14,7 @@ import _ from "lodash";
 
 import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
-import { FilterFilled, FilterOutline, Search } from "../assets/icons";
+import { FilterFilled, Search } from "../assets/icons";
 import theme from "../styles/theme";
 
 const Store = () => {
@@ -22,7 +22,6 @@ const Store = () => {
   const { list, filterList } = useSelector((state) => state.store);
 
   // 카테고리 필터링
-
   useEffect(() => {
     // store data reset
     dispatch(getStoreData([]));
@@ -74,7 +73,7 @@ const Store = () => {
   const modalOn = () => {
     dispatch(
       openModal({
-        title: "",
+        title: " ",
         content: (
           <StoreFilter filtering={filtering} setFiltering={setFiltering} />
         ),

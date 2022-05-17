@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, Grid, Image, Wrap } from "../elements";
-
 import { Card, Footer, ReviewCard, StoreCard } from "../components";
-import { getHomeDataDB, getHomeData } from "../redux/modules/main";
-
+import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
 import styled from "styled-components";
@@ -17,7 +15,6 @@ const Home = () => {
 
   // 더미데이터 주입
   useEffect(() => {
-    dispatch(getHomeData([{ bestPost: [], bestWriter: [], bestReview: [] }]));
     dispatch(getHomeDataDB());
   }, []);
 
@@ -39,21 +36,16 @@ const Home = () => {
       <Image height="220px" width="100%" br="0" border="none" src={banner} />
       <Wrap padding="16px 16px 28px">
         <Text bold h3 margin="0 0 10px 0">
-          c
+          인기 작품
         </Text>
-        <Grid gtc="1fr 1fr" rg="16px" cg="16px">
-          {bestPost &&
+        <Grid gtc="1fr 1fr" rg="16px" cg="7px">
+          {bestPost.length > 0 &&
             bestPost.map((v, i) => {
               return (
                 <StoreCard
                   onClick={() => move2detail(v, "/store")}
                   isHome
                   key={v.postId}
-                  imageUrl={
-                    v.imageUrl &&
-                    v.imageUrl[0].imageUrl &&
-                    v.imageUrl[0].imageUrl
-                  }
                   {...v}
                 />
               );
@@ -67,7 +59,7 @@ const Home = () => {
 
         <BestArtistWrap>
           <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
-            {bestWriter &&
+            {bestWriter.length > 0 &&
               bestWriter.map((artist, i) => {
                 return (
                   <Card
@@ -107,14 +99,14 @@ const Home = () => {
           Best 후기
         </Text>
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
-          {bestReview
+          {bestReview.length > 0
             ? bestReview.map((l, i) => {
                 return (
                   <ReviewCard
                     key={i}
                     {...l}
                     onClick={() => move2detail(l, "/review")}
-                    imageUrl={l.imageUrl && l.imageUrl[0]}
+                    imageUrl={l.imageUrl[0]}
                   />
                 );
               })
