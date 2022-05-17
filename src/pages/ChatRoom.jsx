@@ -304,7 +304,8 @@ const FixedChatBar = styled.div`
 
   position: fixed;
   bottom: 0;
-  width: ${({ theme }) => `${theme.view.maxWidth}`};
+  width: 100vw;
+  max-width: ${({ theme }) => `${theme.view.maxWidth}`};
   padding: 10px 12px;
   border-top: 1px solid gray;
   z-index: 20;
