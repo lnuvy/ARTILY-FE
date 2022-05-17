@@ -28,7 +28,7 @@ const ArtCard = (props) => {
     nickname,
     likeCnt,
     markupCnt,
-    mypage,
+    mystore,
     sellLabel,
     buylist,
     review,
@@ -53,7 +53,7 @@ const ArtCard = (props) => {
     }
   };
 
-  if (mypage) {
+  if (mystore) {
     return (
       <>
         <Card onClick={onClick}>
@@ -82,7 +82,7 @@ const ArtCard = (props) => {
                 ""
               )}
               <Flex fg="0" padding="8px 0 0 0">
-                <Favorite color="#FD6A00" />
+                <img src="../images/Like.png" alt="좋아요" />
                 <Text margin="0 0 0 4px">{markupCnt}</Text>
               </Flex>
             </Wrap>
@@ -187,7 +187,7 @@ const ArtCard = (props) => {
             ""
           )}
           <Flex fg="0">
-            <Favorite color="#FD6A00" />
+            <img src="../images/Like.png" alt="좋아요" />
             <Text margin="0 0 0 4px">{markupCnt}</Text>
           </Flex>
         </Flex>
@@ -207,13 +207,13 @@ const ArtCard = (props) => {
           {reviewTitle}
         </Text>
         <Text body2>{reviewContent}</Text>
-        <Flex margin="8px 0 0">
+        <Flex margin="8px 0 10px 0 ">
           <Image circle size="20" src={nowuser?.profileImage} />
           <Text fg="1" margin="0 0 0 4px">
             {nowuser?.nickname}
           </Text>
           <Flex fg="0">
-            <Favorite color="#FD6A00" />
+            <img src="../images/Like.png" alt="좋아요" />
             <Text margin="0 0 0 4px">{markupCnt}</Text>
           </Flex>
         </Flex>
@@ -241,9 +241,8 @@ const ArtCard = (props) => {
           ) : (
             ""
           )}
-
           <Flex fg="0">
-            <Favorite color="#FD6A00" />
+            <img src="../images/Like.png" alt="좋아요" />
             <Text margin="0 0 0 4px">{markupCnt}</Text>
           </Flex>
         </Flex>

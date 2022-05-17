@@ -42,7 +42,7 @@ const Manage = () => {
               }
               return (
                 <ArtCard
-                  mypage
+                  mystore
                   key={list.postId}
                   className="sell"
                   {...list}
