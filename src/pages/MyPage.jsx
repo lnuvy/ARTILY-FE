@@ -127,7 +127,7 @@ const MyPage = () => {
             history.push("/mypage/manage");
           }}
         >
-          <p class="sell">
+          <p className="sell">
             판매 작품 등록하기 / 관리하기
             <img
               src="../../images/Vector.svg"

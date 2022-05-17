@@ -81,8 +81,8 @@ const UserProfile = () => {
               </Text>
               <Text body2 color="#555" margin="0.5em 0 0 0">
                 등록한 작품{" "}
-                {currentUser.myPost && otherUser?.myPost.length
-                  ? otherUser?.myPost.length
+                {currentUser?.myPosts && currentUser?.myPosts?.length
+                  ? currentUser?.myPosts.length
                   : "0"}
                 개
               </Text>

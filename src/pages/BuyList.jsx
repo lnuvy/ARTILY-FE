@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { myPageDummy } from "../shared/Dummy";
 import { ArtCard } from "../components";
 
+// 5.17 가상데이터 넣어놨습니다
 const BuyList = () => {
   const dispatch = useDispatch();
   const mybuyList = useSelector((state) => state.mypage.list);
