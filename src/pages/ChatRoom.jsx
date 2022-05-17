@@ -257,7 +257,7 @@ const ChatRoom = () => {
             <Input
               withBtn
               icon={
-                <Icon padding="0">
+                <Icon padding="0" onClick={sendMessage}>
                   <ArrowUpward />
                 </Icon>
               }

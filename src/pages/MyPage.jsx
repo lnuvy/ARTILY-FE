@@ -152,12 +152,9 @@ const MyPage = () => {
         </Flex>
         <Flex
           onClick={() => {
-            console.log("로그아웃!");
             removeToken();
-            socket.emit("disconnect", () => {
-              console.log("disconnect");
-            });
             dispatch(userLogout());
+            socket.disconnect();
           }}
         >
           <p className="logout">
