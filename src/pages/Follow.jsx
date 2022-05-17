@@ -85,7 +85,7 @@ const Follow = () => {
                   src={follower?.profileImage}
                 ></Image>
                 <Text fg="1" body2 bold margin="5px 0 10px 0">
-                  {nowfollowerList.length ? follower.followName : ""}
+                  {nowfollowerList.length ? follower.nickname : ""}
                 </Text>
                 {/* 자신의 마이페이지일 경우 삭제버튼만 존재 */}
                 <Button outline height="38px" padding="3px 17px">
