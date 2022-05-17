@@ -39,7 +39,7 @@ const Home = () => {
       <Image height="220px" width="100%" br="0" border="none" src={banner} />
       <Wrap padding="16px 16px 28px">
         <Text bold h3 margin="0 0 10px 0">
-          인기 작품
+          c
         </Text>
         <Grid gtc="1fr 1fr" rg="16px" cg="16px">
           {bestPost &&

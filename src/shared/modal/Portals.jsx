@@ -46,7 +46,7 @@ const Content = styled.div`
   height: fit-content;
 
   margin: 0 auto;
-  width: calc(${theme.view.maxWidth} - 32px);
+  width: calc(${({ theme }) => theme.view.maxWidth} - 32px);
   border-radius: 8px;
   background-color: #fff;
 

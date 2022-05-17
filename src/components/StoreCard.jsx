@@ -37,7 +37,7 @@ const StoreCard = (props) => {
           <Image circle size="32" src={user?.profileImage} />
         )}
 
-        <Text h3 margin="0 0 0 4px">
+        <Text h3 margin="0 0 0 8px">
           {user?.nickname}
         </Text>
       </Flex>
