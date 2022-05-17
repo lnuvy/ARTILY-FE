@@ -11,9 +11,6 @@ const Login = () => {
   // const NAVER_CLIENT_SECRET = process.env.REACT_APP_NAVER_CLIENT_SECRET;
 
   const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=asdf`;
-
-  const local = process.env.REACT_APP_LOCAL_KAKAO_REDIRECT_URL;
-  const localKakao = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${local}&response_type=code`;
   return (
     <>
       <Flex jc="center" margin="80px 0 10px 0">
@@ -32,15 +29,6 @@ const Login = () => {
         >
           카카오로 시작하기
         </Button>
-        {/* <Button
-          outline
-          bc="white"
-          width="100%"
-          margin="0 0 16px"
-          onClick={() => (window.location.href = localKakao)}
-        >
-          카카오로 시작하기
-        </Button> */}
         <Button
           outline
           bc="white"

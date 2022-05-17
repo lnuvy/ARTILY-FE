@@ -15,7 +15,7 @@ import {
   Wrap,
 } from "../elements";
 import { clearPreview } from "../redux/modules/image";
-import { openModal } from "../redux/modules/modal";
+import { openDragModal, openModal } from "../redux/modules/modal";
 // import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
 import { inputSpaceReg, priceComma } from "../shared/utils";
@@ -29,6 +29,7 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { changeAddressDB } from "../redux/modules/user";
+import MapModal from "../shared/modal/modalContent/MapModal";
 
 /*
  * @한울
@@ -69,24 +70,16 @@ const StoreWrite = () => {
   const modalOn = (reg) => {
     if (reg === "category") {
       dispatch(
-        openModal({
-          title: "카테고리 선택",
-          content: <CategoryModal setReceiveCategory={setReceiveCategory} />,
-        })
+        openDragModal(<CategoryModal setReceiveCategory={setReceiveCategory} />)
       );
     } else {
       dispatch(
-        openModal({
-          title: "위치 선택",
-          content: (
-            <>
-              {/* <MapModal
-                setReceiveAddress={setReceiveAddress}
-                currentAddress={receiveAddress}
-              /> */}
-            </>
-          ),
-        })
+        openDragModal(
+          <MapModal
+            setReceiveAddress={setReceiveAddress}
+            currentAddress={receiveAddress}
+          />
+        )
       );
     }
   };
@@ -132,7 +125,7 @@ const StoreWrite = () => {
     formData.append("postContent", postContent);
     formData.append("price", price);
     for (let i = 0; i < imageArr.length; i++) {
-      formData.append("image", fileObj[i]);
+      formData.append("image", fileObj[i][1]);
     }
 
     if (inputs.delivery && !inputs.direct) {

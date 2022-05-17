@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Text, Grid, Image, Wrap } from "../elements";
-import { Card, ReviewCard, StoreCard } from "../components";
+
+import { Card, Footer, ReviewCard, StoreCard } from "../components";
 import { getHomeDataDB, getHomeData } from "../redux/modules/main";
+
 import { history } from "../redux/configureStore";
 
 import styled from "styled-components";
@@ -45,6 +47,7 @@ const Home = () => {
               return (
                 <StoreCard
                   onClick={() => move2detail(v, "/store")}
+                  isHome
                   key={v.postId}
                   imageUrl={
                     v.imageUrl &&
@@ -118,6 +121,7 @@ const Home = () => {
             : null}
         </Grid>
       </Wrap>
+      <Footer />
     </>
   );
 };

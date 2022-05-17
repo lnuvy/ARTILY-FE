@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
+import { Apis } from "../../shared/api";
 /*
  * @ 한울
  */
@@ -31,6 +32,18 @@ import moment from "moment";
 const initialState = {
   // 채팅방 리스트
   roomList: [],
+};
+
+export const getChatList = () => {
+  return async function (dispatch, getState, { history }) {
+    Apis.getChatList()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 };
 
 const chatSlice = createSlice({

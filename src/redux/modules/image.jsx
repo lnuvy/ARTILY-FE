@@ -41,22 +41,24 @@ const imageSlice = createSlice({
       state.imageArr = state.imageArr.filter((el) => {
         return el !== action.payload;
       });
+    },
 
-      // state.fileObj = state.fileObj.filter((el) => {
-      //   return el !== action.payload;
-      // })
+    removeFileObj: (state, action) => {
+      console.log(action.payload);
+      if (state.fileObj.length === 1) {
+        state.fileObj = [];
+      } else {
+        let newArr = state.fileObj.filter((arr) => arr[0] !== action.payload);
+        state.fileObj = newArr;
+      }
     },
-    // 사용자가 대표이미지를 바꾸고싶을때
-    setRepresent: (state, action) => {
-      // 기존 대표이미지
-      let temp = state.represent;
-      // 설정한 이미지로 대표이미지 바꿈
-      state.represent = action.payload;
-      // imageArr에서 설정한 이미지를 뺌
-      let newArr = state.imageArr.filter((el) => el !== action.payload);
-      // 빠진 배열과 기존 대표이미지 합쳐서 넣기
-      state.imageArr = [...newArr, temp];
-    },
+    // // 사용자가 대표이미지를 바꾸고싶을때
+    // setRepresent: (state, action) => {
+    //   let temp = state.represent;
+    //   state.represent = action.payload;
+    //   let newArr = state.imageArr.filter((el) => el !== action.payload);
+    //   state.imageArr = [...newArr, temp];
+    // },
 
     // 5/6 채팅에서 사진 변경할때
     setPreview: (state, action) => {
@@ -65,7 +67,9 @@ const imageSlice = createSlice({
 
     // 5/9 파일형태 저장
     inputfileObj: (state, action) => {
-      state.fileObj.push(action.payload);
+      let nowIndex = state.imageArr.length;
+      console.log(nowIndex);
+      state.fileObj.push([nowIndex, action.payload]);
     },
 
     editPosts3Url: (state, action) => {
@@ -85,6 +89,7 @@ const { reducer, actions } = imageSlice;
 export const {
   accrueImage,
   removePreview,
+  removeFileObj,
   setRepresent,
   setPreview,
   clearPreview,

@@ -32,7 +32,7 @@ export const getPostDB = () => {
 
     Apis.getStore()
       .then((res) => {
-        console.log(res.data);
+        console.log("스토어 get요청", res.data);
         dispatch(getStoreData(res.data.data));
       })
       .catch((err) => {
@@ -45,7 +45,7 @@ export const getPostOne = (postId) => {
   return async function (dispatch, getState, { history }) {
     Apis.getStoreDetail(postId)
       .then((res) => {
-        console.log(res.data);
+        console.log("스토어 상세페이지", res.data);
         const { detail, getUser } = res.data.data;
         dispatch(go2detail(detail));
         dispatch(otherPost(getUser));
@@ -69,9 +69,8 @@ export const addPostDB = (data, address) => {
       .then((res) => {
         if (!nowUser.address) {
           MySwal.fire({
-            icon: "question",
             title: "주소 기본등록",
-            text: "현재 선택한 주소를 기본주소로 등록할까요?",
+            text: "지금 설정한 주소를 기본주소로 저장할까요?",
             showDenyButton: true,
             confirmButtonText: "네",
             denyButtonText: `아니오`,
@@ -85,7 +84,7 @@ export const addPostDB = (data, address) => {
                 "success"
               );
             } else if (result.isDenied) {
-              Swal.fire("", "저장하지 않고 게시글을 등록합니다!", "info");
+              Swal.fire("", "저장하지 않고 게시글을 등록합니다.", "info");
             }
           });
         } else {

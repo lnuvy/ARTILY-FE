@@ -51,7 +51,7 @@ const StoreDetail = () => {
     dispatch(filteringData("전체"));
     // getdata
     dispatch(getPostOne(postId));
-  }, []);
+  }, [postId]);
 
   const isMe = current?.user?.userId === currentUser?.userId;
 

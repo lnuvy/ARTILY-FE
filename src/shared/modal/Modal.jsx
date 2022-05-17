@@ -55,16 +55,4 @@ const ContentWrap = styled.div`
   margin: 0;
 `;
 
-// const ModalFooter = styled.div`
-//   position: absolute;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   bottom: 10px;
-//   width: 100%;
-//   border-radius: 0 0 8px 8px;
-//   border-top: 1px solid gray;
-//   box-shadow: 1px 2px 24px black;
-// `;
-
 export default Modal;
