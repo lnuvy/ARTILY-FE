@@ -8,8 +8,10 @@ import { Apis } from "../../shared/api";
  */
 
 const initialState = {
-  list: [],
-  filterList: [],
+  //  Reveiw.js
+  list: null,
+  filterList: null,
+  // 사용 확인 중
   isFetching: false,
   infinityScroll: {},
   detailData: {
@@ -35,7 +37,8 @@ export const getReviewDB = () => {
     };
     Apis.getReview(pageHandler)
       .then(function (response) {
-        dispatch(getReviewData(response.data.review));
+        console.log(response);
+        dispatch(getReviewData(response.data.reviews));
       })
       .catch(function (error) {
         console.error(error);
@@ -127,7 +130,7 @@ const reviewSlice = createSlice({
   reducers: {
     getReviewData: (state, action) => {
       state.list = action.payload;
-      state.filterList = state.list;
+      state.filterList = action.payload;
     },
     getBuyList: (state, action) => {
       state.buyList = action.payload;
