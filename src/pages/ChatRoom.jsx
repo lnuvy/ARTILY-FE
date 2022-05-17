@@ -221,9 +221,10 @@ const Container = styled.div`
 
 const FixedChatBar = styled.div`
   align-items: center;
+  display: flex;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: ${({ theme }) => `${theme.view.maxWidth}`};
   padding: 10px 12px;
   border-top: 1px solid gray;
   z-index: 20;
