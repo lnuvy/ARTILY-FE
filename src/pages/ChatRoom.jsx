@@ -189,7 +189,7 @@ const ChatRoom = () => {
             fg="1"
             square
             br="8px"
-            placeholder="메세지를 작성해주세요"
+            placeholder="메세지를 변경변경 작성해주세요"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={(e) => {
