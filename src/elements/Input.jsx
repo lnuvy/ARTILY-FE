@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "../styles/theme";
+import { Button } from "../elements/index";
 
 // 5/7 전체 border 있는 인풋이 꼭 필요해서 square 로 Input 나눔, border-radius br 로 추가,
 // label 이 인풋을 너무 잡아먹어서 있을때만 자리차지할수있게 삼항연산자 줌 -한울-
@@ -27,9 +28,36 @@ const Input = (props) => {
     onClick,
     type,
     autoComplete,
+    withBtn,
   } = props;
 
   const styles = { width, fg, margin, alert, icon, padding, br };
+
+  if (withBtn) {
+    return (
+      <InputWrap {...styles}>
+        {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
+
+        <InputBox {...styles}>
+          <SquareInput
+            id={id}
+            type={type}
+            value={value}
+            placeholder="하하하하하"
+            onChange={onChange}
+            readOnly={readOnly}
+            onKeyPress={onKeyPress}
+            autoComplete={autoComplete} // autoComplete off 추가
+            {...styles}
+          />
+          <BtnWrap>
+            <Button padding="13px 16px">하이</Button>
+          </BtnWrap>
+        </InputBox>
+        {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}
+      </InputWrap>
+    );
+  }
 
   if (square) {
     return (
@@ -175,6 +203,14 @@ const InputIcon = styled.div`
   position: absolute;
   top: 8px;
   right: 8px;
+`;
+
+const BtnWrap = styled.div`
+  height: fit-content;
+  width: fit-content;
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
 
 const InputLabel = styled.label`

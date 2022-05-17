@@ -136,6 +136,14 @@ const Test = () => {
         <Card>Card in Grid (Grid: gtc="auto auto auto" rg="8px" cg="8px")</Card>
       </Grid>
       <Input
+        withBtn
+        label="Label"
+        placeholder="Placeholder"
+        margin="0 0 20px"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <Input
         label="Label"
         placeholder="Placeholder"
         margin="0 0 20px"

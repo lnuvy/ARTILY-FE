@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Button, Flex, Grid, Image, Input, Text, Wrap } from "../elements";
+import {
+  Button,
+  Flex,
+  Grid,
+  Image,
+  Input,
+  Text,
+  Wrap,
+  Icon,
+} from "../elements";
 import { socket } from "../shared/socket";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -187,6 +196,7 @@ const ChatRoom = () => {
             <Image width="60px" height="50px" src={uploadFile} />
           ) : (
             <Input
+              withBtn
               fg="1"
               square
               br="8px"
@@ -200,7 +210,9 @@ const ChatRoom = () => {
           )}
         </Flex>
         <ChatSubmit>
-          <ArrowUpward />
+          <Icon>
+            <ArrowUpward />
+          </Icon>
         </ChatSubmit>
         {/* {uploadFile ? (
             <Button onClick={sendFile}>전송</Button>
@@ -233,7 +245,7 @@ const FixedChatBar = styled.div`
   background-color: white;
 `;
 
-const ChatSubmit = styled.button`
+const ChatSubmit = styled.div`
   background-color: ${({ theme }) => theme.pallete.primary900};
   padding: 8px;
   border-radius: 8px;
