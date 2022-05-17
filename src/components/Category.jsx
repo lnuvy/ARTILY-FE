@@ -22,6 +22,7 @@ const Category = (props) => {
   const [current, setCurrent] = useState("전체");
 
   useEffect(() => {
+    console.log(current);
     review
       ? dispatch(filteringReviewData(current))
       : dispatch(filteringData(current));

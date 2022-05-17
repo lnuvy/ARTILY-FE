@@ -3,7 +3,12 @@ import { StoreCard, Footer } from "../components";
 import Category from "../components/Category";
 import { Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostDB, go2detail, filteringData } from "../redux/modules/store";
+import {
+  getStoreData,
+  getPostDB,
+  go2detail,
+  filteringData,
+} from "../redux/modules/store";
 import { history } from "../redux/configureStore";
 import _ from "lodash";
 
@@ -15,11 +20,14 @@ import theme from "../styles/theme";
 const Store = () => {
   const dispatch = useDispatch();
   const { list, filterList } = useSelector((state) => state.store);
+
   // 카테고리 필터링
 
   useEffect(() => {
+    // store data reset
+    dispatch(getStoreData([]));
     // store api 두번요청되는걸 막기위함
-    if (list.length < 6) dispatch(getPostDB());
+    dispatch(getPostDB());
   }, []);
 
   // 모달 필터링
@@ -90,53 +98,79 @@ const Store = () => {
           padding="11px 16px"
           margin="0 0 16px"
           placeholder="작가명, 작품명 검색..."
-          icon={<Search />}
+          icon={<Search color={theme.pallete.gray2} />}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <Flex margin="0 0 10px" jc="space-between">
-          <Checkbox id="checkFree" zoom={1.3} onChange={checkFree}>
-            <Text h3>나눔 작품만 보기</Text>
-          </Checkbox>
-          <Flex onClick={modalOn} jc="center" ai="center">
-            <Text h3>거래 방식/지역 선택하기</Text>
-            {filtering.transaction === "전체" &&
-            filtering.region[0] === "전체" ? (
-              <FilterFilled fill="gray" />
-            ) : (
-              <FilterFilled fill="black" />
-            )}
+        <Wrap margin="16px 0">
+          <Flex jc="space-between">
+            <Checkbox
+              checked={isFree}
+              id="checkFree"
+              zoom={1.3}
+              onChange={checkFree}
+            >
+              <Text body2>나눔 작품만 보기</Text>
+            </Checkbox>
+            <Flex onClick={modalOn} jc="center" ai="center">
+              <Text body2>거래 방식 / 지역 선택하기</Text>
+              {filtering.transaction === "전체" &&
+              filtering.region[0] === "전체" ? (
+                <FilterFilled fill={theme.pallete.gray3} />
+              ) : (
+                <FilterFilled fill={theme.pallete.gray3} />
+              )}
+            </Flex>
           </Flex>
-        </Flex>
-        <Flex margin="5px 0 15px">
-          {filtering.transaction !== "전체" && (
-            <Text color={theme.pallete.gray3}>
-              {filtering.transaction},&nbsp;
+          <Flex>
+            {filtering.transaction !== "전체" && (
+              <Text margin="16px 0 0" body3 color={theme.pallete.gray3}>
+                {filtering.region[0] !== "전체"
+                  ? `${filtering.transaction},`
+                  : filtering.transaction}
+              </Text>
+            )}
+            {filtering.region[0] !== "전체" &&
+              filtering.region.map((r, i, arr) => {
+                if (i + 1 === arr.length) {
+                  return (
+                    <Text
+                      body3
+                      margin="16px 0 0"
+                      key={`${i}_filter_${r}`}
+                      color={theme.pallete.gray3}
+                    >
+                      &nbsp;{r}&nbsp;
+                    </Text>
+                  );
+                } else {
+                  return (
+                    <Text
+                      body3
+                      margin="16px 0 0"
+                      key={`${i}_filter_${r}`}
+                      color={theme.pallete.gray3}
+                    >
+                      &nbsp;{r},
+                    </Text>
+                  );
+                }
+              })}
+            <Text body3 margin="16px 0 0" color={theme.pallete.gray3}>
+              {filtering.transaction === "전체" ||
+              filtering.region.indexOf("전체") === 1
+                ? null
+                : ` 검색 결과 ${filterList.length}건`}
             </Text>
-          )}
-          {filtering.region[0] !== "전체" &&
-            filtering.region.map((r, i, arr) => {
-              if (i + 1 === arr.length) {
-                return (
-                  <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
-                    {r}&nbsp;
-                  </Text>
-                );
-              } else {
-                return (
-                  <Text key={`${i}_filter_${r}`} color={theme.pallete.gray3}>
-                    {r},&nbsp;
-                  </Text>
-                );
-              }
-            })}
-        </Flex>
+          </Flex>
+        </Wrap>
 
         {/* 여기부터 컨텐츠 (리스트가 아무것도없을때 안내를 할건지?) */}
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
           {searchList && query !== ""
             ? searchList
-            : filterList.map((l) => {
+            : filterList &&
+              filterList.map((l) => {
                 if (isFree) {
                   if (l.price === 0) {
                     return (
