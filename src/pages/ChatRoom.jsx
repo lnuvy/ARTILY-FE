@@ -181,22 +181,24 @@ const ChatRoom = () => {
         <div ref={messagesEndRef} />
       </Container>
       <FixedChatBar>
-        <ChatFileInput />
-        {uploadFile ? (
-          <Image width="60px" height="50px" src={uploadFile} />
-        ) : (
-          <Input
-            fg="1"
-            square
-            br="8px"
-            placeholder="메세지를 변경변경 작성해주세요"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") sendMessage();
-            }}
-          />
-        )}
+        <Flex>
+          <ChatFileInput />
+          {uploadFile ? (
+            <Image width="60px" height="50px" src={uploadFile} />
+          ) : (
+            <Input
+              fg="1"
+              square
+              br="8px"
+              placeholder="메세지를 변경변경 작성해주세요"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") sendMessage();
+              }}
+            />
+          )}
+        </Flex>
         <ChatSubmit>
           <ArrowUpward />
         </ChatSubmit>
@@ -221,7 +223,7 @@ const Container = styled.div`
 
 const FixedChatBar = styled.div`
   align-items: center;
-  display: flex;
+
   position: fixed;
   bottom: 0;
   width: ${({ theme }) => `${theme.view.maxWidth}`};
