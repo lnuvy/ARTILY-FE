@@ -18,8 +18,6 @@ Api.interceptors.request.use(async (config) => {
 
 const formDataConfig = { headers: { "Content-Type": `multipart/form-data;` } };
 
-console.log(getToken());
-
 // 토큰
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMjIxNjkzNjE0IiwiaWF0IjoxNjUxODQ2NjI3fQ.O_LCYnV5NDxh5H2xfMcCEaIup0KU4DCbeyyJv7ar3Tg
 
@@ -44,6 +42,7 @@ export const Apis = {
   // getStore: (pageHandler) =>
   //   Api.get(`/api/post/store&page=${pageHandler.page}`),
   getStore: () => Api.get(`/api/post/store`),
+  // getStoreFilter: () => Api.get(`/api/post/`) ,
   getStoreDetail: (postId) => Api.get(`api/post/${postId}`),
   postStore: (data) => Api.post("/api/post", data, formDataConfig),
   patchStore: (postId, data) =>

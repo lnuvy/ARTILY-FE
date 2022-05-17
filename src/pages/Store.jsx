@@ -66,7 +66,7 @@ const Store = () => {
   const modalOn = () => {
     dispatch(
       openModal({
-        title: "",
+        title: " ",
         content: (
           <StoreFilter filtering={filtering} setFiltering={setFiltering} />
         ),

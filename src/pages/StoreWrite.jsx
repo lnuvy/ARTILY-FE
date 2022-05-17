@@ -47,7 +47,7 @@ const StoreWrite = () => {
     postTitle: "",
     postContent: "",
   });
-  const { represent, imageArr, fileObj } = useSelector((state) => state.image);
+  const { imageArr, fileObj } = useSelector((state) => state.image);
   const nowUser = useSelector((state) => state.user.user);
 
   const handleChange = (e) => {

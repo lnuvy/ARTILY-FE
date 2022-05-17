@@ -1,39 +1,50 @@
-name: Build and deploy
+name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
-  workflow_dispatch:
+  # workflow_dispatch:
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@main
+
+      - name: Cache node modules # node modules 캐싱 # 노드모듈즈
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build- 
+            ${{ runner.OS }}-
+
       - name: Install dependencies
         run: yarn install
-      - name: Yarn Add
-        run: yarn add yarn
+
       - name: Build dependencies
         run: yarn build
+        env:
+          CI: "" # 경고를 에러로 보지 않게 함
 
   deploy:
-    name: Deploy
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@main
+
       - name: Download artifact
         uses: actions/download-artifact@main
         with:
           name: build
           path: build
       - name: Deploy to Firebase
-        uses: w0jds/firebase-action@master
+        uses: 2b6be/firebase-action@main
         with:
           args: deploy --only hosting
         env:
