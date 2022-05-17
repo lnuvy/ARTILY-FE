@@ -5,10 +5,6 @@ import { Button, Flex, Grid, Icon, Text, Wrap } from "../../elements";
 import DragProtals from "./DragPortals";
 import theme from "../../styles/theme";
 
-// X 아이콘
-import { IoCloseOutline } from "react-icons/io5";
-import { closeModal } from "../../redux/modules/modal";
-
 const DragModal = () => {
   const dispatch = useDispatch();
 

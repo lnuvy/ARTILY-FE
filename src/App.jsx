@@ -32,26 +32,27 @@ function App() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     socket.auth = { user };
-  //     socket.connect();
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user) {
+      socket.auth = { user };
+      console.log(user);
+      socket.connect();
+    }
+  }, [user]);
 
-  // useEffect(() => {
-  //   // 판매자 입장
-  //   socket.on("join_room", (data) => {
-  //     dispatch(receiveChatRoom(data));
-  //     socket.emit("enter_room", data.roomName);
-  //   });
-  // }, []);
+  useEffect(() => {
+    // 판매자 입장
+    socket.on("join_room", (data) => {
+      dispatch(receiveChatRoom(data));
+      socket.emit("enter_room", data.roomName);
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   socket.on("receive_message", (data) => {
-  //     dispatch(receiveChat(data));
-  //   });
-  // }, []);
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      dispatch(receiveChat(data));
+    });
+  }, []);
 
   // // 닉네임이 비어있을때
   useEffect(() => {
