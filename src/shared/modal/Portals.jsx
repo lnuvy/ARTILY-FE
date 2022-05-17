@@ -2,6 +2,8 @@ import ReactDOM from "react-dom";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { closeModal } from "../../redux/modules/modal";
+import theme from "../../styles/theme";
+import { Wrap } from "../../elements/index.js";
 
 const Portals = ({ children }) => {
   const el = document.getElementById("portals");
@@ -13,7 +15,9 @@ const Portals = ({ children }) => {
 
   return ReactDOM.createPortal(
     <Background onClick={modalClose}>
-      <Content onClick={(e) => e.stopPropagation()}>{children}</Content>
+      <Wrap>
+        <Content onClick={(e) => e.stopPropagation()}>{children}</Content>
+      </Wrap>
     </Background>,
     el
   );
@@ -30,17 +34,19 @@ const Background = styled.div`
   top: 0;
   height: 100%;
   width: 100%;
+
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   overflow: hidden;
 `;
 
 // 컨텐츠: 모달 본체
 const Content = styled.div`
   z-index: 204;
-  height: 67vh;
-  max-width: 580px;
-  width: 92%;
+  height: fit-content;
+
+  margin: 0 auto;
+  width: calc(${({ theme }) => theme.view.maxWidth} - 32px);
   border-radius: 8px;
   background-color: #fff;
 

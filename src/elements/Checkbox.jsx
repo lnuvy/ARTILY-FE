@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { Icon } from "../elements/index";
+import { CheckBoxUnchecked, CheckBoxChecked } from "../assets/icons";
 import theme from "../styles/theme";
 
 const Checkbox = (props) => {
   // zoom, onChange 추가 zoom은 체크박스가 너무 작아서 넣었습니다 -한울-
-  const { children, id, fontSize, margin, fg, onChange, zoom } = props;
+  const { children, id, fontSize, margin, fg, onChange, zoom, checked } = props;
 
   const styles = {
     margin,
@@ -20,6 +22,7 @@ const Checkbox = (props) => {
           id={id}
           zoom={zoom}
         />
+        <Icon>{checked ? <CheckBoxChecked /> : <CheckBoxUnchecked />}</Icon>
         <CheckboxLabel type="label" htmlFor={id} fontSize={fontSize}>
           {children}
         </CheckboxLabel>
@@ -41,6 +44,10 @@ const CheckboxWrap = styled.div`
 const CheckboxStyle = styled.input`
   zoom: ${({ zoom }) => zoom};
   border-radius: 0;
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   :hover {
     cursor: pointer;
   }

@@ -92,14 +92,15 @@ const StoreFilter = ({ filtering, setFiltering }) => {
 
   return (
     <>
-      <Wrap padding="12px">
-        <Text h2 bold>
+      <Wrap padding="0 0 18px">
+        <Text h2 bold margin="0 0 8px">
           거래 유형
         </Text>
         {transaction.map((l, i) => {
           if (filter.transaction === l)
             return (
               <ToggleButton
+                margin="0 8px 0 0"
                 select
                 onClick={toggleTransaction}
                 key={`${l}_${i}`}
@@ -109,32 +110,45 @@ const StoreFilter = ({ filtering, setFiltering }) => {
             );
           else
             return (
-              <ToggleButton onClick={toggleTransaction} key={`${l}_${i}`}>
+              <ToggleButton
+                margin="0 8px 0 0"
+                onClick={toggleTransaction}
+                key={`${l}_${i}`}
+              >
                 {l}
               </ToggleButton>
             );
         })}
-        <Text h2 bold>
-          지역
-        </Text>
-        {regions.map((r, i) => {
-          if (filter.region.find((find) => find === r))
-            return (
-              <ToggleButton select onClick={toggleRegion} key={`${r}_${i}`}>
-                {r}
-              </ToggleButton>
-            );
-          else
-            return (
-              <ToggleButton onClick={toggleRegion} key={`${r}_${i}`}>
-                {r}
-              </ToggleButton>
-            );
-        })}
-        <Button width="100%" margin="12px 0" onClick={submitFilter}>
-          이 조건으로 검색하기
-        </Button>
       </Wrap>
+      <Text h2 bold>
+        지역
+      </Text>
+      {regions.map((r, i) => {
+        if (filter.region.find((find) => find === r))
+          return (
+            <ToggleButton
+              margin="8px 8px 0 0"
+              select
+              onClick={toggleRegion}
+              key={`${r}_${i}`}
+            >
+              {r}
+            </ToggleButton>
+          );
+        else
+          return (
+            <ToggleButton
+              margin="8px 8px 0 0"
+              onClick={toggleRegion}
+              key={`${r}_${i}`}
+            >
+              {r}
+            </ToggleButton>
+          );
+      })}
+      <Button margin="16px 0" width="100%" onClick={submitFilter}>
+        이 조건으로 검색하기
+      </Button>
     </>
   );
 };

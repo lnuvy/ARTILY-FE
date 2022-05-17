@@ -29,8 +29,8 @@ ToggleButton.defaultProps = {
   jc: "0",
   width: "fit-content",
   height: "fit-content",
-  margin: "5px",
-  padding: "12px",
+  margin: "0",
+  padding: "8px 16px",
   border: "none",
   fg: "0",
   bc: `white`,
@@ -42,7 +42,8 @@ const ButtonStyle = styled.button`
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   border-radius: 8px;
-  border: 1px solid gray;
+  color: ${({ theme }) => theme.pallete.gray2};
+  border: 1px solid ${({ theme }) => theme.pallete.gray2};
   justify-content: center;
   flex-grow: ${({ fg }) => fg};
   width: ${({ width }) => width};
@@ -51,7 +52,10 @@ const ButtonStyle = styled.button`
   background-color: white;
   ${({ select, theme }) =>
     select
-      ? `border: 1px solid transparent; background: ${theme.color.brandColor}; color: white; `
+      ? `
+      border: 1px solid transparent; 
+      background: ${theme.color.brandColor}; 
+      color: white; `
       : null};
 `;
 

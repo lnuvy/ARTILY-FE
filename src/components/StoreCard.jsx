@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Favorite } from "../assets/icons";
+import { Favorite, FavoriteFilled } from "../assets/icons";
 import { Flex, Icon, Image, Text } from "../elements";
 import { priceComma } from "../shared/utils";
 import theme from "../styles/theme";
@@ -37,18 +37,19 @@ const StoreCard = (props) => {
           <Image circle size="32" src={user?.profileImage} />
         )}
 
-        <Text h3 margin="0 0 0 4px">
+        <Text h3 margin="0 0 0 8px">
           {user?.nickname}
         </Text>
       </Flex>
       <Text h3 medium>
         {postTitle}
       </Text>
-      <Text color={theme.pallete.gray3}>
+      <Text body2 color={theme.pallete.gray3}>
         {transaction}
+
         {changeAddress &&
           (changeAddress.length > 8
-            ? ` ∙ ${changeAddress.substring(0, 8)}...`
+            ? ` ∙ ${changeAddress.substring(0, 10)}...`
             : ` ∙ ${changeAddress}`)}
       </Text>
       <Flex>
@@ -56,9 +57,9 @@ const StoreCard = (props) => {
         <Icon width="fit-content">
           <Flex>
             {isMyMarkup ? (
-              <IoMdHeart size={16} color={theme.pallete.primary850} />
+              <FavoriteFilled size="16" color={theme.color.brandColor} />
             ) : (
-              <Favorite />
+              <Favorite size="16" color={theme.color.brandColor} />
             )}
 
             <Text body2 margin="0 0 0 2px">

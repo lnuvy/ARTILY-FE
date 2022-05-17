@@ -12,7 +12,12 @@ const initialState = {
   filterList: [],
   isFetching: false,
   infinityScroll: {},
-  detailData: null,
+  detailData: {
+    buyer: undefined,
+    defferent: undefined,
+    sellItemInfo: undefined,
+    myLike: 0,
+  },
   detailSeller: null,
   detailSellerAnother: null,
   reviewData: null,
@@ -102,19 +107,47 @@ export const deleteReviewDB = (reviewId) => {
   };
 };
 
+export const likeReviewDB = (reviewId) => {
+  return async function (dispatch, getState, { history }) {
+    Apis.likeReview(reviewId)
+      .then(function (response) {
+        console.log(response);
+        dispatch(getMyLike(response.data.totalLike));
+        dispatch(getReviewOne(reviewId));
+      })
+      .catch(function (error) {
+        console.error(error.message);
+      });
+  };
+};
+
 const reviewSlice = createSlice({
   name: "reivew",
   initialState: initialState,
   reducers: {
     getReviewData: (state, action) => {
       state.list = action.payload;
+      state.filterList = state.list;
     },
     getBuyList: (state, action) => {
       state.buyList = action.payload;
     },
     getNowReview: (state, action) => {
-      console.log(action.payload.defferent);
       state.reviewData = action.payload;
+      // function checkSellItem(element) {
+      //   if (element.postId === action.payload.buyer.seller.postId) {
+      //     return true;
+      //   }
+      // }
+      // if (action.payload.defferent) {
+      //   state.reviewData.sellItemInfo =
+      //     action.payload.defferent.find(checkSellItem);
+      // }
+    },
+    getMyLike: (state, action) => {
+      state.detailData.myLike = action.payload;
+    },
+    getSellItem: (state, action) => {
       function checkSellItem(element) {
         if (element.postId === action.payload.buyer.seller.postId) {
           return true;
@@ -129,6 +162,7 @@ const reviewSlice = createSlice({
     },
     // 카테고리 필터 이름변경
     filteringReviewData: (state, action) => {
+      console.log("filter");
       if (action.payload === "전체") {
         state.filterList = state.list;
         return;
@@ -136,7 +170,7 @@ const reviewSlice = createSlice({
 
       if (state.list.length > 0) {
         state.filterList = state.list.filter(
-          (post) => post.category === action.payload
+          (review) => review.category === action.payload
         );
       }
     },
@@ -150,5 +184,6 @@ export const {
   getNowReview,
   filteringReviewData,
   getBuyList,
+  getMyLike,
 } = actions;
 export default reducer;
