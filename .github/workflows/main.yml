@@ -31,21 +31,25 @@ jobs:
         env:
           CI: "" # 경고를 에러로 보지 않게 함
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@main
-
-      - name: Download artifact
-        uses: actions/download-artifact@main
-        with:
-          name: build
-          path: build
-      - name: Deploy to Firebase
-        uses: 2b6be/firebase-action@main
-        with:
-          args: deploy --only hosting
+      - name: deploy
+        run: yarn firebase deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN}}
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@main
+
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@main
+  #       with:
+  #         name: build
+  #         path: build
+  #     - name: Deploy to Firebase
+  #       uses: 2b6be/firebase-action@main
+  #       with:
+  #         args: deploy --only hosting
+  #       env:
+  #         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN}}
