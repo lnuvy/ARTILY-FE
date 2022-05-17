@@ -26,7 +26,7 @@
 
 //     // 더미데이터 임시방편
 //     dispatch(getmyStoreData(BuylistDummy));
-//     const allList = getState().mystore.list;
+//     const allList = getState().mypage.list;
 //     console.log(allList);
 //     const now = allList.find((l) => l.postId === postId);
 //     dispatch(getDetail(now));

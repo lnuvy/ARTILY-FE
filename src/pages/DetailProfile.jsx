@@ -94,7 +94,7 @@ const DetailProfile = () => {
                 square
                 br="6px"
                 type="text"
-                placeholder="instargram 주소"
+                placeholder="instargram ID"
                 value={website1 || ""}
                 icon={
                   <Flex

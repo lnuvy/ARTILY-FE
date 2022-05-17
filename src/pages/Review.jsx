@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ArtCard, Card, ReviewCard } from "../components";
-import Category from "../components/Category";
-import { Button, Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
-
-import {
-  getReviewData,
-  getReviewDB,
-  go2detail,
-  filteringReviewData,
-} from "../redux/modules/reviews";
-import { postReviewDB, getBuyList } from "../redux/modules/reviews.jsx";
-
 import { history } from "../redux/configureStore";
-
-import { AiOutlineSearch } from "react-icons/ai";
+// components
+import { Grid, Wrap } from "../elements";
+import { ReviewCard, Category } from "../components/index";
+// moduels
+import { getReviewData, getReviewDB } from "../redux/modules/reviews";
 
 const Review = () => {
   const dispatch = useDispatch();
@@ -22,14 +13,14 @@ const Review = () => {
   const filteringList = useSelector((state) => state.review.filterList);
 
   useEffect(() => {
-    dispatch(getReviewData([]));
-
+    // reset
+    dispatch(getReviewData(null));
+    // get
     dispatch(getReviewDB());
   }, []);
 
-  const handleClickData = (data) => {
-    // dispatch(go2detail(data));
-    history.push(`/review/view/${data.reviewId}`);
+  const clickCard = (reviewId) => {
+    history.push(`/review/view/${reviewId}`);
   };
 
   return (
@@ -37,7 +28,23 @@ const Review = () => {
       <Grid>
         <Category review />
         <Wrap margin="16px">
+<<<<<<< HEAD
+          <Grid gtc="1fr 1fr" margin="0 0 20px">
+            {filteringList &&
+              filteringList.map((v, i) => {
+                return (
+                  <ReviewCard
+                    _key={i}
+                    onClick={clickCard(v.reviewId)}
+                    imageUrl={v.imageUrl[0].imageUrl}
+                    {...v}
+                  />
+                );
+              })}
+=======
           <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 0 20px">
+            {/* {reviewList?.length
+              ? reviewList.map((l, i) => { */}
             {reviewList && filteringList
               ? filteringList.map((l, i) => {
                   return (
@@ -54,16 +61,10 @@ const Review = () => {
                   );
                 })
               : null}
+>>>>>>> c464820fe369418cb1467723d066e6859f999725
           </Grid>
         </Wrap>
       </Grid>
-      {/* <Button
-        onClick={() => {
-          history.push("/review/write/select");
-        }}
-      >
-        글쓰기
-      </Button> */}
     </>
   );
 };

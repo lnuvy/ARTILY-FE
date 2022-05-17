@@ -41,7 +41,10 @@ const Header = (props) => {
 
   const reviewWrite = path === "/review/write";
   const storeWrite = path === "/store/write";
-  const profile = path === "/profile" || path === "/profiledetail";
+  const profile =
+    path === "/profile" ||
+    path === "/profile/detail" ||
+    path === "/mypage/edit";
 
   if (isShowNow)
     return (

@@ -19,11 +19,13 @@ import {
   otherPost,
   filteringData,
 } from "../redux/modules/store";
+
+import { addFollowDB } from "../redux/modules/follow";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { priceComma } from "../shared/utils";
 import theme from "../styles/theme";
-
+import SellLabel from "../components/SellLabel";
 import { deleteSwal } from "../shared/commonAlert";
 
 // 임시 아이콘
@@ -43,6 +45,13 @@ const StoreDetail = () => {
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
+  const followId = current?.user?.userId;
+
+  console.log("팔로우 하려는 userId", followId);
+
+  const clickFollow = () => {
+    dispatch(addFollowDB(followId));
+  };
 
   useEffect(() => {
     // reset
@@ -108,18 +117,22 @@ const StoreDetail = () => {
       {current && current.user && (
         <>
           <Wrap margin="0 16px">
-            <Text h1>{current.postTitle}</Text>
+            <Flex>
+              <Text h1>{current.postTitle}</Text>
+              {/* 판매완료일때만 보여야함 */}
+              <SellLabel complete3 />
+            </Flex>
             <Flex margin="8px 0" jc="space-between">
               <Flex>
                 <Image
                   circle
                   size="32"
-                  src={current.user.profileImage}
+                  src={current?.user?.profileImage}
                   onClick={() => {
-                    history.push(`/mypage/${current.user.userId}`);
+                    history.push(`/userprofile/${current.user.userId}`);
                   }}
                 />
-                <Text margin="0 0 0 4px">{current.user.nickname}</Text>
+                <Text margin="0 0 0 4px">{current?.user?.nickname}</Text>
               </Flex>
               <Flex>
                 {isMe ? (
@@ -146,7 +159,8 @@ const StoreDetail = () => {
                     <Flex
                       padding="6px"
                       onClick={() => {
-                        console.log("팔로우 하기");
+                        console.log("팔로우 버튼 눌렀다");
+                        clickFollow();
                       }}
                     >
                       <Text body1 color={theme.pallete.primary900}>
@@ -170,7 +184,7 @@ const StoreDetail = () => {
           </Wrap>
           <ImageCarousel src={current.imageUrl} />
 
-          <Wrap margin="16px 16px 56px" padding="0 0 12px">
+          <Wrap margin="16px 16px 56px">
             <Flex margin="8px 0" jc="space-between">
               <Text color={theme.pallete.gray3}>분류</Text>
               <Text color={theme.pallete.gray3}>{current.category}</Text>
@@ -199,17 +213,47 @@ const StoreDetail = () => {
                   <Text h2 lineHeight="22px">
                     작가의 다른 작품
                   </Text>
-                  <Text
-                    margin="0 0 0 14px"
-                    fg="1"
-                    lineHeight="22px"
-                    color={theme.pallete.primary900}
-                  >
-                    팔로우
-                  </Text>
-                  <Text lineHeight="22px" color={theme.pallete.primary900}>
-                    더보기
-                  </Text>
+                  {/* 작가의 다른작품 팔로우도 본인이 아닐경우만 뜨도록 isMe 넣었습니다 */}
+                  {isMe ? (
+                    <>
+                      <Wrap fg="1"></Wrap>
+                      <Text lineHeight="22px">
+                        <Button
+                          fontSize="16px"
+                          color={`${theme.color.brandColor}`}
+                          text
+                        >
+                          더보기
+                        </Button>
+                      </Text>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      <Wrap margin="0 0 0 8px" fg="1">
+                        <Button
+                          fontSize="16px"
+                          color={`${theme.color.brandColor}`}
+                          text
+                          onClick={() => {
+                            console.log("팔로우 버튼 눌렀다");
+                            clickFollow();
+                          }}
+                        >
+                          팔로우
+                        </Button>
+                      </Wrap>
+                      <Text lineHeight="22px">
+                        <Button
+                          fontSize="16px"
+                          color={`${theme.color.brandColor}`}
+                          text
+                        >
+                          더보기
+                        </Button>
+                      </Text>
+                    </>
+                  )}
                 </Flex>
                 <Grid gtc="1fr 1fr" rg="18px" cg="8px" margin="0 0 20px">
                   {otherPosts.map((post) => {

@@ -26,9 +26,9 @@ const formDataConfig = { headers: { "Content-Type": `multipart/form-data;` } };
 // May8 api 통합 관리
 export const Apis = {
   getHome: () => Api.get("/api/post"),
-  getReview: (pageHandler) => Api.get("api/review", pageHandler),
+  getReview: (pageHandler) => Api.get("api/review?page=1&limit=6"),
   getReviewDetail: (reviewId) => Api.get(`api/review/${reviewId}`),
-  // likeReview: (reviewId) => Api.post(`api/like/${reviewId}`),
+  likeReview: (reviewId) => Api.post(`api/like/${reviewId}`),
   postReview: (postId, reviewContents) =>
     Api.post(`api/review/${postId}`, reviewContents),
   editReview: (reviewId, reviewContents) =>
@@ -60,11 +60,18 @@ export const Apis = {
   postMarkUp: (postId) => Api.post(`/api/markup/${postId}`),
 
   //mypage API
-  getMypageData: (userId) => Api.get(`/api/profile/${userId}`),
+  getMypageData: () => Api.get(`/api/myprofile`),
   getMyList: () => Api.get(`/api/mypost`),
+  getMyBuyList: () => Api.get(`/api/profile/mypost`),
+
+  //userprofile API
+  getUserProfile: (userId) => Api.get(`/api/profile/${userId}`),
 
   //follow API
-  getMyFollow: (followId) => Api.post(`/api/follow/${followId}`),
+  postAddFollow: (followId) => Api.post(`/api/follow/${followId}`),
+  getMyFollowlist: () => Api.get(`/api/follow/followlist`),
+  getMyFollowerlist: () => Api.get(`/api/follow/followerlist`),
+
   // chat API
   getChatList: () => Api.get(`/api/chat`),
 };

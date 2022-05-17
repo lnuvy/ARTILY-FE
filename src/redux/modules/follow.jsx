@@ -1,36 +1,94 @@
-// import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-// import { Apis } from "../../shared/api";
+import { Apis } from "../../shared/api";
+import { useSelector } from "react-redux";
+import { fromPairs } from "lodash";
 
-// const initialState = {
-//   list: ["용감한 지렁이"],
-// };
-// //follow 목록 조회
-// export const addFollowListDB = (followId) => {
-//   return function (dispatch, getState, { history }) {
-//     Apis.getMypageData(followId)
-//       .then((res) => {
-//         console.log(res);
-//         dispatch(getmyfollowdata(followId));
-//         history.push("/follow");
-//       })
-//       .catch((error) => {
-//         console.log("마이페이지 조회 실패", error);
-//         window.alert("마이페이지를 조회하는 데 문제가 발생했습니다!");
-//       });
-//   };
-// };
+const initialState = {
+  list: [],
+  follower: [],
+};
+//POST
+export const addFollowDB = (followId) => {
+  return function (dispatch, getState, { history }) {
+    Apis.postAddFollow(followId)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        dispatch(addmyfollowdata(followId));
+        // history.push("/follow");
+      })
+      .catch((error) => {
+        console.log("실패", error);
+        // window.alert("문제가 발생했습니다!");
+      });
+  };
+};
+//팔로우 취소
+export const DeleteFollowDB = (followId) => {
+  return function (dispatch, getState, { history }) {
+    Apis.postAddFollow(followId)
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        dispatch(addmyfollowdata(followId));
+        // history.push("/follow");
+      })
+      .catch((error) => {
+        console.log("팔로우 삭제 실패", error);
+      });
+  };
+};
 
-// const postsSlice = createSlice({
-//   name: "follow",
-//   initialState: initialState,
-//   reducers: {
-//     getmyfollowdata: (state, action) => {
-//     },
-//   },
-// });
+//팔로우 목록(GET)
+export const getFollowDB = () => {
+  return function (dispatch, getState, { history }) {
+    Apis.getMyFollowlist()
+      .then((res) => {
+        const followUser = res.data.data;
+        console.log("GET 팔로우 :", res);
+        dispatch(addmyfollowdata(followUser));
+        history.push("/follow");
+      })
+      .catch((error) => {
+        console.log("follow 목록 조회 실패", error);
+      });
+  };
+};
+//팔로워 목록(GET)
+export const getFollowerDB = () => {
+  return function (dispatch, getState, { history }) {
+    Apis.getMyFollowerlist()
+      .then((res) => {
+        const followerUser = res.data.data;
+        console.log("GET 팔로워 :", res);
+        console.log(followerUser);
+        dispatch(getfollowerdata(followerUser));
+        history.push("/follow");
+      })
+      .catch((error) => {
+        console.log("follower 목록 조회 실패", error);
+      });
+  };
+};
 
-// const { reducer, actions } = postsSlice;
+const postsSlice = createSlice({
+  name: "followUser",
+  initialState: initialState,
+  reducers: {
+    addmyfollowdata: (state, action) => {
+      state.list = action.payload;
+      // state.follower = action.payload;
+      console.log("followId: ", state.list); //followId
+    },
+    getfollowerdata: (state, action) => {
+      state.follower = action.payload;
+      console.log(state.follower);
+    },
+  },
+});
 
-// export const { getmyfollowdata } = actions;
-// export default reducer;
+const { reducer, actions } = postsSlice;
+
+export const { addmyfollowdata, getfollowdata, getfollowerdata } = actions;
+export default reducer;
