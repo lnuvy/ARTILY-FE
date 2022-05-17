@@ -37,7 +37,7 @@ const DragModal = () => {
 
 const ContentWrap = styled.div`
   width: 100%;
-  height: fit-content;
+  height: 100%;
   padding: 0 16px;
   margin: 0;
 `;

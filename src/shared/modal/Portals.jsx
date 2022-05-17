@@ -15,7 +15,7 @@ const Portals = ({ children }) => {
 
   return ReactDOM.createPortal(
     <Background onClick={modalClose}>
-      <Wrap>
+      <Wrap marign="0 16px">
         <Content onClick={(e) => e.stopPropagation()}>{children}</Content>
       </Wrap>
     </Background>,

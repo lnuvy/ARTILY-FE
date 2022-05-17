@@ -89,9 +89,8 @@ const Radio = styled.input`
 
 const SubmitDiv = styled.div`
   width: calc(100% - 32px);
-  margin: 0 16px;
   position: absolute;
-  bottom: 12px;
+  bottom: 16px;
 `;
 
 export default CategoryModal;
