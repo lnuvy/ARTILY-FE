@@ -23,6 +23,7 @@ import {
   Test,
   BuyList,
   UserProfile,
+  UserFollow,
 } from "../pages";
 
 const AuthRoute = () => {
@@ -44,6 +45,7 @@ const AuthRoute = () => {
       <Route path="/test" component={Test} />
       <Route path="/mypage" exact component={MyPage} />
       <Route path="/userprofile/:userId" exact component={UserProfile} />
+      <Route path="/userprofile/follow/:userId" exact component={UserFollow} />
       <Route path="/login" exact component={Login} />
       <Route path="/profile" exact component={Setprofile} />
       <Route path="/oauth/kakao/callback" component={RedirectKakao} />

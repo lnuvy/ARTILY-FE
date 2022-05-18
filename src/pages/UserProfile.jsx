@@ -20,6 +20,7 @@ const UserProfile = () => {
   }, []);
 
   const currentUser = useSelector((state) => state?.mypage.userInfo);
+  const nowUser = useSelector((state) => state?.mypage.userInfo.user);
   const otherUser = currentUser.user;
   console.log(currentUser);
   const {
@@ -60,25 +61,25 @@ const UserProfile = () => {
               <Text h3 bold margin="0 0 10px 0">
                 {currentUser && otherUser?.nickname ? otherUser?.nickname : ""}
               </Text>
-              <Text body2 color="#555">
-                팔로워{" "}
-                <Follower
+              <WrapFollow>
+                <Grid
                   onClick={() => {
-                    history.push("/follow");
+                    history.push(`/userprofile/follow/${userId}`);
                   }}
                 >
-                  1
-                </Follower>
-                명 · 팔로잉{" "}
-                <Follower
-                  onClick={() => {
-                    history.push("/follow");
-                  }}
-                >
-                  1
-                </Follower>
-                명
-              </Text>
+                  <Text body2 color="#555">
+                    팔로워{" "}
+                    <Follower>
+                      {nowUser?.followerCnt ? nowUser?.followerCnt : "0"}
+                    </Follower>
+                    명 · 팔로잉{" "}
+                    <Follower>
+                      {nowUser?.followCnt ? nowUser?.followCnt : "0"}
+                    </Follower>
+                    명
+                  </Text>
+                </Grid>
+              </WrapFollow>
               <Text body2 color="#555" margin="0.5em 0 0 0">
                 등록한 작품{" "}
                 {currentUser?.myPosts && currentUser?.myPosts?.length
@@ -196,10 +197,11 @@ const Nav = styled.div`
   width: 100%;
 `;
 
+const WrapFollow = styled.div`
+  cursor: pointer;
+`;
 const Follower = styled.span`
   font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
 `;
 
 const Tab = styled.div`

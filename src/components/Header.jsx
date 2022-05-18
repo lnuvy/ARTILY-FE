@@ -44,8 +44,7 @@ const Header = (props) => {
   const profile =
     path === "/profile" ||
     path === "/profile/detail" ||
-    path === "/mypage/edit" ||
-    path === "/follow";
+    path === "/mypage/edit";
 
   if (isShowNow)
     return (

@@ -176,6 +176,7 @@ const Store = () => {
                       <StoreCard
                         key={l.postId}
                         {...l}
+                        imageUrl={l.imageUrl[0].imageUrl}
                         onClick={() => handleClickData(l)}
                       />
                     );
@@ -185,6 +186,7 @@ const Store = () => {
                     <StoreCard
                       key={l.postId}
                       {...l}
+                      imageUrl={l.imageUrl[0].imageUrl}
                       onClick={() => handleClickData(l)}
                     />
                   );

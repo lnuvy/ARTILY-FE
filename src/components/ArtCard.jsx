@@ -82,7 +82,7 @@ const ArtCard = (props) => {
                 ""
               )}
               <Flex fg="0" padding="8px 0 0 0">
-                <img src="../images/Like.png" alt="좋아요" />
+                <Favorite size="16" color={`${theme.color.brandColor}`} />
                 <Text margin="0 0 0 4px">{markupCnt}</Text>
               </Flex>
             </Wrap>
@@ -187,7 +187,7 @@ const ArtCard = (props) => {
             ""
           )}
           <Flex fg="0">
-            <img src="../images/Like.png" alt="좋아요" />
+            <Favorite size="16" color={`${theme.color.brandColor}`} />
             <Text margin="0 0 0 4px">{markupCnt}</Text>
           </Flex>
         </Flex>
@@ -213,7 +213,7 @@ const ArtCard = (props) => {
             {nowuser?.nickname}
           </Text>
           <Flex fg="0">
-            <img src="../images/Like.png" alt="좋아요" />
+            <Favorite size="16" color={`${theme.color.brandColor}`} />
             <Text margin="0 0 0 4px">{markupCnt}</Text>
           </Flex>
         </Flex>
@@ -242,7 +242,7 @@ const ArtCard = (props) => {
             ""
           )}
           <Flex fg="0">
-            <img src="../images/Like.png" alt="좋아요" />
+            <Favorite size="16" color={`${theme.color.brandColor}`} />
             <Text margin="0 0 0 4px">{markupCnt}</Text>
           </Flex>
         </Flex>

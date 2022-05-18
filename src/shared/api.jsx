@@ -27,7 +27,7 @@ const formDataConfig = { headers: { "Content-Type": `multipart/form-data;` } };
 export const Apis = {
   getHome: () => Api.get("/api/post"),
   getReview: (pageHandler) => Api.get("api/review?page=1&limit=6"),
-  getReviewDetail: (reviewId) => Api.get(`api/review/${reviewId}`),
+  getReviewDetail: (reviewId) => Api.get(`api/review/detail/${reviewId}`),
   likeReview: (reviewId) => Api.post(`api/like/${reviewId}`),
   postReview: (postId, reviewContents) =>
     Api.post(`api/review/${postId}`, reviewContents),
@@ -69,8 +69,13 @@ export const Apis = {
 
   //follow API
   postAddFollow: (followId) => Api.post(`/api/follow/${followId}`),
-  getMyFollowlist: () => Api.get(`/api/follow/followlist`),
-  getMyFollowerlist: () => Api.get(`/api/follow/followerlist`),
+
+  getMyFollowlist: () => Api.get(`/api/follow/myfollowlist`),
+  getMyFollowerlist: () => Api.get(`/api/follow/myfollowerlist`),
+
+  getUserFollowlist: (userId) => Api.get(`/api/follow/followlist/${userId}`),
+  getUserFollowerlist: (userId) =>
+    Api.get(`/api/follow/followerlist/${userId}`),
 
   // chat API
   getChatList: () => Api.get(`/api/chat`),
