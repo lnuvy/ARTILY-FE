@@ -21,8 +21,6 @@ const Store = () => {
   const dispatch = useDispatch();
   const { list, filterList } = useSelector((state) => state.store);
 
-  console.log(list);
-
   // 카테고리 필터링
   useEffect(() => {
     // store data reset

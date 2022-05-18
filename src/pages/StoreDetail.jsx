@@ -94,15 +94,19 @@ const StoreDetail = () => {
       done: current.done,
     };
 
+    const targetUser = {
+      userId: current.user.userId,
+      nickname: current.user.nickname,
+      profileImage: current.user.profileImage,
+    };
+
     socket.emit("join_room", roomName, postUser, chatPostData);
 
     dispatch(
       receiveChatRoom({
         roomName,
-        target: postUser,
         post: chatPostData,
-        nickname: current.user.nickname,
-        profileImage: current.user.profileImage,
+        targetUser,
         messages: [],
         newMessage: 0,
         lastMessage: null,
