@@ -4,7 +4,7 @@ import { connectRouter } from "connected-react-router";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./modules/user";
-import ToastReducer from "./modules/ToastMessage";
+// import ToastReducer from "./modules/ToastMessage";
 import ModalReducer from "./modules/modal";
 import MainReducer from "./modules/main";
 import StoresReducer from "./modules/store";
@@ -21,7 +21,7 @@ export const history = createBrowserHistory({ basename: "/" });
 const rootReducer = combineReducers({
   user: userReducer,
   //프로필 이미지 설정시 사용할 모듈
-  toastMessage: ToastReducer,
+  // toastMessage: ToastReducer,
   modal: ModalReducer,
   main: MainReducer,
   store: StoresReducer,

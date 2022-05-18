@@ -47,6 +47,9 @@ const StoreDetail = () => {
   const otherPosts = useSelector((state) => state.store.otherPost);
   const followId = current?.user?.userId;
 
+  const { roomList } = useSelector((state) => state.chat);
+  console.log(roomList);
+
   console.log("팔로우 하려는 userId", followId);
 
   const clickFollow = () => {
@@ -86,6 +89,13 @@ const StoreDetail = () => {
 
     let roomName = `from${nowUser}_to${postUser}_${postId}`;
 
+    const isExistRoom = roomList.find((room) => room.roomName === roomName);
+
+    if (isExistRoom) {
+      history.push(`/chat/${roomName}`);
+      return;
+    }
+
     const chatPostData = {
       postId,
       imageUrl: current.imageUrl[0],
@@ -94,21 +104,37 @@ const StoreDetail = () => {
       done: current.done,
     };
 
-    socket.emit("join_room", roomName, postUser, chatPostData);
+    console.log("join_room 세번째인자", chatPostData);
 
+    const targetUser = {
+      userId: current.user.userId,
+      nickname: current.user.nickname,
+      profileImage: current.user.profileImage,
+    };
+
+    console.log("join_room targetUser 주는 데이터 모양", targetUser);
+
+    socket.emit("join_room", roomName, postUser, chatPostData);
     dispatch(
       receiveChatRoom({
         roomName,
-        target: postUser,
         post: chatPostData,
-        nickname: current.user.nickname,
-        profileImage: current.user.profileImage,
+        targetUser,
         messages: [],
         newMessage: 0,
         lastMessage: null,
         lastTime: null,
       })
     );
+    console.log("프론트 리덕스 저장소 들어간 데이터 형식:", {
+      roomName,
+      post: chatPostData,
+      targetUser,
+      messages: [],
+      newMessage: 0,
+      lastMessage: null,
+      lastTime: null,
+    });
     history.push(`/chat/${roomName}`);
   };
 

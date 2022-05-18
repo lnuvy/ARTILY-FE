@@ -21,8 +21,6 @@ const Store = () => {
   const dispatch = useDispatch();
   const { list, filterList } = useSelector((state) => state.store);
 
-  console.log(list);
-
   // 카테고리 필터링
   useEffect(() => {
     // store data reset
@@ -178,6 +176,7 @@ const Store = () => {
                       <StoreCard
                         key={l.postId}
                         {...l}
+                        imageUrl={l.imageUrl[0].imageUrl}
                         onClick={() => handleClickData(l)}
                       />
                     );
@@ -187,6 +186,7 @@ const Store = () => {
                     <StoreCard
                       key={l.postId}
                       {...l}
+                      imageUrl={l.imageUrl[0].imageUrl}
                       onClick={() => handleClickData(l)}
                     />
                   );

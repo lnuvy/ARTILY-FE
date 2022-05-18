@@ -21,6 +21,8 @@ const ReviewCard = (props) => {
     likeCnt,
     images,
     createdAt,
+    //
+    category,
   } = props;
 
   return (
@@ -47,7 +49,8 @@ const ReviewCard = (props) => {
         </Icon>
       </Flex>
       <DisplayNone>
-        {/* <Text margin="0 0 0 4px">{createdAt}</Text> */}
+        <Text>{category}</Text>
+        <Text>{createdAt}</Text>
       </DisplayNone>
     </Card>
   );

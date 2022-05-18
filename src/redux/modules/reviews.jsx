@@ -11,26 +11,21 @@ const initialState = {
   //  Reveiw.js
   list: null,
   filterList: null,
-  // 사용 확인 중
-  isFetching: false,
-  infinityScroll: {},
+  // ReviewDetail.js
   detailData: {
-    buyer: undefined,
-    defferent: undefined,
-    sellItemInfo: undefined,
-    myLike: 0,
+    buyer: [],
+    defferents: [],
+    myLike: "-",
   },
-  detailSeller: null,
-  detailSellerAnother: null,
+
   reviewData: null,
   buyList: null,
+  isFetching: false,
+  infinityScroll: {},
 };
 
 export const getReviewDB = () => {
   return async function (dispatch, getState, { history }) {
-    // await axios.get()
-    // 더미데이터 리덕스 주입
-
     const pageHandler = {
       page: 1,
       limit: 6,
@@ -48,23 +43,15 @@ export const getReviewDB = () => {
 
 export const getReviewOne = (reviewId) => {
   return async function (dispatch, getState, { history }) {
-    // axios
     Apis.getReviewDetail(reviewId)
       .then(function (response) {
-        console.log(response.data);
+        console.log(response);
         dispatch(getNowReview(response.data));
-        // const sellItem = response.data.reviewData.defferent.filter(
-        //   (v) => v.postId === current.reviewData.buyer.seller.postId && v.postId
-        // );
-        // dispatch();
+        // dispatch(getSellItem(response.data));
       })
       .catch(function (error) {
         console.error(error);
       });
-
-    // const now = allList.find((l) => l.reviewId === Number(reviewId));
-    // console.log(now);
-    // dispatch(getNowReview(now));
   };
 };
 
@@ -136,16 +123,9 @@ const reviewSlice = createSlice({
       state.buyList = action.payload;
     },
     getNowReview: (state, action) => {
-      state.reviewData = action.payload;
-      // function checkSellItem(element) {
-      //   if (element.postId === action.payload.buyer.seller.postId) {
-      //     return true;
-      //   }
-      // }
-      // if (action.payload.defferent) {
-      //   state.reviewData.sellItemInfo =
-      //     action.payload.defferent.find(checkSellItem);
-      // }
+      console.log(action.payload);
+      state.detailData.buyer = action.payload.buyer;
+      state.detailData.defferents = action.payload.defferents;
     },
     getMyLike: (state, action) => {
       state.detailData.myLike = action.payload;
@@ -165,17 +145,14 @@ const reviewSlice = createSlice({
     },
     // 카테고리 필터 이름변경
     filteringReviewData: (state, action) => {
-      console.log("filter");
       if (action.payload === "전체") {
+        console.log(action.payload);
         state.filterList = state.list;
         return;
       }
-
-      if (state.list.length > 0) {
-        state.filterList = state.list.filter(
-          (review) => review.category === action.payload
-        );
-      }
+      state.filterList = state.list.filter(
+        (v) => v.seller.category === action.payload
+      );
     },
   },
 });
@@ -188,5 +165,6 @@ export const {
   filteringReviewData,
   getBuyList,
   getMyLike,
+  getSellItem,
 } = actions;
 export default reducer;

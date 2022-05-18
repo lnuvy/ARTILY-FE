@@ -13,7 +13,9 @@ import theme from "../styles/theme";
 
 const Chat = () => {
   const dispatch = useDispatch();
-  const { roomList, newMessage } = useSelector((state) => state.chat);
+  const { roomList } = useSelector((state) => state.chat);
+
+  console.log(roomList);
 
   useEffect(() => {
     // 방목록 가져오기

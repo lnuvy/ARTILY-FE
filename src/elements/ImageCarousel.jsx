@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const ImageCarousel = (props) => {
-  const { src } = props || [];
+  const { src } = props;
 
   // react-slick 설정
   const settings = {
@@ -22,11 +22,11 @@ const ImageCarousel = (props) => {
   return (
     <>
       <StyledSlider {...settings}>
-        {src && src.length > 0
+        {src
           ? src.map((img, i) => {
               return (
                 <Grid key={`${i}_번째_${img}`}>
-                  <Image height="375px" src={img} alt="img" />
+                  <Image height="375px" src={img.imageUrl} alt="img" />
                 </Grid>
               );
             })

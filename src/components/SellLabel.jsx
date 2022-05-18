@@ -9,8 +9,6 @@ const SellLabel = (props) => {
     storeLabel = null,
   } = props;
 
-  console.log(done);
-
   if (manageLabel) {
     //마이페이지 판매작품 관리하기 탭
     return (

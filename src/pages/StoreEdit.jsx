@@ -6,11 +6,11 @@ import { clearPreview, editPosts3Url } from "../redux/modules/image";
 import { openDragModal } from "../redux/modules/modal";
 // import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
-import { inputSpaceReg, priceComma } from "../shared/utils";
+import { inputSpaceReg } from "../shared/utils";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { history } from "../redux/configureStore";
-import { addPostDB, editPostDB } from "../redux/modules/store";
+import { editPostDB } from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 
 // alert
@@ -29,8 +29,6 @@ const StoreEdit = () => {
   const dispatch = useDispatch();
 
   const { postId } = useParams();
-
-  console.log(postId);
 
   const nowPost = useSelector((state) => state.store.detailData);
 

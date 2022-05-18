@@ -27,7 +27,7 @@ const formDataConfig = { headers: { "Content-Type": `multipart/form-data;` } };
 export const Apis = {
   getHome: () => Api.get("/api/post"),
   getReview: (pageHandler) => Api.get("api/review?page=1&limit=6"),
-  getReviewDetail: (reviewId) => Api.get(`api/review/${reviewId}`),
+  getReviewDetail: (reviewId) => Api.get(`api/review/detail/${reviewId}`),
   likeReview: (reviewId) => Api.post(`api/like/${reviewId}`),
   postReview: (postId, reviewContents) =>
     Api.post(`api/review/${postId}`, reviewContents),
