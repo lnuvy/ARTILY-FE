@@ -122,10 +122,12 @@ const StoreDetail = () => {
         <>
           <Wrap margin="0 16px">
             <Flex>
-              <Text h1>{detailData.postTitle}</Text>
+              <Text h1 medium>
+                {detailData.postTitle}
+              </Text>
               <SellLabel complete3 />
             </Flex>
-            <Flex margin="8px 0" jc="space-between">
+            <Flex margin="10px 0 6px" jc="space-between">
               {/* 5.18 cursor:pointer를 위한 style-components 추가 */}
               <ProfileBtn
                 onClick={() => {
@@ -138,7 +140,7 @@ const StoreDetail = () => {
                     size="32"
                     src={detailData?.user?.profileImage}
                   />
-                  <Text margin="0 0 0 4px">{detailData?.user?.nickname}</Text>
+                  <Text margin="0 0 0 8px">{detailData?.user?.nickname}</Text>
                 </Flex>
               </ProfileBtn>
               <Flex>
@@ -191,7 +193,7 @@ const StoreDetail = () => {
           </Wrap>
           <ImageCarousel src={detailData.imageUrl} />
 
-          <Wrap margin="16px 16px 56px">
+          <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">
               <Text color={theme.pallete.gray3}>분류</Text>
               <Text color={theme.pallete.gray3}>{detailData.category}</Text>
@@ -211,7 +213,7 @@ const StoreDetail = () => {
             </Flex>
             {otherPosts && (
               <>
-                <Flex margin="16px 0 10px">
+                <Flex margin="4px 0 10px">
                   <Text h2 lineHeight="22px">
                     작가의 다른 작품
                   </Text>
@@ -233,7 +235,7 @@ const StoreDetail = () => {
                     </>
                   ) : (
                     <>
-                      <Wrap margin="0 0 0 8px" fg="1">
+                      <Wrap margin="0 0 0 4px" fg="1">
                         <Button
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
