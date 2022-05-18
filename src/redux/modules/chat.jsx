@@ -7,28 +7,26 @@ import { socket } from "../../shared/socket";
  */
 
 // 채팅방리스트 모양
-// const roomList = [
-//   {
-//     nickname: "진우",
-//     post: {
-//       postId: "postIdforchat",
-//       imageUrl:
-//         "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
-//       postTitle: "채팅용",
-//       price: 2000,
-//     },
-//     postUser: "2222423044",
-//     roomName: "from2222434554_to2222423044_postIdforchat",
-//     profileImage: "",
-//     messages: [],
-//     lastMessage: {
-//       message: "dfdf",
-//       time: "2022-05-05 12:00:00",
-//       myself: true / false,
-//     },
-//     newMessage: 0,
-//   },
-// ];
+const roomList = [
+  {
+    post: {
+      postId: "postIdforchat",
+      imageUrl:
+        "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
+      postTitle: "채팅용",
+      price: 2000,
+      done: false,
+    },
+
+    postUser: "2222423044",
+    roomName: "from2222434554_to2222423044_postIdforchat",
+    profileImage: "",
+    messages: [],
+    lastMessage: "dfdf",
+    lastTime: "df",
+    newMessage: 0,
+  },
+];
 
 const initialState = {
   // 채팅방 리스트
@@ -40,6 +38,9 @@ export const getChatList = () => {
     Apis.getChatList()
       .then((res) => {
         console.log(res);
+        console.log(res.data.chatRoomName);
+        console.log(res.data.chatRoomName);
+        dispatch(getChatRoom(res.data.chatRoomName));
       })
       .catch((err) => {
         console.log(err);
@@ -51,6 +52,9 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
+    getChatRoom: (state, action) => {
+      state.roomList = action.payload;
+    },
     notificationCheck: (state, action) => {
       const roomName = action.payload;
 
@@ -96,6 +100,7 @@ const chatSlice = createSlice({
 
 const { reducer, actions } = chatSlice;
 export const {
+  getChatRoom,
   newNotification,
   notificationCheck,
   // createChatRoom,
