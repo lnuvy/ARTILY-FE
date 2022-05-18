@@ -17,13 +17,15 @@ const roomList = [
       price: 2000,
       done: false,
     },
-
-    postUser: "2222423044",
+    targetUser: {
+      userId: "asdfasdf",
+      nickname: "asdfasdf",
+      profileImage: "asdfasdfasdfa",
+    },
     roomName: "from2222434554_to2222423044_postIdforchat",
-    profileImage: "",
     messages: [],
     lastMessage: "dfdf",
-    lastTime: "df",
+    lastTime: "",
     newMessage: 0,
   },
 ];
@@ -38,8 +40,6 @@ export const getChatList = () => {
     Apis.getChatList()
       .then((res) => {
         console.log(res);
-        console.log(res.data.chatRoomName);
-        console.log(res.data.chatRoomName);
         dispatch(getChatRoom(res.data.chatRoomName));
       })
       .catch((err) => {
@@ -85,10 +85,9 @@ const chatSlice = createSlice({
       state.roomList.forEach((room) => {
         if (room.roomName === roomName) {
           room.messages.push(action.payload);
-          // 딕셔너리 넣었는데 터져서 배열로 바꿈
           room.lastMessage = message;
           room.lastTime = time;
-          // 남이보낸거면 카운트 추가
+
           if (from !== myId) {
             room.newMessage++;
           }

@@ -1,26 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import {
-  Button,
-  Flex,
-  Grid,
-  Image,
-  Input,
-  Text,
-  Wrap,
-  Icon,
-} from "../elements";
+import { Flex, Image, Input, Text, Wrap, Icon } from "../elements";
 import { socket } from "../shared/socket";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import theme from "../styles/theme";
 import { history } from "../redux/configureStore";
-import {
-  messagesUpdate,
-  notificationCheck,
-  receiveChat,
-} from "../redux/modules/chat";
+import { notificationCheck, receiveChat } from "../redux/modules/chat";
 import { ChatFileInput } from "../components";
 import { ArrowUpward } from "../assets/icons";
 import { priceComma } from "../shared/utils";
@@ -37,7 +24,6 @@ const ChatRoom = () => {
   const nowChat = useSelector((state) => state.chat.roomList).find(
     (room) => room.roomName === roomName
   );
-  console.log(nowChat);
 
   const isDone = nowChat?.post?.done;
 
@@ -49,14 +35,17 @@ const ChatRoom = () => {
   useEffect(() => {
     if (nowChat) {
       setMessages(nowChat.messages);
-      console.log(messages);
     }
     return () => {
       dispatch(notificationCheck(roomName));
     };
   }, [nowChat]);
 
-  console.log(messages);
+  useEffect(() => {
+    if (!nowChat) {
+      history.replace("/chat");
+    }
+  });
 
   const sendMessage = () => {
     // 공백검사
@@ -67,8 +56,6 @@ const ChatRoom = () => {
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
       };
       socket.emit("send_message", messageData);
-      console.log(messageData);
-      console.log(messages);
       setMessages(messages.concat(messageData));
       setMessage("");
       dispatch(receiveChat(messageData));
@@ -164,7 +151,6 @@ const ChatRoom = () => {
             </Flex>
           </Flex>
         </Flex>
-        <Flex>{/* <Button onClick={leaveRoom}>나가기</Button> */}</Flex>
       </Wrap>
 
       <Container>

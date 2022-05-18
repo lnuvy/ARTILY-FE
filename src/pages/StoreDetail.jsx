@@ -94,11 +94,15 @@ const StoreDetail = () => {
       done: current.done,
     };
 
+    console.log("join_room 세번째인자", chatPostData);
+
     const targetUser = {
       userId: current.user.userId,
       nickname: current.user.nickname,
       profileImage: current.user.profileImage,
     };
+
+    console.log("join_room targetUser 주는 데이터 모양", targetUser);
 
     socket.emit("join_room", roomName, postUser, chatPostData);
 
@@ -113,6 +117,15 @@ const StoreDetail = () => {
         lastTime: null,
       })
     );
+    console.log("프론트 리덕스 저장소 들어간 데이터 형식:", {
+      roomName,
+      post: chatPostData,
+      targetUser,
+      messages: [],
+      newMessage: 0,
+      lastMessage: null,
+      lastTime: null,
+    });
     history.push(`/chat/${roomName}`);
   };
 

@@ -8,7 +8,6 @@ import theme from "../styles/theme";
 const ChatCard = ({ room, onClick }) => {
   // const dispatch = useDispatch();
 
-  console.log(room.targetUser);
   const target = room?.targetUser || null;
   const nowConnected = true;
 
