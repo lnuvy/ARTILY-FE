@@ -24,6 +24,7 @@ import {
   BuyList,
   UserProfile,
   UserFollow,
+  SellerSelect,
 } from "../pages";
 
 const AuthRoute = () => {

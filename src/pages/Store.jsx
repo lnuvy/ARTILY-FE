@@ -166,30 +166,29 @@ const Store = () => {
           </Flex>
         </Wrap>
 
-        {/* 여기부터 컨텐츠 (리스트가 아무것도없을때 안내를 할건지?) */}
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
           {searchList && query !== ""
             ? searchList
             : filterList &&
-              filterList.map((l) => {
+              filterList.map((v) => {
                 if (isFree) {
-                  if (l.price === 0) {
+                  if (v.price === 0) {
                     return (
                       <StoreCard
-                        key={l.postId}
-                        {...l}
-                        imageUrl={l.imageUrl[0].imageUrl}
-                        onClick={() => handleClickData(l)}
+                        key={v.postId}
+                        {...v}
+                        imageUrl={v.imageUrl[0].imageUrl}
+                        onClick={() => handleClickData(v)}
                       />
                     );
                   }
                 } else
                   return (
                     <StoreCard
-                      key={l.postId}
-                      {...l}
-                      imageUrl={l.imageUrl[0].imageUrl}
-                      onClick={() => handleClickData(l)}
+                      key={v.postId}
+                      {...v}
+                      imageUrl={v.imageUrl[0].imageUrl}
+                      onClick={() => handleClickData(v)}
                     />
                   );
               })}

@@ -42,12 +42,10 @@ const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
 
-  const current = useSelector((state) => state.store.detailData);
+  const detailData = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
-  const followId = current?.user?.userId;
-
-  console.log("팔로우 하려는 userId", followId);
+  const followId = detailData?.user?.userId;
 
   const clickFollow = () => {
     dispatch(addFollowDB(followId));
@@ -62,7 +60,7 @@ const StoreDetail = () => {
     dispatch(getPostOne(postId));
   }, [postId]);
 
-  const isMe = current?.user?.userId === currentUser?.userId;
+  const isMe = detailData?.user?.userId === currentUser?.userId;
 
   const deletePosting = async () => {
     const result = await deleteSwal();
@@ -79,19 +77,25 @@ const StoreDetail = () => {
     }
   };
 
+  // 더보기
+  const moveToProfile = (userId) => {
+    console.log(userId);
+    history.push(`/userprofile/${userId}`);
+  };
+
   // 채팅하기 버튼 눌렀을때
   const startChat = () => {
-    const postUser = current.user?.userId;
+    const postUser = detailData.user?.userId;
     const nowUser = currentUser?.userId;
 
     let roomName = `from${nowUser}_to${postUser}_${postId}`;
 
     const chatPostData = {
       postId,
-      imageUrl: current.imageUrl[0],
-      postTitle: current.postTitle,
-      price: current.price,
-      done: current.done,
+      imageUrl: detailData.imageUrl[0],
+      postTitle: detailData.postTitle,
+      price: detailData.price,
+      done: detailData.done,
     };
 
     socket.emit("join_room", roomName, postUser, chatPostData);
@@ -101,8 +105,8 @@ const StoreDetail = () => {
         roomName,
         target: postUser,
         post: chatPostData,
-        nickname: current.user.nickname,
-        profileImage: current.user.profileImage,
+        nickname: detailData.user.nickname,
+        profileImage: detailData.user.profileImage,
         messages: [],
         newMessage: 0,
         lastMessage: null,
@@ -114,24 +118,27 @@ const StoreDetail = () => {
 
   return (
     <>
-      {current && current.user && (
+      {detailData && detailData.user && (
         <>
           <Wrap margin="0 16px">
             <Flex>
-              <Text h1>{current.postTitle}</Text>
-              {/* 판매완료일때만 보여야함 */}
+              <Text h1>{detailData.postTitle}</Text>
               <SellLabel complete3 />
             </Flex>
             <Flex margin="8px 0" jc="space-between">
               {/* 5.18 cursor:pointer를 위한 style-components 추가 */}
               <ProfileBtn
                 onClick={() => {
-                  history.push(`/userprofile/${current.user.userId}`);
+                  history.push(`/userprofile/${detailData.user.userId}`);
                 }}
               >
                 <Flex>
-                  <Image circle size="32" src={current?.user?.profileImage} />
-                  <Text margin="0 0 0 4px">{current?.user?.nickname}</Text>
+                  <Image
+                    circle
+                    size="32"
+                    src={detailData?.user?.profileImage}
+                  />
+                  <Text margin="0 0 0 4px">{detailData?.user?.nickname}</Text>
                 </Flex>
               </ProfileBtn>
               <Flex>
@@ -182,29 +189,24 @@ const StoreDetail = () => {
               </Flex>
             </Flex>
           </Wrap>
-          <ImageCarousel src={current.imageUrl} />
+          <ImageCarousel src={detailData.imageUrl} />
 
           <Wrap margin="16px 16px 56px">
             <Flex margin="8px 0" jc="space-between">
               <Text color={theme.pallete.gray3}>분류</Text>
-              <Text color={theme.pallete.gray3}>{current.category}</Text>
+              <Text color={theme.pallete.gray3}>{detailData.category}</Text>
             </Flex>
-            {/* <Flex  margin="8px 0" jc="space-between">
-              <Text color={theme.pallete.gray3}>
-                크기
-              </Text>
-              <Text color={theme.pallete.gray3}>{current.size}</Text>
-            </Flex> */}
+
             <Flex margin="8px 0 10px" jc="space-between">
               <Text color={theme.pallete.gray3}>거래 방식</Text>
               <Text color={theme.pallete.gray3}>
-                {current.transaction}
-                {current.changeAddress && ` ∙ ${current.changeAddress}`}
+                {detailData.transaction}
+                {detailData.changeAddress && ` ∙ ${detailData.changeAddress}`}
               </Text>
             </Flex>
             <Flex>
               <Text color="black" margin="0 0 16px">
-                {current.postContent}
+                {detailData.postContent}
               </Text>
             </Flex>
             {otherPosts && (
@@ -213,15 +215,17 @@ const StoreDetail = () => {
                   <Text h2 lineHeight="22px">
                     작가의 다른 작품
                   </Text>
-                  {/* 작가의 다른작품 팔로우도 본인이 아닐경우만 뜨도록 isMe 넣었습니다 */}
+
                   {isMe ? (
                     <>
-                      <Wrap fg="1"></Wrap>
                       <Text lineHeight="22px">
                         <Button
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
                           text
+                          onClick={() =>
+                            moveToProfile(otherPosts[0].user.userId)
+                          }
                         >
                           더보기
                         </Button>
@@ -229,7 +233,6 @@ const StoreDetail = () => {
                     </>
                   ) : (
                     <>
-                      {" "}
                       <Wrap margin="0 0 0 8px" fg="1">
                         <Button
                           fontSize="16px"
@@ -248,6 +251,9 @@ const StoreDetail = () => {
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
                           text
+                          onClick={() =>
+                            moveToProfile(otherPosts[0].user.userId)
+                          }
                         >
                           더보기
                         </Button>
@@ -274,10 +280,10 @@ const StoreDetail = () => {
               )}
 
               <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
-                {current.markupCnt}
+                {detailData.markupCnt}
               </Text>
               <Text h3 medium margin="0 20px">
-                {current.price && priceComma(current.price)}원
+                {detailData.price && priceComma(detailData.price)}원
               </Text>
             </Flex>
             <Flex jc="end">
