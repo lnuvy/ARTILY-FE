@@ -90,8 +90,15 @@ const MyPage = () => {
                 }}
               >
                 <Text body2 color="#555">
-                  팔로워 <Follower>{getProfile?.followerCnt}</Follower>명 ·
-                  팔로잉 <Follower>{getProfile?.followCnt}</Follower>명
+                  팔로워{" "}
+                  <Follower>
+                    {getProfile?.followerCnt ? getProfile?.followerCnt : "0"}
+                  </Follower>
+                  명 · 팔로잉{" "}
+                  <Follower>
+                    {getProfile?.followCnt ? getProfile?.followCnt : "0"}
+                  </Follower>
+                  명
                 </Text>
               </Grid>
               <Text body2 color="#555" margin="0.5em 0 0 0">

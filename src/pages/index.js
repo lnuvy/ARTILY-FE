@@ -23,6 +23,7 @@ import DetailProfile from "./DetailProfile";
 import ReviewWrite from "./ReviewWrite";
 import UserProfile from "./UserProfile";
 import ReviewSelect from "./ReviewSelect";
+import UserFollow from "./UserFollow";
 
 export {
   BuyList,
@@ -50,4 +51,5 @@ export {
   ReviewWrite,
   UserProfile,
   ReviewSelect,
+  UserFollow,
 };
