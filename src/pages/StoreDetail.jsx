@@ -123,17 +123,17 @@ const StoreDetail = () => {
               <SellLabel complete3 />
             </Flex>
             <Flex margin="8px 0" jc="space-between">
-              <Flex>
-                <Image
-                  circle
-                  size="32"
-                  src={current?.user?.profileImage}
-                  onClick={() => {
-                    history.push(`/userprofile/${current.user.userId}`);
-                  }}
-                />
-                <Text margin="0 0 0 4px">{current?.user?.nickname}</Text>
-              </Flex>
+              {/* 5.18 cursor:pointer를 위한 style-components 추가 */}
+              <ProfileBtn
+                onClick={() => {
+                  history.push(`/userprofile/${current.user.userId}`);
+                }}
+              >
+                <Flex>
+                  <Image circle size="32" src={current?.user?.profileImage} />
+                  <Text margin="0 0 0 4px">{current?.user?.nickname}</Text>
+                </Flex>
+              </ProfileBtn>
               <Flex>
                 {isMe ? (
                   <>
@@ -311,5 +311,7 @@ const FixedChatBar = styled.div`
   max-width: ${theme.view.maxWidth};
   height: 56px;
 `;
-
+const ProfileBtn = styled.div`
+  cursor: pointer;
+`;
 export default StoreDetail;
