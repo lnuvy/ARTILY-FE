@@ -51,154 +51,162 @@ const DetailProfile = () => {
 
   return (
     <>
-      <Wrap textAlign="center">
-        <img src="/images/artily.svg" alt="logo" />
-        <Text body1 color="#999">
-          내 프로필을 완성해주세요!
-        </Text>
-      </Wrap>
-      <Wrapprofile>
-        <Flex jc="center">
-          <Image
-            alt="profile"
-            width="120px"
-            height="120px"
-            br="60px"
-            border="1px solid #eee"
-            shadow="1px 1px 3px #ddd"
-            src={
-              getProfile && getProfile.profileImage && getProfile.profileImage
-            }
-          />
-        </Flex>
-      </Wrapprofile>
-      <Wrap padding="20px 20px">
-        <Flex padding="10px 0">
-          <Flex width="100%">
-            <Flex width="30%">
-              <Text>닉네임</Text>
-            </Flex>
-            <Flex width="70%">
-              <Input square br="6px" fg="1" value={nickname} readOnly />
-            </Flex>
-          </Flex>
-        </Flex>
-        <Flex padding="10px 0 5px">
-          <Flex width="100%">
-            <Flex width="30%">
-              <Text>웹사이트</Text>
-            </Flex>
-            <Flex width="70%">
-              <Input
-                fg="1"
-                square
-                br="6px"
-                type="text"
-                placeholder="instargram ID"
-                value={website1 || ""}
-                icon={
-                  <Flex
-                    onClick={() => {
-                      setVisible1(!visible1);
-                    }}
-                  >
-                    <AddBox />
-                  </Flex>
-                }
-                onChange={(e) => setWebsite1(e.target.value)}
-              />
-            </Flex>
-          </Flex>
-        </Flex>
-
-        {visible1 && (
-          <Flex padding="10px 0 10px">
-            <Flex width="100%">
-              <Flex width="30%">
-                <Text></Text>
-              </Flex>
-              <Flex width="70%">
-                <Input
-                  square
-                  fg="1"
-                  br="6px"
-                  type="text"
-                  placeholder="Behance 주소"
-                  value={website2 || ""}
-                  icon={
-                    <Flex
-                      onClick={() => {
-                        setVisible2(!visible2);
-                      }}
-                    >
-                      <AddBox />
-                    </Flex>
+      <Outline>
+        <div className="box">
+          <Wrap textAlign="center">
+            <img
+              src={process.env.PUBLIC_URL + "/images/artily.png"}
+              alt="logo"
+            />
+            <Text body1 color="#999" margin="20px 0 30px 0">
+              내 프로필을 완성해주세요!
+            </Text>
+            <Wrapprofile>
+              <Flex jc="center">
+                <Image
+                  alt="profile"
+                  width="120px"
+                  height="120px"
+                  br="60px"
+                  shadow="1px 1px 3px #888"
+                  src={
+                    getProfile &&
+                    getProfile.profileImage &&
+                    getProfile.profileImage
                   }
-                  onChange={(e) => setWebsite2(e.target.value)}
                 />
               </Flex>
-            </Flex>
-          </Flex>
-        )}
-        {visible2 && (
-          <Flex padding="5px 0 10px">
-            <Flex width="100%">
-              <Flex width="30%">
-                <Text></Text>
+            </Wrapprofile>
+            <Wrap padding="20px 20px">
+              <Flex padding="10px 0">
+                <Flex width="100%">
+                  <Flex width="30%">
+                    <Text>닉네임</Text>
+                  </Flex>
+                  <Flex width="70%">
+                    <Input square br="6px" fg="1" value={nickname} readOnly />
+                  </Flex>
+                </Flex>
               </Flex>
-              <Flex width="70%">
-                <Input
-                  square
-                  br="6px"
-                  fg="1"
-                  type="text"
-                  placeholder="other website"
-                  value={website3 || ""}
-                  onChange={(e) => setWebsite3(e.target.value)}
-                />
+              <Flex padding="5px 0 5px 0">
+                <Flex width="100%">
+                  <Flex width="30%">
+                    <Text>웹사이트</Text>
+                  </Flex>
+                  <Flex width="70%">
+                    <Input
+                      fg="1"
+                      square
+                      br="6px"
+                      type="text"
+                      placeholder="instargram ID"
+                      value={website1 || ""}
+                      icon={
+                        <Flex
+                          onClick={() => {
+                            setVisible1(!visible1);
+                          }}
+                        >
+                          <AddBox />
+                        </Flex>
+                      }
+                      onChange={(e) => setWebsite1(e.target.value)}
+                    />
+                  </Flex>
+                </Flex>
               </Flex>
+
+              {visible1 && (
+                <Flex padding="5px 0 5px 0">
+                  <Flex width="100%">
+                    <Flex width="30%">
+                      <Text></Text>
+                    </Flex>
+                    <Flex width="70%">
+                      <Input
+                        square
+                        fg="1"
+                        br="6px"
+                        type="text"
+                        placeholder="Behance 주소"
+                        value={website2 || ""}
+                        icon={
+                          <Flex
+                            onClick={() => {
+                              setVisible2(!visible2);
+                            }}
+                          >
+                            <AddBox />
+                          </Flex>
+                        }
+                        onChange={(e) => setWebsite2(e.target.value)}
+                      />
+                    </Flex>
+                  </Flex>
+                </Flex>
+              )}
+              {visible2 && (
+                <Flex padding="5px 0 10px 0">
+                  <Flex width="100%">
+                    <Flex width="30%">
+                      <Text></Text>
+                    </Flex>
+                    <Flex width="70%">
+                      <Input
+                        square
+                        br="6px"
+                        fg="1"
+                        type="text"
+                        placeholder="other website"
+                        value={website3 || ""}
+                        onChange={(e) => setWebsite3(e.target.value)}
+                      />
+                    </Flex>
+                  </Flex>
+                </Flex>
+              )}
+              <Flex padding="10px 0">
+                <Flex width="100%">
+                  <Flex width="30%">
+                    <Text>소개</Text>
+                  </Flex>
+                  <Flex width="70%">
+                    <Textarea
+                      width="100%"
+                      fg="1"
+                      value={introduce || ""}
+                      onChange={(e) => setIntroduce(e.target.value)}
+                      maxLength="50"
+                      br="6px"
+                    />
+                  </Flex>
+                </Flex>
+              </Flex>
+            </Wrap>
+            <Button
+              width="90%"
+              type="submit"
+              margin="0 20px 20px 20px"
+              onClick={() => {
+                editUser();
+              }}
+            >
+              프로필 저장하기
+            </Button>
+            <Flex
+              jc="center"
+              onClick={() => {
+                console.log("스킵");
+                history.push("/");
+              }}
+            >
+              <Text body3 textDeco="underline">
+                다음에 할래요
+              </Text>
             </Flex>
-          </Flex>
-        )}
-        <Flex padding="10px 0">
-          <Flex width="100%">
-            <Flex width="30%">
-              <Text>소개</Text>
-            </Flex>
-            <Flex width="70%">
-              <Textarea
-                width="100%"
-                fg="1"
-                value={introduce || ""}
-                onChange={(e) => setIntroduce(e.target.value)}
-                maxLength="50"
-                br="6px"
-              />
-            </Flex>
-          </Flex>
-        </Flex>
-      </Wrap>
-      <Button
-        width="90%"
-        type="submit"
-        margin="20px"
-        onClick={() => {
-          editUser();
-        }}
-      >
-        프로필 저장하기
-      </Button>
-      <Flex
-        jc="center"
-        onClick={() => {
-          console.log("스킵");
-          history.push("/");
-        }}
-      >
-        <Text body3 textDeco="underline">
-          다음에 할래요
-        </Text>
-      </Flex>
+          </Wrap>
+        </div>
+      </Outline>
     </>
   );
 };
@@ -208,31 +216,18 @@ const Wrapprofile = styled.div`
   margin: auto;
   width: 120px;
 `;
-
-const ImgBox = styled.div`
-  label {
+const Outline = styled.div`
+  height: 100vh;
+  position: relative;
+  .box {
+    /* background-color: #ddd; */
+    width: 100%;
     position: absolute;
-    bottom: 0;
-    right: -1em;
-    display: inline-block;
-    padding: 0.5em 0.75em;
-    color: #666;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #666;
-    border-radius: 50%;
-  }
-  input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* translate(x축,y축) */
+    //요소의 가장 좌측과 상단을 기준으로 50%를 이동하는 것이므로, 요소 자체를 마이너스 값을 통해 다시 절반을 좌측, 상단으로 당겨오는 것.
+    //translate 값을 적용하기 전에는 왼쪽 위 꼭짓점이 정 중앙에 배치된 상태.
   }
 `;
 

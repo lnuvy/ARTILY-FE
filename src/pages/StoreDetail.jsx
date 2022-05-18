@@ -91,7 +91,7 @@ const StoreDetail = () => {
       imageUrl: current.imageUrl[0],
       postTitle: current.postTitle,
       price: current.price,
-      // TODO: 판매중/판매완료 상태 추가
+      done: current.done,
     };
 
     socket.emit("join_room", roomName, postUser, chatPostData);
@@ -123,17 +123,17 @@ const StoreDetail = () => {
               <SellLabel complete3 />
             </Flex>
             <Flex margin="8px 0" jc="space-between">
-              <Flex>
-                <Image
-                  circle
-                  size="32"
-                  src={current?.user?.profileImage}
-                  onClick={() => {
-                    history.push(`/userprofile/${current.user.userId}`);
-                  }}
-                />
-                <Text margin="0 0 0 4px">{current?.user?.nickname}</Text>
-              </Flex>
+              {/* 5.18 cursor:pointer를 위한 style-components 추가 */}
+              <ProfileBtn
+                onClick={() => {
+                  history.push(`/userprofile/${current.user.userId}`);
+                }}
+              >
+                <Flex>
+                  <Image circle size="32" src={current?.user?.profileImage} />
+                  <Text margin="0 0 0 4px">{current?.user?.nickname}</Text>
+                </Flex>
+              </ProfileBtn>
               <Flex>
                 {isMe ? (
                   <>
@@ -266,12 +266,12 @@ const StoreDetail = () => {
 
           <FixedChatBar>
             <Flex onClick={markupToggle}>
-              {/* {currentUser &&
+              {currentUser &&
               currentUser?.myMarkup?.find((id) => id === postId) ? (
                 <IoMdHeart size={24} color={theme.pallete.primary850} />
               ) : (
                 <Heart />
-              )} */}
+              )}
 
               <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
                 {current.markupCnt}
@@ -311,5 +311,7 @@ const FixedChatBar = styled.div`
   max-width: ${theme.view.maxWidth};
   height: 56px;
 `;
-
+const ProfileBtn = styled.div`
+  cursor: pointer;
+`;
 export default StoreDetail;

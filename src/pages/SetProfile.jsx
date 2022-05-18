@@ -91,64 +91,70 @@ const Setprofile = () => {
 
   return (
     <>
-      <Wrap textAlign="center">
-        <img src="/images/artily.svg" alt="logo" />
-        <Text body1 color="#999">
-          내 프로필을 완성해주세요!
-        </Text>
-      </Wrap>
-      <Wrapprofile>
-        <Flex jc="center" margin="50px 0">
-          <Image
-            alt="profile"
-            width="120px"
-            height="120px"
-            br="60px"
-            border="1px solid #eee"
-            shadow="1px 1px 3px #ddd"
-            src={preview ? preview : ""}
-          ></Image>
-
-          <ImgBox>
-            <label htmlFor="image">
-              <img src="../../images/edit.png" alt="파일 선택" />
-            </label>
-            <input
-              type="file"
-              id="image"
-              ref={fileInput}
-              onChange={selectFile}
+      <Outline>
+        <div className="box">
+          <Wrap textAlign="center">
+            <img
+              src={process.env.PUBLIC_URL + "/images/artily.png"}
+              alt="logo"
             />
-          </ImgBox>
-        </Flex>
-      </Wrapprofile>
-      <Wrap padding="0 20px 30px 20px">
-        <Flex>
-          <Text textAlign="left" fg="1">
-            닉네임
-          </Text>
-          <Input
-            icon={
-              <span onClick={renameRandom}>
-                <Refresh />
-              </span>
-            }
-            square
-            width="100%"
-            border="1px solid #d3d3d3"
-            br="6px"
-            type="text"
-            fg="1"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
-        </Flex>
-      </Wrap>
-      <Flex>
-        <Button width="90%" margin="20px auto" onClick={editUser}>
-          프로필 저장하기
-        </Button>
-      </Flex>
+            <Text body1 color="#999" margin="20px 0 0 0">
+              내 프로필을 만들어주세요!
+            </Text>
+            <Wrapprofile>
+              <Flex jc="center" margin="40px 0">
+                <Image
+                  alt="profile"
+                  width="120px"
+                  height="120px"
+                  br="60px"
+                  shadow="1px 1px 3px #888"
+                  src={preview ? preview : ""}
+                ></Image>
+
+                <ImgBox>
+                  <label htmlFor="image">
+                    <img src="../../images/edit.png" alt="파일 선택" />
+                  </label>
+                  <input
+                    type="file"
+                    id="image"
+                    ref={fileInput}
+                    onChange={selectFile}
+                  />
+                </ImgBox>
+              </Flex>
+            </Wrapprofile>
+            <Wrap padding="0 20px 30px 20px">
+              <Flex>
+                <Text textAlign="left" fg="1">
+                  닉네임
+                </Text>
+                <Input
+                  icon={
+                    <span onClick={renameRandom}>
+                      <Refresh />
+                    </span>
+                  }
+                  square
+                  width="100%"
+                  border="1px solid #d3d3d3"
+                  br="6px"
+                  type="text"
+                  fg="1"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                />
+              </Flex>
+            </Wrap>
+            <Flex>
+              <Button width="90%" margin="20px 20px 0 20px" onClick={editUser}>
+                프로필 저장하기
+              </Button>
+            </Flex>
+          </Wrap>
+        </div>
+      </Outline>
     </>
   );
 };
@@ -183,6 +189,21 @@ const ImgBox = styled.div`
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+  }
+`;
+
+const Outline = styled.div`
+  height: 100vh;
+  position: relative;
+  .box {
+    /* background-color: #ddd; */
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* translate(x축,y축) */
+    //요소의 가장 좌측과 상단을 기준으로 50%를 이동하는 것이므로, 요소자체를 마이너스 값을 통해 다시 절반을 좌측, 상단으로 당겨오는 것.
+    //transform 값을 적용하기 전에는 왼쪽 위 꼭짓점이 정 중앙에 배치된 상태.
   }
 `;
 export default Setprofile;

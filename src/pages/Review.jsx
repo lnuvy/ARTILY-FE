@@ -38,7 +38,7 @@ const Review = () => {
                     _key={i}
                     onClick={() => clickCard(v.reviewId)}
                     {...v}
-                    images={v.images[0].imageUrl}
+                    images={v.images[0].imageUrl || null}
                   />
                 );
               })}
