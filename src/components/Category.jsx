@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+// components
+import theme from "../styles/theme";
 import { Button, Grid, Text } from "../elements";
+// modules
 import { filteringData } from "../redux/modules/store";
 import { filteringReviewData } from "../redux/modules/reviews";
-import theme from "../styles/theme";
 
 const cate = [
   "전체",
@@ -17,12 +19,12 @@ const cate = [
 ];
 
 const Category = (props) => {
-  const { review, width } = props;
   const dispatch = useDispatch();
+
+  const { review } = props;
   const [current, setCurrent] = useState("전체");
 
   useEffect(() => {
-    console.log(current);
     review
       ? dispatch(filteringReviewData(current))
       : dispatch(filteringData(current));

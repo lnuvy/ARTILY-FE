@@ -31,6 +31,7 @@ function App() {
   useEffect(() => {
     if (user) {
       socket.auth = { user };
+      console.log(user);
       socket.connect();
     }
   }, [user]);

@@ -83,17 +83,26 @@ const MyPage = () => {
                 {getProfile && getProfile.nickname ? getProfile.nickname : ""}
                 {/* 유저명 */}
               </Text>
-              <Grid
-                onClick={() => {
-                  history.push("/follow");
-                  // dispatch(saveFollowDB());
-                }}
-              >
-                <Text body2 color="#555">
-                  팔로워 <Follower>{getProfile?.followerCnt}</Follower>명 ·
-                  팔로잉 <Follower>{getProfile?.followCnt}</Follower>명
-                </Text>
-              </Grid>
+              <WrapFollow>
+                <Grid
+                  onClick={() => {
+                    history.push("/follow");
+                    // dispatch(saveFollowDB());
+                  }}
+                >
+                  <Text body2 color="#555">
+                    팔로워{" "}
+                    <Follower>
+                      {getProfile?.followerCnt ? getProfile?.followerCnt : "0"}
+                    </Follower>
+                    명 · 팔로잉{" "}
+                    <Follower>
+                      {getProfile?.followCnt ? getProfile?.followCnt : "0"}
+                    </Follower>
+                    명
+                  </Text>
+                </Grid>
+              </WrapFollow>
               <Text body2 color="#555" margin="0.5em 0 0 0">
                 등록한 작품{" "}
                 {myAllList.myPosts && myAllList?.myPosts.length
@@ -127,7 +136,7 @@ const MyPage = () => {
             history.push("/mypage/manage");
           }}
         >
-          <p class="sell">
+          <p className="sell">
             판매 작품 등록하기 / 관리하기
             <img
               src="../../images/Vector.svg"
@@ -300,9 +309,11 @@ const Edit = styled.div`
     color: ${theme.color.brandColor};
   }
 `;
-
+const WrapFollow = styled.div`
+  cursor: pointer;
+`;
 const Follower = styled.span`
   font-weight: bold;
-  cursor: pointer;
+  /* cursor: pointer; */
 `;
 export default MyPage;

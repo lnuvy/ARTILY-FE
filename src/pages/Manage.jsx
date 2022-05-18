@@ -28,7 +28,7 @@ const Manage = () => {
       <Background>
         {/* 판매목록 */}
         <Inner>
-          <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0">
+          <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0 20px 0">
             {mystoreList?.map((list) => {
               //판매글이 없다면?
               if (!list) {
@@ -42,7 +42,7 @@ const Manage = () => {
               }
               return (
                 <ArtCard
-                  mypage
+                  mystore
                   key={list.postId}
                   className="sell"
                   {...list}
@@ -54,7 +54,7 @@ const Manage = () => {
         </Inner>
         <Sellbtn>
           <Wrap height="70vh">
-            <Flex width="90%" margin="0 auto">
+            <Flex width="90%" margin="0 20px">
               <Button
                 width="100%"
                 onClick={() => {
@@ -93,7 +93,7 @@ const Nav = styled.div`
 
 const Background = styled.div`
   background-color: #ddd;
-  height: 100%;
+  height: 100vh;
 `;
 const Inner = styled.div`
   background-color: #fff;
