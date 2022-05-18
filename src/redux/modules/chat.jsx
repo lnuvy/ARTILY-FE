@@ -40,7 +40,7 @@ export const getChatList = () => {
     Apis.getChatList()
       .then((res) => {
         console.log(res);
-        dispatch(getChatRoom(res.data.chatRoomName));
+        dispatch(getChatRoom(res.data.newChat));
       })
       .catch((err) => {
         console.log(err);
