@@ -92,6 +92,7 @@ const StoreDetail = () => {
     const isExistRoom = roomList.find((room) => room.roomName === roomName);
 
     if (isExistRoom) {
+      history.push(`/chat/${roomName}`);
       return;
     }
 
