@@ -50,6 +50,7 @@ const UserProfile = () => {
               height="90px"
               bg="#ddd"
               br="45px"
+              shadow="1px 1px 2px #ddd"
               border="1px solid #ddd"
               src={
                 currentUser && otherUser?.profileImage

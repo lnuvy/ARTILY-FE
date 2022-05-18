@@ -12,6 +12,11 @@ import {
 } from "../redux/modules/follow";
 import { ArrowBack } from "../assets/icons";
 const Follow = () => {
+  const [clickfollow, setClickfollow] = useState("팔로잉");
+
+  const changeContents = () => {
+    setClickfollow((prev) => (prev === "팔로잉" ? "팔로우" : "팔로잉"));
+  };
   const history = useHistory();
   const getfollowList = useSelector((state) => state.user.user);
   console.log(getfollowList);
@@ -65,12 +70,7 @@ const Follow = () => {
       {current === `팔로워 ${getfollowList?.followerCnt}명` &&
         nowfollowerList?.map((follower, l) => {
           return (
-            <Profile
-              key={l}
-              onClick={() => {
-                history.push(`/userprofile/${follower.userId}`); //누르면 팔로우한 유저의 프로필로 이동
-              }}
-            >
+            <Profile key={l}>
               <Flex>
                 <Image
                   margin="0 16px 0 0"
@@ -79,13 +79,24 @@ const Follow = () => {
                   bg="#ddd"
                   shadow="1px 0.5px 2px #888"
                   br="30px"
+                  onClick={() => {
+                    history.push(`/userprofile/${follower.userId}`); //누르면 팔로우한 유저의 프로필로 이동
+                  }}
                   src={follower?.profileImage}
                 ></Image>
                 <Text fg="1" body2 bold margin="5px 0 10px 0">
                   {nowfollowerList.length ? follower.nickname : ""}
                 </Text>
                 {/* 자신의 마이페이지일 경우 삭제버튼만 존재 */}
-                <DeleteBtn outline height="38px" padding="3px 17px">
+                <DeleteBtn
+                  outline
+                  height="38px"
+                  padding="3px 17px"
+                  onClick={() => {
+                    //5.18 아직 구현 못함
+                    // dispatch(DeleteFollowDB(follower.followId));
+                  }}
+                >
                   삭제
                 </DeleteBtn>
                 {/* 다른사람의 리스트일경우 팔로잉(나도 팔로우 누른 유저), 팔로우 버튼으로 나뉨 */}
@@ -97,12 +108,7 @@ const Follow = () => {
         nowfollowList?.map((follow, l) => {
           console.log(follow);
           return (
-            <Profile
-              key={l}
-              onClick={() => {
-                history.push(`/userprofile/${follow.followId}`); //누르면 팔로우한 유저의 프로필로 이동
-              }}
-            >
+            <Profile key={l}>
               <Flex>
                 <Image
                   margin="0 16px 0 0"
@@ -120,18 +126,19 @@ const Follow = () => {
                   {nowfollowList.length ? follow.followName : ""}
                 </Text>
                 {/* 이미 팔로잉 한 상태일때 */}
-                <AlreadyBtn height="38px" padding="3px 17px">
-                  팔로잉
-                </AlreadyBtn>
                 <FollowBtn
                   height="38px"
                   padding="3px 17px"
+                  prev={clickfollow === "팔로잉" ? true : false}
                   onClick={() => {
-                    dispatch(DeleteFollowDB(follow.followId));
+                    changeContents();
+
+                    // dispatch(DeleteFollowDB(follow.followId));
                   }}
                 >
-                  팔로우
+                  {clickfollow}
                 </FollowBtn>
+
                 {/* //다른사람의 페이지 일 경우 */}
                 {/* 한번 더 누르면 팔로우 버튼으로 바뀌어야함 */}
               </Flex>
@@ -170,6 +177,8 @@ const DeleteBtn = styled.button`
   border-radius: 8px;
   background-color: #fff;
   border: 1px solid ${({ theme }) => theme.pallete.gray2};
+  color: ${({ theme }) => theme.pallete.gray2};
+
   width: 73px;
   height: 38px;
 `;
@@ -182,8 +191,9 @@ const AlreadyBtn = styled.button`
 `;
 const FollowBtn = styled.button`
   border-radius: 8px;
-  background-color: #fff;
-  border: 1px solid ${({ theme }) => theme.pallete.gray2};
+  background-color: ${(props) => (props.prev ? "#fff" : "#FD7A00")};
+  color: ${(props) => (props.prev ? "#999" : "#fff")};
+  border: 1px solid ${(props) => (props.prev ? "#999" : "")};
   width: 73px;
   height: 38px;
 `;

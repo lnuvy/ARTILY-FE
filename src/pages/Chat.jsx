@@ -31,7 +31,7 @@ const Chat = () => {
   return (
     <>
       <Grid border={`1px solid ${theme.pallete.gray1}`}>
-        <NoInfo list={roomList} text="아직 대화중인 사람이 없어요!">
+        <NoInfo list={roomList} text1="아직 대화중인 사람이 없어요!">
           {roomList.map((room, i) => {
             return (
               <ChatCard

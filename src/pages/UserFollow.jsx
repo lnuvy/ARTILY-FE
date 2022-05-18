@@ -13,6 +13,11 @@ import {
 } from "../redux/modules/follow";
 import { ArrowBack } from "../assets/icons";
 const UserFollow = () => {
+  const [clickfollow, setClickfollow] = useState("팔로잉");
+
+  const changeContents = () => {
+    setClickfollow((prev) => (prev === "팔로잉" ? "팔로우" : "팔로잉"));
+  };
   const history = useHistory();
   //내 팔로워 목록
   const myfollower = useSelector((state) => state.followUser.follower);
@@ -49,6 +54,9 @@ const UserFollow = () => {
     }
   }, [userId]);
 
+  //5.18 이슈
+  //상대의 팔로워, 팔로잉 리스트 중 하나를 눌러 프로필을 들어갔다가 뒤로 가기 시 팔로워, 팔로잉 리스트가 뒤죽박죽되는 이슈
+
   const menus = [
     `팔로워 ${nowUserInfo?.followerCnt}명`,
     `팔로잉 ${nowUserInfo?.followCnt}명`,
@@ -62,6 +70,7 @@ const UserFollow = () => {
   };
   const dispatch = useDispatch();
 
+  const clickFollow = () => {};
   return (
     <>
       <Grid gtc="auto auto" cg="20px" margin="10px 0 0 0">
@@ -83,12 +92,7 @@ const UserFollow = () => {
       {current === `팔로워 ${nowUserInfo?.followerCnt}명` &&
         nowfollowerList?.map((follower, l) => {
           return (
-            <Profile
-              key={l}
-              onClick={() => {
-                history.push(`/userprofile/${follower.userId}`); //누르면 팔로우한 유저의 프로필로 이동
-              }}
-            >
+            <Profile key={l}>
               <Flex>
                 <Image
                   margin="0 16px 0 0"
@@ -98,17 +102,26 @@ const UserFollow = () => {
                   shadow="1px 0.5px 2px #888"
                   br="30px"
                   src={follower?.profileImage}
+                  onClick={() => {
+                    history.push(`/userprofile/${follower.userId}`); //누르면 팔로우한 유저의 프로필로 이동
+                  }}
                 ></Image>
                 <Text fg="1" body2 bold margin="5px 0 10px 0">
                   {nowfollowerList?.length ? follower.nickname : ""}
                 </Text>
                 {/* 나도 이미 팔로우가 되어있는 사람일 경우 버튼 비활성화 */}
                 {/* 나도 팔로우가 안되어있는 사람일 경우 팔로우 버튼 활성화 */}
-                <AlreadyBtn height="38px" padding="3px 17px">
-                  팔로잉
-                </AlreadyBtn>
-                <FollowBtn height="38px" padding="3px 17px">
-                  팔로우
+                <FollowBtn
+                  height="38px"
+                  padding="3px 17px"
+                  prev={clickfollow === "팔로잉" ? true : false}
+                  onClick={() => {
+                    changeContents();
+
+                    // dispatch(DeleteFollowDB(follow.followId));
+                  }}
+                >
+                  {clickfollow}
                 </FollowBtn>
               </Flex>
             </Profile>
@@ -136,13 +149,19 @@ const UserFollow = () => {
                   {nowfollowList?.length ? follow.followName : ""}
                 </Text>
                 {/* 나도 이미 팔로우가 되어있는 사람일 경우 버튼 비활성화 */}
-                {/* 나도 팔로우가 안되어있는 사람일 경우 팔로우 버튼 활성화 */}
+
                 {/* 내 팔로우 목록에 있는 사람이면 버튼 비활성화 */}
-                <AlreadyBtn height="38px" padding="3px 17px">
-                  팔로잉
-                </AlreadyBtn>
-                <FollowBtn height="38px" padding="3px 17px">
-                  팔로우
+                <FollowBtn
+                  height="38px"
+                  padding="3px 17px"
+                  prev={clickfollow === "팔로잉" ? true : false}
+                  onClick={() => {
+                    changeContents();
+
+                    // dispatch(DeleteFollowDB(follow.followId));
+                  }}
+                >
+                  {clickfollow}
                 </FollowBtn>
               </Flex>
             </Profile>
@@ -176,17 +195,11 @@ const Profile = styled.div`
   padding: 15px 16px;
   border-bottom: 1px solid #ddd;
 `;
-const AlreadyBtn = styled.button`
-  border-radius: 8px;
-  background-color: #fff;
-  border: 1px solid ${({ theme }) => theme.pallete.gray2};
-  width: 73px;
-  height: 38px;
-`;
 const FollowBtn = styled.button`
   border-radius: 8px;
-  color: #fff;
-  background-color: ${({ theme }) => theme.pallete.primary850};
+  background-color: ${(props) => (props.prev ? "#fff" : "#FD7A00")};
+  color: ${(props) => (props.prev ? "#999" : "#fff")};
+  border: 1px solid ${(props) => (props.prev ? "#999" : "")};
   width: 73px;
   height: 38px;
 `;
