@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Header } from "./components";
 import { history } from "./redux/configureStore";
-import ToastMessage from "./shared/ToastMessage";
 import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -65,7 +64,6 @@ function App() {
           <AuthRoute />
 
           {modalOn && (title ? <Modal /> : <DragModal />)}
-          <ToastMessage />
         </ConnectedRouter>
       </MaxContainer>
     );
@@ -77,8 +75,6 @@ function App() {
           <NoAuthRoute />
 
           {modalOn && (title ? <Modal /> : <DragModal />)}
-
-          <ToastMessage />
         </ConnectedRouter>
       </MaxContainer>
     );

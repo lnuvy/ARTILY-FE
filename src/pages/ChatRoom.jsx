@@ -48,9 +48,9 @@ const ChatRoom = () => {
   });
 
   const sendMessage = () => {
-    // 공백검사
     if (/\S/.test(message) && !uploadFile) {
       const messageData = {
+        roomName,
         from,
         message,
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
