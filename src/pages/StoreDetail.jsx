@@ -47,6 +47,9 @@ const StoreDetail = () => {
   const otherPosts = useSelector((state) => state.store.otherPost);
   const followId = current?.user?.userId;
 
+  const { roomList } = useSelector((state) => state.chat);
+  console.log(roomList);
+
   console.log("팔로우 하려는 userId", followId);
 
   const clickFollow = () => {
@@ -86,6 +89,12 @@ const StoreDetail = () => {
 
     let roomName = `from${nowUser}_to${postUser}_${postId}`;
 
+    const isExistRoom = roomList.find((room) => room.roomName === roomName);
+
+    if (isExistRoom) {
+      return;
+    }
+
     const chatPostData = {
       postId,
       imageUrl: current.imageUrl[0],
@@ -105,7 +114,6 @@ const StoreDetail = () => {
     console.log("join_room targetUser 주는 데이터 모양", targetUser);
 
     socket.emit("join_room", roomName, postUser, chatPostData);
-
     dispatch(
       receiveChatRoom({
         roomName,
