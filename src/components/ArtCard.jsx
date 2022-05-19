@@ -69,13 +69,13 @@ const ArtCard = (props) => {
 
             <Wrap>
               <Flex>
-                <Text bold h2 fg="1" margin="10px 0 0 0">
+                <Text medium h2 fg="1" margin="10px 0 0 0">
                   {postTitle}
                 </Text>
                 <SellLabel manageLabel done={done} />
               </Flex>
               {price ? (
-                <Text fg="1" bold margin="8px 0 0 0">
+                <Text fg="1" medium margin="8px 0 0 0">
                   {priceComma(price)}원
                 </Text>
               ) : (
@@ -83,37 +83,59 @@ const ArtCard = (props) => {
               )}
               <Flex fg="0" padding="8px 0 0 0">
                 <Favorite size="16" color={`${theme.color.brandColor}`} />
-                <Text margin="0 0 0 4px">{markupCnt}</Text>
+                <Text body2 margin="0 0 0 4px">
+                  {markupCnt}
+                </Text>
               </Flex>
             </Wrap>
           </Flex>
         </Card>
         <Sell>
           <Flex>
-            <p
+            <Button
+              text
+              borderRight={`1px solid ${theme.pallete.gray1}`}
+              padding="10px 20px"
+              br="0"
               onClick={() => {
+                console.log(postId);
                 history.push(`/store/write/${postId}`);
               }}
             >
               수정하기
-            </p>
-            <p onClick={deletePosting}>삭제하기</p>
+            </Button>
+            <Button
+              text
+              borderRight={`1px solid ${theme.pallete.gray1}`}
+              br="0"
+              padding="10px 20px"
+              onClick={deletePosting}
+            >
+              삭제하기
+            </Button>
             {done === true ? (
-              <p
+              <Button
+                text
+                fg="1"
+                br="0"
                 onClick={() => {
                   //done이 true(판매완료)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
                 판매중으로 상태변경하기
-              </p>
+              </Button>
             ) : (
-              <p
+              <Button
+                text
+                fg="1"
+                br="0"
+                padding="10px 20px"
                 onClick={() => {
                   //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
                 판매완료로 상태변경하기
-              </p>
+              </Button>
             )}
           </Flex>
         </Sell>
@@ -193,7 +215,9 @@ const ArtCard = (props) => {
           )}
           <Flex fg="0">
             <Favorite size="16" color={`${theme.color.brandColor}`} />
-            <Text margin="0 0 0 4px">{markupCnt}</Text>
+            <Text body2 margin="0 0 0 4px">
+              {markupCnt}
+            </Text>
           </Flex>
         </Flex>
       </Card>
@@ -219,7 +243,9 @@ const ArtCard = (props) => {
           </Text>
           <Flex fg="0">
             <Favorite size="16" color={`${theme.color.brandColor}`} />
-            <Text margin="0 0 0 4px">{markupCnt}</Text>
+            <Text body2 margin="0 0 0 4px">
+              {markupCnt}
+            </Text>
           </Flex>
         </Flex>
       </Card>
@@ -248,7 +274,9 @@ const ArtCard = (props) => {
           )}
           <Flex fg="0">
             <Favorite size="16" color={`${theme.color.brandColor}`} />
-            <Text margin="0 0 0 4px">{markupCnt}</Text>
+            <Text body2 margin="0 0 0 4px">
+              {markupCnt}
+            </Text>
           </Flex>
         </Flex>
       </Card>
@@ -259,12 +287,11 @@ const ArtCard = (props) => {
 const Sell = styled.div`
   border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
-  height: 40px;
+  height: fit-content;
   p {
     border-right: 1px solid #ddd;
     font-size: 14px;
     color: ${({ theme }) => `${theme.pallete.gray4}`};
-    line-height: 40px;
     font-weight: bold;
     cursor: pointer;
   }

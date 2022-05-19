@@ -22,15 +22,20 @@ const ImageCarousel = (props) => {
   return (
     <>
       <StyledSlider {...settings}>
-        {src
-          ? src.map((img, i) => {
-              return (
-                <Grid key={`${i}_번째_${img}`}>
-                  <Image height="375px" src={img.imageUrl} alt="img" />
-                </Grid>
-              );
-            })
-          : null}
+        {src && src.length > 1 ? (
+          src.map((img, i) => {
+            console.log(img);
+            return (
+              <Grid key={`${i}_번째_${img}`}>
+                <Image height="375px" src={img.imageUrl} alt="img" />
+              </Grid>
+            );
+          })
+        ) : (
+          <Grid>
+            <Image height="375px" src={src[0]} alt="img" />
+          </Grid>
+        )}
       </StyledSlider>
     </>
   );

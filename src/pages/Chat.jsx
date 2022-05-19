@@ -15,8 +15,6 @@ const Chat = () => {
   const dispatch = useDispatch();
   const { roomList } = useSelector((state) => state.chat);
 
-  console.log(roomList);
-
   useEffect(() => {
     // 방목록 가져오기
     dispatch(getChatList());

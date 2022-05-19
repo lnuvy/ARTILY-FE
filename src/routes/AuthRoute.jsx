@@ -23,6 +23,7 @@ import {
   Test,
   UserProfile,
   UserFollow,
+  SellerSelect,
 } from "../pages";
 
 const AuthRoute = () => {

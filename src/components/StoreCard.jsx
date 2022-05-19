@@ -14,8 +14,8 @@ const StoreCard = (props) => {
     user,
     postId,
     postTitle,
-    price,
     transaction,
+    price,
     imageUrl,
     changeAddress,
     markupCnt,
@@ -48,12 +48,12 @@ const StoreCard = (props) => {
         {transaction}
 
         {changeAddress &&
-          (changeAddress.length > 8
+          (changeAddress.length > 10
             ? ` ∙ ${changeAddress.substring(0, 10)}...`
             : ` ∙ ${changeAddress}`)}
       </Text>
       <Flex>
-        {price ? <Text fg="1">{priceComma(price)}원</Text> : ""}
+        <Text fg="1">{price ? `${priceComma(price)}원` : ``}</Text>
         <Icon width="fit-content">
           <Flex>
             {isMyMarkup ? (

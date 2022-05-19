@@ -79,7 +79,6 @@ const ImageCircle = styled.div`
   background-repeat: no-repeat;
   border: ${({ border }) => border};
   //5.13 box-shadow 추가 -영경
-  box-shadow: ${({ shadow }) => shadow};
 `;
 
 const ImageSqure = styled.div`
@@ -96,7 +95,6 @@ const ImageSqure = styled.div`
   border: ${({ border }) => border};
   border-radius: ${({ br }) => br};
   //5.13 box-shadow 추가 -영경
-  box-shadow: ${({ shadow }) => shadow};
 `;
 
 export default Image;

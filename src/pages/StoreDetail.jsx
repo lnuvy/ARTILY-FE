@@ -44,12 +44,12 @@ const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
 
-  const current = useSelector((state) => state.store.detailData);
+  const detailData = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
   const myFollowList = useSelector((state) => state.followUser.list);
   console.log("내 팔로우 목록 :", myFollowList);
-  const followId = current?.user?.userId;
+  const followId = detailData?.user?.userId;
   console.log("팔로우 하려는 userId :", followId);
 
   const { roomList } = useSelector((state) => state.chat);
@@ -73,7 +73,8 @@ const StoreDetail = () => {
     dispatch(getPostOne(postId));
   }, [postId]);
 
-  const isMe = current?.user?.userId === currentUser?.userId; //게시글 쓴 사람이 본인일 경우
+  const isMe = detailData?.user?.userId === currentUser?.userId;
+
   const deletePosting = async () => {
     const result = await deleteSwal();
     console.log(result);
@@ -89,9 +90,15 @@ const StoreDetail = () => {
     }
   };
 
+  // 더보기
+  const moveToProfile = (userId) => {
+    console.log(userId);
+    history.push(`/userprofile/${userId}`);
+  };
+
   // 채팅하기 버튼 눌렀을때
   const startChat = () => {
-    const postUser = current.user?.userId;
+    const postUser = detailData.user?.userId;
     const nowUser = currentUser?.userId;
 
     let roomName = `from${nowUser}_to${postUser}_${postId}`;
@@ -99,24 +106,26 @@ const StoreDetail = () => {
     const isExistRoom = roomList.find((room) => room.roomName === roomName);
 
     if (isExistRoom) {
+      console.log("isExistRoom!!!!!!!");
       history.push(`/chat/${roomName}`);
       return;
     }
+    console.log("방 새로 생성");
 
     const chatPostData = {
       postId,
-      imageUrl: current.imageUrl[0],
-      postTitle: current.postTitle,
-      price: current.price,
-      done: current.done,
+      imageUrl: detailData.imageUrl[0],
+      postTitle: detailData.postTitle,
+      price: detailData.price,
+      done: detailData.done,
     };
 
     console.log("join_room 세번째인자", chatPostData);
 
     const targetUser = {
-      userId: current.user.userId,
-      nickname: current.user.nickname,
-      profileImage: current.user.profileImage,
+      userId: detailData.user.userId,
+      nickname: detailData.user.nickname,
+      profileImage: detailData.user.profileImage,
     };
 
     console.log("join_room targetUser 주는 데이터 모양", targetUser);
@@ -126,6 +135,8 @@ const StoreDetail = () => {
       receiveChatRoom({
         roomName,
         post: chatPostData,
+        nickname: detailData.user.nickname,
+        profileImage: detailData.user.profileImage,
         targetUser,
         messages: [],
         newMessage: 0,
@@ -147,24 +158,29 @@ const StoreDetail = () => {
 
   return (
     <>
-      {current && current.user && (
+      {detailData && detailData.user && (
         <>
           <Wrap margin="0 16px">
             <Flex>
-              <Text h1>{current.postTitle}</Text>
-              {/* 판매완료일때만 보여야함 */}
+              <Text h1 medium>
+                {detailData.postTitle}
+              </Text>
               <SellLabel complete3 />
             </Flex>
-            <Flex margin="8px 0" jc="space-between">
+            <Flex margin="10px 0 6px" jc="space-between">
               {/* 5.18 cursor:pointer를 위한 style-components 추가 */}
               <ProfileBtn
                 onClick={() => {
-                  history.push(`/userprofile/${current.user.userId}`);
+                  history.push(`/userprofile/${detailData.user.userId}`);
                 }}
               >
                 <Flex>
-                  <Image circle size="32" src={current?.user?.profileImage} />
-                  <Text margin="0 0 0 4px">{current?.user?.nickname}</Text>
+                  <Image
+                    circle
+                    size="32"
+                    src={detailData?.user?.profileImage}
+                  />
+                  <Text margin="0 0 0 8px">{detailData?.user?.nickname}</Text>
                 </Flex>
               </ProfileBtn>
               <Flex>
@@ -198,7 +214,7 @@ const StoreDetail = () => {
                       }}
                     >
                       {/* 내 팔로우 리스트에 현재 내가 팔로우 하려는 아이디가 포함되어 있다면 언팔로우 버튼 보이게 */}
-                      {/* {myFollowList?.includes(current.user.userId) ? (
+                      {myFollowList?.includes(detailData.user.userId) ? (
                         <Text body1 color={theme.pallete.primary900}>
                           언팔로우
                         </Text>
@@ -206,7 +222,7 @@ const StoreDetail = () => {
                         <Text body1 color={theme.pallete.primary900}>
                           팔로우
                         </Text>
-                      )} */}
+                      )}
                       <Text body1 color={theme.pallete.primary900}>
                         팔로우
                       </Text>
@@ -226,46 +242,43 @@ const StoreDetail = () => {
               </Flex>
             </Flex>
           </Wrap>
-          <ImageCarousel src={current.imageUrl} />
+          <ImageCarousel src={detailData.imageUrl} />
 
-          <Wrap margin="16px 16px 56px">
+          <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">
               <Text color={theme.pallete.gray3}>분류</Text>
-              <Text color={theme.pallete.gray3}>{current.category}</Text>
+              <Text color={theme.pallete.gray3}>{detailData.category}</Text>
             </Flex>
-            {/* <Flex  margin="8px 0" jc="space-between">
-              <Text color={theme.pallete.gray3}>
-                크기
-              </Text>
-              <Text color={theme.pallete.gray3}>{current.size}</Text>
-            </Flex> */}
+
             <Flex margin="8px 0 10px" jc="space-between">
               <Text color={theme.pallete.gray3}>거래 방식</Text>
               <Text color={theme.pallete.gray3}>
-                {current.transaction}
-                {current.changeAddress && ` ∙ ${current.changeAddress}`}
+                {detailData.transaction}
+                {detailData.changeAddress && ` ∙ ${detailData.changeAddress}`}
               </Text>
             </Flex>
             <Flex>
               <Text color="black" margin="0 0 16px">
-                {current.postContent}
+                {detailData.postContent}
               </Text>
             </Flex>
             {otherPosts && (
               <>
-                <Flex margin="16px 0 10px">
+                <Flex margin="4px 0 10px">
                   <Text h2 lineHeight="22px">
                     작가의 다른 작품
                   </Text>
-                  {/* 작가의 다른작품 팔로우도 본인이 아닐경우만 뜨도록 isMe 넣었습니다 */}
+
                   {isMe ? (
                     <>
-                      <Wrap fg="1"></Wrap>
                       <Text lineHeight="22px">
                         <Button
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
                           text
+                          onClick={() =>
+                            moveToProfile(otherPosts[0].user.userId)
+                          }
                         >
                           더보기
                         </Button>
@@ -273,8 +286,7 @@ const StoreDetail = () => {
                     </>
                   ) : (
                     <>
-                      {" "}
-                      <Wrap margin="0 0 0 8px" fg="1">
+                      <Wrap margin="0 0 0 4px" fg="1">
                         <Button
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
@@ -292,6 +304,9 @@ const StoreDetail = () => {
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
                           text
+                          onClick={() =>
+                            moveToProfile(otherPosts[0].user.userId)
+                          }
                         >
                           더보기
                         </Button>
@@ -318,10 +333,10 @@ const StoreDetail = () => {
               )}
 
               <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
-                {current.markupCnt}
+                {detailData.markupCnt}
               </Text>
               <Text h3 medium margin="0 20px">
-                {current.price && priceComma(current.price)}원
+                {detailData.price && priceComma(detailData.price)}원
               </Text>
             </Flex>
             <Flex jc="end">
