@@ -46,7 +46,7 @@ const Home = () => {
                   isHome
                   key={v.postId}
                   {...v}
-                  imageUrl={v.imageUrl && v.imageUrl[0].imageUrl}
+                  imageUrl={v.imageUrl && v.images[0].imageUrl}
                 />
               );
             })}
@@ -106,7 +106,7 @@ const Home = () => {
                     key={i}
                     {...l}
                     onClick={() => move2detail(l, "/review")}
-                    images={l.imageUrl[0].imageUrl}
+                    images={l.images[0].imageUrl}
                   />
                 );
               })
@@ -120,7 +120,7 @@ const Home = () => {
 export default Home;
 
 const BestArtistWrap = styled.div`
-  padding: 0 16px;
+  /* padding: 0 16px; */
   overflow: auto;
   overflow-y: hidden;
 `;

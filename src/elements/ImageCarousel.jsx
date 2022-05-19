@@ -33,7 +33,7 @@ const ImageCarousel = (props) => {
           })
         ) : (
           <Grid>
-            <Image height="375px" src={src[0]} alt="img" />
+            <Image height="375px" src={src} alt="img" />
           </Grid>
         )}
       </StyledSlider>

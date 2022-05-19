@@ -158,7 +158,7 @@ const StoreDetail = () => {
 
   return (
     <>
-      {detailData && detailData.user && (
+      {detailData && (
         <>
           <Wrap margin="0 16px">
             <Flex>
@@ -214,7 +214,9 @@ const StoreDetail = () => {
                       }}
                     >
                       {/* 내 팔로우 리스트에 현재 내가 팔로우 하려는 아이디가 포함되어 있다면 언팔로우 버튼 보이게 */}
-                      {myFollowList?.includes(detailData.user.userId) ? (
+                      {/* 아직 이 부분은 구현중입니다 */}
+                      {myFollowList?.includes(detailData) ? (
+                      // {myFollowList?.includes(detailData.user.userId) ? (
                         <Text body1 color={theme.pallete.primary900}>
                           언팔로우
                         </Text>
@@ -223,9 +225,6 @@ const StoreDetail = () => {
                           팔로우
                         </Text>
                       )}
-                      <Text body1 color={theme.pallete.primary900}>
-                        팔로우
-                      </Text>
                     </Flex>
                     <Flex
                       padding="6px"

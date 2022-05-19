@@ -24,7 +24,7 @@ const ArtCard = (props) => {
     postTitle,
     price,
     done,
-    imageUrl,
+    images,
     nickname,
     likeCnt,
     markupCnt,
@@ -44,7 +44,6 @@ const ArtCard = (props) => {
     userInfo, // 유저정보
   } = props;
   const nowuser = userInfo;
-
   const deletePosting = async () => {
     const result = await deleteSwal();
     console.log(result);
@@ -61,7 +60,7 @@ const ArtCard = (props) => {
             <Image
               width="96px"
               height="96px"
-              src={imageUrl[0].imageUrl}
+              src={images[0].imageUrl}
               border="1px solid #eee"
               br="8px"
               margin="6px 9px 6px 16px"
@@ -148,7 +147,7 @@ const ArtCard = (props) => {
         <Image
           height="168px"
           border="none"
-          src={imageUrl[0].imageUrl}
+          src={images[0].imageUrl}
           br="8px"
         />
         <Flex margin="8px 0 ">
@@ -173,7 +172,7 @@ const ArtCard = (props) => {
             <Flex>
               <Image
                 width="140px"
-                src={imageUrl}
+                src={images[0].imageUrl}
                 margin="0 10px 10px 10px"
                 border="1px solid #eee"
               />
@@ -201,7 +200,7 @@ const ArtCard = (props) => {
             height="168px"
             br="8px"
             border="1px solid #eee"
-            src={imageUrl[0].imageUrl}
+            src={images[0].imageUrl}
           />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
@@ -229,7 +228,7 @@ const ArtCard = (props) => {
         <Image
           height="168px"
           br="8px"
-          src={imageUrl[0].imageUrl}
+          src={images[0].imageUrl}
           border="1px solid #eee"
         />
         <Text margin="8px 0 0 0" bold>
@@ -259,7 +258,7 @@ const ArtCard = (props) => {
           <Image
             height="168px"
             br="8px"
-            src={imageUrl[0].imageUrl}
+            src={images[0].imageUrl}
             border="1px solid #eee"
           />
         </Label>

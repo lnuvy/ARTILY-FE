@@ -9,7 +9,7 @@ function CheckBoxUnchecked() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M20 4H4V20H20V4Z" stroke="#999999" stroke-linejoin="round" />
+      <path d="M20 4H4V20H20V4Z" stroke="#999999" strokeLinejoin="round" />
     </svg>
   );
 }
