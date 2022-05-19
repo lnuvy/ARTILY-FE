@@ -26,7 +26,6 @@ import {
 } from "../redux/modules/reviews";
 import { addFollowDB } from "../redux/modules/follow";
 import { priceComma } from "../shared/utils";
-import { forEach } from "lodash";
 
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();

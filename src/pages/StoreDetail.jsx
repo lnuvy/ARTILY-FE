@@ -58,10 +58,14 @@ const StoreDetail = () => {
     dispatch(addFollowDB(followId));
   };
 
+  // const alreadyFollow = myFollowList.find(
+  //   (f) => f.followId === current?.user?.userId
+  // )
+  //   ? true
+  //   : false;
+
   //내 팔로우 목록 불러오기
-  useEffect(() => {
-    dispatch(getFollowDB());
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     // reset
@@ -70,6 +74,10 @@ const StoreDetail = () => {
     dispatch(filteringData("전체"));
     // getdata
     dispatch(getPostOne(postId));
+
+    if (currentUser) {
+      dispatch(getFollowDB());
+    }
   }, [postId]);
 
   const isMe = current?.user?.userId === currentUser?.userId; //게시글 쓴 사람이 본인일 경우
@@ -204,13 +212,12 @@ const StoreDetail = () => {
                     <Flex
                       padding="6px"
                       onClick={() => {
-                        console.log("팔로우 버튼 눌렀다");
                         // changefollows(); //언팔로우로 바뀜
                         clickFollowbtn(); //팔로우 버튼 한번 누름
                       }}
                     >
                       {/* 내 팔로우 리스트에 현재 내가 팔로우 하려는 아이디가 포함되어 있다면 언팔로우 버튼 보이게 */}
-                      {myFollowList?.includes(current.user.userId) ? (
+                      {true ? (
                         <Text body1 color={theme.pallete.primary900}>
                           언팔로우
                         </Text>

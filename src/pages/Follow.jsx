@@ -89,7 +89,6 @@ const Follow = () => {
                   padding="3px 17px"
                   onClick={() => {
                     dispatch(deleteFollowerDB(follower.userId));
-                    // dispatch(DeleteFollowDB(follow.followId));
                   }}
                 >
                   삭제
