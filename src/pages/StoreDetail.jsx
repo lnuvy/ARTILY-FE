@@ -72,21 +72,7 @@ const StoreDetail = () => {
     dispatch(getPostOne(postId));
   }, [postId]);
 
-<<<<<<< HEAD
   const isMe = detailData?.user?.userId === currentUser?.userId;
-=======
-  const isMe = current?.user?.userId === currentUser?.userId; //게시글 쓴 사람이 본인일 경우
-
-  // const [clickfollow, setClickfollow] = useState("팔로우");
-  // const changefollows = () => {
-  //   // 이미 팔로우 된 유저일 경우
-  //   if (myFollowList?.includes(followId) === current.user.userId) {
-  //     setClickfollow((prev) => (prev === "언팔로우" ? "팔로우" : "언팔로우"));
-  //   } else {
-  //     setClickfollow((prev) => (prev === "팔로우" ? "언팔로우" : "팔로우"));
-  //   }
-  // };
->>>>>>> 4f65b2c824b5e593d9ea19c0420a31d45284837d
 
   const deletePosting = async () => {
     const result = await deleteSwal();
@@ -148,12 +134,9 @@ const StoreDetail = () => {
       receiveChatRoom({
         roomName,
         post: chatPostData,
-<<<<<<< HEAD
         nickname: detailData.user.nickname,
         profileImage: detailData.user.profileImage,
-=======
         targetUser,
->>>>>>> 4f65b2c824b5e593d9ea19c0420a31d45284837d
         messages: [],
         newMessage: 0,
         lastMessage: null,
