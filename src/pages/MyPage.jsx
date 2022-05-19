@@ -151,7 +151,7 @@ const MyPage = () => {
           <p>
             구매 내역 조회하기 / 리뷰 쓰기
             <img
-              src="../../iz`mages/Vector.svg"
+              src="../../images/Vector.svg"
               alt="vector"
               className="vector"
             />
@@ -194,7 +194,7 @@ const MyPage = () => {
       {current === "판매목록" && (
         <NoInfo
           list={myPosts}
-          text1="아직 등록한 작품이 없어요"
+          text1="아직 등록한 작품이 없어요."
           text2="작품을 등록하시겠어요?"
           button="작품 등록"
           movePage="/store/write"
@@ -222,7 +222,7 @@ const MyPage = () => {
       {current === "리뷰목록" && (
         <NoInfo
           list={myReviews}
-          text1="아직 작성한 후기가 없어요"
+          text1="아직 작성한 후기가 없어요."
           text2="후기를 작성하시겠어요?"
           button="후기 작성"
           movePage="" //후기 작성페이지로 이동
@@ -251,7 +251,7 @@ const MyPage = () => {
       {current === "관심목록" && (
         <NoInfo
           list={myMarkups}
-          text1="아직 관심있는 작품이 없어요"
+          text1="아직 관심있는 작품이 없어요."
           text2="작품을 구경해보시겠어요?"
           button="스토어로 이동"
           movePage="/store"

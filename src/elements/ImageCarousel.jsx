@@ -27,13 +27,13 @@ const ImageCarousel = (props) => {
             console.log(img);
             return (
               <Grid key={`${i}_번째_${img}`}>
-                <Image height="375px" src={img} alt="img" />
+                <Image height="375px" src={img.imageUrl} alt="img" />
               </Grid>
             );
           })
         ) : (
           <Grid>
-            <Image height="375px" src={src} alt="img" />
+            <Image height="375px" src={src[0]} alt="img" />
           </Grid>
         )}
       </StyledSlider>

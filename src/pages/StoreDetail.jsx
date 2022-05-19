@@ -122,7 +122,7 @@ const StoreDetail = () => {
 
     const chatPostData = {
       postId,
-      imageUrl: detailData.imageUrl[0],
+      imageUrl: detailData.images[0].imageUrl,
       postTitle: detailData.postTitle,
       price: detailData.price,
       done: detailData.done,
@@ -248,7 +248,8 @@ const StoreDetail = () => {
               </Flex>
             </Flex>
           </Wrap>
-          <ImageCarousel src={detailData.imageUrl} />
+        {/* 이 부분 수정 필요 */}
+          <ImageCarousel src={detailData} />
 
           <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">
