@@ -104,7 +104,7 @@ const ArtCard = (props) => {
               br="0"
               onClick={() => {
                 console.log(postId);
-                history.push(`/store/write/${postId}`);
+                history.push(`/store/edit/${postId}`);
               }}
             >
               수정하기

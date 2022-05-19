@@ -35,11 +35,7 @@ const StoreEdit = () => {
   useEffect(() => {
     dispatch(getPostOne(postId));
     console.log(nowPost);
-    if (!nowPost) {
-      // history.replace("/store");
-    } else {
-      dispatch(editPosts3Url(nowPost?.images));
-    }
+    dispatch(editPosts3Url(nowPost?.images));
   }, []);
 
   if (nowPost?.transaction === "전체") {
@@ -70,9 +66,7 @@ const StoreEdit = () => {
 
   useEffect(() => {
     // 이미지 리덕스 데이터 초기화
-    return () => {
-      dispatch(clearPreview());
-    };
+    dispatch(clearPreview());
   }, []);
 
   const modalOn = (reg) => {

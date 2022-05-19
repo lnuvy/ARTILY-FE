@@ -249,7 +249,7 @@ const StoreDetail = () => {
               </Flex>
             </Flex>
           </Wrap>
-          <ImageCarousel src={detailData.imageUrl} />
+          <ImageCarousel src={detailData.images} />
 
           <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">
