@@ -38,7 +38,7 @@ const StoreEdit = () => {
     if (!nowPost) {
       // history.replace("/store");
     } else {
-      dispatch(editPosts3Url(nowPost?.imageUrl));
+      dispatch(editPosts3Url(nowPost?.images));
     }
   }, []);
 
