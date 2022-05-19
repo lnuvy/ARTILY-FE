@@ -100,4 +100,5 @@ const UploadLabel = styled.label`
 const FileWrap = styled.div`
   overflow: auto;
   overflow-y: hidden;
+  padding: 16px 0;
 `;

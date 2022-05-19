@@ -29,6 +29,7 @@ const Manage = () => {
         </Text>
         <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0 20px 0">
           {mystoreList?.map((list) => {
+            console.log(list);
             //판매글이 없다면?
             if (!list) {
               return (

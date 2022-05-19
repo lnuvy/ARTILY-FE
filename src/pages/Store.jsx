@@ -175,7 +175,7 @@ const Store = () => {
                       <StoreCard
                         key={v.postId}
                         {...v}
-                        imageUrl={v.imageUrl[0].imageUrl}
+                        imageUrl={v.images[0].imageUrl}
                         onClick={() => handleClickData(v)}
                       />
                     );
@@ -185,7 +185,7 @@ const Store = () => {
                     <StoreCard
                       key={v.postId}
                       {...v}
-                      imageUrl={v.imageUrl[0].imageUrl}
+                      imageUrl={v.images[0].imageUrl}
                       onClick={() => handleClickData(v)}
                     />
                   );
