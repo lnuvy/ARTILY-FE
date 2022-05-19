@@ -66,13 +66,8 @@ const ArtCard = (props) => {
             <Image
               width="96px"
               height="96px"
-<<<<<<< HEAD
-              src={imageUrl[0].imageUrl}
-              shadow="0.5px 0.5px 2px #ddd"
-=======
               src={imageArr[0].imageUrl || ""}
               border="1px solid #eee"
->>>>>>> 93868233b098284823979ae00e9deebb04947522
               br="8px"
               margin="6px 9px 6px 16px"
             />
@@ -109,7 +104,7 @@ const ArtCard = (props) => {
               br="0"
               onClick={() => {
                 console.log(postId);
-                history.push(`/store/edit/${postId}`);
+                history.push(`/store/write/${postId}`);
               }}
             >
               수정하기
