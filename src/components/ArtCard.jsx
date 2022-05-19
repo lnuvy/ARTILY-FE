@@ -62,7 +62,7 @@ const ArtCard = (props) => {
               width="96px"
               height="96px"
               src={imageUrl[0].imageUrl}
-              shadow="0.5px 0.5px 2px #ddd"
+              border="1px solid #eee"
               br="8px"
               margin="6px 9px 6px 16px"
             />
@@ -200,7 +200,7 @@ const ArtCard = (props) => {
           <Image
             height="168px"
             br="8px"
-            shadow="0.5px 0.5px 2px #ddd"
+            border="1px solid #eee"
             src={imageUrl[0].imageUrl}
           />
         </Label>
@@ -230,7 +230,7 @@ const ArtCard = (props) => {
           height="168px"
           br="8px"
           src={imageUrl[0].imageUrl}
-          shadow="0.5px 0.5px 2px #ddd"
+          border="1px solid #eee"
         />
         <Text margin="8px 0 0 0" bold>
           {reviewTitle}
@@ -260,7 +260,7 @@ const ArtCard = (props) => {
             height="168px"
             br="8px"
             src={imageUrl[0].imageUrl}
-            shadow="0.5px 0.5px 2px #ddd"
+            border="1px solid #eee"
           />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
