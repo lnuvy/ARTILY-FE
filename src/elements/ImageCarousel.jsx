@@ -27,7 +27,7 @@ const ImageCarousel = (props) => {
             console.log(img);
             return (
               <Grid key={`${i}_번째_${img}`}>
-                <Image height="375px" src={img.imageUrl} alt="img" />
+                <Image height="375px" src={img} alt="img" />
               </Grid>
             );
           })

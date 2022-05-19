@@ -10,9 +10,10 @@ const StoreMore = (props) => {
   const { postId, imageUrl, markupCnt, postTitle, price } = props;
 
   if (postId) {
+    console.log(imageUrl);
     return (
       <Card onClick={() => history.push(`/store/view/${postId}`)}>
-        <Image height="168px" br="8px" src={imageUrl[0]} />
+        <Image height="168px" br="8px" src={imageUrl[0].imageUrl} />
         <Text medium h1 margin="8px 0 9px">
           {postTitle}
         </Text>

@@ -90,6 +90,7 @@ const Inner = styled.div`
   background-color: #fff;
 
   position: relative;
+  padding-bottom: 60px;
 `;
 
 const Sellbtn = styled.div`

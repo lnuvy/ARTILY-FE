@@ -49,7 +49,7 @@ const ArtCard = (props) => {
     const result = await deleteSwal();
     console.log(result);
     if (result) {
-      dispatch(deletePostDB(postId));
+      dispatch(deletePostDB(postId, true));
     }
   };
 
@@ -61,7 +61,7 @@ const ArtCard = (props) => {
             <Image
               width="96px"
               height="96px"
-              src={imageUrl}
+              src={imageUrl[0].imageUrl}
               shadow="0.5px 0.5px 2px #ddd"
               br="8px"
               margin="6px 9px 6px 16px"
