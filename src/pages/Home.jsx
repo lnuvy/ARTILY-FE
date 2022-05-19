@@ -46,7 +46,7 @@ const Home = () => {
                   isHome
                   key={v.postId}
                   {...v}
-                  imageUrl={v.imageUrl && v.images[0].imageUrl}
+                  imageUrl={v.images[0].imageUrl}
                 />
               );
             })}

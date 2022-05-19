@@ -122,7 +122,7 @@ export const editPostDB = (postId, formData) => {
   };
 };
 
-export const deletePostDB = (postId, mypage) => {
+export const deletePostDB = (postId) => {
   return async function (dispatch, getState, { history }) {
     Apis.deleteStore(postId)
       .then((res) => {
@@ -133,11 +133,7 @@ export const deletePostDB = (postId, mypage) => {
           text: "삭제되었습니다.",
         });
         dispatch(deletePost(postId));
-        if (mypage === true) {
-          history.go(0);
-        } else {
-          history.replace("/store");
-        }
+        history.replace("/store");
       })
       .catch((err) => {
         console.log(err);
