@@ -49,7 +49,7 @@ const StoreDetail = () => {
   const otherPosts = useSelector((state) => state.store.otherPost);
   const myFollowList = useSelector((state) => state.followUser.list);
   console.log("내 팔로우 목록 :", myFollowList);
-  const followId = current?.user?.userId;
+  const followId = detailData?.user?.userId;
   console.log("팔로우 하려는 userId :", followId);
   const { roomList } = useSelector((state) => state.chat);
   console.log(roomList);
@@ -122,9 +122,9 @@ const StoreDetail = () => {
     console.log("join_room 세번째인자", chatPostData);
 
     const targetUser = {
-      userId: current.user.userId,
-      nickname: current.user.nickname,
-      profileImage: current.user.profileImage,
+      userId: detailData.user.userId,
+      nickname: detailData.user.nickname,
+      profileImage: detailData.user.profileImage,
     };
 
     console.log("join_room targetUser 주는 데이터 모양", targetUser);
@@ -213,7 +213,7 @@ const StoreDetail = () => {
                       }}
                     >
                       {/* 내 팔로우 리스트에 현재 내가 팔로우 하려는 아이디가 포함되어 있다면 언팔로우 버튼 보이게 */}
-                      {myFollowList?.includes(current.user.userId) ? (
+                      {myFollowList?.includes(detailData.user.userId) ? (
                         <Text body1 color={theme.pallete.primary900}>
                           언팔로우
                         </Text>
