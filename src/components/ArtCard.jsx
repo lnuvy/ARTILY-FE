@@ -61,7 +61,7 @@ const ArtCard = (props) => {
             <Image
               width="96px"
               height="96px"
-              src={imageUrl}
+              src={imageUrl[0].imageUrl}
               shadow="0.5px 0.5px 2px #ddd"
               br="8px"
               margin="6px 9px 6px 16px"
@@ -123,7 +123,12 @@ const ArtCard = (props) => {
     //마이페이지=> 구매내역 조회 / 리뷰 작성
     return (
       <Card onClick={onClick}>
-        <Image height="168px" border="none" src={imageUrl[0]} br="8px" />
+        <Image
+          height="168px"
+          border="none"
+          src={imageUrl[0].imageUrl}
+          br="8px"
+        />
         <Flex margin="8px 0 ">
           <Image circle size="32" src={profileImage} />
           <Text margin="0 0 0 8px">{nickname}</Text>
@@ -174,7 +179,7 @@ const ArtCard = (props) => {
             height="168px"
             br="8px"
             shadow="0.5px 0.5px 2px #ddd"
-            src={imageUrl}
+            src={imageUrl[0].imageUrl}
           />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
@@ -200,7 +205,7 @@ const ArtCard = (props) => {
         <Image
           height="168px"
           br="8px"
-          src={imageUrl}
+          src={imageUrl[0].imageUrl}
           shadow="0.5px 0.5px 2px #ddd"
         />
         <Text margin="8px 0 0 0" bold>
@@ -228,7 +233,7 @@ const ArtCard = (props) => {
           <Image
             height="168px"
             br="8px"
-            src={imageUrl}
+            src={imageUrl[0].imageUrl}
             shadow="0.5px 0.5px 2px #ddd"
           />
         </Label>

@@ -51,6 +51,7 @@ const StoreDetail = () => {
   console.log("내 팔로우 목록 :", myFollowList);
   const followId = current?.user?.userId;
   console.log("팔로우 하려는 userId :", followId);
+
   const { roomList } = useSelector((state) => state.chat);
   console.log(roomList);
 
@@ -73,17 +74,6 @@ const StoreDetail = () => {
   }, [postId]);
 
   const isMe = current?.user?.userId === currentUser?.userId; //게시글 쓴 사람이 본인일 경우
-
-  // const [clickfollow, setClickfollow] = useState("팔로우");
-  // const changefollows = () => {
-  //   // 이미 팔로우 된 유저일 경우
-  //   if (myFollowList?.includes(followId) === current.user.userId) {
-  //     setClickfollow((prev) => (prev === "언팔로우" ? "팔로우" : "언팔로우"));
-  //   } else {
-  //     setClickfollow((prev) => (prev === "팔로우" ? "언팔로우" : "팔로우"));
-  //   }
-  // };
-
   const deletePosting = async () => {
     const result = await deleteSwal();
     console.log(result);
@@ -208,7 +198,7 @@ const StoreDetail = () => {
                       }}
                     >
                       {/* 내 팔로우 리스트에 현재 내가 팔로우 하려는 아이디가 포함되어 있다면 언팔로우 버튼 보이게 */}
-                      {myFollowList?.includes(current.user.userId) ? (
+                      {/* {myFollowList?.includes(current.user.userId) ? (
                         <Text body1 color={theme.pallete.primary900}>
                           언팔로우
                         </Text>
@@ -216,7 +206,10 @@ const StoreDetail = () => {
                         <Text body1 color={theme.pallete.primary900}>
                           팔로우
                         </Text>
-                      )}
+                      )} */}
+                      <Text body1 color={theme.pallete.primary900}>
+                        팔로우
+                      </Text>
                     </Flex>
                     <Flex
                       padding="6px"
