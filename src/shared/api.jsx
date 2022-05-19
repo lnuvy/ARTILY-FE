@@ -77,6 +77,9 @@ export const Apis = {
   getUserFollowerlist: (userId) =>
     Api.get(`/api/follow/followerlist/${userId}`),
 
+  //팔로워 삭제
+  deleteFollower: (userId) => Api.delete(`/api/follow/delete/${userId}`),
+
   // chat API
   getChatList: () => Api.get(`/api/chat`),
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import {
@@ -19,6 +19,8 @@ import {
   otherPost,
   filteringData,
 } from "../redux/modules/store";
+
+import { getFollowDB } from "../redux/modules/follow";
 
 import { addFollowDB } from "../redux/modules/follow";
 import { useParams } from "react-router-dom";
@@ -45,16 +47,21 @@ const StoreDetail = () => {
   const current = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
+  const myFollowList = useSelector((state) => state.followUser.list);
+  console.log("내 팔로우 목록 :", myFollowList);
   const followId = current?.user?.userId;
-
+  console.log("팔로우 하려는 userId :", followId);
   const { roomList } = useSelector((state) => state.chat);
   console.log(roomList);
 
-  console.log("팔로우 하려는 userId", followId);
-
-  const clickFollow = () => {
+  const clickFollowbtn = () => {
     dispatch(addFollowDB(followId));
   };
+
+  //내 팔로우 목록 불러오기
+  useEffect(() => {
+    dispatch(getFollowDB());
+  }, []);
 
   useEffect(() => {
     // reset
@@ -65,7 +72,17 @@ const StoreDetail = () => {
     dispatch(getPostOne(postId));
   }, [postId]);
 
-  const isMe = current?.user?.userId === currentUser?.userId;
+  const isMe = current?.user?.userId === currentUser?.userId; //게시글 쓴 사람이 본인일 경우
+
+  // const [clickfollow, setClickfollow] = useState("팔로우");
+  // const changefollows = () => {
+  //   // 이미 팔로우 된 유저일 경우
+  //   if (myFollowList?.includes(followId) === current.user.userId) {
+  //     setClickfollow((prev) => (prev === "언팔로우" ? "팔로우" : "언팔로우"));
+  //   } else {
+  //     setClickfollow((prev) => (prev === "팔로우" ? "언팔로우" : "팔로우"));
+  //   }
+  // };
 
   const deletePosting = async () => {
     const result = await deleteSwal();
@@ -188,12 +205,20 @@ const StoreDetail = () => {
                       padding="6px"
                       onClick={() => {
                         console.log("팔로우 버튼 눌렀다");
-                        clickFollow();
+                        // changefollows(); //언팔로우로 바뀜
+                        clickFollowbtn(); //팔로우 버튼 한번 누름
                       }}
                     >
-                      <Text body1 color={theme.pallete.primary900}>
-                        팔로우
-                      </Text>
+                      {/* 내 팔로우 리스트에 현재 내가 팔로우 하려는 아이디가 포함되어 있다면 언팔로우 버튼 보이게 */}
+                      {myFollowList?.includes(current.user.userId) ? (
+                        <Text body1 color={theme.pallete.primary900}>
+                          언팔로우
+                        </Text>
+                      ) : (
+                        <Text body1 color={theme.pallete.primary900}>
+                          팔로우
+                        </Text>
+                      )}
                     </Flex>
                     <Flex
                       padding="6px"
@@ -265,7 +290,7 @@ const StoreDetail = () => {
                           text
                           onClick={() => {
                             console.log("팔로우 버튼 눌렀다");
-                            clickFollow();
+                            clickFollowbtn();
                           }}
                         >
                           팔로우
