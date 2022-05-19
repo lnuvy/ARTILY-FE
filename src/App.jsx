@@ -8,7 +8,11 @@ import styled from "styled-components";
 
 import { getUserInfo } from "./redux/modules/user";
 import { socket } from "./shared/socket";
-import { receiveChat, receiveChatRoom } from "./redux/modules/chat";
+import {
+  getChatList,
+  receiveChat,
+  receiveChatRoom,
+} from "./redux/modules/chat";
 import theme from "./styles/theme";
 import AuthRoute from "./routes/AuthRoute";
 import NoAuthRoute from "./routes/NoAuthRoute";
@@ -31,6 +35,7 @@ function App() {
     if (user) {
       socket.auth = { user };
       socket.connect();
+      dispatch(getChatList());
     }
   }, [user]);
 

@@ -7,28 +7,28 @@ import { socket } from "../../shared/socket";
  */
 
 // 채팅방리스트 모양
-const roomList = [
-  {
-    post: {
-      postId: "postIdforchat",
-      imageUrl:
-        "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
-      postTitle: "채팅용",
-      price: 2000,
-      done: false,
-    },
-    targetUser: {
-      userId: "asdfasdf",
-      nickname: "asdfasdf",
-      profileImage: "asdfasdfasdfa",
-    },
-    roomName: "from2222434554_to2222423044_postIdforchat",
-    messages: [],
-    lastMessage: "dfdf",
-    lastTime: "",
-    newMessage: 0,
-  },
-];
+// const roomList = [
+//   {
+//     post: {
+//       postId: "postIdforchat",
+//       imageUrl:
+//         "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
+//       postTitle: "채팅용",
+//       price: 2000,
+//       done: false,
+//     },
+//     targetUser: {
+//       userId: "asdfasdf",
+//       nickname: "asdfasdf",
+//       profileImage: "asdfasdfasdfa",
+//     },
+//     roomName: "from2222434554_to2222423044_postIdforchat",
+//     messages: [],
+//     lastMessage: "dfdf",
+//     lastTime: "",
+//     newMessage: 0,
+//   },
+// ];
 
 const initialState = {
   // 채팅방 리스트

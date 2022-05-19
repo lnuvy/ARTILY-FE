@@ -19,7 +19,6 @@ const ChatRoom = () => {
   // url 에서 가져온 현재 방 이름
   const roomName = pathname.slice(6);
   const from = useSelector((state) => state.user.user?.userId);
-  // const target = JSON.parse(targetInfo)?.userId;
 
   const nowChat = useSelector((state) => state.chat.roomList).find(
     (room) => room.roomName === roomName
@@ -27,19 +26,35 @@ const ChatRoom = () => {
 
   const isDone = nowChat?.post?.done;
 
-  const [message, setMessage] = useState("");
   // 사진업로드
   const uploadFile = useSelector((state) => state.image.represent);
+
+  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
+  const [infinity, setInfinity] = useState([]);
+
   useEffect(() => {
+    // 첫 페이징
     if (nowChat) {
-      setMessages(nowChat.messages);
+      const page = Math.floor(nowChat.messages.length / 20) + 1;
+      const newArr = setInfinityPaging(page);
+      setInfinity(newArr);
+      setMessages(newArr[newArr.length - 1]);
     }
     return () => {
       dispatch(notificationCheck(roomName));
     };
-  }, [nowChat]);
+  }, []);
+
+  const setInfinityPaging = (page) => {
+    let arr = [];
+    for (let i = page; i > 0; i--) {
+      let sliceArr = nowChat.messages.slice((i - 1) * 20, i * 20);
+      arr.push(sliceArr);
+    }
+    return arr;
+  };
 
   useEffect(() => {
     if (!nowChat) {

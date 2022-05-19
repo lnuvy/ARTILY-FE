@@ -92,9 +92,11 @@ const StoreDetail = () => {
     const isExistRoom = roomList.find((room) => room.roomName === roomName);
 
     if (isExistRoom) {
+      console.log("isExistRoom!!!!!!!");
       history.push(`/chat/${roomName}`);
       return;
     }
+    console.log("방 새로 생성");
 
     const chatPostData = {
       postId,
