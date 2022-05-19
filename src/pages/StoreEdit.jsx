@@ -10,7 +10,7 @@ import { inputSpaceReg } from "../shared/utils";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { history } from "../redux/configureStore";
-import { editPostDB } from "../redux/modules/store";
+import { editPostDB, getPostOne } from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 
 // alert
@@ -33,10 +33,12 @@ const StoreEdit = () => {
   const nowPost = useSelector((state) => state.store.detailData);
 
   useEffect(() => {
+    dispatch(getPostOne(postId));
+    console.log(nowPost);
     if (!nowPost) {
-      history.replace("/store");
+      // history.replace("/store");
     } else {
-      dispatch(editPosts3Url(nowPost?.imageUrl));
+      dispatch(editPosts3Url(nowPost?.images));
     }
   }, []);
 
@@ -215,7 +217,7 @@ const StoreEdit = () => {
       </Wrap>
       <Flex width="90%" margin="0 auto">
         <Button width="100%" onClick={submitPost}>
-          판매 작품 등록하기
+          판매 작품 수정하기
         </Button>
       </Flex>
     </>

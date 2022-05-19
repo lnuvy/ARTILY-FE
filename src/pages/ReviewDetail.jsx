@@ -26,7 +26,6 @@ import {
 } from "../redux/modules/reviews";
 import { addFollowDB } from "../redux/modules/follow";
 import { priceComma } from "../shared/utils";
-import { forEach } from "lodash";
 
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
@@ -40,9 +39,7 @@ const ReviewDetail = (props) => {
   //
   const reviewId = useParams();
 
-  const review = useSelector((state) => state.review);
   const reviewData = useSelector((state) => state.review.reviewData);
-
   const detailData = useSelector((state) => state.review.detailData);
   const currentUser = useSelector((state) => state.user?.user);
 
@@ -87,7 +84,7 @@ const ReviewDetail = (props) => {
                           padding="6px"
                           onClick={() => {
                             console.log("수정");
-                            history.push(`/store/write/${reviewId}`);
+                            history.push(`/store/edit/${reviewId}`);
                           }}
                         >
                           <Text body1 color={theme.pallete.primary900}>

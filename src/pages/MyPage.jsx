@@ -151,7 +151,7 @@ const MyPage = () => {
           <p>
             구매 내역 조회하기 / 리뷰 쓰기
             <img
-              src="../../images/Vector.svg"
+              src="../../iz`mages/Vector.svg"
               alt="vector"
               className="vector"
             />

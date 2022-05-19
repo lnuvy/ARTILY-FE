@@ -59,10 +59,14 @@ const StoreDetail = () => {
     dispatch(addFollowDB(followId));
   };
 
+  // const alreadyFollow = myFollowList.find(
+  //   (f) => f.followId === current?.user?.userId
+  // )
+  //   ? true
+  //   : false;
+
   //내 팔로우 목록 불러오기
-  useEffect(() => {
-    dispatch(getFollowDB());
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     // reset
@@ -71,6 +75,10 @@ const StoreDetail = () => {
     dispatch(filteringData("전체"));
     // getdata
     dispatch(getPostOne(postId));
+
+    if (currentUser) {
+      dispatch(getFollowDB());
+    }
   }, [postId]);
 
   const isMe = detailData?.user?.userId === currentUser?.userId;
@@ -208,7 +216,6 @@ const StoreDetail = () => {
                     <Flex
                       padding="6px"
                       onClick={() => {
-                        console.log("팔로우 버튼 눌렀다");
                         // changefollows(); //언팔로우로 바뀜
                         clickFollowbtn(); //팔로우 버튼 한번 누름
                       }}

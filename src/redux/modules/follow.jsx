@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { Apis } from "../../shared/api";
-import { useSelector } from "react-redux";
 import { fromPairs } from "lodash";
 
 const initialState = {
@@ -11,6 +10,7 @@ const initialState = {
   userfollower: [],
   deletelist: null,
 };
+
 //POST
 export const addFollowDB = (followId) => {
   return function (dispatch, getState, { history }) {

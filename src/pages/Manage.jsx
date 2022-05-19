@@ -29,6 +29,7 @@ const Manage = () => {
         </Text>
         <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0 20px 0">
           {mystoreList?.map((list) => {
+            console.log(list);
             //판매글이 없다면?
             if (!list) {
               return (
@@ -90,6 +91,7 @@ const Inner = styled.div`
   background-color: #fff;
 
   position: relative;
+  padding-bottom: 60px;
 `;
 
 const Sellbtn = styled.div`

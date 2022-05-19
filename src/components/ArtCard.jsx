@@ -43,12 +43,17 @@ const ArtCard = (props) => {
     home,
     userInfo, // 유저정보
   } = props;
+
+  // 포스팅에 사진이 없는 예외처리를 위해 방지
+  const imageArr = images || [""];
+  console.log(imageArr);
+
   const nowuser = userInfo;
   const deletePosting = async () => {
     const result = await deleteSwal();
     console.log(result);
     if (result) {
-      dispatch(deletePostDB(postId));
+      dispatch(deletePostDB(postId, true));
     }
   };
 
