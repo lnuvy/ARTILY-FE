@@ -23,7 +23,7 @@ import {
   Test,
   UserProfile,
   UserFollow,
-  SellerSelect,
+  SaleComplete,
 } from "../pages";
 
 const AuthRoute = () => {
@@ -36,6 +36,7 @@ const AuthRoute = () => {
       <Route path="/store/view/:postId" exact component={StoreDetail} />
       <Route path="/store/write" exact component={StoreWrite} />
       <Route path="/store/edit/:postId" exact component={StoreEdit} />
+      <Route path="/completed" exact component={SaleComplete} />
       <Route path="/follow" exact component={Follow} />
       <Route path="/review/" exact component={Review} />
       <Route path="/review/view/:reviewId" exact component={ReviewDetail} />

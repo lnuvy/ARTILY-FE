@@ -43,6 +43,11 @@ const ArtCard = (props) => {
     home,
     userInfo, // 유저정보
   } = props;
+
+  // 포스팅에 사진이 없는 예외처리를 위해 방지
+  const imageArr = imageUrl || [""];
+  console.log(imageArr);
+
   const nowuser = userInfo;
 
   const deletePosting = async () => {
@@ -61,8 +66,13 @@ const ArtCard = (props) => {
             <Image
               width="96px"
               height="96px"
+<<<<<<< HEAD
               src={imageUrl[0].imageUrl}
               shadow="0.5px 0.5px 2px #ddd"
+=======
+              src={imageArr[0].imageUrl || ""}
+              border="1px solid #eee"
+>>>>>>> 93868233b098284823979ae00e9deebb04947522
               br="8px"
               margin="6px 9px 6px 16px"
             />
@@ -148,7 +158,7 @@ const ArtCard = (props) => {
         <Image
           height="168px"
           border="none"
-          src={imageUrl[0].imageUrl}
+          src={imageArr[0].imageUrl || ""}
           br="8px"
         />
         <Flex margin="8px 0 ">
@@ -200,8 +210,8 @@ const ArtCard = (props) => {
           <Image
             height="168px"
             br="8px"
-            shadow="0.5px 0.5px 2px #ddd"
-            src={imageUrl}
+            border="1px solid #eee"
+            src={imageArr[0].imageUrl || ""}
           />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
@@ -226,7 +236,12 @@ const ArtCard = (props) => {
     //리뷰목록
     return (
       <Card onClick={onClick}>
-        <Image height="168px" br="8px" src={imageUrl} />
+        <Image
+          height="168px"
+          br="8px"
+          src={imageArr[0].imageUrl || ""}
+          border="1px solid #eee"
+        />
         <Text margin="8px 0 0 0" bold>
           {reviewTitle}
         </Text>
@@ -251,7 +266,12 @@ const ArtCard = (props) => {
       <Card onClick={onClick}>
         <Label>
           <SellLabel done={done} pageLabel />
-          <Image height="168px" br="8px" src={imageUrl} />
+          <Image
+            height="168px"
+            br="8px"
+            src={imageArr[0].imageUrl || ""}
+            border="1px solid #eee"
+          />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
         <Flex margin="0 0 8px 0">

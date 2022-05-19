@@ -33,9 +33,12 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      socket.auth = { user };
-      socket.connect();
-      dispatch(getChatList());
+      if (user?.profileImage && user?.nickname) {
+        socket.auth = { user };
+        console.log("사진과 닉네임 둘다있을때만 커넥트");
+        socket.connect();
+        dispatch(getChatList());
+      }
     }
   }, [user]);
 
