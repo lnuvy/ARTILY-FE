@@ -43,6 +43,11 @@ const ArtCard = (props) => {
     home,
     userInfo, // 유저정보
   } = props;
+
+  // 포스팅에 사진이 없는 예외처리를 위해 방지
+  const imageArr = imageUrl || [""];
+  console.log(imageArr);
+
   const nowuser = userInfo;
 
   const deletePosting = async () => {
@@ -61,7 +66,7 @@ const ArtCard = (props) => {
             <Image
               width="96px"
               height="96px"
-              src={imageUrl[0].imageUrl}
+              src={imageArr[0].imageUrl || ""}
               border="1px solid #eee"
               br="8px"
               margin="6px 9px 6px 16px"
@@ -148,7 +153,7 @@ const ArtCard = (props) => {
         <Image
           height="168px"
           border="none"
-          src={imageUrl[0].imageUrl}
+          src={imageArr[0].imageUrl || ""}
           br="8px"
         />
         <Flex margin="8px 0 ">
@@ -201,7 +206,7 @@ const ArtCard = (props) => {
             height="168px"
             br="8px"
             border="1px solid #eee"
-            src={imageUrl[0].imageUrl}
+            src={imageArr[0].imageUrl || ""}
           />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
@@ -229,7 +234,7 @@ const ArtCard = (props) => {
         <Image
           height="168px"
           br="8px"
-          src={imageUrl[0].imageUrl}
+          src={imageArr[0].imageUrl || ""}
           border="1px solid #eee"
         />
         <Text margin="8px 0 0 0" bold>
@@ -259,7 +264,7 @@ const ArtCard = (props) => {
           <Image
             height="168px"
             br="8px"
-            src={imageUrl[0].imageUrl}
+            src={imageArr[0].imageUrl || ""}
             border="1px solid #eee"
           />
         </Label>

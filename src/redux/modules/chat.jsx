@@ -40,6 +40,10 @@ export const getChatList = () => {
     Apis.getChatList()
       .then((res) => {
         console.log(res);
+        if(res.status === 204) {
+          console.log("진행중인 채팅없음");
+          return;
+        }
         dispatch(getChatRoom(res.data.newChat));
       })
       .catch((err) => {
