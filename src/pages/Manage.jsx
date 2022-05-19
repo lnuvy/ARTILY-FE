@@ -7,6 +7,7 @@ import { getDetail, getMySellListDB } from "../redux/modules/mypage";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
 import { ArtCard } from "../components";
+import theme from "../styles/theme";
 
 const Manage = () => {
   const dispatch = useDispatch();
@@ -22,57 +23,51 @@ const Manage = () => {
   }, []);
   return (
     <>
-      <Text h2 bold margin="8px 0 13px 16px">
-        판매 작품 관리하기
-      </Text>
-      <Background>
-        {/* 판매목록 */}
-        <Inner>
-          <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0 20px 0">
-            {mystoreList?.map((list) => {
-              //판매글이 없다면?
-              if (!list) {
-                return (
-                  <p>
-                    아직 등록한 작품이 없어요.
-                    <br />
-                    작품을 등록하시겠어요?
-                  </p>
-                );
-              }
+      <Inner>
+        <Text h2 bold margin="8px 0 13px 16px">
+          판매 작품 관리하기
+        </Text>
+        <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0 20px 0">
+          {mystoreList?.map((list) => {
+            //판매글이 없다면?
+            if (!list) {
               return (
-                <ArtCard
-                  mystore
-                  key={list.postId}
-                  className="sell"
-                  {...list}
-                  onClick={() => handleClickData(list)}
-                ></ArtCard>
+                <p>
+                  아직 등록한 작품이 없어요.
+                  <br />
+                  작품을 등록하시겠어요?
+                </p>
               );
-            })}
-          </Grid>
-        </Inner>
+            }
+            return (
+              <ArtCard
+                mystore
+                key={list.postId}
+                postId={list.postId}
+                className="sell"
+                {...list}
+                onClick={() => handleClickData(list)}
+              ></ArtCard>
+            );
+          })}
+        </Grid>
         <Sellbtn>
-          <Wrap height="70vh">
-            <Flex width="90%" margin="0 20px">
-              <Button
-                width="100%"
-                onClick={() => {
-                  history.push("/store/write");
-                }}
-              >
-                판매 작품 등록하기
-              </Button>
-            </Flex>
-          </Wrap>
+          <Button
+            shadow
+            width="100%"
+            onClick={() => {
+              history.push("/store/write");
+            }}
+          >
+            판매 작품 등록하기
+          </Button>
         </Sellbtn>
-      </Background>
+      </Inner>
     </>
   );
 };
 
 const CurrentDiv = styled.div`
-  font-weight: bold;
   padding: 5px 10px;
   margin: 10px 0 0;
   cursor: pointer;
@@ -91,16 +86,17 @@ const Nav = styled.div`
   width: 100%;
 `;
 
-const Background = styled.div`
-  background-color: #ddd;
-  height: 100vh;
-`;
 const Inner = styled.div`
   background-color: #fff;
+
+  position: relative;
 `;
 
 const Sellbtn = styled.div`
   position: fixed;
-  top: 0;
+  bottom: 0;
+  max-width: ${theme.view.maxWidth};
+  width: 100%;
+  padding: 16px;
 `;
 export default Manage;

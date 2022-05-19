@@ -26,6 +26,7 @@ const Button = (props) => {
     borderRight,
     fontSize,
     color,
+    shadow,
   } = props;
 
   const styles = {
@@ -49,6 +50,7 @@ const Button = (props) => {
     borderRight,
     fontSize,
     color,
+    shadow,
   };
 
   return (
@@ -104,7 +106,7 @@ const ButtonStyle = styled.button`
     props.text
       ? `
     background-color: transparent;
-    padding: 8px;
+    padding: ${(props) => (props.padding ? props.padding : "8px")}
     
     :focus {      
     }
@@ -126,6 +128,14 @@ const ButtonStyle = styled.button`
       cursor: pointer;
     }
     `
+      : props.shadow
+      ? `
+      background-color: ${props.bc};
+      color: ${theme.color.white};
+      border: none;
+      
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    `
       : `
     background-color: ${props.bc};
     color: ${theme.color.white};
@@ -138,6 +148,8 @@ const ButtonStyle = styled.button`
       opacity: 0.8;
       cursor: pointer;
     }
+    
+
     `};
 `;
 
