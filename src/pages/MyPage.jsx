@@ -239,7 +239,7 @@ const MyPage = () => {
                     // userInfo={myprofile}
                     {...review}
                     onClick={() =>
-                      history.push(`/review/view/${review.postId}`)
+                      history.push(`/review/view/${review.reviewId}`)
                     }
                   />
                 );
