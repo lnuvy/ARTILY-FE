@@ -47,7 +47,7 @@ export const getPostOne = (postId) => {
       .then((res) => {
         console.log("스토어 상세페이지", res.data);
         const { detail, getUser } = res.data.data;
-        dispatch(go2detail(detail));
+        dispatch(go2detail(...detail));
         dispatch(otherPost(getUser));
       })
       .catch((err) => {

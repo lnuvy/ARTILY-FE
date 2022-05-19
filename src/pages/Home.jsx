@@ -46,7 +46,7 @@ const Home = () => {
                   isHome
                   key={v.postId}
                   {...v}
-                  imageUrl={v.images && v.images[0].imageUrl}
+                  imageUrl={v.imageUrl && v.images[0].imageUrl}
                 />
               );
             })}
@@ -120,7 +120,7 @@ const Home = () => {
 export default Home;
 
 const BestArtistWrap = styled.div`
-  padding: 0 16px;
+  /* padding: 0 16px; */
   overflow: auto;
   overflow-y: hidden;
 `;
