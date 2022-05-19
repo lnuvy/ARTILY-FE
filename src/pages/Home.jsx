@@ -81,7 +81,7 @@ const Home = () => {
                       {artist?.nickname}
                     </Text>
                     <Text body2 textAlign="center" margin="0 0 6px">
-                      {artist?.introduce}
+                      {artist?.introduce || "-"}
                     </Text>
                     <Text body3 textAlign="center" color={theme.pallete.gray3}>
                       {/* 작품타입 오브제 ∙  */}

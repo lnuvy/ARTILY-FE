@@ -151,7 +151,7 @@ const MyPage = () => {
           <p>
             구매 내역 조회하기 / 리뷰 쓰기
             <img
-              src="../../images/Vector.svg"
+              src="../../iz`mages/Vector.svg"
               alt="vector"
               className="vector"
             />
@@ -239,7 +239,7 @@ const MyPage = () => {
                     // userInfo={myprofile}
                     {...review}
                     onClick={() =>
-                      history.push(`/review/view/${review.postId}`)
+                      history.push(`/review/view/${review.reviewId}`)
                     }
                   />
                 );
