@@ -4,6 +4,7 @@ import { Flex, Icon, Image, Text } from "../elements";
 import { history } from "../redux/configureStore";
 import { priceComma } from "../shared/utils";
 import Card from "./Card";
+import theme from "../styles/theme";
 
 const StoreMore = (props) => {
   const { postId, imageUrl, markupCnt, postTitle, price } = props;
@@ -12,14 +13,14 @@ const StoreMore = (props) => {
     return (
       <Card onClick={() => history.push(`/store/view/${postId}`)}>
         <Image height="168px" br="8px" src={imageUrl[0]} />
-        <Text h1 margin="8px 0 9px">
+        <Text medium h1 margin="8px 0 9px">
           {postTitle}
         </Text>
         <Flex>
           {price ? <Text fg="1">{priceComma(price)} 원</Text> : ""}
           <Icon width="fit-content">
             <Flex jc="center" ai="center">
-              <Favorite />
+              <Favorite size="16" color={`${theme.color.brandColor}`} />
               <Text body2 margin="0 0 0 2px">
                 {markupCnt}
               </Text>

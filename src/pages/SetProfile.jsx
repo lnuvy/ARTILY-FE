@@ -92,6 +92,9 @@ const Setprofile = () => {
   return (
     <>
       <Outline>
+        {/* 5.19 프로그래스바 작업중 -영경 */}
+        <ProgressBar />
+        <InnerProgress />
         <div className="box">
           <Wrap textAlign="center">
             <img src="/images/artily.png" alt="logo" />
@@ -171,7 +174,7 @@ const ImgBox = styled.div`
     padding: 0.5em 0.5em;
     line-height: normal;
     vertical-align: middle;
-    background-color: ${({ theme }) => `${theme.color.brandColor}`};
+    background-color: ${({ theme }) => `${theme.pallete.primary850}`};
     width: 35px;
     height: 35px;
     cursor: pointer;
@@ -202,5 +205,22 @@ const Outline = styled.div`
     //요소의 가장 좌측과 상단을 기준으로 50%를 이동하는 것이므로, 요소자체를 마이너스 값을 통해 다시 절반을 좌측, 상단으로 당겨오는 것.
     //transform 값을 적용하기 전에는 왼쪽 위 꼭짓점이 정 중앙에 배치된 상태.
   }
+`;
+const ProgressBar = styled.div`
+  width: 25vw;
+  height: 5px;
+  background-color: ${({ theme }) => theme.pallete.primary850};
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 1;
+`;
+const InnerProgress = styled.div`
+  width: 100vh;
+  height: 5px;
+  background-color: ${({ theme }) => theme.pallete.gray1};
+  position: absolute;
+  top: 40px;
+  left: 0;
 `;
 export default Setprofile;

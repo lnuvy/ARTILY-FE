@@ -61,21 +61,21 @@ const ArtCard = (props) => {
             <Image
               width="96px"
               height="96px"
-              src={imageUrl}
-              shadow="0.5px 0.5px 2px #ddd"
+              src={imageUrl[0].imageUrl}
+              border="1px solid #eee"
               br="8px"
               margin="6px 9px 6px 16px"
             />
 
             <Wrap>
               <Flex>
-                <Text bold h2 fg="1" margin="10px 0 0 0">
+                <Text medium h2 fg="1" margin="10px 0 0 0">
                   {postTitle}
                 </Text>
                 <SellLabel manageLabel done={done} />
               </Flex>
               {price ? (
-                <Text fg="1" bold margin="8px 0 0 0">
+                <Text fg="1" medium margin="8px 0 0 0">
                   {priceComma(price)}원
                 </Text>
               ) : (
@@ -83,37 +83,59 @@ const ArtCard = (props) => {
               )}
               <Flex fg="0" padding="8px 0 0 0">
                 <Favorite size="16" color={`${theme.color.brandColor}`} />
-                <Text margin="0 0 0 4px">{markupCnt}</Text>
+                <Text body2 margin="0 0 0 4px">
+                  {markupCnt}
+                </Text>
               </Flex>
             </Wrap>
           </Flex>
         </Card>
         <Sell>
           <Flex>
-            <p
+            <Button
+              text
+              borderRight={`1px solid ${theme.pallete.gray1}`}
+              padding="10px 20px"
+              br="0"
               onClick={() => {
+                console.log(postId);
                 history.push(`/store/write/${postId}`);
               }}
             >
               수정하기
-            </p>
-            <p onClick={deletePosting}>삭제하기</p>
+            </Button>
+            <Button
+              text
+              borderRight={`1px solid ${theme.pallete.gray1}`}
+              br="0"
+              padding="10px 20px"
+              onClick={deletePosting}
+            >
+              삭제하기
+            </Button>
             {done === true ? (
-              <p
+              <Button
+                text
+                fg="1"
+                br="0"
                 onClick={() => {
                   //done이 true(판매완료)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
                 판매중으로 상태변경하기
-              </p>
+              </Button>
             ) : (
-              <p
+              <Button
+                text
+                fg="1"
+                br="0"
+                padding="10px 20px"
                 onClick={() => {
                   //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
                 }}
               >
                 판매완료로 상태변경하기
-              </p>
+              </Button>
             )}
           </Flex>
         </Sell>
@@ -123,7 +145,12 @@ const ArtCard = (props) => {
     //마이페이지=> 구매내역 조회 / 리뷰 작성
     return (
       <Card onClick={onClick}>
-        <Image height="168px" border="none" src={imageUrl[0]} br="8px" />
+        <Image
+          height="168px"
+          border="none"
+          src={imageUrl[0].imageUrl}
+          br="8px"
+        />
         <Flex margin="8px 0 ">
           <Image circle size="32" src={profileImage} />
           <Text margin="0 0 0 8px">{nickname}</Text>
@@ -173,8 +200,8 @@ const ArtCard = (props) => {
           <Image
             height="168px"
             br="8px"
-            shadow="0.5px 0.5px 2px #ddd"
-            src={imageUrl}
+            border="1px solid #eee"
+            src={imageUrl[0].imageUrl}
           />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
@@ -188,7 +215,9 @@ const ArtCard = (props) => {
           )}
           <Flex fg="0">
             <Favorite size="16" color={`${theme.color.brandColor}`} />
-            <Text margin="0 0 0 4px">{markupCnt}</Text>
+            <Text body2 margin="0 0 0 4px">
+              {markupCnt}
+            </Text>
           </Flex>
         </Flex>
       </Card>
@@ -200,8 +229,8 @@ const ArtCard = (props) => {
         <Image
           height="168px"
           br="8px"
-          src={imageUrl}
-          shadow="0.5px 0.5px 2px #ddd"
+          src={imageUrl[0].imageUrl}
+          border="1px solid #eee"
         />
         <Text margin="8px 0 0 0" bold>
           {reviewTitle}
@@ -214,7 +243,9 @@ const ArtCard = (props) => {
           </Text>
           <Flex fg="0">
             <Favorite size="16" color={`${theme.color.brandColor}`} />
-            <Text margin="0 0 0 4px">{markupCnt}</Text>
+            <Text body2 margin="0 0 0 4px">
+              {markupCnt}
+            </Text>
           </Flex>
         </Flex>
       </Card>
@@ -228,8 +259,8 @@ const ArtCard = (props) => {
           <Image
             height="168px"
             br="8px"
-            src={imageUrl}
-            shadow="0.5px 0.5px 2px #ddd"
+            src={imageUrl[0].imageUrl}
+            border="1px solid #eee"
           />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
@@ -243,7 +274,9 @@ const ArtCard = (props) => {
           )}
           <Flex fg="0">
             <Favorite size="16" color={`${theme.color.brandColor}`} />
-            <Text margin="0 0 0 4px">{markupCnt}</Text>
+            <Text body2 margin="0 0 0 4px">
+              {markupCnt}
+            </Text>
           </Flex>
         </Flex>
       </Card>
@@ -254,12 +287,11 @@ const ArtCard = (props) => {
 const Sell = styled.div`
   border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
-  height: 40px;
+  height: fit-content;
   p {
     border-right: 1px solid #ddd;
     font-size: 14px;
     color: ${({ theme }) => `${theme.pallete.gray4}`};
-    line-height: 40px;
     font-weight: bold;
     cursor: pointer;
   }

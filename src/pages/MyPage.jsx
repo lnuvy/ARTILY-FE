@@ -145,7 +145,7 @@ const MyPage = () => {
         </Flex>
         <Flex
           onClick={() => {
-            history.push("/mypage/buyList");
+            history.push("/review/write/select");
           }}
         >
           <p>
@@ -239,7 +239,7 @@ const MyPage = () => {
                     // userInfo={myprofile}
                     {...review}
                     onClick={() =>
-                      history.push(`/review/view/${review.postId}`)
+                      history.push(`/review/view/${review.reviewId}`)
                     }
                   />
                 );

@@ -18,7 +18,6 @@ const Home = () => {
     dispatch(getHomeDataDB());
   }, []);
 
-  // 한번에 데이터를 리덕스에 넣는방법이 딱히 안떠올라서 main용 리덕스를 새로 만들었습니다 좋은 의견있으면 바꿔주세요
   const { bestPost, bestWriter, bestReview } = useSelector(
     (state) => state.main
   );
@@ -39,7 +38,7 @@ const Home = () => {
           인기 작품
         </Text>
         <Grid gtc="1fr 1fr" rg="16px" cg="7px">
-          {bestPost.length > 0 &&
+          {bestPost &&
             bestPost.map((v, i) => {
               return (
                 <StoreCard
@@ -47,6 +46,7 @@ const Home = () => {
                   isHome
                   key={v.postId}
                   {...v}
+                  imageUrl={v.imageUrl && v.imageUrl[0].imageUrl}
                 />
               );
             })}
@@ -86,7 +86,7 @@ const Home = () => {
                     <Text body3 textAlign="center" color={theme.pallete.gray3}>
                       {/* 작품타입 오브제 ∙  */}
                       등록작품{" "}
-                      {artist?.myPost?.length + artist?.myReview?.length}개
+                      {artist && artist.myPost ? artist.myPost.length : 0}개
                     </Text>
                   </Card>
                 );
@@ -106,7 +106,7 @@ const Home = () => {
                     key={i}
                     {...l}
                     onClick={() => move2detail(l, "/review")}
-                    imageUrl={l.imageUrl[0]}
+                    images={l.imageUrl[0].imageUrl}
                   />
                 );
               })
