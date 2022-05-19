@@ -9,14 +9,11 @@ import {
   DeleteFollowDB,
   getFollowDB,
   getFollowerDB,
+  deleteFollowerDB,
 } from "../redux/modules/follow";
 import { ArrowBack } from "../assets/icons";
+import theme from "../styles/theme";
 const Follow = () => {
-  const [clickfollow, setClickfollow] = useState("팔로잉");
-
-  const changeContents = () => {
-    setClickfollow((prev) => (prev === "팔로잉" ? "팔로우" : "팔로잉"));
-  };
   const history = useHistory();
   const getfollowList = useSelector((state) => state.user.user);
   console.log(getfollowList);
@@ -89,12 +86,11 @@ const Follow = () => {
                 </Text>
                 {/* 자신의 마이페이지일 경우 삭제버튼만 존재 */}
                 <DeleteBtn
-                  outline
                   height="38px"
                   padding="3px 17px"
                   onClick={() => {
-                    //5.18 아직 구현 못함
-                    // dispatch(DeleteFollowDB(follower.followId));
+                    dispatch(deleteFollowerDB(follower.userId));
+                    // dispatch(DeleteFollowDB(follow.followId));
                   }}
                 >
                   삭제
@@ -105,6 +101,7 @@ const Follow = () => {
           );
         })}
       {current === `팔로잉 ${getfollowList.followCnt}명` &&
+        nowfollowList &&
         nowfollowList?.map((follow, l) => {
           console.log(follow);
           return (
@@ -129,14 +126,12 @@ const Follow = () => {
                 <FollowBtn
                   height="38px"
                   padding="3px 17px"
-                  prev={clickfollow === "팔로잉" ? true : false}
                   onClick={() => {
-                    changeContents();
-
-                    // dispatch(DeleteFollowDB(follow.followId));
+                    // changefollows();
+                    dispatch(DeleteFollowDB(follow.followId));
                   }}
                 >
-                  {clickfollow}
+                  언팔로우
                 </FollowBtn>
 
                 {/* //다른사람의 페이지 일 경우 */}
@@ -173,27 +168,20 @@ const Profile = styled.div`
   padding: 15px 16px;
   border-bottom: 1px solid #ddd;
 `;
+
 const DeleteBtn = styled.button`
   border-radius: 8px;
   background-color: #fff;
-  border: 1px solid ${({ theme }) => theme.pallete.gray2};
   color: ${({ theme }) => theme.pallete.gray2};
-
-  width: 73px;
-  height: 38px;
-`;
-const AlreadyBtn = styled.button`
-  border-radius: 8px;
-  background-color: ${({ theme }) => theme.pallete.primary850};
-  color: #fff;
+  border: 1px solid ${({ theme }) => theme.pallete.gray2};
   width: 73px;
   height: 38px;
 `;
 const FollowBtn = styled.button`
   border-radius: 8px;
-  background-color: ${(props) => (props.prev ? "#fff" : "#FD7A00")};
-  color: ${(props) => (props.prev ? "#999" : "#fff")};
-  border: 1px solid ${(props) => (props.prev ? "#999" : "")};
+  background-color: #fff;
+  color: ${({ theme }) => theme.pallete.gray2};
+  border: 1px solid ${({ theme }) => theme.pallete.gray2};
   width: 73px;
   height: 38px;
 `;
