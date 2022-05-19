@@ -83,26 +83,24 @@ const MyPage = () => {
                 {getProfile && getProfile.nickname ? getProfile.nickname : ""}
                 {/* 유저명 */}
               </Text>
-              <WrapFollow>
-                <Grid
-                  onClick={() => {
-                    history.push("/follow");
-                    // dispatch(saveFollowDB());
-                  }}
-                >
-                  <Text body2 color="#555">
-                    팔로워{" "}
-                    <Follower>
-                      {getProfile?.followerCnt ? getProfile?.followerCnt : "0"}
-                    </Follower>
-                    명 · 팔로잉{" "}
-                    <Follower>
-                      {getProfile?.followCnt ? getProfile?.followCnt : "0"}
-                    </Follower>
-                    명
-                  </Text>
-                </Grid>
-              </WrapFollow>
+              <Grid
+                onClick={() => {
+                  history.push("/follow");
+                  // dispatch(saveFollowDB());
+                }}
+              >
+                <Text body2 color="#555">
+                  팔로워{" "}
+                  <Follower>
+                    {getProfile?.followerCnt ? getProfile?.followerCnt : "0"}
+                  </Follower>
+                  명 · 팔로잉{" "}
+                  <Follower>
+                    {getProfile?.followCnt ? getProfile?.followCnt : "0"}
+                  </Follower>
+                  명
+                </Text>
+              </Grid>
               <Text body2 color="#555" margin="0.5em 0 0 0">
                 등록한 작품{" "}
                 {myAllList.myPosts && myAllList?.myPosts.length
@@ -193,9 +191,15 @@ const MyPage = () => {
         })}
       </Grid>
 
-      <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 10px">
-        {current === "판매목록" && (
-          <NoInfo list={myPosts} text="아직 등록한 작품이 없어요.">
+      {current === "판매목록" && (
+        <NoInfo
+          list={myPosts}
+          text1="아직 등록한 작품이 없어요"
+          text2="작품을 등록하시겠어요?"
+          button="작품 등록"
+          movePage="/store/write"
+        >
+          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 10px">
             {myPosts &&
               current === "판매목록" &&
               myPosts.map((post) => {
@@ -211,11 +215,19 @@ const MyPage = () => {
                   />
                 );
               })}
-          </NoInfo>
-        )}
+          </Grid>
+        </NoInfo>
+      )}
 
-        {current === "리뷰목록" && (
-          <NoInfo list={myReviews} text="아직 작성한 리뷰가 없어요.">
+      {current === "리뷰목록" && (
+        <NoInfo
+          list={myReviews}
+          text1="아직 작성한 후기가 없어요"
+          text2="후기를 작성하시겠어요?"
+          button="후기 작성"
+          movePage="" //후기 작성페이지로 이동
+        >
+          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 10px">
             {myReviews &&
               current === "리뷰목록" &&
               myReviews.map((review) => {
@@ -232,11 +244,19 @@ const MyPage = () => {
                   />
                 );
               })}
-          </NoInfo>
-        )}
+          </Grid>
+        </NoInfo>
+      )}
 
-        {current === "관심목록" && (
-          <NoInfo list={myMarkups} text="아직 관심있는 작품이 없어요.">
+      {current === "관심목록" && (
+        <NoInfo
+          list={myMarkups}
+          text1="아직 관심있는 작품이 없어요"
+          text2="작품을 구경해보시겠어요?"
+          button="스토어로 이동"
+          movePage="/store"
+        >
+          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 10px">
             {myMarkups &&
               current === "관심목록" &&
               myMarkups.map((post) => {
@@ -251,9 +271,9 @@ const MyPage = () => {
                   />
                 );
               })}
-          </NoInfo>
-        )}
-      </Grid>
+          </Grid>
+        </NoInfo>
+      )}
     </>
   );
 };
@@ -309,11 +329,9 @@ const Edit = styled.div`
     color: ${theme.color.brandColor};
   }
 `;
-const WrapFollow = styled.div`
-  cursor: pointer;
-`;
+
 const Follower = styled.span`
   font-weight: bold;
-  /* cursor: pointer; */
+  cursor: pointer;
 `;
 export default MyPage;

@@ -2,14 +2,17 @@ import React, { useEffect } from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Header } from "./components";
 import { history } from "./redux/configureStore";
-import ToastMessage from "./shared/ToastMessage";
 import Modal from "./shared/modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { getUserInfo } from "./redux/modules/user";
 import { socket } from "./shared/socket";
-import { receiveChat, receiveChatRoom } from "./redux/modules/chat";
+import {
+  getChatList,
+  receiveChat,
+  receiveChatRoom,
+} from "./redux/modules/chat";
 import theme from "./styles/theme";
 import AuthRoute from "./routes/AuthRoute";
 import NoAuthRoute from "./routes/NoAuthRoute";
@@ -31,8 +34,8 @@ function App() {
   useEffect(() => {
     if (user) {
       socket.auth = { user };
-      console.log(user);
       socket.connect();
+      dispatch(getChatList());
     }
   }, [user]);
 
@@ -66,7 +69,6 @@ function App() {
           <AuthRoute />
 
           {modalOn && (title ? <Modal /> : <DragModal />)}
-          <ToastMessage />
         </ConnectedRouter>
       </MaxContainer>
     );
@@ -78,8 +80,6 @@ function App() {
           <NoAuthRoute />
 
           {modalOn && (title ? <Modal /> : <DragModal />)}
-
-          <ToastMessage />
         </ConnectedRouter>
       </MaxContainer>
     );

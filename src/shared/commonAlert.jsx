@@ -3,8 +3,11 @@ import { history } from "../redux/configureStore";
 
 export const deleteSwal = async () => {
   const result = await Swal.fire({
+<<<<<<< HEAD
     icon: "",
     title: "이 글을 삭제할까요?",
+=======
+>>>>>>> 4f65b2c824b5e593d9ea19c0420a31d45284837d
     text: "삭제 후에는 되돌릴수 없어요. 정말 삭제할까요?",
     showDenyButton: true,
     confirmButtonText: "네",

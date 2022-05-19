@@ -1,4 +1,5 @@
 import React from "react";
+import { io } from "socket.io-client";
 import styled from "styled-components";
 import { Flex, Image, Text } from "../elements";
 import { changeTime } from "../shared/utils";
@@ -7,6 +8,7 @@ import theme from "../styles/theme";
 const ChatCard = ({ room, onClick }) => {
   // const dispatch = useDispatch();
 
+  const target = room?.targetUser || null;
   const nowConnected = true;
 
   return (
@@ -14,7 +16,7 @@ const ChatCard = ({ room, onClick }) => {
       <Flex>
         <Flex>
           <NowConnected nowConnected={nowConnected} />
-          <Image circle size={50} src={room?.profileImage} />
+          <Image circle size={50} src={target?.profileImage} />
           {room?.newMessage > 0 && (
             <ReceiveMsg>
               <p style={{ fontSize: "10px" }}>{room?.newMessage || null}</p>
@@ -23,7 +25,7 @@ const ChatCard = ({ room, onClick }) => {
         </Flex>
         <Flex fd="column" margin="0 5px" jc="flex-start" ai="flex-start">
           <Flex>
-            <Text>{room?.nickname || "닉네임"}</Text> &nbsp;
+            <Text>{target?.nickname || "닉네임"}</Text> &nbsp;
             <Text body3>{room?.lastTime && changeTime(room?.lastTime)}</Text>
           </Flex>
           <Flex>

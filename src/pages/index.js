@@ -1,4 +1,3 @@
-import BuyList from "./BuyList";
 import Chat from "./Chat";
 import ChatRoom from "./ChatRoom";
 import Follow from "./Follow";
@@ -27,7 +26,6 @@ import UserFollow from "./UserFollow";
 import SellerSelect from "./SellerSelect";
 
 export {
-  BuyList,
   Chat,
   ChatRoom,
   Follow,

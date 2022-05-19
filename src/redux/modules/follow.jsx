@@ -9,6 +9,7 @@ const initialState = {
   follower: [],
   userfollow: [],
   userfollower: [],
+  deletelist: null,
 };
 //POST
 export const addFollowDB = (followId) => {
@@ -34,7 +35,8 @@ export const DeleteFollowDB = (followId) => {
         console.log(res);
         console.log(res.data);
         dispatch(addmyfollowdata(followId));
-        // history.push("/follow");
+        window.alert("팔로우가 취소되었습니다");
+        window.location.reload();
       })
       .catch((error) => {
         console.log("팔로우 삭제 실패", error);
@@ -70,6 +72,19 @@ export const getFollowerDB = () => {
       })
       .catch((error) => {
         console.log("follower 목록 조회 실패", error);
+      });
+  };
+};
+
+//팔로워 삭제(Delete)
+export const deleteFollowerDB = (userId) => {
+  return function (dispatch, getState, { history }) {
+    Apis.deleteFollower(userId)
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("팔로워 삭제 실패", error);
       });
   };
 };

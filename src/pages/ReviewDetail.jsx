@@ -42,16 +42,14 @@ const ReviewDetail = (props) => {
 
   const review = useSelector((state) => state.review);
   const reviewData = useSelector((state) => state.review.reviewData);
-  const buyer = useSelector((state) => state.review.detailData.buyer);
 
   const detailData = useSelector((state) => state.review.detailData);
   const currentUser = useSelector((state) => state.user?.user);
-  const followId = reviewData?.buyer?.userId;
+
   const isMe = reviewData?.user?.userId === currentUser?.userId;
-  // functons
-  const clickFollow = () => {
-    dispatch(addFollowDB(followId));
-  };
+
+  //리뷰를 쓴 유저 아이디(혹은 닉네임)가 내 팔로우 리스트에 있다면(=이미 팔로우 중이라면) 언팔로우 버튼 보이게
+  //아직 구현못함
   function editFunc() {
     history.push(`/review/edit/${reviewId}`);
   }
@@ -108,7 +106,7 @@ const ReviewDetail = (props) => {
                           padding="6px"
                           onClick={() => {
                             console.log("팔로우 버튼 눌렀다");
-                            clickFollow();
+                            dispatch(addFollowDB(v.userId));
                           }}
                         >
                           <Text body1 color={theme.pallete.primary900}>
@@ -191,7 +189,7 @@ const ReviewDetail = (props) => {
                           text
                           onClick={() => {
                             console.log("팔로우 버튼 눌렀다");
-                            clickFollow();
+                            dispatch(addFollowDB(v.userId));
                           }}
                         >
                           팔로우

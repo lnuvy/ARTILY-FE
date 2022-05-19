@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 import {
@@ -19,6 +19,8 @@ import {
   otherPost,
   filteringData,
 } from "../redux/modules/store";
+
+import { getFollowDB } from "../redux/modules/follow";
 
 import { addFollowDB } from "../redux/modules/follow";
 import { useParams } from "react-router-dom";
@@ -45,11 +47,21 @@ const StoreDetail = () => {
   const detailData = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
-  const followId = detailData?.user?.userId;
+  const myFollowList = useSelector((state) => state.followUser.list);
+  console.log("내 팔로우 목록 :", myFollowList);
+  const followId = current?.user?.userId;
+  console.log("팔로우 하려는 userId :", followId);
+  const { roomList } = useSelector((state) => state.chat);
+  console.log(roomList);
 
-  const clickFollow = () => {
+  const clickFollowbtn = () => {
     dispatch(addFollowDB(followId));
   };
+
+  //내 팔로우 목록 불러오기
+  useEffect(() => {
+    dispatch(getFollowDB());
+  }, []);
 
   useEffect(() => {
     // reset
@@ -60,7 +72,21 @@ const StoreDetail = () => {
     dispatch(getPostOne(postId));
   }, [postId]);
 
+<<<<<<< HEAD
   const isMe = detailData?.user?.userId === currentUser?.userId;
+=======
+  const isMe = current?.user?.userId === currentUser?.userId; //게시글 쓴 사람이 본인일 경우
+
+  // const [clickfollow, setClickfollow] = useState("팔로우");
+  // const changefollows = () => {
+  //   // 이미 팔로우 된 유저일 경우
+  //   if (myFollowList?.includes(followId) === current.user.userId) {
+  //     setClickfollow((prev) => (prev === "언팔로우" ? "팔로우" : "언팔로우"));
+  //   } else {
+  //     setClickfollow((prev) => (prev === "팔로우" ? "언팔로우" : "팔로우"));
+  //   }
+  // };
+>>>>>>> 4f65b2c824b5e593d9ea19c0420a31d45284837d
 
   const deletePosting = async () => {
     const result = await deleteSwal();
@@ -90,6 +116,15 @@ const StoreDetail = () => {
 
     let roomName = `from${nowUser}_to${postUser}_${postId}`;
 
+    const isExistRoom = roomList.find((room) => room.roomName === roomName);
+
+    if (isExistRoom) {
+      console.log("isExistRoom!!!!!!!");
+      history.push(`/chat/${roomName}`);
+      return;
+    }
+    console.log("방 새로 생성");
+
     const chatPostData = {
       postId,
       imageUrl: detailData.imageUrl[0],
@@ -98,21 +133,42 @@ const StoreDetail = () => {
       done: detailData.done,
     };
 
-    socket.emit("join_room", roomName, postUser, chatPostData);
+    console.log("join_room 세번째인자", chatPostData);
 
+    const targetUser = {
+      userId: current.user.userId,
+      nickname: current.user.nickname,
+      profileImage: current.user.profileImage,
+    };
+
+    console.log("join_room targetUser 주는 데이터 모양", targetUser);
+
+    socket.emit("join_room", roomName, postUser, chatPostData);
     dispatch(
       receiveChatRoom({
         roomName,
-        target: postUser,
         post: chatPostData,
+<<<<<<< HEAD
         nickname: detailData.user.nickname,
         profileImage: detailData.user.profileImage,
+=======
+        targetUser,
+>>>>>>> 4f65b2c824b5e593d9ea19c0420a31d45284837d
         messages: [],
         newMessage: 0,
         lastMessage: null,
         lastTime: null,
       })
     );
+    console.log("프론트 리덕스 저장소 들어간 데이터 형식:", {
+      roomName,
+      post: chatPostData,
+      targetUser,
+      messages: [],
+      newMessage: 0,
+      lastMessage: null,
+      lastTime: null,
+    });
     history.push(`/chat/${roomName}`);
   };
 
@@ -169,12 +225,20 @@ const StoreDetail = () => {
                       padding="6px"
                       onClick={() => {
                         console.log("팔로우 버튼 눌렀다");
-                        clickFollow();
+                        // changefollows(); //언팔로우로 바뀜
+                        clickFollowbtn(); //팔로우 버튼 한번 누름
                       }}
                     >
-                      <Text body1 color={theme.pallete.primary900}>
-                        팔로우
-                      </Text>
+                      {/* 내 팔로우 리스트에 현재 내가 팔로우 하려는 아이디가 포함되어 있다면 언팔로우 버튼 보이게 */}
+                      {myFollowList?.includes(current.user.userId) ? (
+                        <Text body1 color={theme.pallete.primary900}>
+                          언팔로우
+                        </Text>
+                      ) : (
+                        <Text body1 color={theme.pallete.primary900}>
+                          팔로우
+                        </Text>
+                      )}
                     </Flex>
                     <Flex
                       padding="6px"
@@ -242,7 +306,7 @@ const StoreDetail = () => {
                           text
                           onClick={() => {
                             console.log("팔로우 버튼 눌렀다");
-                            clickFollow();
+                            clickFollowbtn();
                           }}
                         >
                           팔로우

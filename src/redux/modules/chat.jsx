@@ -9,23 +9,23 @@ import { socket } from "../../shared/socket";
 // 채팅방리스트 모양
 // const roomList = [
 //   {
-//     nickname: "진우",
 //     post: {
 //       postId: "postIdforchat",
 //       imageUrl:
 //         "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
 //       postTitle: "채팅용",
 //       price: 2000,
+//       done: false,
 //     },
-//     postUser: "2222423044",
+//     targetUser: {
+//       userId: "asdfasdf",
+//       nickname: "asdfasdf",
+//       profileImage: "asdfasdfasdfa",
+//     },
 //     roomName: "from2222434554_to2222423044_postIdforchat",
-//     profileImage: "",
 //     messages: [],
-//     lastMessage: {
-//       message: "dfdf",
-//       time: "2022-05-05 12:00:00",
-//       myself: true / false,
-//     },
+//     lastMessage: "dfdf",
+//     lastTime: "",
 //     newMessage: 0,
 //   },
 // ];
@@ -40,6 +40,7 @@ export const getChatList = () => {
     Apis.getChatList()
       .then((res) => {
         console.log(res);
+        dispatch(getChatRoom(res.data.newChat));
       })
       .catch((err) => {
         console.log(err);
@@ -51,6 +52,9 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
+    getChatRoom: (state, action) => {
+      state.roomList = action.payload;
+    },
     notificationCheck: (state, action) => {
       const roomName = action.payload;
 
@@ -81,10 +85,9 @@ const chatSlice = createSlice({
       state.roomList.forEach((room) => {
         if (room.roomName === roomName) {
           room.messages.push(action.payload);
-          // 딕셔너리 넣었는데 터져서 배열로 바꿈
           room.lastMessage = message;
           room.lastTime = time;
-          // 남이보낸거면 카운트 추가
+
           if (from !== myId) {
             room.newMessage++;
           }
@@ -96,6 +99,7 @@ const chatSlice = createSlice({
 
 const { reducer, actions } = chatSlice;
 export const {
+  getChatRoom,
   newNotification,
   notificationCheck,
   // createChatRoom,
