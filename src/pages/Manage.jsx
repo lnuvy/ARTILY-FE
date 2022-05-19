@@ -99,5 +99,8 @@ const Inner = styled.div`
   background-color: #fff;
 `;
 
-const Sellbtn = styled.div``;
+const Sellbtn = styled.div`
+  position: fixed;
+  top: 0;
+`;
 export default Manage;
