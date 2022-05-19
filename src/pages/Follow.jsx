@@ -84,7 +84,6 @@ const Follow = () => {
                 <Text fg="1" body2 bold margin="5px 0 10px 0">
                   {nowfollowerList.length ? follower.nickname : ""}
                 </Text>
-                {/* 자신의 마이페이지일 경우 삭제버튼만 존재 */}
                 <DeleteBtn
                   height="38px"
                   padding="3px 17px"
@@ -95,7 +94,6 @@ const Follow = () => {
                 >
                   삭제
                 </DeleteBtn>
-                {/* 다른사람의 리스트일경우 팔로잉(나도 팔로우 누른 유저), 팔로우 버튼으로 나뉨 */}
               </Flex>
             </Profile>
           );

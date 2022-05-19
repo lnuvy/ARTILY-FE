@@ -13,10 +13,13 @@ import {
 } from "../redux/modules/follow";
 import { ArrowBack } from "../assets/icons";
 const UserFollow = () => {
-  const [clickfollow, setClickfollow] = useState("팔로잉");
-
-  const changeContents = () => {
-    setClickfollow((prev) => (prev === "팔로잉" ? "팔로우" : "팔로잉"));
+  const [clickfollow, setClickfollow] = useState("언팔로우");
+  const [clickfollower, setClickfollower] = useState("언팔로우");
+  const changefollows = () => {
+    setClickfollow((prev) => (prev === "언팔로우" ? "팔로우" : "언팔로우"));
+  };
+  const changefollowers = () => {
+    setClickfollower((prev) => (prev === "언팔로우" ? "팔로우" : "언팔로우"));
   };
   const history = useHistory();
   //내 팔로워 목록
@@ -28,8 +31,15 @@ const UserFollow = () => {
 
   const nowUserInfo = useSelector((state) => state?.mypage?.userInfo?.user);
   console.log(nowUserInfo);
-  const userId = useSelector((state) => state?.mypage?.userInfo?.user?.userId);
-  console.log("유저 아이디!!!", userId);
+  const currentuserId = useSelector(
+    (state) => state?.mypage?.userInfo?.user?.userId
+  );
+  const userFollowNick = useSelector(
+    (state) => state?.mypage?.userInfo?.user?.nickname
+  );
+
+  const myInfo = useSelector((state) => state.user?.user);
+  console.log("내 정보 :", myInfo);
 
   //유저 팔로우 목록
   const nowfollowList = useSelector((state) => state?.followUser?.userfollow);
@@ -39,6 +49,9 @@ const UserFollow = () => {
   const nowfollowerList = useSelector((state) => state.followUser).userfollower;
   console.log("유저 팔로워 리스트", nowfollowerList);
 
+  const isMe = nowfollowerList.find((i) => i.nickname) === myInfo?.nickname;
+
+  console.log(isMe);
   // 내 팔로워, 팔로우 목록 dispatch
   useEffect(() => {
     dispatch(getFollowerDB());
@@ -46,13 +59,13 @@ const UserFollow = () => {
   }, []);
 
   useEffect(() => {
-    if (!userId) {
+    if (!currentuserId) {
       history.go(-1); //새로고침 되면 뒤로 돌아가도록 설정
     } else {
-      dispatch(getUserFollowDB(userId));
-      dispatch(getUserFollowerDB(userId));
+      dispatch(getUserFollowDB(currentuserId));
+      dispatch(getUserFollowerDB(currentuserId));
     }
-  }, [userId]);
+  }, [currentuserId]);
 
   //5.18 이슈
   //상대의 팔로워, 팔로잉 리스트 중 하나를 눌러 프로필을 들어갔다가 뒤로 가기 시 팔로워, 팔로잉 리스트가 뒤죽박죽되는 이슈
@@ -106,23 +119,23 @@ const UserFollow = () => {
                     history.push(`/userprofile/${follower.userId}`); //누르면 팔로우한 유저의 프로필로 이동
                   }}
                 ></Image>
+
                 <Text fg="1" body2 bold margin="5px 0 10px 0">
                   {nowfollowerList?.length ? follower.nickname : ""}
                 </Text>
-                {/* 나도 이미 팔로우가 되어있는 사람일 경우 버튼 비활성화 */}
+                {/* 나도 이미 팔로우가 되어있는 사람일 경우 버튼 비활성화(언팔로우) */}
                 {/* 나도 팔로우가 안되어있는 사람일 경우 팔로우 버튼 활성화 */}
-                <FollowBtn
+                <FollowerBtn
                   height="38px"
                   padding="3px 17px"
-                  prev={clickfollow === "팔로잉" ? true : false}
+                  prev={clickfollow === "언팔로우" ? true : false}
                   onClick={() => {
-                    changeContents();
-
+                    changefollows();
                     // dispatch(DeleteFollowDB(follow.followId));
                   }}
                 >
                   {clickfollow}
-                </FollowBtn>
+                </FollowerBtn>
               </Flex>
             </Profile>
           );
@@ -148,21 +161,23 @@ const UserFollow = () => {
                 <Text fg="1" body2 bold margin="5px 0 10px 0">
                   {nowfollowList?.length ? follow.followName : ""}
                 </Text>
-                {/* 나도 이미 팔로우가 되어있는 사람일 경우 버튼 비활성화 */}
-
-                {/* 내 팔로우 목록에 있는 사람이면 버튼 비활성화 */}
-                <FollowBtn
-                  height="38px"
-                  padding="3px 17px"
-                  prev={clickfollow === "팔로잉" ? true : false}
-                  onClick={() => {
-                    changeContents();
-
-                    // dispatch(DeleteFollowDB(follow.followId));
-                  }}
-                >
-                  {clickfollow}
-                </FollowBtn>
+                {/* 나도 이미 팔로우가 되어있는 사람일 경우 언팔로우 버튼 */}
+                {/* 리스트에 본인이 있을경우 버튼이 없음 */}
+                {isMe ? (
+                  ""
+                ) : (
+                  <FollowBtn
+                    height="38px"
+                    padding="3px 17px"
+                    prev={clickfollow === "언팔로우" ? true : false}
+                    onClick={() => {
+                      changefollows();
+                      // dispatch(DeleteFollowDB(follow.followId));
+                    }}
+                  >
+                    {clickfollow}
+                  </FollowBtn>
+                )}
               </Flex>
             </Profile>
           );
@@ -194,6 +209,14 @@ const Nav = styled.div`
 const Profile = styled.div`
   padding: 15px 16px;
   border-bottom: 1px solid #ddd;
+`;
+const FollowerBtn = styled.button`
+  border-radius: 8px;
+  background-color: ${(props) => (props.prev ? "#fff" : "#FD7A00")};
+  color: ${(props) => (props.prev ? "#999" : "#fff")};
+  border: 1px solid ${(props) => (props.prev ? "#999" : "")};
+  width: 73px;
+  height: 38px;
 `;
 const FollowBtn = styled.button`
   border-radius: 8px;
