@@ -24,6 +24,7 @@ function App() {
   const { modalOn, title } = useSelector((state) => state.modal);
   const { user, isLogin } = useSelector((state) => state.user);
 
+  // useEffect 작업 순서대로 놓음
   useEffect(() => {
     var token = localStorage.getItem("token");
     if (token) {
@@ -32,12 +33,18 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (user?.nickname === "") {
+      console.log("app.jsx에서 닉네임이 비었을때 지나치는 useEffect");
+      history.replace("/profile");
+    }
+  }, [user?.nickname]);
+
+  useEffect(() => {
     if (user) {
+      dispatch(getChatList());
       if (user?.profileImage && user?.nickname) {
         socket.auth = { user };
-        console.log("사진과 닉네임 둘다있을때만 커넥트");
         socket.connect();
-        dispatch(getChatList());
       }
     }
   }, [user]);
@@ -46,23 +53,15 @@ function App() {
     // 판매자 입장
     socket.on("join_room", (data) => {
       dispatch(receiveChatRoom(data));
-      socket.emit("enter_room", data.roomName);
+      // socket.emit("enter_room", data.roomName); // TODO  5/19 이때까지 있었는데 백/프론트 둘다 주석했을때 부작용 없는지 체크해볼것
     });
-  }, []);
+  });
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
       dispatch(receiveChat(data));
     });
-  }, []);
-
-  // // 닉네임이 비어있을때
-  useEffect(() => {
-    if (user?.nickname === "") {
-      console.log("app.jsx에서 닉네임이 비었을때 지나치는 useEffect");
-      history.replace("/profile");
-    }
-  }, [user?.nickname]);
+  });
 
   if (isLogin) {
     return (

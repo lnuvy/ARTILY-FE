@@ -15,7 +15,7 @@ import {
   Button,
   Icon,
 } from "../elements";
-import { OtherWorkCard } from "../components";
+import { FollowCheck, OtherWorkCard } from "../components";
 import { FavoriteFilled, Favorite } from "../assets/icons/index";
 // modules
 import {
@@ -24,7 +24,7 @@ import {
   likeReviewDB,
   deleteReviewDB,
 } from "../redux/modules/reviews";
-import { addFollowDB } from "../redux/modules/follow";
+import { addFollowDB, getFollowDB } from "../redux/modules/follow";
 import { priceComma } from "../shared/utils";
 
 const ReviewDetail = (props) => {
@@ -41,14 +41,12 @@ const ReviewDetail = (props) => {
 
   const review = useSelector((state) => state.review);
   const reviewData = useSelector((state) => state.review.reviewData);
-
+  const myFollowList = useSelector((state) => state.followUser.myFollowing);
   const detailData = useSelector((state) => state.review.detailData);
   const currentUser = useSelector((state) => state.user?.user);
 
   const isMe = reviewData?.user?.userId === currentUser?.userId;
 
-  //리뷰를 쓴 유저 아이디(혹은 닉네임)가 내 팔로우 리스트에 있다면(=이미 팔로우 중이라면) 언팔로우 버튼 보이게
-  //아직 구현못함
   function editFunc() {
     history.push(`/review/edit/${reviewId}`);
   }
@@ -65,9 +63,24 @@ const ReviewDetail = (props) => {
     alert("로그인하세요.");
   }
 
+  // 팔로우정보
+  const [nowFollowing, setNowFollowing] = useState(false);
+
+  // 팔로우 토글
+  const followToggle = (v) => {
+    const userData = {
+      followId: v.userId,
+      followName: v.nickname,
+      profileImage: v.profileImage,
+    };
+
+    dispatch(addFollowDB(userData));
+    setNowFollowing(!nowFollowing);
+  };
+
   return (
     <>
-      {console.log(Array.isArray(detailData.buyer))}
+      {/* {console.log(Array.isArray(detailData.buyer))} */}
       {detailData.buyer &&
         detailData.buyer.map((v) => (
           <>
@@ -104,13 +117,15 @@ const ReviewDetail = (props) => {
                         <Flex
                           padding="6px"
                           onClick={() => {
-                            console.log("팔로우 버튼 눌렀다");
-                            dispatch(addFollowDB(v.userId));
+                            followToggle(v);
                           }}
                         >
-                          <Text body1 color={theme.pallete.primary900}>
-                            팔로우
-                          </Text>
+                          <FollowCheck
+                            text
+                            follow={myFollowList.find(
+                              (f) => f.followId === v.userId
+                            )}
+                          />
                         </Flex>
                         <Flex
                           padding="6px"

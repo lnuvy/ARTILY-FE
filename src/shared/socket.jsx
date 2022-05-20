@@ -9,5 +9,29 @@ export const socket = io(URL, { autoConnect: false });
 
 // 모든 이벤트 확인
 socket.onAny((event, ...args) => {
-  console.log(event, args);
+  // console.log(event, args);
+  if (event === "user connected") {
+    console.log(args);
+  }
 });
+
+// socket.on("user connected", (data) => {
+//   console.log("세번뜨냐?");
+//   console.log(data);
+// });
+
+// export const socketConnection = (user) => {
+//   if (user) {
+//     if (user?.profileImage && user?.nickname) {
+//       socket.auth = { user };
+//       console.log("사진과 닉네임 둘다있을때만 커넥트");
+//       socket.connect();
+//     }
+//   }
+// };
+
+// export const userConnection = () => {
+//   socket.on("user connected", (data) => {
+//     console.log(data);
+//   });
+// };

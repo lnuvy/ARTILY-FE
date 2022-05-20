@@ -10,10 +10,9 @@ import {
   ImageCarousel,
   Button,
 } from "../elements";
+
 import {
   deletePostDB,
-  getNowPost,
-  getPostDB,
   getPostOne,
   go2detail,
   otherPost,
@@ -35,10 +34,10 @@ import { IoMdHeart } from "react-icons/io";
 
 // 채팅
 import { socket } from "../shared/socket";
-import { receiveChatRoom } from "../redux/modules/chat";
+import { makeChatRoom, receiveChatRoom } from "../redux/modules/chat";
 import { postMarkupToggle } from "../redux/modules/user";
 import { Heart } from "../assets/icons";
-import { StoreMore } from "../components";
+import { FollowCheck, StoreMore } from "../components";
 
 const StoreDetail = () => {
   const dispatch = useDispatch();
@@ -47,26 +46,11 @@ const StoreDetail = () => {
   const detailData = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
-  const myFollowList = useSelector((state) => state.followUser.list);
-  console.log("내 팔로우 목록 :", myFollowList);
-  const followId = detailData?.user?.userId;
-  console.log("팔로우 하려는 userId :", followId);
-
+  const myFollowList = useSelector((state) => state.followUser.myFollowing);
   const { roomList } = useSelector((state) => state.chat);
-  console.log(roomList);
 
-  const clickFollowbtn = () => {
-    dispatch(addFollowDB(followId));
-  };
-
-  // const alreadyFollow = myFollowList.find(
-  //   (f) => f.followId === current?.user?.userId
-  // )
-  //   ? true
-  //   : false;
-
-  //내 팔로우 목록 불러오기
-  useEffect(() => {}, []);
+  // userId만 받던거에서 다 받는걸로 수정
+  const followInfo = detailData?.user;
 
   useEffect(() => {
     // reset
@@ -83,12 +67,37 @@ const StoreDetail = () => {
 
   const isMe = detailData?.user?.userId === currentUser?.userId;
 
+  const [nowFollowing, setNowFollowing] = useState(false);
+
+  useEffect(() => {
+    const result =
+      myFollowList?.find((u) => u.followId === detailData?.user?.userId) ||
+      false;
+    if (result) {
+      setNowFollowing(true);
+    }
+  }, [detailData]);
+
   const deletePosting = async () => {
     const result = await deleteSwal();
     console.log(result);
     if (result) {
       dispatch(deletePostDB(postId));
     }
+  };
+
+  // 팔로우
+  const clickFollowbtn = () => {
+    const userData = {
+      followId: followInfo.userId,
+      followName: followInfo.nickname,
+      profileImage: followInfo.profileImage,
+    };
+
+    console.log(userData);
+
+    dispatch(addFollowDB(userData));
+    setNowFollowing(!nowFollowing);
   };
 
   // 찜하기
@@ -100,7 +109,9 @@ const StoreDetail = () => {
 
   // 더보기
   const moveToProfile = (userId) => {
-    console.log(userId);
+    if (userId === currentUser.userId) {
+      history.push(`/mypage`);
+    }
     history.push(`/userprofile/${userId}`);
   };
 
@@ -118,7 +129,6 @@ const StoreDetail = () => {
       history.push(`/chat/${roomName}`);
       return;
     }
-    console.log("방 새로 생성");
 
     const chatPostData = {
       postId,
@@ -128,45 +138,31 @@ const StoreDetail = () => {
       done: detailData.done,
     };
 
-    console.log("join_room 세번째인자", chatPostData);
-
     const targetUser = {
       userId: detailData.user.userId,
       nickname: detailData.user.nickname,
       profileImage: detailData.user.profileImage,
+      connected: null,
     };
-
-    console.log("join_room targetUser 주는 데이터 모양", targetUser);
 
     socket.emit("join_room", roomName, postUser, chatPostData);
     dispatch(
-      receiveChatRoom({
+      makeChatRoom({
         roomName,
         post: chatPostData,
-        nickname: detailData.user.nickname,
-        profileImage: detailData.user.profileImage,
         targetUser,
-        messages: [],
         newMessage: 0,
         lastMessage: null,
         lastTime: null,
       })
     );
-    console.log("프론트 리덕스 저장소 들어간 데이터 형식:", {
-      roomName,
-      post: chatPostData,
-      targetUser,
-      messages: [],
-      newMessage: 0,
-      lastMessage: null,
-      lastTime: null,
-    });
+
     history.push(`/chat/${roomName}`);
   };
 
   return (
     <>
-      {detailData && detailData.user && (
+      {detailData && (
         <>
           <Wrap margin="0 16px">
             <Flex>
@@ -213,29 +209,12 @@ const StoreDetail = () => {
                   </>
                 ) : (
                   <>
-                    <Flex
-                      padding="6px"
-                      onClick={() => {
-                        // changefollows(); //언팔로우로 바뀜
-                        clickFollowbtn(); //팔로우 버튼 한번 누름
-                      }}
-                    >
-                      {/* 내 팔로우 리스트에 현재 내가 팔로우 하려는 아이디가 포함되어 있다면 언팔로우 버튼 보이게 */}
-                      {myFollowList?.includes(detailData.user.userId) ? (
-                        <Text body1 color={theme.pallete.primary900}>
-                          언팔로우
-                        </Text>
-                      ) : (
-                        <Text body1 color={theme.pallete.primary900}>
-                          팔로우
-                        </Text>
-                      )}
-                      <Text body1 color={theme.pallete.primary900}>
-                        팔로우
-                      </Text>
+                    <Flex padding="6px" onClick={clickFollowbtn}>
+                      <FollowCheck text follow={nowFollowing} />
                     </Flex>
                     <Flex
-                      padding="6px"
+                      padding="0"
+                      margin="0 0 0 6px"
                       onClick={() => {
                         console.log("신고하기");
                       }}
@@ -249,7 +228,7 @@ const StoreDetail = () => {
               </Flex>
             </Flex>
           </Wrap>
-          <ImageCarousel src={detailData.imageUrl} />
+          <ImageCarousel src={detailData.images} />
 
           <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">
@@ -293,24 +272,13 @@ const StoreDetail = () => {
                     </>
                   ) : (
                     <>
-                      <Wrap margin="0 0 0 4px" fg="1">
-                        <Button
-                          fontSize="16px"
-                          color={`${theme.color.brandColor}`}
-                          text
-                          onClick={() => {
-                            console.log("팔로우 버튼 눌렀다");
-                            clickFollowbtn();
-                          }}
-                        >
-                          팔로우
-                        </Button>
-                      </Wrap>
+                      <Wrap margin="0 0 0 4px" fg="1"></Wrap>
                       <Text lineHeight="22px">
                         <Button
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
                           text
+                          padding="0"
                           onClick={() =>
                             moveToProfile(otherPosts[0].user.userId)
                           }

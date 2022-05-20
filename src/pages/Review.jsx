@@ -35,7 +35,7 @@ const Review = () => {
                 console.log(v.images);
                 return (
                   <ReviewCard
-                    _key={i}
+                    _key={`${i}_${Math.random() * 10}`}
                     onClick={() => clickCard(v.reviewId)}
                     {...v}
                     images={v.images[0].imageUrl || null}

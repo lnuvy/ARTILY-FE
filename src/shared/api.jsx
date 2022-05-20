@@ -81,5 +81,6 @@ export const Apis = {
   deleteFollower: (userId) => Api.delete(`/api/follow/delete/${userId}`),
 
   // chat API
-  getChatList: () => Api.get(`/api/chat`),
+  getChatData: () => Api.get(`/api/chat/data`),
+  getMessages: () => Api.get(`/api/chat/messages`),
 };

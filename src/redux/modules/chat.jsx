@@ -1,10 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
-import moment from "moment";
+
 import { Apis } from "../../shared/api";
 import { socket } from "../../shared/socket";
 /*
  * @ 한울
  */
+
+// 5/19 얘기한 chatdata 데이터 모양
+// const 데이터모양 = {
+//   userId,
+//   nickname,
+//   profileImage,
+//   connected,
+//   chatRoom: [
+//     {
+//       roomName: "",
+//       lastTime: "",
+//       lastMessage: "",
+//       post: {},
+//       newMessage: 3,
+//       targetUser: {},
+//     },
+//     {},
+//     {},
+//     {},
+//   ],
+// };
 
 // 채팅방리스트 모양
 // const roomList = [
@@ -31,20 +52,35 @@ import { socket } from "../../shared/socket";
 // ];
 
 const initialState = {
-  // 채팅방 리스트
-  roomList: [],
+  chatData: [],
+  roomMessages: {},
 };
 
 export const getChatList = () => {
   return async function (dispatch, getState, { history }) {
-    Apis.getChatList()
+    Apis.getChatData()
       .then((res) => {
-        console.log(res);
-        if(res.status === 204) {
-          console.log("진행중인 채팅없음");
+        console.log("TODO res 데이터 잘보기", res);
+        if (res.status === 204) {
+          console.log("아직 채팅방없음");
           return;
         }
-        dispatch(getChatRoom(res.data.newChat));
+
+        // dispatch()
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+  };
+};
+
+export const getChatMessages = () => {
+  return async function (dispatch, getState, { history }) {
+    Apis.getMessages()
+      .then((res) => {
+        console.log(res);
+        // dispatch(getMessages(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -56,8 +92,16 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    getChatRoom: (state, action) => {
-      state.roomList = action.payload;
+    chatInfo: (state, action) => {
+      state.chatData = action.payload;
+      const myId = socket?.id;
+    },
+    makeChatRoom: (state, action) => {
+      // TODO 다시볼것
+      state.chatData.chatRoom.unshift(action.payload);
+    },
+    getMessages: (state, action) => {
+      state.roomMessages = action.payload;
     },
     notificationCheck: (state, action) => {
       const roomName = action.payload;
@@ -72,7 +116,6 @@ const chatSlice = createSlice({
     // 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
       const { roomName } = action.payload;
-
       if (state.roomList.find((room) => roomName === room.roomName)) {
         return;
       }
@@ -89,7 +132,6 @@ const chatSlice = createSlice({
       state.roomList.forEach((room) => {
         if (room.roomName === roomName) {
           room.messages.push(action.payload);
-          room.lastMessage = message;
           room.lastTime = time;
 
           if (from !== myId) {
@@ -103,7 +145,9 @@ const chatSlice = createSlice({
 
 const { reducer, actions } = chatSlice;
 export const {
-  getChatRoom,
+  chatInfo,
+  makeChatRoom,
+  getMessages,
   newNotification,
   notificationCheck,
   // createChatRoom,

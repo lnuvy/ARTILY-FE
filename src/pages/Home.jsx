@@ -46,7 +46,7 @@ const Home = () => {
                   isHome
                   key={v.postId}
                   {...v}
-                  imageUrl={v.imageUrl && v.imageUrl[0].imageUrl}
+                  imageUrl={v.images && v.images[0].imageUrl}
                 />
               );
             })}
@@ -106,7 +106,7 @@ const Home = () => {
                     key={i}
                     {...l}
                     onClick={() => move2detail(l, "/review")}
-                    images={l.imageUrl[0].imageUrl}
+                    images={l.images[0].imageUrl}
                   />
                 );
               })

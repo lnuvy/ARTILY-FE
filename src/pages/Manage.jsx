@@ -47,7 +47,7 @@ const Manage = () => {
                 className="sell"
                 {...list}
                 onClick={() => handleClickData(list)}
-              ></ArtCard>
+              />
             );
           })}
         </Grid>

@@ -4,14 +4,12 @@ import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Grid, Flex, Text, Image, Button, Icon } from "../elements";
-import { getmyPageData, getUserPageData } from "../redux/modules/mypage";
 import {
   getFollowDB,
   getFollowerDB,
   getUserFollowDB,
   getUserFollowerDB,
 } from "../redux/modules/follow";
-import { ArrowBack } from "../assets/icons";
 const UserFollow = () => {
   const [clickfollow, setClickfollow] = useState("언팔로우");
   const [clickfollower, setClickfollower] = useState("언팔로우");
@@ -23,11 +21,10 @@ const UserFollow = () => {
   };
   const history = useHistory();
   //내 팔로워 목록
-  const myfollower = useSelector((state) => state.followUser.follower);
-  console.log("내 팔로워 목록", myfollower);
+  const myfollower = useSelector((state) => state.followUser.myFollower);
+
   //내 팔로우 목록
-  const myfollow = useSelector((state) => state.followUser.list);
-  console.log("내 팔로잉 목록", myfollow);
+  const myfollow = useSelector((state) => state.followUser.myFollowing);
 
   const nowUserInfo = useSelector((state) => state?.mypage?.userInfo?.user);
   console.log(nowUserInfo);

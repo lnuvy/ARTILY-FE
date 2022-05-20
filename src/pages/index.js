@@ -9,7 +9,7 @@ import RedirectKakao from "./RedirectKakao";
 import RedirectNaver from "./RedirectNaver";
 import Review from "./Review";
 import ReviewDetail from "./ReviewDetail";
-import SaleComplete from "./SaleComplete";
+import SellComplete from "./SellComplete";
 import Setprofile from "./SetProfile";
 import Store from "./Store";
 import StoreDetail from "./StoreDetail";
@@ -38,7 +38,7 @@ export {
   RedirectNaver,
   Review,
   Login,
-  SaleComplete,
+  SellComplete,
   Setprofile,
   Store,
   StoreDetail,

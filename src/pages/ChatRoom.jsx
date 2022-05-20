@@ -37,24 +37,27 @@ const ChatRoom = () => {
   useEffect(() => {
     // 첫 페이징
     if (nowChat) {
-      const page = Math.floor(nowChat.messages.length / 20) + 1;
-      const newArr = setInfinityPaging(page);
-      setInfinity(newArr);
-      setMessages(newArr[newArr.length - 1]);
+      // const endpoint = nowChat.messages.length;
+      // const page = Math.floor(endpoint / 20) + 1;
+      // const newArr = setInfinityPaging(page, endpoint);
+      // setInfinity(newArr);
+      setMessages(nowChat.messages);
     }
     return () => {
       dispatch(notificationCheck(roomName));
     };
   }, []);
 
-  const setInfinityPaging = (page) => {
-    let arr = [];
-    for (let i = page; i > 0; i--) {
-      let sliceArr = nowChat.messages.slice((i - 1) * 20, i * 20);
-      arr.push(sliceArr);
-    }
-    return arr;
-  };
+  // 상단 채팅끌어오기위해 데이터 20개단위로 자르기
+  // const setInfinityPaging = (page, endpoint) => {
+  //   let arr = [];
+  //   for (let i = page; i >= 0; i--) {
+  //     let sliceArr = nowChat.messages.slice(i * 20 - endpoint);
+  //     console.log(sliceArr);
+  //     arr.push(sliceArr);
+  //   }
+  //   return arr;
+  // };
 
   useEffect(() => {
     if (!nowChat) {
@@ -76,7 +79,8 @@ const ChatRoom = () => {
       dispatch(receiveChat(messageData));
 
       socket.on("receive_message", (data) => {
-        setMessages(messages.concat(data));
+        console.log(data);
+        dispatch(receiveChat(data));
       });
     } else {
       alert("공백만 입력됨");
@@ -198,7 +202,7 @@ const ChatRoom = () => {
                           color: `${theme.pallete.gray3}`,
                         }}
                       >
-                        {moment(msg.time).format("hh:mm")}
+                        {moment(msg.time).format("a hh:mm")}
                       </p>
                     </Flex>
                   </Flex>
@@ -237,7 +241,7 @@ const ChatRoom = () => {
                             margin: "5px 5px 5px 0",
                           }}
                         >
-                          {moment(msg.time).format("hh:mm")}
+                          {moment(msg.time).format("a hh:mm")}
                         </p>
                       </Flex>
                     </Flex>

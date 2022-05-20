@@ -24,7 +24,7 @@ const ArtCard = (props) => {
     postTitle,
     price,
     done,
-    imageUrl,
+    images,
     nickname,
     likeCnt,
     markupCnt,
@@ -45,7 +45,7 @@ const ArtCard = (props) => {
   } = props;
 
   // 포스팅에 사진이 없는 예외처리를 위해 방지
-  const imageArr = imageUrl || [""];
+  const imageArr = images || [""];
   console.log(imageArr);
 
   const nowuser = userInfo;
@@ -137,6 +137,7 @@ const ArtCard = (props) => {
                 padding="10px 20px"
                 onClick={() => {
                   //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
+                  history.push(`/completed/${postId}`);
                 }}
               >
                 판매완료로 상태변경하기
@@ -178,7 +179,7 @@ const ArtCard = (props) => {
             <Flex>
               <Image
                 width="140px"
-                src={imageUrl}
+                src={images[0].imageUrl}
                 margin="0 10px 10px 10px"
                 border="1px solid #eee"
               />
