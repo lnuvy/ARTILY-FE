@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChatCard, NoInfo } from "../components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
-import {
-  getChatList,
-  getChatMessages,
-  notificationCheck,
-  receiveChatRoom,
-} from "../redux/modules/chat";
+import { getChatMessages } from "../redux/modules/chat";
+import Loader from "../shared/Loader";
 import { socket } from "../shared/socket";
 import theme from "../styles/theme";
 
+// const chatData = lazy(() => import(chatData));
+
 const Chat = () => {
   const dispatch = useDispatch();
-  const { roomData } = useSelector((state) => state.chat);
+  const { chatData } = useSelector((state) => state.chat);
 
   useEffect(() => {
     socket.on("join_room", (data) => {
@@ -26,25 +24,26 @@ const Chat = () => {
 
   const enterRoom = (roomName) => {
     dispatch(getChatMessages());
-    // dispatch(notificationCheck(roomName));
     history.push(`/chat/${roomName}`);
   };
 
   return (
     <>
-      <Grid border={`1px solid ${theme.pallete.gray1}`}>
-        <NoInfo list={roomData} text1="아직 대화중인 사람이 없어요!">
-          {roomData.chatRoom.map((room, i) => {
-            return (
-              <ChatCard
-                key={room.roomName}
-                room={roomData}
-                onClick={() => enterRoom(room.roomName)}
-              />
-            );
-          })}
-        </NoInfo>
-      </Grid>
+      <Suspense fallback={Loader}>
+        <Grid border={`1px solid ${theme.pallete.gray1}`}>
+          <NoInfo list={chatData.chatRoom} text1="아직 대화중인 사람이 없어요!">
+            {chatData.chatRoom.map((room, i) => {
+              return (
+                <ChatCard
+                  key={room.roomName}
+                  room={room}
+                  onClick={() => enterRoom(room.roomName)}
+                />
+              );
+            })}
+          </NoInfo>
+        </Grid>
+      </Suspense>
     </>
   );
 };

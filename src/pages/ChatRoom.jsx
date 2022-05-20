@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import theme from "../styles/theme";
 import { history } from "../redux/configureStore";
-import { notificationCheck, receiveChat } from "../redux/modules/chat";
+import { receiveChat } from "../redux/modules/chat";
 import { ChatFileInput } from "../components";
 import { ArrowUpward } from "../assets/icons";
 import { priceComma } from "../shared/utils";
@@ -20,9 +20,12 @@ const ChatRoom = () => {
   const roomName = pathname.slice(6);
   const from = useSelector((state) => state.user.user?.userId);
 
-  const nowChat = useSelector((state) => state.chat.roomList).find(
-    (room) => room.roomName === roomName
-  );
+  const nowChat =
+    useSelector((state) => state.chat.chatData).chatRoom.find(
+      (room) => room.roomName === roomName
+    ) || null;
+
+  console.log(nowChat);
 
   const isDone = nowChat?.post?.done;
 
@@ -43,9 +46,6 @@ const ChatRoom = () => {
       // setInfinity(newArr);
       setMessages(nowChat.messages);
     }
-    return () => {
-      dispatch(notificationCheck(roomName));
-    };
   }, []);
 
   // 상단 채팅끌어오기위해 데이터 20개단위로 자르기

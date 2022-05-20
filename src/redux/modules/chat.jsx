@@ -101,16 +101,7 @@ const chatSlice = createSlice({
     getMessages: (state, action) => {
       state.roomMessages = action.payload;
     },
-    notificationCheck: (state, action) => {
-      const roomName = action.payload;
 
-      state.roomList.forEach((room) => {
-        if (room.roomName === roomName) {
-          room.newMessage = 0;
-          return;
-        }
-      });
-    },
     // 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
       const { roomName } = action.payload;
@@ -147,7 +138,7 @@ export const {
   makeChatRoom,
   getMessages,
   newNotification,
-  notificationCheck,
+
   // createChatRoom,
   receiveChatRoom,
   receiveChat,
