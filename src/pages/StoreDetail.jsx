@@ -52,8 +52,7 @@ const StoreDetail = () => {
   const followId = detailData?.user?.userId;
   console.log("팔로우 하려는 userId :", followId);
 
-  const detailImage = detailData.images
-  console.log(detailImage)
+  const detailImage = detailData?.images;
   const { roomList } = useSelector((state) => state.chat);
   console.log(roomList);
 
@@ -200,7 +199,7 @@ const StoreDetail = () => {
                       padding="6px"
                       onClick={() => {
                         console.log("수정");
-                        history.push(`/store/write/${postId}`);
+                        history.push(`/store/edit/${postId}`);
                       }}
                     >
                       <Text body1 color={theme.pallete.primary900}>
@@ -225,7 +224,7 @@ const StoreDetail = () => {
                       {/* 내 팔로우 리스트에 현재 내가 팔로우 하려는 아이디가 포함되어 있다면 언팔로우 버튼 보이게 */}
                       {/* 아직 이 부분은 구현중입니다 */}
                       {myFollowList?.includes(detailData) ? (
-                      // {myFollowList?.includes(detailData.user.userId) ? (
+                        // {myFollowList?.includes(detailData.user.userId) ? (
                         <Text body1 color={theme.pallete.primary900}>
                           언팔로우
                         </Text>
@@ -250,26 +249,26 @@ const StoreDetail = () => {
               </Flex>
             </Flex>
           </Wrap>
-        {/* 이 부분 수정 필요 */}
-        
-          <ImageCarousel src={detailData.images} />
+          {/* 이 부분 수정 필요 */}
+          {console.log()}
+          <ImageCarousel src={detailData?.images} />
 
           <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">
               <Text color={theme.pallete.gray3}>분류</Text>
-              <Text color={theme.pallete.gray3}>{detailData.category}</Text>
+              <Text color={theme.pallete.gray3}>{detailData?.category}</Text>
             </Flex>
 
             <Flex margin="8px 0 10px" jc="space-between">
               <Text color={theme.pallete.gray3}>거래 방식</Text>
               <Text color={theme.pallete.gray3}>
-                {detailData.transaction}
-                {detailData.changeAddress && ` ∙ ${detailData.changeAddress}`}
+                {detailData?.transaction}
+                {detailData?.changeAddress && ` ∙ ${detailData?.changeAddress}`}
               </Text>
             </Flex>
             <Flex>
               <Text color="black" margin="0 0 16px">
-                {detailData.postContent}
+                {detailData?.postContent}
               </Text>
             </Flex>
             {otherPosts && (

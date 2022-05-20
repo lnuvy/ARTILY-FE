@@ -10,69 +10,113 @@ import { inputSpaceReg } from "../shared/utils";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { history } from "../redux/configureStore";
-import { editPostDB, getPostOne } from "../redux/modules/store";
+import {
+  editPostDB,
+  getPostOne,
+  go2detail,
+  otherPost,
+} from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 
 // alert
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import MapModal from "../shared/modal/modalContent/MapModal";
-
-/*
- * @한울
- *
- */
+import { now } from "lodash";
 
 const MySwal = withReactContent(Swal);
 
 const StoreEdit = () => {
+  // 할당
   const dispatch = useDispatch();
-
   const { postId } = useParams();
 
+  // selector
   const nowPost = useSelector((state) => state.store.detailData);
+  const { imageArr, fileObj } = useSelector((state) => state.image);
 
-  useEffect(() => {
-    dispatch(getPostOne(postId));
-    console.log(nowPost);
-    dispatch(editPosts3Url(nowPost?.images));
-  }, []);
+  // states
+  // 인풋 정의 -> 초기값은 아래와 같음.
+  const [inputs, setInputs] = useState({});
+  const [receiveAddress, setReceiveAddress] = useState(null);
+  const [receiveCategory, setReceiveCategory] = useState(null);
+
+  // 택배나 직거래일 경우 정의
+  let editDelivery;
+  let editDirect;
 
   if (nowPost?.transaction === "전체") {
-    var editDelivery = true;
-    var editDirect = true;
+    editDelivery = true;
+    editDirect = true;
   } else if (nowPost?.transaction === "직거래") {
     editDelivery = false;
   } else {
     editDirect = false;
   }
 
-  const [inputs, setInputs] = useState({
-    delivery: editDelivery,
-    direct: editDirect,
-    postTitle: nowPost?.postTitle,
-    postContent: nowPost?.postContent,
-    price: nowPost?.price,
-  });
-  const { imageArr, fileObj } = useSelector((state) => state.image);
-
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setInputs({ ...inputs, [id]: value });
-  };
-
-  const [receiveAddress, setReceiveAddress] = useState(nowPost?.changeAddress);
-  const [receiveCategory, setReceiveCategory] = useState(nowPost?.category);
-
+  // redux 리셋
   useEffect(() => {
-    // 이미지 리덕스 데이터 초기화
     dispatch(clearPreview());
+    dispatch(go2detail(null));
+    dispatch(otherPost([]));
   }, []);
 
+  // 데이터 불러오기
+  useEffect(() => {
+    dispatch(getPostOne(postId));
+  }, []);
+
+  // 데이터 불러오기
+  useEffect(() => {
+    dispatch(editPosts3Url(nowPost?.images));
+  }, [nowPost?.images]);
+
+  useEffect(() => {
+    console.log(nowPost);
+    setReceiveCategory(nowPost?.category);
+    setReceiveAddress(nowPost?.changeAddress);
+    setInputs({
+      transaction: nowPost?.transaction,
+      delivery: nowPost
+        ? nowPost.transaction === "전체"
+          ? true
+          : nowPost.transaction === "택배"
+          ? true
+          : false
+        : null,
+      direct: nowPost
+        ? nowPost.transaction === "전체"
+          ? true
+          : nowPost.transaction === "택배"
+          ? false
+          : true
+        : null,
+      postTitle: nowPost?.postTitle,
+      postContent: nowPost?.postContent,
+      price: nowPost?.price,
+    });
+  }, [nowPost]);
+
+  // functions
+  // 인풋 값 핸들링
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    console.log(e.target.value);
+    setInputs({ ...inputs, [id]: value });
+    console.log(inputs);
+  };
+
+  // 맵 모달
   const modalOn = (reg) => {
     if (reg === "category") {
       dispatch(
-        openDragModal(<CategoryModal setReceiveCategory={setReceiveCategory} />)
+        openDragModal(
+          <CategoryModal
+            setReceiveCategory={setReceiveCategory}
+            receiveCategory={receiveCategory}
+          />
+        ),
+        [nowPost]
       );
     } else {
       dispatch(
@@ -86,6 +130,7 @@ const StoreEdit = () => {
     }
   };
 
+  // 데이터 전달
   const submitPost = () => {
     const { postTitle, price, postContent } = inputs;
     inputSpaceReg(postTitle);
@@ -184,26 +229,25 @@ const StoreEdit = () => {
         />
         <Input
           id="postTitle"
+          type="text"
           placeholder="작품명을 입력해 주세요."
           padding="16px 12px"
-          // label="작품명"
-          // margin="0 0 10px"
-          value={inputs?.postTitle}
+          value={inputs.postTitle}
           onChange={handleChange}
         />
         <Input
           id="price"
-          placeholder="\ 가격"
+          placeholder="가격"
           type="number"
           margin="0 0 10px"
           padding="16px 12px"
-          value={inputs.price ? inputs?.price : ""}
+          value={inputs.price}
           onChange={handleChange}
         />
         <Textarea
           id="postContent"
           placeholder="작품을 설명하는 글을 적어주세요. 허위로 작성한 글은 게시가 제한 될 수 있습니다."
-          value={inputs?.postContent}
+          value={inputs.postContent}
           maxLength="100"
           onChange={handleChange}
           border="1px solid transparent"
