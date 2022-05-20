@@ -63,7 +63,6 @@ export const getChatList = () => {
         console.log("TODO res 데이터 잘보기", res);
         if (res.status === 204) {
           console.log("아직 채팅방없음");
-          return;
         }
         dispatch(chatInfo(res.data.newChat));
       })
