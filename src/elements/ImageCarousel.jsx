@@ -19,8 +19,6 @@ const ImageCarousel = (props) => {
     arrows: false, // 양옆의 애로우 없애기
   };
 
-  console.log(src);
-
   return (
     <>
       <StyledSlider {...settings}>
