@@ -47,7 +47,7 @@ const StoreDetail = () => {
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
-  const { roomData } = useSelector((state) => state.chat);
+  const { chatData } = useSelector((state) => state.chat);
 
   // userId만 받던거에서 다 받는걸로 수정
   const followInfo = detailData?.user;
@@ -122,14 +122,16 @@ const StoreDetail = () => {
 
     let roomName = `from${nowUser}_to${postUser}_${postId}`;
 
-    const isExistRoom = roomData.chatRoom.find(
-      (room) => room.roomName === roomName
-    );
+    if (chatData.chatRoom.length > 0) {
+      const isExistRoom = chatData.chatRoom.find(
+        (room) => room.roomName === roomName
+      );
 
-    if (isExistRoom) {
-      console.log("isExistRoom!!!!!!!");
-      history.push(`/chat/${roomName}`);
-      return;
+      if (isExistRoom) {
+        console.log("isExistRoom!!!!!!!");
+        history.push(`/chat/${roomName}`);
+        return;
+      }
     }
 
     const chatPostData = {
