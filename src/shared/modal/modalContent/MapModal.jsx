@@ -22,8 +22,8 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
   const [address, setAddress] = useState(currentAddress || "");
   const [query, setQuery] = useState(null);
   const [position, setPosition] = useState({
-    lat: 37.5669412,
-    lng: 126.978403,
+    lat: 36.5669412,
+    lng: 125.978403,
   });
   const inputRef = useRef(null);
   const ps = new kakao.maps.services.Places();
@@ -72,9 +72,9 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
     if (/\S/.test(value)) setQuery(value);
   };
 
+  console.log(address);
   const nowPosition = () => {
     currentmap(setAddress, setPosition);
-    console.log(address);
 
     let bounds = new kakao.maps.LatLngBounds();
     bounds.extend(new kakao.maps.LatLng(position.lat, position.lng));

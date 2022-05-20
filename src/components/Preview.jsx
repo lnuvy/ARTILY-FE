@@ -84,7 +84,7 @@ const Preview = () => {
           ref={fileInput}
         />
 
-        <ImagePreview />
+        <ImagePreview imageArr={image && image.imageArr} />
       </Flex>
     </FileWrap>
   );
