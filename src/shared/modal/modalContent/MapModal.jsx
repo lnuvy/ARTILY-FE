@@ -73,6 +73,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
 
   const nowPosition = () => {
     currentmap(setAddress, setPosition);
+    console.log(address);
 
     let bounds = new kakao.maps.LatLngBounds();
     bounds.extend(new kakao.maps.LatLng(position.lat, position.lng));
@@ -82,6 +83,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
   };
 
   const submitAddress = () => {
+    console.log(address);
     setReceiveAddress(address);
     dispatch(closeModal());
   };
@@ -146,7 +148,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
       <Flex padding="8px" height="fit-content" fd="column">
         <Flex jc="space-between" margin="8px">
           <Text h2 bold textAlign="left">
-            {address}
+            {address} 하이
           </Text>
           &nbsp; &nbsp;
           <Text body2 margin="0 12px 0 0">

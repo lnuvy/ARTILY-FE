@@ -132,7 +132,7 @@ const StoreDetail = () => {
 
     const chatPostData = {
       postId,
-      imageUrl: detailData.imageUrl[0],
+      imageUrl: detailData.images[0].imageUrl,
       postTitle: detailData.postTitle,
       price: detailData.price,
       done: detailData.done,
@@ -194,7 +194,7 @@ const StoreDetail = () => {
                       padding="6px"
                       onClick={() => {
                         console.log("수정");
-                        history.push(`/store/write/${postId}`);
+                        history.push(`/store/edit/${postId}`);
                       }}
                     >
                       <Text body1 color={theme.pallete.primary900}>
@@ -228,24 +228,26 @@ const StoreDetail = () => {
               </Flex>
             </Flex>
           </Wrap>
-          <ImageCarousel src={detailData.images} />
+          {/* 이 부분 수정 필요 */}
+
+          <ImageCarousel src={detailData?.images} />
 
           <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">
               <Text color={theme.pallete.gray3}>분류</Text>
-              <Text color={theme.pallete.gray3}>{detailData.category}</Text>
+              <Text color={theme.pallete.gray3}>{detailData?.category}</Text>
             </Flex>
 
             <Flex margin="8px 0 10px" jc="space-between">
               <Text color={theme.pallete.gray3}>거래 방식</Text>
               <Text color={theme.pallete.gray3}>
-                {detailData.transaction}
-                {detailData.changeAddress && ` ∙ ${detailData.changeAddress}`}
+                {detailData?.transaction}
+                {detailData?.changeAddress && ` ∙ ${detailData?.changeAddress}`}
               </Text>
             </Flex>
             <Flex>
               <Text color="black" margin="0 0 16px">
-                {detailData.postContent}
+                {detailData?.postContent}
               </Text>
             </Flex>
             {otherPosts && (

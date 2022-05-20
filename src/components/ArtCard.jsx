@@ -49,12 +49,11 @@ const ArtCard = (props) => {
   console.log(imageArr);
 
   const nowuser = userInfo;
-
   const deletePosting = async () => {
     const result = await deleteSwal();
     console.log(result);
     if (result) {
-      dispatch(deletePostDB(postId));
+      dispatch(deletePostDB(postId, true));
     }
   };
 
@@ -66,7 +65,7 @@ const ArtCard = (props) => {
             <Image
               width="96px"
               height="96px"
-              src={imageArr[0].imageUrl || ""}
+              src={images[0].imageUrl}
               border="1px solid #eee"
               br="8px"
               margin="6px 9px 6px 16px"
@@ -104,7 +103,7 @@ const ArtCard = (props) => {
               br="0"
               onClick={() => {
                 console.log(postId);
-                history.push(`/store/write/${postId}`);
+                history.push(`/store/edit/${postId}`);
               }}
             >
               수정하기
@@ -154,7 +153,7 @@ const ArtCard = (props) => {
         <Image
           height="168px"
           border="none"
-          src={imageArr[0].imageUrl || ""}
+          src={images[0].imageUrl}
           br="8px"
         />
         <Flex margin="8px 0 ">
@@ -207,7 +206,7 @@ const ArtCard = (props) => {
             height="168px"
             br="8px"
             border="1px solid #eee"
-            src={imageArr[0].imageUrl || ""}
+            src={images[0].imageUrl}
           />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
@@ -235,7 +234,7 @@ const ArtCard = (props) => {
         <Image
           height="168px"
           br="8px"
-          src={imageArr[0].imageUrl || ""}
+          src={images[0].imageUrl}
           border="1px solid #eee"
         />
         <Text margin="8px 0 0 0" bold>
@@ -265,7 +264,7 @@ const ArtCard = (props) => {
           <Image
             height="168px"
             br="8px"
-            src={imageArr[0].imageUrl || ""}
+            src={images[0].imageUrl}
             border="1px solid #eee"
           />
         </Label>

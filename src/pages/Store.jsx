@@ -16,6 +16,7 @@ import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
 import { FilterFilled, Search } from "../assets/icons";
 import theme from "../styles/theme";
+import InfinityScroll from "../shared/InfinityScroll";
 
 const Store = () => {
   const dispatch = useDispatch();
@@ -26,8 +27,8 @@ const Store = () => {
     // store data reset
     dispatch(getStoreData([]));
     // store api 두번요청되는걸 막기위함
-    dispatch(getPostDB());
-  }, []);
+    dispatch(getPostDB());}
+  , []);
 
   // 모달 필터링
   const [filtering, setFiltering] = useState({
@@ -86,7 +87,6 @@ const Store = () => {
     dispatch(go2detail(data));
     history.push(`/store/view/${data.postId}`);
   };
-
   return (
     <>
       <Category />
@@ -164,13 +164,21 @@ const Store = () => {
           </Flex>
         </Wrap>
 
+        <InfinityScroll
+        callNext ={()=>{
+          console.log("next!!!!!!")
+        }}
+        // is_next = {paging.next?true:false}
+        // loading={is_loading}
+        >
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
           {searchList && query !== ""
             ? searchList
             : filterList &&
               filterList.map((v) => {
                 if (isFree) {
-                  if (v.price === 0) {
+                  // 문자열이어야 검색이 돼서 수정함
+                  if (v.price === "0") {//가격이 0원인 게시글 리스트를 보여줌
                     return (
                       <StoreCard
                         key={v.postId}
@@ -191,6 +199,7 @@ const Store = () => {
                   );
               })}
         </Grid>
+        </InfinityScroll>
       </Wrap>
       <Footer />
     </>

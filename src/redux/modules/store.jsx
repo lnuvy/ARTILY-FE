@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
 import { Apis } from "../../shared/api";
 import { addMyPost, changeAddressDB } from "./user";
+// import _ from "lodash";
 // import { storeDummy } from "../../shared/Dummy";
 const MySwal = withReactContent(Swal);
 
@@ -17,8 +17,13 @@ const MySwal = withReactContent(Swal);
 const initialState = {
   list: [],
   filterList: [],
-  isFetching: false,
-  infinityScroll: {},
+  //무한스크롤
+  // isFetching: false,
+  // infinityScroll: {},
+  
+  // paging: { start: null, next: null, size: 3 },
+  // is_loading: false,
+
   detailData: null,
   otherPost: [],
 };
@@ -29,7 +34,7 @@ export const getPostDB = () => {
     //   page: 1,
     //   limit: 6,
     // };
-
+// let _paging =getState().store.paging 
     Apis.getStore()
       .then((res) => {
         console.log("스토어 get요청", res.data);
@@ -47,7 +52,7 @@ export const getPostOne = (postId) => {
       .then((res) => {
         console.log("스토어 상세페이지", res.data);
         const { detail, getUser } = res.data.data;
-        dispatch(go2detail(detail));
+        dispatch(go2detail(...detail));
         dispatch(otherPost(getUser));
       })
       .catch((err) => {
@@ -148,6 +153,7 @@ const postsSlice = createSlice({
     // 처음 모든 데이터 불러오기만하기 (list 는 저장용도)
     getStoreData: (state, action) => {
       state.list = action.payload;
+      // state.list.push(...action.payload.list);
       state.filterList = action.payload;
     },
     // 데이터 하나 특정하기

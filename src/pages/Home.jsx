@@ -24,10 +24,13 @@ const Home = () => {
 
   const move2detail = (data, path) => {
     console.log(data, path);
-    if (path === "/store") {
-      console.log();
+    if (path === "store") {
+      history.push(`/${path}/view/${data.postId}`);
+      return;
     }
-    history.push(`${path}/view/${data.postId}`);
+    if (path === "review") {
+      history.push(`/${path}/view/${data.reviewId}`);
+    }
   };
 
   return (
@@ -40,13 +43,14 @@ const Home = () => {
         <Grid gtc="1fr 1fr" rg="16px" cg="7px">
           {bestPost &&
             bestPost.map((v, i) => {
+              console.log(v);
               return (
                 <StoreCard
-                  onClick={() => move2detail(v, "/store")}
+                  onClick={() => move2detail(v, "store")}
                   isHome
                   key={v.postId}
                   {...v}
-                  imageUrl={v.images && v.images[0].imageUrl}
+                  imageUrl={v.images[0].imageUrl}
                 />
               );
             })}
@@ -105,7 +109,7 @@ const Home = () => {
                   <ReviewCard
                     key={i}
                     {...l}
-                    onClick={() => move2detail(l, "/review")}
+                    onClick={() => move2detail(l, "review")}
                     images={l.images[0].imageUrl}
                   />
                 );
@@ -120,7 +124,8 @@ const Home = () => {
 export default Home;
 
 const BestArtistWrap = styled.div`
-  padding: 0 16px;
+  /*padding으로 양 옆값 주면 오른쪽 여백이 반영이 안되는 것 같아서 margin으로 바꿨습니다.*/
+  margin: 0 16px;
   overflow: auto;
   overflow-y: hidden;
 `;
