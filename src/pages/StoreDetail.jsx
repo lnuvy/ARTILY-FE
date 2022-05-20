@@ -122,7 +122,9 @@ const StoreDetail = () => {
 
     let roomName = `from${nowUser}_to${postUser}_${postId}`;
 
-    const isExistRoom = roomData.find((room) => room.roomName === roomName);
+    const isExistRoom = roomData.chatRoom.find(
+      (room) => room.roomName === roomName
+    );
 
     if (isExistRoom) {
       console.log("isExistRoom!!!!!!!");
