@@ -14,7 +14,7 @@ import Setprofile from "./SetProfile";
 import Store from "./Store";
 import StoreDetail from "./StoreDetail";
 import StoreEdit from "./StoreEdit";
-import StoreWrite from "./StoreWrite";
+// import StoreWrite from "./StoreWrite";
 import Test from "./Test";
 //5.4 마이페이지-> 수정하기 페이지, 판매작품 등록/관리 페이지 추가
 import MypageEdit from "./MypageEdit";
@@ -43,7 +43,7 @@ export {
   Store,
   StoreDetail,
   StoreEdit,
-  StoreWrite,
+  // StoreWrite,
   Test,
   ReviewDetail,
   MypageEdit,

@@ -10,7 +10,7 @@ const Chat = lazy(() => import("../pages/Chat"));
 const ChatRoom = lazy(() => import("../pages/ChatRoom"));
 const Store = lazy(() => import("../pages/Store"));
 const StoreDetail = lazy(() => import("../pages/StoreDetail"));
-const StoreWrite = lazy(() => import("../pages/StoreWrite"));
+// const StoreWrite = lazy(() => import("../pages/StoreWrite"));
 const StoreEdit = lazy(() => import("../pages/StoreEdit"));
 const SellComplete = lazy(() => import("../pages/SellComplete"));
 const Follow = lazy(() => import("../pages/Follow"));
@@ -43,7 +43,7 @@ const AuthRoute = () => {
         <Route path="/chat/:id" exact component={ChatRoom} />
         <Route path="/store" exact component={Store} />
         <Route path="/store/view/:postId" exact component={StoreDetail} />
-        <Route path="/store/write" exact component={StoreWrite} />
+        <Route path="/store/write" exact component={StoreEdit} />
         <Route path="/store/edit/:postId" exact component={StoreEdit} />
         <Route path="/completed/:postId" exact component={SellComplete} />
         <Route path="/follow" exact component={Follow} />

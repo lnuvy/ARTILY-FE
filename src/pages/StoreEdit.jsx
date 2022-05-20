@@ -75,7 +75,12 @@ const StoreEdit = () => {
 
   // 데이터 불러오기
   useEffect(() => {
-    dispatch(editPosts3Url(nowPost?.images));
+    if (path === `/store/write`) {
+      dispatch(editPosts3Url([]));
+    }
+    if (path === `/store/edit/${postId}`) {
+      dispatch(editPosts3Url(nowPost?.images));
+    }
   }, [nowPost?.images]);
 
   useEffect(() => {
@@ -142,8 +147,6 @@ const StoreEdit = () => {
     console.log(imageDt);
     console.log(imageArr);
     const { postTitle, price, postContent } = inputs;
-    inputSpaceReg(postTitle);
-    inputSpaceReg(postContent);
 
     if (!(inputs.delivery || inputs.direct)) {
       MySwal.fire({
@@ -204,7 +207,7 @@ const StoreEdit = () => {
       dispatch(editPostDB(postId, formData));
     }
     if (path === `/store/write`) {
-      dispatch(addPostDB(postId, formData));
+      dispatch(addPostDB(formData, receiveAddress));
     }
   };
 
