@@ -33,17 +33,18 @@ const ImagePreview = () => {
       cg="16px"
       margin="0 0 0 16px"
     >
-      {imageArr.length !== 0 &&
+      {imageArr &&
+        imageArr.length > 0 &&
         imageArr.map((image, i) => {
-          // console.log(image);
-
           return (
-            <Wrap
-              width="64px"
-              position="relative"
-              key={`${image.slice(0, 10)}_${i}`}
-            >
-              <Image br="8px" imageArr src={image} height="64px" width="64px" />
+            <Wrap width="64px" position="relative" key={i}>
+              <Image
+                br="8px"
+                imageArr
+                src={image.imageUrl ? image.imageUrl : image}
+                height="64px"
+                width="64px"
+              />
               <Button
                 padding="2px"
                 position="absolute"
