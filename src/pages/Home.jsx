@@ -43,7 +43,6 @@ const Home = () => {
         <Grid gtc="1fr 1fr" rg="16px" cg="7px">
           {bestPost &&
             bestPost.map((v, i) => {
-              console.log(v);
               return (
                 <StoreCard
                   onClick={() => move2detail(v, "store")}

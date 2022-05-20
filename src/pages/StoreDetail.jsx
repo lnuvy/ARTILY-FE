@@ -47,7 +47,7 @@ const StoreDetail = () => {
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
-  const { roomList } = useSelector((state) => state.chat);
+  const { roomData } = useSelector((state) => state.chat);
 
   // userId만 받던거에서 다 받는걸로 수정
   const followInfo = detailData?.user;
@@ -122,7 +122,7 @@ const StoreDetail = () => {
 
     let roomName = `from${nowUser}_to${postUser}_${postId}`;
 
-    const isExistRoom = roomList.find((room) => room.roomName === roomName);
+    const isExistRoom = roomData.find((room) => room.roomName === roomName);
 
     if (isExistRoom) {
       console.log("isExistRoom!!!!!!!");

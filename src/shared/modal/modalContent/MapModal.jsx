@@ -28,6 +28,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
   const inputRef = useRef(null);
   const ps = new kakao.maps.services.Places();
   var geocoder = new kakao.maps.services.Geocoder();
+
   // 게시글수정, 주소변경시 이전 좌표로 시작하기
   useEffect(() => {
     if (currentAddress) {

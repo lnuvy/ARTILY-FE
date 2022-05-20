@@ -170,11 +170,6 @@ const StoreEdit = () => {
     formData.append("postContent", postContent);
     formData.append("price", price);
 
-    // for (let i = 1; i < imageArr.length; i++) {
-    //   if (imageArr[i].includes("https://artily-bucket.s3.ap-northeast-2")) {
-    //     formData.append("imgSave", imageArr[i]);
-    //   }
-    // }
     for (let i = 0; i < fileObj.length; i++) {
       console.log(fileObj[i][1]);
       formData.append("image", fileObj[i][1]);

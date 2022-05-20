@@ -1,5 +1,4 @@
 import React from "react";
-import { io } from "socket.io-client";
 import styled from "styled-components";
 import { Flex, Image, Text } from "../elements";
 import { changeTime } from "../shared/utils";
