@@ -24,10 +24,13 @@ const Home = () => {
 
   const move2detail = (data, path) => {
     console.log(data, path);
-    if (path === "/store") {
-      console.log();
+    if (path === "store") {
+      history.push(`/${path}/view/${data.postId}`);
+      return;
     }
-    history.push(`${path}/view/${data.postId}`);
+    if (path === "review") {
+      history.push(`/${path}/view/${data.reviewId}`);
+    }
   };
 
   return (
@@ -40,9 +43,10 @@ const Home = () => {
         <Grid gtc="1fr 1fr" rg="16px" cg="7px">
           {bestPost &&
             bestPost.map((v, i) => {
+              console.log(v);
               return (
                 <StoreCard
-                  onClick={() => move2detail(v, "/store")}
+                  onClick={() => move2detail(v, "store")}
                   isHome
                   key={v.postId}
                   {...v}
@@ -105,7 +109,7 @@ const Home = () => {
                   <ReviewCard
                     key={i}
                     {...l}
-                    onClick={() => move2detail(l, "/review")}
+                    onClick={() => move2detail(l, "review")}
                     images={l.images[0].imageUrl}
                   />
                 );

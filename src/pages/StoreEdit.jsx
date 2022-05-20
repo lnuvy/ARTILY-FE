@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Preview } from "../components";
 import { Button, Flex, Input, Textarea, ToggleButton, Wrap } from "../elements";
 import { clearPreview, editPosts3Url } from "../redux/modules/image";
@@ -15,6 +16,7 @@ import {
   getPostOne,
   go2detail,
   otherPost,
+  addPostDB,
 } from "../redux/modules/store";
 import { useParams } from "react-router-dom";
 
@@ -30,6 +32,7 @@ const StoreEdit = () => {
   // 할당
   const dispatch = useDispatch();
   const { postId } = useParams();
+  const path = useLocation().pathname;
 
   // selector
   const nowPost = useSelector((state) => state.store.detailData);
@@ -63,7 +66,9 @@ const StoreEdit = () => {
 
   // 데이터 불러오기
   useEffect(() => {
-    dispatch(getPostOne(postId));
+    if (path === `/store/edit/${postId}`) {
+      dispatch(getPostOne(postId));
+    }
   }, []);
 
   // 데이터 불러오기
@@ -165,12 +170,13 @@ const StoreEdit = () => {
     formData.append("postContent", postContent);
     formData.append("price", price);
 
-    for (let i = 1; i < imageArr.length; i++) {
-      if (imageArr[i].includes("https://artily-bucket.s3.ap-northeast-2")) {
-        formData.append("imgSave", imageArr[i]);
-      }
-    }
+    // for (let i = 1; i < imageArr.length; i++) {
+    //   if (imageArr[i].includes("https://artily-bucket.s3.ap-northeast-2")) {
+    //     formData.append("imgSave", imageArr[i]);
+    //   }
+    // }
     for (let i = 0; i < fileObj.length; i++) {
+      console.log(fileObj[i][1]);
       formData.append("image", fileObj[i][1]);
     }
 
@@ -188,7 +194,13 @@ const StoreEdit = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    dispatch(editPostDB(postId, formData));
+    if (path === `/store/edit/${postId}`) {
+      dispatch(editPostDB(postId, formData));
+      console.log(formData);
+    }
+    if (path === `/store/write`) {
+      dispatch(addPostDB(postId, formData));
+    }
   };
 
   return (
@@ -255,7 +267,8 @@ const StoreEdit = () => {
       </Wrap>
       <Flex width="90%" margin="0 auto">
         <Button width="100%" onClick={submitPost}>
-          판매 작품 수정하기
+          {path === `/store/edit/${postId}` && "판매 작품 수정하기"}
+          {path === `/store/write` && "판매 작품 등록하기"}
         </Button>
       </Flex>
     </>
