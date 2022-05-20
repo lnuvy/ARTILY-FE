@@ -16,9 +16,9 @@ const Follow = () => {
 
   //내가 팔로잉한 목록
   const nowfollowList = useSelector((state) => state.followUser.myFollowing);
-  console.log("내가 팔로잉한 목록:", nowfollowList);
+  // console.log("내가 팔로잉한 목록:", nowfollowList);
   const nowfollowerList = useSelector((state) => state.followUser.myFollower);
-  console.log("나를 팔로우한 목록:", nowfollowerList);
+  // console.log("나를 팔로우한 목록:", nowfollowerList);
   useEffect(() => {
     dispatch(getFollowerDB());
     dispatch(getFollowDB());
@@ -43,7 +43,7 @@ const Follow = () => {
     }
   };
 
-  console.log(followCnt);
+  // console.log(followCnt);
 
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {

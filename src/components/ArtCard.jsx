@@ -46,12 +46,12 @@ const ArtCard = (props) => {
 
   // 포스팅에 사진이 없는 예외처리를 위해 방지
   const imageArr = images || [""];
-  console.log(imageArr);
+  // console.log(imageArr);
 
   const nowuser = userInfo;
   const deletePosting = async () => {
     const result = await deleteSwal();
-    console.log(result);
+    // console.log(result);
     if (result) {
       dispatch(deletePostDB(postId, true));
     }
@@ -102,7 +102,7 @@ const ArtCard = (props) => {
               padding="10px 20px"
               br="0"
               onClick={() => {
-                console.log(postId);
+                // console.log(postId);
                 history.push(`/store/edit/${postId}`);
               }}
             >
@@ -150,12 +150,7 @@ const ArtCard = (props) => {
     //마이페이지=> 구매내역 조회 / 리뷰 작성
     return (
       <Card onClick={onClick}>
-        <Image
-          height="168px"
-          border="none"
-          src={images[0].imageUrl}
-          br="8px"
-        />
+        <Image height="168px" border="none" src={images[0].imageUrl} br="8px" />
         <Flex margin="8px 0 ">
           <Image circle size="32" src={profileImage} />
           <Text margin="0 0 0 8px">{nickname}</Text>

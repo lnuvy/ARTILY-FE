@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     if (user?.nickname === "") {
-      console.log("app.jsx에서 닉네임이 비었을때 지나치는 useEffect");
+      // console.log("app.jsx에서 닉네임이 비었을때 지나치는 useEffect");
       history.replace("/profile");
     }
   }, [user?.nickname]);
