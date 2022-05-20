@@ -52,6 +52,8 @@ const StoreDetail = () => {
   const followId = detailData?.user?.userId;
   console.log("팔로우 하려는 userId :", followId);
 
+  const detailImage = detailData.images
+  console.log(detailImage)
   const { roomList } = useSelector((state) => state.chat);
   console.log(roomList);
 
@@ -249,7 +251,8 @@ const StoreDetail = () => {
             </Flex>
           </Wrap>
         {/* 이 부분 수정 필요 */}
-          <ImageCarousel src={detailData} />
+        
+          <ImageCarousel src={detailData.images} />
 
           <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">
