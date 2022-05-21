@@ -95,9 +95,9 @@ const ChatRoom = () => {
     scrollToBottom();
   }, [messages]);
 
-  const leaveRoom = () => {
-    socket.emit("leave_room", roomName);
-  };
+  // const leaveRoom = () => {
+  //   socket.emit("leave_room", roomName);
+  // };
 
   useEffect(() => {
     socket.on("leave_room", (data) => {
