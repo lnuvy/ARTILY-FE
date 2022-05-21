@@ -2,9 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Apis } from "../../shared/api";
-import { addMyPost, changeAddressDB } from "./user";
-// import _ from "lodash";
-// import { storeDummy } from "../../shared/Dummy";
+import { changeAddressDB } from "./user";
+
 const MySwal = withReactContent(Swal);
 
 /*
@@ -20,7 +19,7 @@ const initialState = {
   //무한스크롤
   // isFetching: false,
   // infinityScroll: {},
-  
+
   // paging: { start: null, next: null, size: 3 },
   // is_loading: false,
 
@@ -34,7 +33,7 @@ export const getPostDB = () => {
     //   page: 1,
     //   limit: 6,
     // };
-// let _paging =getState().store.paging 
+    // let _paging =getState().store.paging
     Apis.getStore()
       .then((res) => {
         console.log("스토어 get요청", res.data);

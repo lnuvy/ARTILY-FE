@@ -34,9 +34,13 @@ const ChatRoom = () => {
   const uploadFile = useSelector((state) => state.image.represent);
 
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState(roomMessages);
+  const [messages, setMessages] = useState();
 
   const [infinity, setInfinity] = useState([]);
+
+  useEffect(() => {
+    setMessages(roomMessages);
+  }, []);
 
   // 상단 채팅끌어오기위해 데이터 20개단위로 자르기
   // const setInfinityPaging = (page, endpoint) => {
@@ -73,10 +77,10 @@ const ChatRoom = () => {
   };
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessages((messages) => [...messages, data]);
-    });
-  });
+    // socket.on("receive_message", (data) => {
+    //   setMessages((messages) => [...messages, data]);
+    // });
+  }, []);
 
   // 스크롤 부드럽게 내리기
   const messagesEndRef = useRef(null);

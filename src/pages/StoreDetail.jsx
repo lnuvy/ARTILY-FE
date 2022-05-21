@@ -121,7 +121,7 @@ const StoreDetail = () => {
     const nowUser = currentUser?.userId;
     let roomName = `from${nowUser}_to${postUser.userId}_${postId}`;
 
-    if (chatData.chatRoom.length > 0) {
+    if (chatData.chatRoom?.length > 0) {
       const isExistRoom = chatData.chatRoom.find(
         (room) => room.roomName === roomName
       );

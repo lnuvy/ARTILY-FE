@@ -8,8 +8,13 @@ import { socket } from "../../shared/socket";
  */
 
 const initialState = {
+  // 로그인직후 처음부터 불러오는 정보 (chatData)
   chatData: [],
+
+  // 채팅방 목록에서 하나를 특정했을때 채워지는 메세지들
   roomMessages: [],
+
+  // 채팅방 목록에서 하나를 특정했을때 들어가는 방의 정보(chatData.chatRoom 한개)
   nowChat: {},
 };
 
@@ -53,7 +58,6 @@ const chatSlice = createSlice({
   reducers: {
     chatInfo: (state, action) => {
       state.chatData = action.payload;
-      const myId = socket?.id;
     },
 
     chatUserConnected: (state, action) => {
