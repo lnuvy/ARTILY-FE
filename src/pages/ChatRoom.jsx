@@ -27,10 +27,7 @@ const ChatRoom = () => {
       ? nowChat.createUser
       : nowChat.targetUser;
 
-  console.log(target);
-  // const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
-  // console.log(target, nowConnected, isDone);
 
   // 사진업로드
   const uploadFile = useSelector((state) => state.image.represent);
@@ -83,6 +80,10 @@ const ChatRoom = () => {
     socket.on("receive_message", (data) => {
       setMessages((messages) => [...messages, data]);
     });
+
+    return () => {
+      socket.emit("check_chat", roomName);
+    };
   }, []);
 
   // 스크롤 부드럽게 내리기
