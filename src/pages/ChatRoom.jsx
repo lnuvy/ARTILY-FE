@@ -26,6 +26,8 @@ const ChatRoom = () => {
     nowChat?.targetUser?.userId === from
       ? nowChat.createUser
       : nowChat.targetUser;
+
+  console.log(target);
   // const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
   // console.log(target, nowConnected, isDone);
@@ -65,6 +67,7 @@ const ChatRoom = () => {
         roomName,
         from,
         message,
+        to: target.userId,
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
       };
       socket.emit("send_message", messageData);
