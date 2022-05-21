@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
-import { useInView } from "react-intersection-observer";
 import { StoreCard, Footer } from "../components";
 import Category from "../components/Category";
 
@@ -18,8 +17,6 @@ import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
 import { FilterFilled, Search } from "../assets/icons";
 import theme from "../styles/theme";
-import InfinityScroll from "../shared/InfinityScroll";
-import styled from "styled-components";
 
 // const Store = () => {
 //   //무한스크롤
