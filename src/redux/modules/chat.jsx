@@ -89,14 +89,8 @@ const chatSlice = createSlice({
     receiveChatRoom: (state, action) => {
       const { roomName } = action.payload;
       console.log("receiveChatRoom 이름", roomName);
-      // if (state.chatData.chatRoom.find((room) => roomName === room.roomName)) {
-      //   console.log("receiveChatRoom find 결과값있을때");
-      // }
-      const newChatRoom = {
-        ...action.payload,
-      };
-      console.log(newChatRoom);
-      state.chatData.chatRoom.unshift(newChatRoom);
+
+      state.chatData.chatRoom.unshift(action.payload);
     },
 
     // 목록 보고있을때 lastMessage 와 lastTime 갱신하기
@@ -104,7 +98,7 @@ const chatSlice = createSlice({
       const { roomName, message, time, from } = action.payload;
 
       const myId = socket.id;
-      console.log(myId);
+
       state.chatData.chatRoom.forEach((room) => {
         if (room.roomName === roomName) {
           room.lastMessage = message;

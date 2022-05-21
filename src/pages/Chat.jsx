@@ -17,7 +17,6 @@ import theme from "../styles/theme";
 const Chat = () => {
   const dispatch = useDispatch();
   const { chatData } = useSelector((state) => state.chat);
-  console.log(chatData);
 
   useEffect(() => {
     dispatch(getChatList());

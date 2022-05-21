@@ -27,6 +27,8 @@ const ChatRoom = () => {
       ? nowChat.createUser
       : nowChat.targetUser;
 
+  console.log(target);
+
   const isDone = nowChat?.post?.done;
 
   // 사진업로드
