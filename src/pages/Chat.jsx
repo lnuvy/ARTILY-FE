@@ -22,21 +22,11 @@ const Chat = () => {
   useEffect(() => {
     dispatch(getChatList());
 
-    socket.on(
-      "join_room",
-      (data) => {
-        console.log("join_room socketOn:  ", data);
-        dispatch(receiveChatRoom(data));
-        socket.emit("enter_room", data.roomName);
-
-        return () => {
-          // TODO 1 : 여기 오류있는지 살펴보기
-          console.log("socket.off join_room 추가");
-          socket.off("join_room");
-        };
-      },
-      []
-    );
+    socket.on("join_room", (data) => {
+      console.log("join_room socketOn:  ", data);
+      dispatch(receiveChatRoom(data));
+      socket.emit("enter_room", data.roomName);
+    });
 
     socket.on("receive_message", (data) => {
       dispatch(receiveChat(data));
@@ -44,6 +34,7 @@ const Chat = () => {
 
     return () => {
       socket.off("receive_message");
+      socket.off("join_room");
     };
   }, []);
 
