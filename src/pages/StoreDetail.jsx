@@ -234,8 +234,7 @@ const StoreDetail = () => {
             </Flex>
           </Wrap>
           {/* 이 부분 수정 필요 */}
-
-          <ImageCarousel src={detailData?.images} />
+          <ImageCarousel src={detailData.images} />
 
           <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">

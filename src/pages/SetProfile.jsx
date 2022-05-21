@@ -88,18 +88,25 @@ const Setprofile = () => {
     }
     dispatch(setProfileDB(formData, "goDetail"));
   };
+  const [count, setCount] = useState(0);
 
+  const imageCount = () => {
+    setCount(1);
+  };
+  const nickCount = () => {
+    setCount(2);
+  };
   return (
     <>
+      <BaseProgress />
+      <ProgressBar width={(count / 4) * 100 + "%"} />
       <Outline>
         {/* 5.19 프로그래스바 작업중 -영경 */}
-        <ProgressBar />
-        <InnerProgress />
         <div className="box">
           <Wrap textAlign="center">
             <img src="/images/artily.png" alt="logo" />
             <Text body1 color="#999" margin="20px 0 0 0">
-              내 프로필을 만들어주세요!
+              내 프로필을 완성해주세요!
             </Text>
             <Wrapprofile>
               <Flex jc="center" margin="40px 0">
@@ -114,7 +121,13 @@ const Setprofile = () => {
 
                 <ImgBox>
                   <label htmlFor="image">
-                    <img src="../../images/edit.png" alt="파일 선택" />
+                    <img
+                      src="../../images/edit.png"
+                      alt="파일 선택"
+                      onClick={() => {
+                        imageCount();
+                      }}
+                    />
                   </label>
                   <input
                     type="file"
@@ -132,7 +145,11 @@ const Setprofile = () => {
                 </Text>
                 <Input
                   icon={
-                    <span onClick={renameRandom}>
+                    <span
+                      onClick={() => {
+                        renameRandom();
+                      }}
+                    >
                       <Refresh />
                     </span>
                   }
@@ -148,7 +165,14 @@ const Setprofile = () => {
               </Flex>
             </Wrap>
             <Flex>
-              <Button width="90%" margin="20px 20px 0 20px" onClick={editUser}>
+              <Button
+                width="90%"
+                margin="20px 20px 0 20px"
+                onClick={() => {
+                  nickCount();
+                  editUser();
+                }}
+              >
                 프로필 저장하기
               </Button>
             </Flex>
@@ -207,20 +231,21 @@ const Outline = styled.div`
   }
 `;
 const ProgressBar = styled.div`
-  width: 25vw;
+  width: ${(props) => props.width};
   height: 5px;
   background-color: ${({ theme }) => theme.pallete.primary850};
+  transition: width 1s;
   position: absolute;
-  top: 40px;
+  top: 30px;
   left: 0;
   z-index: 1;
 `;
-const InnerProgress = styled.div`
-  width: 100vh;
+const BaseProgress = styled.div`
+  width: 100%;
   height: 5px;
   background-color: ${({ theme }) => theme.pallete.gray1};
   position: absolute;
-  top: 40px;
+  top: 30px;
   left: 0;
 `;
 export default Setprofile;

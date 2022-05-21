@@ -48,14 +48,24 @@ const DetailProfile = () => {
     }
     dispatch(setProfileDB(formData));
   };
+  const [count, setCount] = useState(2);
+
+  const addressCount = () => {
+    setCount(3);
+  };
+  const introduceCount = () => {
+    setCount(4);
+  };
 
   return (
     <>
+      <BaseProgress />
+      <ProgressBar width={(count / 4) * 100 + "%"} />
       <Outline>
         <div className="box">
           <Wrap textAlign="center">
             <img src="/images/artily.png" alt="logo" />
-            <Text body1 color="#999" margin="20px 0 30px 0">
+            <Text body1 color="#999" margin="10px 0 30px 0">
               내 프로필을 완성해주세요!
             </Text>
             <Wrapprofile>
@@ -65,7 +75,7 @@ const DetailProfile = () => {
                   width="120px"
                   height="120px"
                   br="60px"
-                  shadow="1px 1px 3px #888"
+                  border="1px solid #eee"
                   src={
                     getProfile &&
                     getProfile.profileImage &&
@@ -90,7 +100,12 @@ const DetailProfile = () => {
                   <Flex width="30%">
                     <Text>웹사이트</Text>
                   </Flex>
-                  <Flex width="70%">
+                  <Flex
+                    width="70%"
+                    onClick={() => {
+                      addressCount();
+                    }}
+                  >
                     <Input
                       fg="1"
                       square
@@ -167,7 +182,12 @@ const DetailProfile = () => {
                   <Flex width="30%">
                     <Text>소개</Text>
                   </Flex>
-                  <Flex width="70%">
+                  <Flex
+                    width="70%"
+                    onClick={() => {
+                      introduceCount();
+                    }}
+                  >
                     <Textarea
                       width="100%"
                       fg="1"
@@ -227,5 +247,22 @@ const Outline = styled.div`
     //translate 값을 적용하기 전에는 왼쪽 위 꼭짓점이 정 중앙에 배치된 상태.
   }
 `;
-
+const ProgressBar = styled.div`
+  width: ${(props) => props.width};
+  height: 5px;
+  background-color: ${({ theme }) => theme.pallete.primary850};
+  transition: width 1s;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  z-index: 1;
+`;
+const BaseProgress = styled.div`
+  width: 100%;
+  height: 5px;
+  background-color: ${({ theme }) => theme.pallete.gray1};
+  position: absolute;
+  top: 30px;
+  left: 0;
+`;
 export default DetailProfile;
