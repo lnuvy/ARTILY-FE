@@ -7,13 +7,12 @@ import {
   getChatList,
   getChatMessages,
   getNowChatInfo,
+  receiveChat,
   receiveChatRoom,
 } from "../redux/modules/chat";
 import Loader from "../shared/Loader";
 import { socket } from "../shared/socket";
 import theme from "../styles/theme";
-
-// const chatData = lazy(() => import(""));
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -25,8 +24,11 @@ const Chat = () => {
     socket.on("join_room", (data) => {
       console.log("join_room socketOn:  ", data);
       dispatch(receiveChatRoom(data));
-
       socket.emit("enter_room", data.roomName);
+    });
+
+    socket.on("receive_message", (data) => {
+      dispatch(receiveChat(data));
     });
   }, []);
 
