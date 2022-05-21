@@ -76,7 +76,6 @@ const chatSlice = createSlice({
       let nowChat = state.chatData.chatRoom.find(
         (room) => room.roomName === action.payload
       );
-
       state.nowChat = nowChat;
     },
     getMessages: (state, action) => {
@@ -105,7 +104,7 @@ const chatSlice = createSlice({
       const { roomName, message, time, from } = action.payload;
 
       const myId = socket.id;
-
+      console.log(myId);
       state.chatData.chatRoom.forEach((room) => {
         if (room.roomName === roomName) {
           room.lastMessage = message;

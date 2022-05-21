@@ -30,6 +30,9 @@ const Chat = () => {
     socket.on("receive_message", (data) => {
       dispatch(receiveChat(data));
     });
+    return () => {
+      socket.off("receive_message");
+    };
   }, []);
 
   const enterRoom = async (roomName) => {
