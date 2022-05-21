@@ -82,5 +82,5 @@ export const Apis = {
 
   // chat API
   getChatData: () => Api.get(`/api/chat/data`),
-  getMessages: () => Api.get(`/api/chat/messages`),
+  getMessages: (roomName) => Api.get(`/api/chat/messages/${roomName}`),
 };

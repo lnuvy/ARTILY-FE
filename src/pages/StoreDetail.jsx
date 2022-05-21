@@ -34,7 +34,7 @@ import { IoMdHeart } from "react-icons/io";
 
 // 채팅
 import { socket } from "../shared/socket";
-import { makeChatRoom, receiveChatRoom } from "../redux/modules/chat";
+import { makeChatRoom } from "../redux/modules/chat";
 import { postMarkupToggle } from "../redux/modules/user";
 import { Heart } from "../assets/icons";
 import { FollowCheck, StoreMore } from "../components";

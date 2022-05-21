@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { getUserInfo } from "./redux/modules/user";
 import { socket } from "./shared/socket";
 import {
+  chatUserConnected,
   getChatList,
   receiveChat,
   receiveChatRoom,
@@ -59,7 +60,20 @@ function App() {
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      dispatch(receiveChat(data));
+      console.log(data);
+    });
+  });
+
+  useEffect(() => {
+    socket.on("user connected", (data) => {
+      console.log(data);
+      // dispatch(chatUserConnected(data));
+    });
+  });
+
+  useEffect(() => {
+    socket.on("user disconnected", (data) => {
+      console.log(data);
     });
   });
 

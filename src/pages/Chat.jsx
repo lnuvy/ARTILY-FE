@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { ChatCard, NoInfo } from "../components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
-import { getChatMessages } from "../redux/modules/chat";
+import { getChatMessages, getNowChatInfo } from "../redux/modules/chat";
 import Loader from "../shared/Loader";
 import { socket } from "../shared/socket";
 import theme from "../styles/theme";
 
-// const chatData = lazy(() => import(chatData));
+// const chatData = lazy(() => import(""));
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,8 @@ const Chat = () => {
   }, []);
 
   const enterRoom = (roomName) => {
-    dispatch(getChatMessages());
+    dispatch(getChatMessages(roomName));
+    dispatch(getNowChatInfo(roomName));
     history.push(`/chat/${roomName}`);
   };
 

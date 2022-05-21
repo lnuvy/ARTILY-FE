@@ -6,8 +6,6 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import theme from "../styles/theme";
-import { history } from "../redux/configureStore";
-import { receiveChat } from "../redux/modules/chat";
 import { ChatFileInput } from "../components";
 import { ArrowUpward } from "../assets/icons";
 import { priceComma } from "../shared/utils";
@@ -20,33 +18,25 @@ const ChatRoom = () => {
   const roomName = pathname.slice(6);
   const from = useSelector((state) => state.user.user?.userId);
 
-  const nowChat =
-    useSelector((state) => state.chat.chatData).chatRoom.find(
-      (room) => room.roomName === roomName
-    ) || null;
+  const { chatData, nowChat, roomMessages } = useSelector(
+    (state) => state.chat
+  );
 
-  console.log(nowChat);
-
+  const target =
+    nowChat?.targetUser.userId === from
+      ? nowChat.createUser
+      : nowChat.targetUser;
+  const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
+  // console.log(target, nowConnected, isDone);
 
   // 사진업로드
   const uploadFile = useSelector((state) => state.image.represent);
 
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(roomMessages);
 
   const [infinity, setInfinity] = useState([]);
-
-  useEffect(() => {
-    // 첫 페이징
-    if (nowChat) {
-      // const endpoint = nowChat.messages.length;
-      // const page = Math.floor(endpoint / 20) + 1;
-      // const newArr = setInfinityPaging(page, endpoint);
-      // setInfinity(newArr);
-      setMessages(nowChat.messages);
-    }
-  }, []);
 
   // 상단 채팅끌어오기위해 데이터 20개단위로 자르기
   // const setInfinityPaging = (page, endpoint) => {
@@ -59,11 +49,11 @@ const ChatRoom = () => {
   //   return arr;
   // };
 
-  useEffect(() => {
-    if (!nowChat) {
-      history.replace("/chat");
-    }
-  });
+  // useEffect(() => {
+  //   if (!nowChat) {
+  //     history.replace("/chat");
+  //   }
+  // });
 
   const sendMessage = () => {
     if (/\S/.test(message) && !uploadFile) {
@@ -74,38 +64,18 @@ const ChatRoom = () => {
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
       };
       socket.emit("send_message", messageData);
-      setMessages(messages.concat(messageData));
+      setMessages((messages) => [...messages, messageData]);
       setMessage("");
-      dispatch(receiveChat(messageData));
 
       socket.on("receive_message", (data) => {
         console.log(data);
-        dispatch(receiveChat(data));
+        setMessages((messages) => [...messages, data]);
       });
     } else {
       alert("공백만 입력됨");
       setMessage("");
     }
   };
-
-  // const sendFile = () => {
-  //   const file = uploadFile;
-  //   const formData = new FormData();
-
-  //   console.log(file);
-
-  //   if (file) {
-  //     formData.append("image", file);
-  //   }
-
-  //   console.log("formData", formData);
-  //   for (var pair of formData.entries()) {
-  //     console.log(pair[0] + ", " + pair[1]);
-  //   }
-
-  //   socket.emit("send_message", formData);
-  //   dispatch(clearPreview());
-  // };
 
   // 스크롤 부드럽게 내리기
   const messagesEndRef = useRef(null);
@@ -129,14 +99,13 @@ const ChatRoom = () => {
 
   return (
     <>
-      {/* 상품 정보 */}
       <Wrap padding="10px 16px">
         <Flex>
           {isDone ? (
             <ImageDark>
               <Image
                 br="8px"
-                src={nowChat?.post?.imageUrl}
+                src={chatData?.post?.imageUrl}
                 width="48px"
                 height="48px"
               />
@@ -216,11 +185,11 @@ const ChatRoom = () => {
                       circle
                       size={56}
                       margin="0 8px 0 0"
-                      src={nowChat.targetUser.profileImage}
+                      src={target.profileImage}
                     />
                     <Flex fd="column" ai="start">
                       <p style={{ fontSize: "12px", margin: "4px 0" }}>
-                        {nowChat.targetUser.nickname}
+                        {target.nickname}
                       </p>
                       <Flex
                         width="fit-content"
