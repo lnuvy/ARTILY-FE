@@ -66,16 +66,17 @@ const ChatRoom = () => {
       socket.emit("send_message", messageData);
       setMessages((messages) => [...messages, messageData]);
       setMessage("");
-
-      socket.on("receive_message", (data) => {
-        console.log(data);
-        setMessages((messages) => [...messages, data]);
-      });
     } else {
       alert("공백만 입력됨");
       setMessage("");
     }
   };
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessages((messages) => [...messages, data]);
+    });
+  });
 
   // 스크롤 부드럽게 내리기
   const messagesEndRef = useRef(null);

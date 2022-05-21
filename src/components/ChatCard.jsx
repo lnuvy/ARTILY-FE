@@ -13,6 +13,7 @@ const ChatCard = ({ room, onClick }) => {
     room?.targetUser.userId === user.userId ? room.createUser : room.targetUser;
   const nowConnected = target.connected;
 
+  console.log(room);
   console.log(target);
 
   return (

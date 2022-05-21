@@ -59,29 +59,12 @@ const chatSlice = createSlice({
     chatUserConnected: (state, action) => {
       const { connected, userId } = action.payload;
       // console.log(connected, userId);
-
-      // state.chatData.chatRoom.forEach((room) => {
-      //   if (room.targetUser.userId === userId) {
-      //     let newDic = {
-      //       ...room.targetUser,
-      //       connected,
-      //     };
-      //     room.targetUser = newDic;
-      //     return;
-      //   }
-      //   if (room.createUser.userId === userId) {
-      //     let newDic = {
-      //       ...room.createUser,
-      //       connected,
-      //     };
-      //     room.createUser = newDic;
-      //     return;
-      //   }
-      // });
     },
     makeChatRoom: (state, action) => {
       // TODO 다시볼것
-      state.chatData.chatRoom.unshift(action.payload);
+      state.chatData.chatRoom.push(action.payload);
+      state.nowChat = action.payload;
+      console.log("채팅하기 누른사람만 떠야함");
     },
 
     getNowChatInfo: (state, action) => {
@@ -101,14 +84,16 @@ const chatSlice = createSlice({
     // 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
       const { roomName } = action.payload;
+      console.log("receiveChatRoom 이름", roomName);
       if (state.chatData.chatRoom.find((room) => roomName === room.roomName)) {
-        return;
+        console.log("receiveChatRoom find 결과값있을때");
       }
 
       const newChatRoom = {
         ...action.payload,
       };
-      state.roomList.unshift(newChatRoom);
+      console.log(newChatRoom);
+      state.chatData.chatRoom.unshift(newChatRoom);
     },
   },
 });

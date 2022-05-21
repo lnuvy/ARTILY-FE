@@ -119,14 +119,12 @@ const StoreDetail = () => {
   const startChat = () => {
     const postUser = detailData.user;
     const nowUser = currentUser?.userId;
-
     let roomName = `from${nowUser}_to${postUser.userId}_${postId}`;
 
     if (chatData.chatRoom.length > 0) {
       const isExistRoom = chatData.chatRoom.find(
         (room) => room.roomName === roomName
       );
-
       if (isExistRoom) {
         console.log("isExistRoom!!!!!!!");
         history.push(`/chat/${roomName}`);
@@ -149,6 +147,8 @@ const StoreDetail = () => {
       connected: null,
     };
 
+    console.log(targetUser);
+
     socket.emit("join_room", roomName, postUser, chatPostData);
     dispatch(
       makeChatRoom({
@@ -158,6 +158,7 @@ const StoreDetail = () => {
         newMessage: 0,
         lastMessage: null,
         lastTime: null,
+        createUser: currentUser,
       })
     );
 
