@@ -27,10 +27,9 @@ const Chat = () => {
     });
   }, []);
 
-  const enterRoom = (roomName) => {
-    dispatch(getChatMessages(roomName));
+  const enterRoom = async (roomName) => {
     dispatch(getNowChatInfo(roomName));
-    history.push(`/chat/${roomName}`);
+    await dispatch(getChatMessages(roomName));
   };
 
   return (
