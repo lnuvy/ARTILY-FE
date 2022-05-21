@@ -47,7 +47,7 @@ const ArtCard = (props) => {
   const nowuser = userInfo;
   const deletePosting = async () => {
     const result = await deleteSwal();
-    console.log(result);
+    // console.log(result);
     if (result) {
       dispatch(deletePostDB(postId, true));
     }
@@ -98,7 +98,7 @@ const ArtCard = (props) => {
               padding="10px 20px"
               br="0"
               onClick={() => {
-                console.log(postId);
+                // console.log(postId);
                 history.push(`/store/edit/${postId}`);
               }}
             >

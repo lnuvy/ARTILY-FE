@@ -41,10 +41,10 @@ const DetailProfile = () => {
     formData.append("snsUrl", [website3]);
     formData.append("introduce", introduce);
 
-    console.log("formData", formData);
+    // console.log("formData", formData);
 
     for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+      // console.log(pair[0] + ", " + pair[1]);
     }
     dispatch(setProfileDB(formData));
   };
@@ -193,7 +193,7 @@ const DetailProfile = () => {
             <Flex
               jc="center"
               onClick={() => {
-                console.log("스킵");
+                // console.log("스킵");
                 history.push("/");
               }}
             >

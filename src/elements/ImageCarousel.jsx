@@ -19,12 +19,14 @@ const ImageCarousel = (props) => {
     arrows: false, // 양옆의 애로우 없애기
   };
 
+  // console.log(src);
+
   return (
     <>
       <StyledSlider {...settings}>
         {src && src.length > 1 ? (
           src.map((img, i) => {
-            console.log(img);
+            // console.log(img);
             return (
               <Grid key={`${i}_번째_${img}`}>
                 <Image height="375px" src={img.imageUrl} alt="img" />

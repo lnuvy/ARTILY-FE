@@ -18,6 +18,7 @@ import {
   otherPost,
   addPostDB,
 } from "../redux/modules/store";
+import { resetImageDt } from "../redux/modules/image";
 import { useParams } from "react-router-dom";
 
 // alert
@@ -36,7 +37,7 @@ const StoreEdit = () => {
 
   // selector
   const nowPost = useSelector((state) => state.store.detailData);
-  const { imageArr, fileObj } = useSelector((state) => state.image);
+  const { imageArr, fileObj, imageDt } = useSelector((state) => state.image);
 
   // states
   // 인풋 정의 -> 초기값은 아래와 같음.
@@ -62,6 +63,7 @@ const StoreEdit = () => {
     dispatch(clearPreview());
     dispatch(go2detail(null));
     dispatch(otherPost([]));
+    dispatch(resetImageDt([]));
   }, []);
 
   // 데이터 불러오기
@@ -73,11 +75,16 @@ const StoreEdit = () => {
 
   // 데이터 불러오기
   useEffect(() => {
-    dispatch(editPosts3Url(nowPost?.images));
+    if (path === `/store/write`) {
+      dispatch(editPosts3Url([]));
+    }
+    if (path === `/store/edit/${postId}`) {
+      dispatch(editPosts3Url(nowPost?.images));
+    }
   }, [nowPost?.images]);
 
   useEffect(() => {
-    console.log(nowPost);
+    // console.log(nowPost);
     setReceiveCategory(nowPost?.category);
     setReceiveAddress(nowPost?.changeAddress);
     setInputs({
@@ -106,9 +113,9 @@ const StoreEdit = () => {
   // 인풋 값 핸들링
   const handleChange = (e) => {
     const { id, value } = e.target;
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setInputs({ ...inputs, [id]: value });
-    console.log(inputs);
+    // console.log(inputs);
   };
 
   // 맵 모달
@@ -137,9 +144,9 @@ const StoreEdit = () => {
 
   // 데이터 전달
   const submitPost = () => {
+    console.log(imageDt);
+    console.log(imageArr);
     const { postTitle, price, postContent } = inputs;
-    inputSpaceReg(postTitle);
-    inputSpaceReg(postContent);
 
     if (!(inputs.delivery || inputs.direct)) {
       MySwal.fire({
@@ -171,8 +178,12 @@ const StoreEdit = () => {
     formData.append("price", price);
 
     for (let i = 0; i < fileObj.length; i++) {
-      console.log(fileObj[i][1]);
-      formData.append("image", fileObj[i][1]);
+      formData.append("image", fileObj[i]);
+    }
+
+    for (let i = 0; i < imageDt.length; i++) {
+      console.log(imageDt[i]);
+      formData.append("imgDt", imageDt[i]);
     }
 
     if (inputs.delivery && !inputs.direct) {
@@ -189,12 +200,14 @@ const StoreEdit = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
+
+    console.log(formData.getAll("image"));
+
     if (path === `/store/edit/${postId}`) {
       dispatch(editPostDB(postId, formData));
-      console.log(formData);
     }
     if (path === `/store/write`) {
-      dispatch(addPostDB(postId, formData));
+      dispatch(addPostDB(formData, receiveAddress));
     }
   };
 
