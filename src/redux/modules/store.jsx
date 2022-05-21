@@ -20,30 +20,40 @@ const initialState = {
   //무한스크롤
   // isFetching: false,
   // infinityScroll: {},
-  
-  // paging: { start: null, next: null, size: 3 },
-  // is_loading: false,
+
+  paging: { page: 1, size: 3 },
+  isLoading: false,
 
   detailData: null,
   otherPost: [],
 };
 
-export const getPostDB = () => {
-  return async function (dispatch, getState, { history }) {
-    // const pageHandler = {
-    //   page: 1,
-    //   limit: 6,
-    // };
-// let _paging =getState().store.paging 
-    Apis.getStore()
-      .then((res) => {
-        console.log("스토어 get요청", res.data);
-        dispatch(getStoreData(res.data.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+export const getPostDB = (page = 1, size = 3, data) => {
+  // return async function (dispatch, getState, { history }) {
+  //   // const pageHandler = {
+  //   //   page: 1,
+  //   //   limit: 6,
+  //   // };
+  //   const _paging = getState().store.paging;
+  //   if (!_paging.page) {
+  //     return;
+  //   }
+  //   dispatch(Loading(true));
+  //   Apis.getStore(data)
+  //     .then((res) => {
+  //       let paging = {
+  //         page: res.data.length === size ? page + 1 : null,
+  //         size: size,
+  //         next:
+  //           res.data.length === size + 1 ? res.data[res.data.length - 1] : null,
+  //       };
+  //       console.log("스토어 get요청", res.data);
+  //       dispatch(getStoreData(res.data.data, data, paging));
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 };
 
 export const getPostOne = (postId) => {
@@ -152,9 +162,14 @@ const postsSlice = createSlice({
   reducers: {
     // 처음 모든 데이터 불러오기만하기 (list 는 저장용도)
     getStoreData: (state, action) => {
-      state.list = action.payload;
+      state.list.push(...action.payload);
+      state.isLoading = false;
+      if (action.payload.paging) {
+        state.paging = action.payload.paging;
+      }
       // state.list.push(...action.payload.list);
       state.filterList = action.payload;
+      console.log(state.list);
     },
     // 데이터 하나 특정하기
     go2detail: (state, action) => {
@@ -237,6 +252,9 @@ const postsSlice = createSlice({
         }
       });
     },
+    Loading: (state, action) => {
+      state.isLoading = action.payload.isLoding;
+    },
   },
 });
 
@@ -251,5 +269,6 @@ export const {
   otherPost,
   markupToggle,
   deletePost,
+  Loading,
 } = actions;
 export default reducer;

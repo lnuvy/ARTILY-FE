@@ -40,6 +40,8 @@ import { postMarkupToggle } from "../redux/modules/user";
 import { Heart } from "../assets/icons";
 import { StoreMore } from "../components";
 
+
+
 const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();

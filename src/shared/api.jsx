@@ -22,11 +22,12 @@ const formDataConfig = { headers: { "Content-Type": `multipart/form-data;` } };
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMjIxNjkzNjE0IiwiaWF0IjoxNjUxODQ2NjI3fQ.O_LCYnV5NDxh5H2xfMcCEaIup0KU4DCbeyyJv7ar3Tg
 
 //rusy7225.shop/api/review/480d33d1bf3d
-
+const limit = 6;
 // May8 api 통합 관리
 export const Apis = {
   getHome: () => Api.get("/api/post"),
-  getReview: (pageHandler) => Api.get("api/review?page=1&limit=6"),
+  getReview: (pageNumber) =>
+    Api.get(`api/review?page=${pageNumber}&limit=${limit}`),
   getReviewDetail: (reviewId) => Api.get(`api/review/detail/${reviewId}`),
   likeReview: (reviewId) => Api.post(`api/like/${reviewId}`),
   postReview: (postId, reviewContents) =>
@@ -41,7 +42,8 @@ export const Apis = {
   // store API
   // getStore: (pageHandler) =>
   //   Api.get(`/api/post/store&page=${pageHandler.page}`),
-  getStore: () => Api.get(`/api/post/store`),
+  getStore: (pageNumber, data) =>
+    Api.get(`api/post/store?page=${pageNumber}&limit=${limit}`, data), // /api/post?size=${size}&page=${page}
   // getStoreFilter: () => Api.get(`/api/post/`) ,
   getStoreDetail: (postId) => Api.get(`api/post/${postId}`),
   postStore: (data) => Api.post("/api/post", data, formDataConfig),
@@ -76,10 +78,10 @@ export const Apis = {
   getUserFollowlist: (userId) => Api.get(`/api/follow/followlist/${userId}`),
   getUserFollowerlist: (userId) =>
     Api.get(`/api/follow/followerlist/${userId}`),
-
   //팔로워 삭제
   deleteFollower: (userId) => Api.delete(`/api/follow/delete/${userId}`),
 
   // chat API
-  getChatList: () => Api.get(`/api/chat`),
+  getChatData: () => Api.get(`/api/chat/data`),
+  getMessages: (roomName) => Api.get(`/api/chat/messages/${roomName}`),
 };

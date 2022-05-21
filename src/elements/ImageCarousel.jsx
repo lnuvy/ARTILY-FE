@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const ImageCarousel = (props) => {
   const { src } = props;
-  const currentImage = useSelector((state)=>state.store.detailData.images)
+  const currentImage = useSelector((state)=>state.store.detailData?.images)
 console.log(currentImage)
   // react-slick 설정
   const settings = {
@@ -35,7 +35,7 @@ console.log(currentImage)
           })
         ) : (
           <Grid>
-            <Image height="375px" src={currentImage&&currentImage[0].imageUrl} alt="img" />
+            <Image height="375px" src={currentImage && currentImage[0]?.imageUrl} alt="img" />
           </Grid>
         )}
       </StyledSlider>
