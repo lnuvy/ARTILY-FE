@@ -26,6 +26,7 @@ const ChatRoom = () => {
     nowChat?.targetUser?.userId === from
       ? nowChat.createUser
       : nowChat.targetUser;
+  console.log("target!!!!!!", target);
   // const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
   // console.log(target, nowConnected, isDone);

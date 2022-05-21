@@ -162,7 +162,7 @@ const postsSlice = createSlice({
   reducers: {
     // 처음 모든 데이터 불러오기만하기 (list 는 저장용도)
     getStoreData: (state, action) => {
-      state.list.push(...action.payload);
+      state.list.push(...action.payload); //수정 필요할 듯
       state.isLoading = false;
       if (action.payload.paging) {
         state.paging = action.payload.paging;

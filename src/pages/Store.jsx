@@ -249,8 +249,6 @@ const Store = () => {
 
   const getPostList = () => {
     setIsLoading(true);
-    // axios
-    //   .get(`https://.../comments?_page=${pageNumber}&_limit=6`)
     Apis.getStore(pageNumber)
       .then((response) => {
         console.log("서버에서 받은 데이터", response.data.data);
@@ -289,6 +287,7 @@ const Store = () => {
     () => {
       // store data reset
       dispatch(getStoreData([]));
+      dispatch(filteringData([]));
       // store api 두번요청되는걸 막기위함
       // dispatch(getPostDB());
     },
