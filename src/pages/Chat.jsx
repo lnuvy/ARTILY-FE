@@ -7,30 +7,39 @@ import {
   getChatList,
   getChatMessages,
   getNowChatInfo,
+  receiveChat,
+  receiveChatRoom,
 } from "../redux/modules/chat";
 import Loader from "../shared/Loader";
 import { socket } from "../shared/socket";
 import theme from "../styles/theme";
-
-// const chatData = lazy(() => import(""));
 
 const Chat = () => {
   const dispatch = useDispatch();
   const { chatData } = useSelector((state) => state.chat);
 
   useEffect(() => {
-    if (!chatData) dispatch(getChatList());
+    dispatch(getChatList());
 
     socket.on("join_room", (data) => {
       console.log("join_room socketOn:  ", data);
-      // dispatch(receiveChatRoom(data));
+      dispatch(receiveChatRoom(data));
+      socket.emit("enter_room", data.roomName);
     });
+
+    socket.on("receive_message", (data) => {
+      dispatch(receiveChat(data));
+    });
+
+    return () => {
+      socket.off("receive_message");
+      socket.off("join_room");
+    };
   }, []);
 
-  const enterRoom = (roomName) => {
-    dispatch(getChatMessages(roomName));
+  const enterRoom = async (roomName) => {
     dispatch(getNowChatInfo(roomName));
-    history.push(`/chat/${roomName}`);
+    await dispatch(getChatMessages(roomName));
   };
 
   return (

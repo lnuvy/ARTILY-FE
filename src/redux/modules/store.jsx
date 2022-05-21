@@ -2,9 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Apis } from "../../shared/api";
-import { addMyPost, changeAddressDB } from "./user";
-// import _ from "lodash";
-// import { storeDummy } from "../../shared/Dummy";
+import { changeAddressDB } from "./user";
+
 const MySwal = withReactContent(Swal);
 
 /*

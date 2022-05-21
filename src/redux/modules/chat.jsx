@@ -8,8 +8,13 @@ import { socket } from "../../shared/socket";
  */
 
 const initialState = {
+  // 로그인직후 처음부터 불러오는 정보 (chatData)
   chatData: [],
+
+  // 채팅방 목록에서 하나를 특정했을때 채워지는 메세지들
   roomMessages: [],
+
+  // 채팅방 목록에서 하나를 특정했을때 들어가는 방의 정보(chatData.chatRoom 한개)
   nowChat: {},
 };
 
@@ -37,6 +42,7 @@ export const getChatMessages = (roomName) => {
         console.log(res);
         if (roomName === res.data.roomUser.roomName) {
           dispatch(getMessages(res.data.roomUser.messages));
+          history.push(`/chat/${roomName}`);
         } else {
           alert("룸네임이 서로 일치하지않음!!!! (에러)");
         }
@@ -53,7 +59,6 @@ const chatSlice = createSlice({
   reducers: {
     chatInfo: (state, action) => {
       state.chatData = action.payload;
-      const myId = socket?.id;
     },
 
     chatUserConnected: (state, action) => {
@@ -71,7 +76,6 @@ const chatSlice = createSlice({
       let nowChat = state.chatData.chatRoom.find(
         (room) => room.roomName === action.payload
       );
-
       state.nowChat = nowChat;
     },
     getMessages: (state, action) => {
@@ -81,19 +85,30 @@ const chatSlice = createSlice({
       state.roomMessages = [];
     },
 
-    // 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
+    // 목록창에서 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
       const { roomName } = action.payload;
       console.log("receiveChatRoom 이름", roomName);
-      if (state.chatData.chatRoom.find((room) => roomName === room.roomName)) {
-        console.log("receiveChatRoom find 결과값있을때");
-      }
 
-      const newChatRoom = {
-        ...action.payload,
-      };
-      console.log(newChatRoom);
-      state.chatData.chatRoom.unshift(newChatRoom);
+      state.chatData.chatRoom.unshift(action.payload);
+    },
+
+    // 목록 보고있을때 lastMessage 와 lastTime 갱신하기
+    receiveChat: (state, action) => {
+      const { roomName, message, time, from } = action.payload;
+
+      const myId = socket.id;
+
+      state.chatData.chatRoom.forEach((room) => {
+        if (room.roomName === roomName) {
+          room.lastMessage = message;
+          room.lastTime = time;
+          if (from !== myId) {
+            room.newMessage++;
+          }
+          return;
+        }
+      });
     },
   },
 });
@@ -108,7 +123,7 @@ export const {
   resetMessages,
   newNotification,
 
-  // createChatRoom,
   receiveChatRoom,
+  receiveChat,
 } = actions;
 export default reducer;
