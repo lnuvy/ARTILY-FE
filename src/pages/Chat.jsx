@@ -25,6 +25,8 @@ const Chat = () => {
     socket.on("join_room", (data) => {
       console.log("join_room socketOn:  ", data);
       dispatch(receiveChatRoom(data));
+
+      socket.emit("enter_room", data.roomName);
     });
   }, []);
 

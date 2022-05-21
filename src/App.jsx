@@ -49,12 +49,6 @@ function App() {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   socket.on("receive_message", (data) => {
-  //     console.log(data);
-  //   });
-  // });
-
   useEffect(() => {
     socket.on("user connected", (data) => {
       console.log(data);
