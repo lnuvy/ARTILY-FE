@@ -117,7 +117,7 @@ const StoreDetail = () => {
 
   // 채팅하기 버튼 눌렀을때
   const startChat = () => {
-    const postUser = detailData.user?.userId;
+    const postUser = detailData.user;
     const nowUser = currentUser?.userId;
 
     let roomName = `from${nowUser}_to${postUser}_${postId}`;

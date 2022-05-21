@@ -13,6 +13,8 @@ const ChatCard = ({ room, onClick }) => {
     room?.targetUser.userId === user.userId ? room.createUser : room.targetUser;
   const nowConnected = target.connected;
 
+  console.log(target);
+
   return (
     <Flex jc="space-between" margin="16px 24px" onClick={onClick}>
       <Flex>
