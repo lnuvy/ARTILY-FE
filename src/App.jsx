@@ -49,14 +49,6 @@ function App() {
     }
   }, [user]);
 
-  useEffect(() => {
-    // 판매자 입장
-    socket.on("join_room", (data) => {
-      dispatch(receiveChatRoom(data));
-      // socket.emit("enter_room", data.roomName); // TODO  5/19 이때까지 있었는데 백/프론트 둘다 주석했을때 부작용 없는지 체크해볼것
-    });
-  });
-
   // useEffect(() => {
   //   socket.on("receive_message", (data) => {
   //     console.log(data);

@@ -7,6 +7,7 @@ import {
   getChatList,
   getChatMessages,
   getNowChatInfo,
+  receiveChatRoom,
 } from "../redux/modules/chat";
 import Loader from "../shared/Loader";
 import { socket } from "../shared/socket";
@@ -19,11 +20,11 @@ const Chat = () => {
   const { chatData } = useSelector((state) => state.chat);
 
   useEffect(() => {
-    if (!chatData) dispatch(getChatList());
+    dispatch(getChatList());
 
     socket.on("join_room", (data) => {
       console.log("join_room socketOn:  ", data);
-      // dispatch(receiveChatRoom(data));
+      dispatch(receiveChatRoom(data));
     });
   }, []);
 
