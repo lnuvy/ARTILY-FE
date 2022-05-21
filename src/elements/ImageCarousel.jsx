@@ -9,8 +9,8 @@ import { useSelector } from "react-redux";
 
 const ImageCarousel = (props) => {
   const { src } = props;
-  const currentImage = useSelector((state)=>state.store.detailData?.images)
-console.log(currentImage)
+  const currentImage = useSelector((state) => state.store.detailData?.images);
+  console.log(currentImage);
   // react-slick 설정
   const settings = {
     dots: true, // 하단 점
@@ -21,12 +21,14 @@ console.log(currentImage)
     arrows: false, // 양옆의 애로우 없애기
   };
 
+  // console.log(src);
+
   return (
     <>
       <StyledSlider {...settings}>
         {src && src.length > 1 ? (
           src.map((img, i) => {
-            console.log(img);
+            // console.log(img);
             return (
               <Grid key={`${i}_번째_${img}`}>
                 <Image height="375px" src={img.imageUrl} alt="img" />
@@ -35,7 +37,11 @@ console.log(currentImage)
           })
         ) : (
           <Grid>
-            <Image height="375px" src={currentImage && currentImage[0]?.imageUrl} alt="img" />
+            <Image
+              height="375px"
+              src={currentImage && currentImage[0]?.imageUrl}
+              alt="img"
+            />
           </Grid>
         )}
       </StyledSlider>

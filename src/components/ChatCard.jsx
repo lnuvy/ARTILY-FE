@@ -1,5 +1,5 @@
 import React from "react";
-import { io } from "socket.io-client";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Flex, Image, Text } from "../elements";
 import { changeTime } from "../shared/utils";
@@ -7,9 +7,14 @@ import theme from "../styles/theme";
 
 const ChatCard = ({ room, onClick }) => {
   // const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
 
-  const target = room?.targetUser || null;
-  const nowConnected = true;
+  const target =
+    room?.targetUser.userId === user.userId ? room.createUser : room.targetUser;
+  const nowConnected = target.connected;
+
+  console.log(room);
+  console.log(target);
 
   return (
     <Flex jc="space-between" margin="16px 24px" onClick={onClick}>

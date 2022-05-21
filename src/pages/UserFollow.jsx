@@ -1,57 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Grid, Flex, Text, Image, Button, Icon } from "../elements";
-import { getmyPageData, getUserPageData } from "../redux/modules/mypage";
+import { Grid, Flex, Text, Image } from "../elements";
 import {
   getFollowDB,
   getFollowerDB,
   getUserFollowDB,
   getUserFollowerDB,
 } from "../redux/modules/follow";
-import { ArrowBack } from "../assets/icons";
 const UserFollow = () => {
-  const [clickfollow, setClickfollow] = useState("언팔로우");
-  const [clickfollower, setClickfollower] = useState("언팔로우");
-  const changefollows = () => {
-    setClickfollow((prev) => (prev === "언팔로우" ? "팔로우" : "언팔로우"));
-  };
-  const changefollowers = () => {
-    setClickfollower((prev) => (prev === "언팔로우" ? "팔로우" : "언팔로우"));
-  };
+  const dispatch = useDispatch();
   const history = useHistory();
-  //내 팔로워 목록
-  const myfollower = useSelector((state) => state.followUser.follower);
-  console.log("내 팔로워 목록", myfollower);
-  //내 팔로우 목록
-  const myfollow = useSelector((state) => state.followUser.list);
-  console.log("내 팔로잉 목록", myfollow);
 
   const nowUserInfo = useSelector((state) => state?.mypage?.userInfo?.user);
-  console.log(nowUserInfo);
-  const currentuserId = useSelector(
-    (state) => state?.mypage?.userInfo?.user?.userId
-  );
-  const userFollowNick = useSelector(
-    (state) => state?.mypage?.userInfo?.user?.nickname
-  );
+  const currentuserId = nowUserInfo?.userId;
+  // const userFollowNick = nowUserInfo?.nickname;
 
   const myInfo = useSelector((state) => state.user?.user);
   console.log("내 정보 :", myInfo);
 
-  //유저 팔로우 목록
-  const nowfollowList = useSelector((state) => state?.followUser?.userfollow);
-  console.log("유저 팔로잉 리스트", nowfollowList);
+  // 리덕스정보 다가져오기
+  const { myFollower, myFollowing, userfollow, userfollower } = useSelector(
+    (state) => state.followUser
+  );
 
-  //유저 팔로워 목록
-  const nowfollowerList = useSelector((state) => state.followUser).userfollower;
-  console.log("유저 팔로워 리스트", nowfollowerList);
+  console.log(myFollower, myFollowing, userfollow, userfollower);
 
-  const isMe = nowfollowerList.find((i) => i.nickname) === myInfo?.nickname;
-
-  console.log(isMe);
   // 내 팔로워, 팔로우 목록 dispatch
   useEffect(() => {
     dispatch(getFollowerDB());
@@ -59,35 +34,31 @@ const UserFollow = () => {
   }, []);
 
   useEffect(() => {
-    if (!currentuserId) {
-      history.go(-1); //새로고침 되면 뒤로 돌아가도록 설정
+    if (!nowUserInfo) {
+      history.go(-1);
     } else {
       dispatch(getUserFollowDB(currentuserId));
       dispatch(getUserFollowerDB(currentuserId));
     }
-  }, [currentuserId]);
+  }, [nowUserInfo]);
 
-  //5.18 이슈
-  //상대의 팔로워, 팔로잉 리스트 중 하나를 눌러 프로필을 들어갔다가 뒤로 가기 시 팔로워, 팔로잉 리스트가 뒤죽박죽되는 이슈
+  const [followCnt, setFollowCnt] = useState({
+    follow: nowUserInfo?.followCnt,
+    follower: nowUserInfo?.followerCnt,
+  });
 
-  const menus = [
-    `팔로워 ${nowUserInfo?.followerCnt}명`,
-    `팔로잉 ${nowUserInfo?.followCnt}명`,
-  ];
+  const menus = [`팔로워`, `팔로잉`];
   const [current, setCurrent] = useState(menus[0]);
 
-  // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
-    setCurrent(menus.find((l) => l === innerText));
+    setCurrent(menus.find((l) => innerText.includes(l)));
   };
-  const dispatch = useDispatch();
 
-  const clickFollow = () => {};
   return (
     <>
       <Grid gtc="auto auto" cg="20px" margin="10px 0 0 0">
-        {menus.map((menu) => {
+        {menus.map((menu, i) => {
           return (
             <CurrentDiv
               key={menu}
@@ -96,14 +67,18 @@ const UserFollow = () => {
               }}
               current={menu === current}
             >
-              <Nav>{menu}</Nav>
+              <Nav>
+                {menu} &nbsp;
+                {i === 0 ? `${followCnt.follower}명` : `${followCnt.follow}명`}
+              </Nav>
             </CurrentDiv>
           );
         })}
       </Grid>
       {/* 팔로워 */}
-      {current === `팔로워 ${nowUserInfo?.followerCnt}명` &&
-        nowfollowerList?.map((follower, l) => {
+      {current === `팔로워` &&
+        userfollower?.map((follower, l) => {
+          console.log(follower);
           return (
             <Profile key={l}>
               <Flex>
@@ -121,27 +96,31 @@ const UserFollow = () => {
                 ></Image>
 
                 <Text fg="1" body2 bold margin="5px 0 10px 0">
-                  {nowfollowerList?.length ? follower.nickname : ""}
+                  {userfollower?.length ? follower.nickname : ""}
                 </Text>
-                {/* 나도 이미 팔로우가 되어있는 사람일 경우 버튼 비활성화(언팔로우) */}
-                {/* 나도 팔로우가 안되어있는 사람일 경우 팔로우 버튼 활성화 */}
-                <FollowerBtn
-                  height="38px"
-                  padding="3px 17px"
-                  prev={clickfollow === "언팔로우" ? true : false}
-                  onClick={() => {
-                    changefollows();
-                    // dispatch(DeleteFollowDB(follow.followId));
-                  }}
-                >
-                  {clickfollow}
-                </FollowerBtn>
+                {follower.userId === myInfo.userId ? (
+                  ""
+                ) : (
+                  <FollowerBtn
+                    height="38px"
+                    padding="3px 17px"
+                    // prev={clickfollow === "언팔로우" ? true : false}
+                    onClick={() => {
+                      console.log("여긴어디~~~?");
+                      // changefollows();
+                      // dispatch(DeleteFollowDB(follow.followId));
+                    }}
+                  >
+                    {/* {clickfollow} */}
+                    여긴어디?
+                  </FollowerBtn>
+                )}
               </Flex>
             </Profile>
           );
         })}
-      {current === `팔로잉 ${nowUserInfo?.followCnt}명` &&
-        nowfollowList?.map((follow, l) => {
+      {current === `팔로잉` &&
+        userfollow?.map((follow, l) => {
           console.log(follow);
           return (
             <Profile key={l} onClick={() => {}}>
@@ -159,25 +138,25 @@ const UserFollow = () => {
                   }}
                 ></Image>
                 <Text fg="1" body2 bold margin="5px 0 10px 0">
-                  {nowfollowList?.length ? follow.followName : ""}
+                  {userfollow?.length ? follow.followName : ""}
                 </Text>
                 {/* 나도 이미 팔로우가 되어있는 사람일 경우 언팔로우 버튼 */}
                 {/* 리스트에 본인이 있을경우 버튼이 없음 */}
-                {isMe ? (
-                  ""
-                ) : (
-                  <FollowBtn
-                    height="38px"
-                    padding="3px 17px"
-                    prev={clickfollow === "언팔로우" ? true : false}
-                    onClick={() => {
-                      changefollows();
-                      // dispatch(DeleteFollowDB(follow.followId));
-                    }}
-                  >
-                    {clickfollow}
-                  </FollowBtn>
-                )}
+
+                <FollowBtn
+                  height="38px"
+                  padding="3px 17px"
+                  // prev={clickfollow === "언팔로우" ? true : false}
+                  alreadyFollow={true}
+                  onClick={() => {
+                    console.log("여기 클릭뭐임?");
+                    // changefollows();
+                    // dispatch(DeleteFollowDB(follow.followId));
+                  }}
+                >
+                  여긴또뭐임
+                  {/* {clickfollow} */}
+                </FollowBtn>
               </Flex>
             </Profile>
           );
@@ -220,9 +199,9 @@ const FollowerBtn = styled.button`
 `;
 const FollowBtn = styled.button`
   border-radius: 8px;
-  background-color: ${(props) => (props.prev ? "#fff" : "#FD7A00")};
-  color: ${(props) => (props.prev ? "#999" : "#fff")};
-  border: 1px solid ${(props) => (props.prev ? "#999" : "")};
+  background-color: ${(props) => (props.alreadyFollow ? "#fff" : "#FD7A00")};
+  color: ${(props) => (props.alreadyFollow ? "#999" : "#fff")};
+  border: 1px solid ${(props) => (props.alreadyFollow ? "#999" : "")};
   width: 73px;
   height: 38px;
 `;

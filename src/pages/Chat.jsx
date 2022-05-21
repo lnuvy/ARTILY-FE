@@ -1,48 +1,58 @@
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChatCard, NoInfo } from "../components";
 import { Grid } from "../elements";
 import { history } from "../redux/configureStore";
 import {
   getChatList,
-  notificationCheck,
-  receiveChatRoom,
+  getChatMessages,
+  getNowChatInfo,
 } from "../redux/modules/chat";
+import Loader from "../shared/Loader";
 import { socket } from "../shared/socket";
 import theme from "../styles/theme";
 
+// const chatData = lazy(() => import(""));
+
 const Chat = () => {
   const dispatch = useDispatch();
-  const { roomList } = useSelector((state) => state.chat);
+  const { chatData } = useSelector((state) => state.chat);
 
   useEffect(() => {
-    // 방목록 가져오기
-    dispatch(getChatList());
+    if (!chatData) dispatch(getChatList());
+
     socket.on("join_room", (data) => {
-      dispatch(receiveChatRoom(data));
+      console.log("join_room socketOn:  ", data);
+      // dispatch(receiveChatRoom(data));
     });
   }, []);
 
   const enterRoom = (roomName) => {
-    dispatch(notificationCheck(roomName));
+    dispatch(getChatMessages(roomName));
+    dispatch(getNowChatInfo(roomName));
     history.push(`/chat/${roomName}`);
   };
 
   return (
     <>
-      <Grid border={`1px solid ${theme.pallete.gray1}`}>
-        <NoInfo list={roomList} text1="아직 대화중인 사람이 없어요!">
-          {roomList.map((room, i) => {
-            return (
-              <ChatCard
-                key={room.roomName}
-                room={room}
-                onClick={() => enterRoom(room.roomName)}
-              />
-            );
-          })}
-        </NoInfo>
-      </Grid>
+      <Suspense fallback={Loader}>
+        <Grid border={`1px solid ${theme.pallete.gray1}`}>
+          <NoInfo
+            list={chatData?.chatRoom}
+            text1="아직 대화중인 사람이 없어요!"
+          >
+            {chatData?.chatRoom?.map((room, i) => {
+              return (
+                <ChatCard
+                  key={room.roomName}
+                  room={room}
+                  onClick={() => enterRoom(room.roomName)}
+                />
+              );
+            })}
+          </NoInfo>
+        </Grid>
+      </Suspense>
     </>
   );
 };

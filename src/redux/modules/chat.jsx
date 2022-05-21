@@ -1,50 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
-import moment from "moment";
+
 import { Apis } from "../../shared/api";
 import { socket } from "../../shared/socket";
+
 /*
  * @ 한울
  */
 
-// 채팅방리스트 모양
-// const roomList = [
-//   {
-//     post: {
-//       postId: "postIdforchat",
-//       imageUrl:
-//         "https://cdn.clien.net/web/api/file/F01/12355532/2e10d6d02e7df0.jpg?w=780&h=30000",
-//       postTitle: "채팅용",
-//       price: 2000,
-//       done: false,
-//     },
-//     targetUser: {
-//       userId: "asdfasdf",
-//       nickname: "asdfasdf",
-//       profileImage: "asdfasdfasdfa",
-//     },
-//     roomName: "from2222434554_to2222423044_postIdforchat",
-//     messages: [],
-//     lastMessage: "dfdf",
-//     lastTime: "",
-//     newMessage: 0,
-//   },
-// ];
-
 const initialState = {
-  // 채팅방 리스트
-  roomList: [],
+  chatData: [],
+  roomMessages: [],
+  nowChat: {},
 };
 
 export const getChatList = () => {
   return async function (dispatch, getState, { history }) {
-    Apis.getChatList()
+    Apis.getChatData()
+      .then((res) => {
+        console.log("TODO res 데이터 잘보기", res);
+        if (res.status === 204) {
+          console.log("아직 채팅방없음");
+        }
+        dispatch(chatInfo(res.data.newChat));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+  };
+};
+
+export const getChatMessages = (roomName) => {
+  return async function (dispatch, getState, { history }) {
+    Apis.getMessages(roomName)
       .then((res) => {
         console.log(res);
-        if (res.status === 204) {
-          console.log("진행중인 채팅없음");
-          return;
+        if (roomName === res.data.roomUser.roomName) {
+          dispatch(getMessages(res.data.roomUser.messages));
+        } else {
+          alert("룸네임이 서로 일치하지않음!!!! (에러)");
         }
-        dispatch(getChatRoom(res.data.newChat));
       })
       .catch((err) => {
         console.log(err);
@@ -56,58 +51,64 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    getChatRoom: (state, action) => {
-      state.roomList = action.payload;
+    chatInfo: (state, action) => {
+      state.chatData = action.payload;
+      const myId = socket?.id;
     },
-    notificationCheck: (state, action) => {
-      const roomName = action.payload;
 
-      state.roomList.forEach((room) => {
-        if (room.roomName === roomName) {
-          room.newMessage = 0;
-          return;
-        }
-      });
+    chatUserConnected: (state, action) => {
+      const { connected, userId } = action.payload;
+      // console.log(connected, userId);
     },
+    makeChatRoom: (state, action) => {
+      // TODO 다시볼것
+      state.chatData.chatRoom.push(action.payload);
+      state.nowChat = action.payload;
+      console.log("채팅하기 누른사람만 떠야함");
+    },
+
+    getNowChatInfo: (state, action) => {
+      let nowChat = state.chatData.chatRoom.find(
+        (room) => room.roomName === action.payload
+      );
+
+      state.nowChat = nowChat;
+    },
+    getMessages: (state, action) => {
+      state.roomMessages = action.payload;
+    },
+    resetMessages: (state, action) => {
+      state.roomMessages = [];
+    },
+
     // 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
       const { roomName } = action.payload;
-
-      if (state.roomList.find((room) => roomName === room.roomName)) {
-        return;
+      console.log("receiveChatRoom 이름", roomName);
+      if (state.chatData.chatRoom.find((room) => roomName === room.roomName)) {
+        console.log("receiveChatRoom find 결과값있을때");
       }
 
       const newChatRoom = {
         ...action.payload,
       };
-      state.roomList.unshift(newChatRoom);
-    },
-    receiveChat: (state, action) => {
-      const { from, message, roomName, time } = action.payload;
-      const myId = socket?.id;
-
-      state.roomList.forEach((room) => {
-        if (room.roomName === roomName) {
-          room.messages.push(action.payload);
-          room.lastMessage = message;
-          room.lastTime = time;
-
-          if (from !== myId) {
-            room.newMessage++;
-          }
-        }
-      });
+      console.log(newChatRoom);
+      state.chatData.chatRoom.unshift(newChatRoom);
     },
   },
 });
 
 const { reducer, actions } = chatSlice;
 export const {
-  getChatRoom,
+  chatInfo,
+  chatUserConnected,
+  makeChatRoom,
+  getMessages,
+  getNowChatInfo,
+  resetMessages,
   newNotification,
-  notificationCheck,
+
   // createChatRoom,
   receiveChatRoom,
-  receiveChat,
 } = actions;
 export default reducer;

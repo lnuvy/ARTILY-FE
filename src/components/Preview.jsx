@@ -72,7 +72,7 @@ const Preview = () => {
         <Button padding="8px 16px" outline width="64px" height="64px">
           <UploadLabel htmlFor="file">
             <AddPhoto />
-            <Text>{image.imageArr.length}/10</Text>
+            <Text>{image.imageArr ? image.imageArr.length : 0}/10</Text>
           </UploadLabel>
         </Button>
         <input
@@ -84,7 +84,7 @@ const Preview = () => {
           ref={fileInput}
         />
 
-        <ImagePreview />
+        <ImagePreview imageArr={image && image.imageArr} />
       </Flex>
     </FileWrap>
   );

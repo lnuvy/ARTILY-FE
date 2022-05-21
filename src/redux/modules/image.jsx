@@ -12,6 +12,7 @@ const initialState = {
   represent: null,
   imageArr: [],
   fileObj: [],
+  imageDt: [],
 };
 
 const removePreviewWhich = (image) => {};
@@ -24,6 +25,19 @@ const imageSlice = createSlice({
     accrueImage: (state, action) => {
       // 첫게시라면 represent 에 저장
       state.imageArr.push(action.payload);
+    },
+
+    accrueImageDelete: (state, action) => {
+      // 첫게시라면 represent 에 저장
+      state.imageArr = action.payload;
+    },
+
+    addImageDt: (state, action) => {
+      state.imageDt.push(action.payload);
+    },
+
+    resetImageDt: (state, action) => {
+      state.imageDt = action.payload;
     },
 
     //프로필 설정
@@ -67,9 +81,8 @@ const imageSlice = createSlice({
 
     // 5/9 파일형태 저장
     inputfileObj: (state, action) => {
-      let nowIndex = state.imageArr.length;
-      console.log(nowIndex);
-      state.fileObj.push([nowIndex, action.payload]);
+      console.log("inputfileObj");
+      state.fileObj.push(action.payload);
     },
 
     editPosts3Url: (state, action) => {
@@ -97,5 +110,8 @@ export const {
   resetProfileImage,
   inputfileObj,
   editPosts3Url,
+  accrueImageDelete,
+  addImageDt,
+  resetImageDt,
 } = actions;
 export default reducer;

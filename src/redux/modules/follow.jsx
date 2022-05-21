@@ -1,48 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { Apis } from "../../shared/api";
-import { fromPairs } from "lodash";
 
 const initialState = {
-  list: [],
-  follower: [],
+  myFollowing: [],
+  myFollower: [],
   userfollow: [],
   userfollower: [],
   deletelist: null,
 };
 
-//POST
-export const addFollowDB = (followId) => {
+// POST 팔로잉 하기
+export const addFollowDB = (userData) => {
   return function (dispatch, getState, { history }) {
-    Apis.postAddFollow(followId)
+    Apis.postAddFollow(userData.followId)
       .then((res) => {
-        console.log(res);
         console.log(res.data);
-        dispatch(addmyfollowdata(followId));
-        // history.push("/follow");
+        if (res.data.msg === "팔로우 취소") {
+          dispatch(deleteFollowing(userData));
+        } else {
+          dispatch(addFollowing(userData));
+        }
       })
       .catch((error) => {
-        console.log("실패", error);
-        // window.alert("문제가 발생했습니다!");
+        console.log("addFollowDB 실패", error);
       });
+
+    // history.replace("/follow");
   };
 };
-//팔로우 취소
-export const DeleteFollowDB = (followId) => {
-  return function (dispatch, getState, { history }) {
-    Apis.postAddFollow(followId)
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
-        dispatch(addmyfollowdata(followId));
-        window.alert("팔로우가 취소되었습니다");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log("팔로우 삭제 실패", error);
-      });
-  };
-};
+
+// 이거 날림 (delete)
 
 //팔로우 목록(GET)
 export const getFollowDB = () => {
@@ -50,9 +38,7 @@ export const getFollowDB = () => {
     Apis.getMyFollowlist()
       .then((res) => {
         const followUser = res.data.data;
-        console.log("GET 팔로우 :", res);
-        dispatch(addmyfollowdata(followUser));
-        // history.push("/follow");
+        dispatch(getMyFollowing(followUser));
       })
       .catch((error) => {
         console.log("follow 목록 조회 실패", error);
@@ -77,11 +63,12 @@ export const getFollowerDB = () => {
 };
 
 //팔로워 삭제(Delete)
-export const deleteFollowerDB = (userId) => {
+export const deleteFollowerDB = (follower) => {
   return function (dispatch, getState, { history }) {
-    Apis.deleteFollower(userId)
+    Apis.deleteFollower(follower.userId)
       .then((res) => {
-        window.location.reload();
+        console.log(res);
+        dispatch(deleteFollower(follower.userId));
       })
       .catch((error) => {
         console.log("팔로워 삭제 실패", error);
@@ -126,14 +113,29 @@ const postsSlice = createSlice({
   name: "followUser",
   initialState: initialState,
   reducers: {
-    addmyfollowdata: (state, action) => {
-      state.list = action.payload;
-      // state.follower = action.payload;
-      console.log("followId: ", state.list); //followId
+    getMyFollowing: (state, action) => {
+      state.myFollowing = action.payload;
+    },
+    getMyFollower: (state, action) => {
+      state.myFollower = action.payload;
+    },
+    //
+    addFollowing: (state, action) => {
+      state.myFollowing.push(action.payload);
+    },
+    deleteFollowing: (state, action) => {
+      let newArr = state.myFollowing.filter(
+        (f) => f.followId !== action.payload.followId
+      );
+      state.myFollowing = newArr;
+    },
+    deleteFollower: (state, action) => {
+      let newArr = state.myFollower.filter((f) => f.userId !== action.payload);
+
+      state.myFollower = newArr;
     },
     getfollowerdata: (state, action) => {
-      state.follower = action.payload;
-      console.log(state.follower);
+      state.myFollower = action.payload;
     },
     getuserfollowdata: (state, action) => {
       state.userfollow = action.payload;
@@ -149,7 +151,11 @@ const postsSlice = createSlice({
 const { reducer, actions } = postsSlice;
 
 export const {
-  addmyfollowdata,
+  getMyFollowing,
+  getMyFollower,
+  addFollowing,
+  deleteFollowing,
+  deleteFollower,
   getfollowdata,
   getfollowerdata,
   getuserfollowdata,

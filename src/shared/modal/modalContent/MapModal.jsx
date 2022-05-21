@@ -22,12 +22,13 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
   const [address, setAddress] = useState(currentAddress || "");
   const [query, setQuery] = useState(null);
   const [position, setPosition] = useState({
-    lat: 37.5669412,
-    lng: 126.978403,
+    lat: 36.5669412,
+    lng: 125.978403,
   });
   const inputRef = useRef(null);
   const ps = new kakao.maps.services.Places();
   var geocoder = new kakao.maps.services.Geocoder();
+
   // 게시글수정, 주소변경시 이전 좌표로 시작하기
   useEffect(() => {
     if (currentAddress) {
@@ -71,6 +72,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
     if (/\S/.test(value)) setQuery(value);
   };
 
+  console.log(address);
   const nowPosition = () => {
     currentmap(setAddress, setPosition);
 
@@ -82,6 +84,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
   };
 
   const submitAddress = () => {
+    console.log(address);
     setReceiveAddress(address);
     dispatch(closeModal());
   };
@@ -146,7 +149,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
       <Flex padding="8px" height="fit-content" fd="column">
         <Flex jc="space-between" margin="8px">
           <Text h2 bold textAlign="left">
-            {address}
+            {address} 하이
           </Text>
           &nbsp; &nbsp;
           <Text body2 margin="0 12px 0 0">

@@ -3,17 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Preview, Card } from "../components";
 import ImagePreview from "../components/ImagePreview";
 import theme from "../styles/theme";
-import {
-  Button,
-  Checkbox,
-  Flex,
-  Grid,
-  Image,
-  Input,
-  Text,
-  Textarea,
-  Wrap,
-} from "../elements";
+import { Button, Flex, Image, Text, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
 
 import { getReviewDB, getBuyList } from "../redux/modules/reviews";

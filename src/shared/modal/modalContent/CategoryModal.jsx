@@ -16,9 +16,9 @@ const cate = [
   "기타",
 ];
 
-const CategoryModal = ({ setReceiveCategory }) => {
+const CategoryModal = ({ setReceiveCategory, receiveCategory }) => {
   const dispatch = useDispatch();
-  const [current, setCurrent] = useState("회화");
+  const [current, setCurrent] = useState(receiveCategory);
 
   const divClickChange = (c) => {
     setCurrent(c);

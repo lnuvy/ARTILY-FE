@@ -25,8 +25,8 @@ const ReviewSelect = () => {
 
   const posts = useSelector((state) => state.store.list);
 
-  const mybuyList = [];
-  // const mybuyList = useSelector((state) => state.user.user.myBuy);
+  // const mybuyList = [];
+  const mybuyList = useSelector((state) => state.user.user.myBuy);
 
   function myBuyListCheck() {
     if (user.isLogin === true) {
@@ -59,7 +59,7 @@ const ReviewSelect = () => {
         </Text>
       </Wrap>
 
-      {mybuyList.length === !0 ? (
+      {mybuyList && mybuyList.length === !0 ? (
         mybuyList.map((l, i) => {
           return (
             <Flex

@@ -10,7 +10,7 @@ const StoreMore = (props) => {
   const { postId, images, markupCnt, postTitle, price } = props;
 
   if (postId) {
-    console.log(images);
+    // console.log(images);
     return (
       <Card onClick={() => history.push(`/store/view/${postId}`)}>
         <Image height="168px" br="8px" src={images[0]?.imageUrl} />

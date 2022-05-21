@@ -6,8 +6,6 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import theme from "../styles/theme";
-import { history } from "../redux/configureStore";
-import { notificationCheck, receiveChat } from "../redux/modules/chat";
 import { ChatFileInput } from "../components";
 import { ArrowUpward } from "../assets/icons";
 import { priceComma } from "../shared/utils";
@@ -20,47 +18,42 @@ const ChatRoom = () => {
   const roomName = pathname.slice(6);
   const from = useSelector((state) => state.user.user?.userId);
 
-  const nowChat = useSelector((state) => state.chat.roomList).find(
-    (room) => room.roomName === roomName
+  const { chatData, nowChat, roomMessages } = useSelector(
+    (state) => state.chat
   );
 
+  const target =
+    nowChat?.targetUser?.userId === from
+      ? nowChat.createUser
+      : nowChat.targetUser;
+  // const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
+  // console.log(target, nowConnected, isDone);
 
   // 사진업로드
   const uploadFile = useSelector((state) => state.image.represent);
 
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(roomMessages);
 
   const [infinity, setInfinity] = useState([]);
 
-  useEffect(() => {
-    // 첫 페이징
-    if (nowChat) {
-      const page = Math.floor(nowChat.messages.length / 20) + 1;
-      const newArr = setInfinityPaging(page);
-      setInfinity(newArr);
-      setMessages(newArr[newArr.length - 1]);
-    }
-    return () => {
-      dispatch(notificationCheck(roomName));
-    };
-  }, []);
+  // 상단 채팅끌어오기위해 데이터 20개단위로 자르기
+  // const setInfinityPaging = (page, endpoint) => {
+  //   let arr = [];
+  //   for (let i = page; i >= 0; i--) {
+  //     let sliceArr = nowChat.messages.slice(i * 20 - endpoint);
+  //     console.log(sliceArr);
+  //     arr.push(sliceArr);
+  //   }
+  //   return arr;
+  // };
 
-  const setInfinityPaging = (page) => {
-    let arr = [];
-    for (let i = page; i > 0; i--) {
-      let sliceArr = nowChat.messages.slice((i - 1) * 20, i * 20);
-      arr.push(sliceArr);
-    }
-    return arr;
-  };
-
-  useEffect(() => {
-    if (!nowChat) {
-      history.replace("/chat");
-    }
-  });
+  // useEffect(() => {
+  //   if (!nowChat) {
+  //     history.replace("/chat");
+  //   }
+  // });
 
   const sendMessage = () => {
     if (/\S/.test(message) && !uploadFile) {
@@ -71,37 +64,19 @@ const ChatRoom = () => {
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
       };
       socket.emit("send_message", messageData);
-      setMessages(messages.concat(messageData));
+      setMessages((messages) => [...messages, messageData]);
       setMessage("");
-      dispatch(receiveChat(messageData));
-
-      socket.on("receive_message", (data) => {
-        setMessages(messages.concat(data));
-      });
     } else {
       alert("공백만 입력됨");
       setMessage("");
     }
   };
 
-  // const sendFile = () => {
-  //   const file = uploadFile;
-  //   const formData = new FormData();
-
-  //   console.log(file);
-
-  //   if (file) {
-  //     formData.append("image", file);
-  //   }
-
-  //   console.log("formData", formData);
-  //   for (var pair of formData.entries()) {
-  //     console.log(pair[0] + ", " + pair[1]);
-  //   }
-
-  //   socket.emit("send_message", formData);
-  //   dispatch(clearPreview());
-  // };
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      setMessages((messages) => [...messages, data]);
+    });
+  });
 
   // 스크롤 부드럽게 내리기
   const messagesEndRef = useRef(null);
@@ -125,14 +100,13 @@ const ChatRoom = () => {
 
   return (
     <>
-      {/* 상품 정보 */}
       <Wrap padding="10px 16px">
         <Flex>
           {isDone ? (
             <ImageDark>
               <Image
                 br="8px"
-                src={nowChat?.post?.imageUrl}
+                src={chatData?.post?.imageUrl}
                 width="48px"
                 height="48px"
               />
@@ -198,7 +172,7 @@ const ChatRoom = () => {
                           color: `${theme.pallete.gray3}`,
                         }}
                       >
-                        {moment(msg.time).format("hh:mm")}
+                        {moment(msg.time).format("a hh:mm")}
                       </p>
                     </Flex>
                   </Flex>
@@ -212,11 +186,11 @@ const ChatRoom = () => {
                       circle
                       size={56}
                       margin="0 8px 0 0"
-                      src={nowChat.targetUser.profileImage}
+                      src={target.profileImage}
                     />
                     <Flex fd="column" ai="start">
                       <p style={{ fontSize: "12px", margin: "4px 0" }}>
-                        {nowChat.targetUser.nickname}
+                        {target.nickname}
                       </p>
                       <Flex
                         width="fit-content"
@@ -237,7 +211,7 @@ const ChatRoom = () => {
                             margin: "5px 5px 5px 0",
                           }}
                         >
-                          {moment(msg.time).format("hh:mm")}
+                          {moment(msg.time).format("a hh:mm")}
                         </p>
                       </Flex>
                     </Flex>

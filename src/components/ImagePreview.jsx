@@ -1,30 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Grid, Image, Wrap } from "../elements";
-import { removeFileObj, removePreview } from "../redux/modules/image";
+import {
+  removeFileObj,
+  removePreview,
+  accrueImage,
+  accrueImageDelete,
+  resetImageDt,
+  addImageDt,
+} from "../redux/modules/image";
 import styled from "styled-components";
 
 import { AiOutlineClose } from "react-icons/ai";
 
-const ImagePreview = () => {
+const ImagePreview = (props) => {
   const dispatch = useDispatch();
-  const { imageArr, fileObj } = useSelector((state) => state.image);
 
-  const removeImage = async (image) => {
-    // 수정단계의 대표이미지일때
-    if (
-      image.includes("https://artily-bucket.s3.ap-northeast-2") &&
-      image === imageArr[0]
-    ) {
-      alert("대표이미지는 삭제할수없어요!");
+  const { imageArr } = props;
+
+  const removeImage = async (image, key) => {
+    if (key === 0) {
+      alert("대표이미지는 삭제할 수 없어요!");
       return;
     }
-    const fileIndex = imageArr.findIndex((img) => img === image);
-    console.log(fileIndex);
+
+    if (key < imageArr.length) {
+      dispatch(addImageDt(imageArr[key].imageUrl));
+    }
+
+    const arr = [...imageArr];
+
+    const filtered = arr.filter(function (v, i) {
+      {
+        if (i === key) {
+          return;
+        } else {
+          return v;
+        }
+      }
+    });
+
+    console.log(imageArr);
+    console.log(filtered);
+    dispatch(accrueImageDelete(filtered));
+
+    // 수정단계의 대표이미지일때
+    // if (
+    //   image.includes("https://artily-bucket.s3.ap-northeast-2") &&
+    //   image === imageArr[0].imageUrl
+    // ) {
+    //   alert("대표이미지는 삭제할수없어요!");
+    //   return;
+    // }
+    // const fileIndex = imageArr.findIndex((img) => img === image);
     // const testFile = await convertURLtoFile(image);
     // console.log(testFile);
-    dispatch(removePreview(image));
-    dispatch(removeFileObj(fileIndex));
+
+    // dispatch(removePreview(image));
+
+    // dispatch(removeFileObj(fileIndex));
   };
 
   return (
@@ -33,17 +67,18 @@ const ImagePreview = () => {
       cg="16px"
       margin="0 0 0 16px"
     >
-      {imageArr.length !== 0 &&
+      {imageArr &&
+        imageArr.length > 0 &&
         imageArr.map((image, i) => {
-          // console.log(image);
-
           return (
-            <Wrap
-              width="64px"
-              position="relative"
-              key={`${image.slice(0, 10)}_${i}`}
-            >
-              <Image br="8px" imageArr src={image} height="64px" width="64px" />
+            <Wrap width="64px" position="relative" key={i}>
+              <Image
+                br="8px"
+                imageArr
+                src={image.imageUrl ? image.imageUrl : image}
+                height="64px"
+                width="64px"
+              />
               <Button
                 padding="2px"
                 position="absolute"
@@ -52,7 +87,7 @@ const ImagePreview = () => {
                 bc="black"
                 width="fit-content"
                 height="12px"
-                onClick={() => removeImage(image)}
+                onClick={() => removeImage(image, i)}
               >
                 <AiOutlineClose size={12} />
               </Button>

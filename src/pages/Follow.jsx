@@ -1,70 +1,83 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Grid, Flex, Text, Image, Button, Icon } from "../elements";
+import { Grid, Flex, Text, Image } from "../elements";
 import {
   addFollowDB,
-  DeleteFollowDB,
   getFollowDB,
   getFollowerDB,
   deleteFollowerDB,
 } from "../redux/modules/follow";
-import { ArrowBack } from "../assets/icons";
-import theme from "../styles/theme";
+
 const Follow = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
-  const getfollowList = useSelector((state) => state.user.user);
-  console.log(getfollowList);
+  const userInfo = useSelector((state) => state.user.user);
+
   //내가 팔로잉한 목록
-  const nowfollowList = useSelector((state) => state.followUser.list);
-  console.log("내가 팔로잉한 목록:", nowfollowList);
-  const nowfollowerList = useSelector((state) => state.followUser.follower);
-  console.log("나를 팔로우한 목록:", nowfollowerList);
+  const nowfollowList = useSelector((state) => state.followUser.myFollowing);
+  // console.log("내가 팔로잉한 목록:", nowfollowList);
+  const nowfollowerList = useSelector((state) => state.followUser.myFollower);
+  // console.log("나를 팔로우한 목록:", nowfollowerList);
   useEffect(() => {
     dispatch(getFollowerDB());
     dispatch(getFollowDB());
   }, []);
 
-  //구현해야 할 기능
-  //마이페이지 기준
-  //팔로워 리스트 삭제 기능
-  //outline 팔로잉 버튼 눌렀을때 다시 팔로잉버튼으로 바뀌게(그럼 리스트가 계속 남아있게 되는건가?)
-
-  const menus = [
-    `팔로워 ${getfollowList.followerCnt}명`,
-    `팔로잉 ${getfollowList.followCnt}명`,
-    // `팔로잉 ${getfollowList?.followCnt}명`,
-  ];
+  const [followCnt, setFollowCnt] = useState({
+    follow: userInfo.followCnt,
+    follower: userInfo.followerCnt,
+  });
+  const menus = [`팔로워`, `팔로잉`];
   const [current, setCurrent] = useState(menus[0]);
+
+  const deleteMyFollower = (follower) => {
+    console.log(follower);
+    const result = window.confirm(`${follower.nickname} 팔로워를 삭제할까요?`);
+
+    if (result) {
+      dispatch(deleteFollowerDB(follower));
+      setFollowCnt({ ...followCnt, follower: followCnt.follower - 1 });
+    }
+  };
+
+  const unfollow = (follow) => {
+    const result = window.confirm(`${follow.followName} 팔로우 취소할까요?`);
+
+    if (result) {
+      dispatch(addFollowDB(follow));
+      setFollowCnt({ ...followCnt, follow: followCnt.follow - 1 });
+      // (messages) => [...messages, messageData]
+    }
+  };
 
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
-    setCurrent(menus.find((l) => l === innerText));
+    setCurrent(menus.find((l) => innerText.includes(l)));
   };
-  const dispatch = useDispatch();
 
   return (
     <>
       <Grid gtc="auto auto" cg="20px" margin="10px 0 0 0">
-        {menus.map((menu) => {
+        {menus.map((menu, i) => {
           return (
             <CurrentDiv
               key={menu}
-              onClick={(e) => {
-                handleChangeCurrent(e);
-              }}
+              onClick={handleChangeCurrent}
               current={menu === current}
             >
-              <Nav>{menu}</Nav>
+              <Nav>
+                {menu} &nbsp;
+                {i === 0 ? `${followCnt.follower}명` : `${followCnt.follow}명`}
+              </Nav>
             </CurrentDiv>
           );
         })}
       </Grid>
-      {/* 팔로워 */}
-      {current === `팔로워 ${getfollowList?.followerCnt}명` &&
+
+      {current === `팔로워` &&
         nowfollowerList?.map((follower, l) => {
           return (
             <Profile key={l}>
@@ -87,9 +100,7 @@ const Follow = () => {
                 <DeleteBtn
                   height="38px"
                   padding="3px 17px"
-                  onClick={() => {
-                    dispatch(deleteFollowerDB(follower.userId));
-                  }}
+                  onClick={() => deleteMyFollower(follower)}
                 >
                   삭제
                 </DeleteBtn>
@@ -97,10 +108,9 @@ const Follow = () => {
             </Profile>
           );
         })}
-      {current === `팔로잉 ${getfollowList.followCnt}명` &&
-        nowfollowList &&
+      {current === `팔로잉` &&
+        nowfollowList.length > 0 &&
         nowfollowList?.map((follow, l) => {
-          console.log(follow);
           return (
             <Profile key={l}>
               <Flex>
@@ -123,16 +133,10 @@ const Follow = () => {
                 <FollowBtn
                   height="38px"
                   padding="3px 17px"
-                  onClick={() => {
-                    // changefollows();
-                    dispatch(DeleteFollowDB(follow.followId));
-                  }}
+                  onClick={() => unfollow(follow)}
                 >
                   언팔로우
                 </FollowBtn>
-
-                {/* //다른사람의 페이지 일 경우 */}
-                {/* 한번 더 누르면 팔로우 버튼으로 바뀌어야함 */}
               </Flex>
             </Profile>
           );
