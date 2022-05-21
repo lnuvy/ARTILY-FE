@@ -11,6 +11,7 @@ import {
 } from "../redux/modules/follow";
 
 const Follow = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const userInfo = useSelector((state) => state.user.user);
 
@@ -28,11 +29,18 @@ const Follow = () => {
     follow: userInfo.followCnt,
     follower: userInfo.followerCnt,
   });
-  const menus = [
-    `팔로워 ${followCnt.follower}명`,
-    `팔로잉 ${followCnt.follow}명`,
-  ];
+  const menus = [`팔로워`, `팔로잉`];
   const [current, setCurrent] = useState(menus[0]);
+
+  const deleteMyFollower = (follower) => {
+    console.log(follower);
+    const result = window.confirm(`${follower.nickname} 팔로워를 삭제할까요?`);
+
+    if (result) {
+      dispatch(deleteFollowerDB(follower));
+      setFollowCnt({ ...followCnt, follower: followCnt.follower - 1 });
+    }
+  };
 
   const unfollow = (follow) => {
     const result = window.confirm(`${follow.followName} 팔로우 취소할까요?`);
@@ -40,37 +48,36 @@ const Follow = () => {
     if (result) {
       dispatch(addFollowDB(follow));
       setFollowCnt({ ...followCnt, follow: followCnt.follow - 1 });
+      // (messages) => [...messages, messageData]
     }
   };
-
-  // console.log(followCnt);
 
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
-    setCurrent(menus.find((l) => l === innerText));
+    setCurrent(menus.find((l) => innerText.includes(l)));
   };
-  const dispatch = useDispatch();
 
   return (
     <>
       <Grid gtc="auto auto" cg="20px" margin="10px 0 0 0">
-        {menus.map((menu) => {
+        {menus.map((menu, i) => {
           return (
             <CurrentDiv
               key={menu}
-              onClick={(e) => {
-                handleChangeCurrent(e);
-              }}
+              onClick={handleChangeCurrent}
               current={menu === current}
             >
-              <Nav>{menu}</Nav>
+              <Nav>
+                {menu} &nbsp;
+                {i === 0 ? `${followCnt.follower}명` : `${followCnt.follow}명`}
+              </Nav>
             </CurrentDiv>
           );
         })}
       </Grid>
 
-      {current === `팔로워 ${followCnt.follower}명` &&
+      {current === `팔로워` &&
         nowfollowerList?.map((follower, l) => {
           return (
             <Profile key={l}>
@@ -93,9 +100,7 @@ const Follow = () => {
                 <DeleteBtn
                   height="38px"
                   padding="3px 17px"
-                  onClick={() => {
-                    dispatch(deleteFollowerDB(follower.userId));
-                  }}
+                  onClick={() => deleteMyFollower(follower)}
                 >
                   삭제
                 </DeleteBtn>
@@ -103,7 +108,7 @@ const Follow = () => {
             </Profile>
           );
         })}
-      {current === `팔로잉 ${followCnt.follow}명` &&
+      {current === `팔로잉` &&
         nowfollowList.length > 0 &&
         nowfollowList?.map((follow, l) => {
           return (
