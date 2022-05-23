@@ -79,7 +79,7 @@ const Review = () => {
                     _key={`${i}_${Math.random() * 10}`}
                     onClick={() => clickCard(v.reviewId)}
                     {...v}
-                    images={v.images[0].imageUrl || null}
+                    images={(v.images && v.images[0].imageUrl) || null}
                   />
                 );
               })}

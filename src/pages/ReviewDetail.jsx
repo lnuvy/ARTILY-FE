@@ -37,17 +37,7 @@ const ReviewDetail = (props) => {
   const currentUser = useSelector((state) => state.user?.user);
 
   const isMe =
-    detailData?.buyer && detailData?.buyer[0].reviewId === currentUser?.userId;
-
-  console.log(detailData?.buyer && detailData?.buyer[0].reviewId);
-
-  console.log(detailData?.buyer);
-  console.log(currentUser?.userId);
-  console.log(currentUser);
-
-  function editFunc() {
-    history.push(`/review/edit/${reviewId}`);
-  }
+    detailData?.buyer && detailData?.buyer[0]?.userId === currentUser?.userId;
 
   function deleteFunc() {
     dispatch(deleteReviewDB(reviewId.reviewId));
@@ -82,9 +72,13 @@ const ReviewDetail = (props) => {
 
   useEffect(() => {
     // reset
-    dispatch(getNowReview([]));
+    dispatch(getNowReview({ buyer: [], defferentInfo: [] }));
+  }, []);
+
+  useEffect(() => {
     // get
-    dispatch(getReviewOne(reviewId));
+    console.log(reviewId);
+    dispatch(getReviewOne(reviewId.reviewId));
   }, []);
   //
 
@@ -109,7 +103,7 @@ const ReviewDetail = (props) => {
                           padding="6px"
                           onClick={() => {
                             console.log("수정");
-                            history.push(`/store/edit/${reviewId}`);
+                            history.push(`/review/edit/${reviewId.reviewId}`);
                           }}
                         >
                           <Text body1 color={theme.pallete.primary900}>

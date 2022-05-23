@@ -59,11 +59,10 @@ export const getMyBuyDB = () => {
 export const getReviewOne = (reviewId) => {
   return async function (dispatch, getState, { history }) {
     console.log(reviewId);
-    Apis.getReviewDetail(reviewId.reviewId)
+    Apis.getReviewDetail(reviewId)
       .then(function (response) {
         console.log(response);
         dispatch(getNowReview(response.data));
-        // dispatch(getSellItem(response.data));
       })
       .catch(function (error) {
         console.error(error);
