@@ -9,7 +9,7 @@ import { Apis } from "../../shared/api";
 
 const initialState = {
   //  Reveiw.js
-  list: null,
+  list: [],
   filterList: null,
   // ReviewDetail.js
   detailData: {
@@ -22,22 +22,24 @@ const initialState = {
   buyList: null,
   isFetching: false,
   infinityScroll: {},
+  paging: { page: 1, size: 3 },
+  isLoading: false,
 };
 
 export const getReviewDB = () => {
   return async function (dispatch, getState, { history }) {
-    const pageHandler = {
-      page: 1,
-      limit: 6,
-    };
-    Apis.getReview(pageHandler)
-      .then(function (response) {
-        console.log(response);
-        dispatch(getReviewData(response.data.reviews));
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    // const pageHandler = {
+    //   page: 1,
+    //   limit: 6,
+    // };
+    // Apis.getReview(pageHandler)
+    //   .then(function (response) {
+    //     console.log(response);
+    //     dispatch(getReviewData(response.data.reviews));
+    //   })
+    //   .catch(function (error) {
+    //     console.error(error);
+    //   });
   };
 };
 
@@ -116,8 +118,13 @@ const reviewSlice = createSlice({
   initialState: initialState,
   reducers: {
     getReviewData: (state, action) => {
-      state.list = action.payload;
+      state.list.push(action.payload);
+      state.isLoading = false;
+      if (action.payload.paging) {
+        state.paging = action.payload.paging;
+      }
       state.filterList = action.payload;
+      console.log(action.payload);
     },
     getBuyList: (state, action) => {
       state.buyList = action.payload;

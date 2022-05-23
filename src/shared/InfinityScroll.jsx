@@ -1,50 +1,95 @@
-import React, { useCallback, useEffect } from "react";
-import _ from "lodash";
+// import { useEffect } from "react";
 
-//5.20 아직 구현중입니다
-const InfinityScroll = (props)=>{
-    const {children,callNext,is_next,loading}=props;
+// export const InfinteScroll = ({
+//   root = null,
+//   target,
+//   onIntersect,
+//   threshold = 0.25,
+//   rootMargin = "0px",
+// }) => {
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(onIntersect, {
+//       //callback,options
+//       root,
+//       rootMargin,
+//       threshold,
+//     });
+//     if (!target) {
+//       return;
+//     }
+//     observer.observe(target);
+//     return () => {
+//       observer.unobserve(target);
+//     };
+//   }, [target, root, rootMargin, onIntersect, threshold]);
+// };
+//Intersection Observer의 callback 함수와 설정 값들을 인자로 받아서 useEffect 콜백 함수 안에서 observer 인스턴스 생성 후 구독을 해주는 역할
 
-    //게시글을 불러오는 중(loading)일때는 다음 거 안부를거야
-    const _handleScroll = _.throttle(()=>{
-        if(loading){
-            return;
-        }
-        callNext();//받아온 다음 리스트로 보내
-    },300)
+// 타겟 요소 관측 시작
+// observer.observe(TargetElement);
 
-    const handleScroll = useCallback(_handleScroll,[loading]);
+// 타겟 요소 관측 중단
+// observer.unobserve(TargetElement);
 
-    //스크롤 이벤트 만들기
-    //처음 이벤트가 됐을 때
-    useEffect(()=>{
-        if(loading){
-            return;
-        }
-        // is_next가 있으면(true) 이벤트 실행
-        if(is_next){
-            window.addEventListener("scroll",handleScroll)
-        }else{
-            window.removeEventListener("scroll",handleScroll)
-        }
-    //이벤트 구독해제
-    //clean-up
-    //함수형 컴포넌트가 화면에서 사라질때 return문 실행(=unMount)
-    return () => window.removeEventListener("scroll",handleScroll)
-},[is_next,loading]);
+// 모든 요소 관측 중단
+// observer.disconnect();
 
-    return (
-        <React.Fragment>
-            {props.children}
-        </React.Fragment>
-    )
-}
+// 관측 중인 모든 요소를 배열 형태로 반환
+// observer.takeRecords();
 
-InfinityScroll.defaultProps = {
-    children:null,
-    callNext:()=>{},
-    is_next:false,//다음에 올 리스트가 있는지를 알아야 callNext를 부를지 말지 결정할 수 있다
-    loading:false,//아직 다음 걸 불러오지를 않았는데 같은 데이터를 불러오는걸 방지
-}
+// export default InfinteScroll;
+//scroll event
+// import React from "react";
+// import _ from "lodash";
+// import Spinner from "./Spinner";
+// import { useCallback, useEffect } from "react";
 
-export default InfinityScroll;
+// const InfinityScroll = (props) => {
+//   const { children, callNext, is_next, loading } = props;
+//   const _handleScroll = _.throttle(() => {
+//     //throttle과의 차이가 뭘까
+//     if (loading) {
+//       return;
+//     }
+
+//     const { innerHeight } = window;
+//     const { scrollHeight } = document.body;
+//     const scrollTop =
+//       (document.documentElement && document.documentElement.scrollTop) ||
+//       document.body.scrollTop;
+//     if (scrollHeight - innerHeight - scrollTop < 100) {
+//       callNext();
+//     }
+//   }, 500);
+
+//   const handleScroll = useCallback(_handleScroll, [loading]); //(함수, 함수를 초기화할 조건)
+//   //함수를 어딘가에 저장해두고 컴포넌트가 리렌더링이 되더라도 함수가 초기화되지 않도록 막아줌(메모이제이션)
+
+//   useEffect(() => {
+//     if (loading) {
+//       return;
+//     }
+//     if (is_next) {
+//       window.addEventListener("scroll", handleScroll);
+//     } else {
+//       window.removeEventListener("scroll", handleScroll);
+//     }
+
+//     return () => window.removeEventListener("scroll", handleScroll);
+//   }, [is_next, loading]);
+
+//   return (
+//     <>
+//       {props.children}
+//       {is_next && <Spinner />}
+//     </>
+//   );
+// };
+// InfinityScroll.defaultProps = {
+//   children: null,
+//   callNext: () => {},
+//   is_next: false,
+//   loading: false,
+// };
+
+// export default InfinityScroll;

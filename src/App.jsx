@@ -8,11 +8,7 @@ import styled from "styled-components";
 
 import { getUserInfo } from "./redux/modules/user";
 import { socket } from "./shared/socket";
-import {
-  getChatList,
-  receiveChat,
-  receiveChatRoom,
-} from "./redux/modules/chat";
+import { getChatList } from "./redux/modules/chat";
 import theme from "./styles/theme";
 import AuthRoute from "./routes/AuthRoute";
 import NoAuthRoute from "./routes/NoAuthRoute";
@@ -50,16 +46,15 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    // 판매자 입장
-    socket.on("join_room", (data) => {
-      dispatch(receiveChatRoom(data));
-      // socket.emit("enter_room", data.roomName); // TODO  5/19 이때까지 있었는데 백/프론트 둘다 주석했을때 부작용 없는지 체크해볼것
+    socket.on("user connected", (data) => {
+      console.log(data);
+      // dispatch(chatUserConnected(data));
     });
   });
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      dispatch(receiveChat(data));
+    socket.on("user disconnected", (data) => {
+      console.log(data);
     });
   });
 

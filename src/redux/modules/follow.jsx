@@ -63,11 +63,12 @@ export const getFollowerDB = () => {
 };
 
 //팔로워 삭제(Delete)
-export const deleteFollowerDB = (userId) => {
+export const deleteFollowerDB = (follower) => {
   return function (dispatch, getState, { history }) {
-    Apis.deleteFollower(userId)
+    Apis.deleteFollower(follower.userId)
       .then((res) => {
-        // window.location.reload();
+        console.log(res);
+        dispatch(deleteFollower(follower.userId));
       })
       .catch((error) => {
         console.log("팔로워 삭제 실패", error);
@@ -128,6 +129,11 @@ const postsSlice = createSlice({
       );
       state.myFollowing = newArr;
     },
+    deleteFollower: (state, action) => {
+      let newArr = state.myFollower.filter((f) => f.userId !== action.payload);
+
+      state.myFollower = newArr;
+    },
     getfollowerdata: (state, action) => {
       state.myFollower = action.payload;
     },
@@ -149,6 +155,7 @@ export const {
   getMyFollower,
   addFollowing,
   deleteFollowing,
+  deleteFollower,
   getfollowdata,
   getfollowerdata,
   getuserfollowdata,

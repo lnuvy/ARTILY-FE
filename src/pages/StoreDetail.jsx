@@ -34,7 +34,7 @@ import { IoMdHeart } from "react-icons/io";
 
 // 채팅
 import { socket } from "../shared/socket";
-import { makeChatRoom, receiveChatRoom } from "../redux/modules/chat";
+import { makeChatRoom } from "../redux/modules/chat";
 import { postMarkupToggle } from "../redux/modules/user";
 import { Heart } from "../assets/icons";
 import { FollowCheck, StoreMore } from "../components";
@@ -117,16 +117,14 @@ const StoreDetail = () => {
 
   // 채팅하기 버튼 눌렀을때
   const startChat = () => {
-    const postUser = detailData.user?.userId;
+    const postUser = detailData.user;
     const nowUser = currentUser?.userId;
+    let roomName = `from${nowUser}_to${postUser.userId}_${postId}`;
 
-    let roomName = `from${nowUser}_to${postUser}_${postId}`;
-
-    if (chatData.chatRoom.length > 0) {
+    if (chatData.chatRoom?.length > 0) {
       const isExistRoom = chatData.chatRoom.find(
         (room) => room.roomName === roomName
       );
-
       if (isExistRoom) {
         console.log("isExistRoom!!!!!!!");
         history.push(`/chat/${roomName}`);
@@ -149,6 +147,8 @@ const StoreDetail = () => {
       connected: null,
     };
 
+    console.log(targetUser);
+
     socket.emit("join_room", roomName, postUser, chatPostData);
     dispatch(
       makeChatRoom({
@@ -158,6 +158,7 @@ const StoreDetail = () => {
         newMessage: 0,
         lastMessage: null,
         lastTime: null,
+        createUser: currentUser,
       })
     );
 
@@ -233,8 +234,7 @@ const StoreDetail = () => {
             </Flex>
           </Wrap>
           {/* 이 부분 수정 필요 */}
-
-          <ImageCarousel src={detailData?.images} />
+          <ImageCarousel src={detailData.images} />
 
           <Wrap margin="16px 16px 64px">
             <Flex margin="8px 0" jc="space-between">
