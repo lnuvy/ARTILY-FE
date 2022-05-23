@@ -36,7 +36,14 @@ const ReviewDetail = (props) => {
   const detailData = useSelector((state) => state.review.detailData);
   const currentUser = useSelector((state) => state.user?.user);
 
-  const isMe = detailData?.user?.userId === currentUser?.userId;
+  const isMe =
+    detailData?.buyer && detailData?.buyer[0].reviewId === currentUser?.userId;
+
+  console.log(detailData?.buyer && detailData?.buyer[0].reviewId);
+
+  console.log(detailData?.buyer);
+  console.log(currentUser?.userId);
+  console.log(currentUser);
 
   function editFunc() {
     history.push(`/review/edit/${reviewId}`);
