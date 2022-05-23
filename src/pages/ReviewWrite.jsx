@@ -14,9 +14,10 @@ import {
   Wrap,
 } from "../elements";
 import { clearPreview } from "../redux/modules/image";
-import { getReviewOne } from "../redux/modules/reviews";
+import { getReviewOne, getNowReview } from "../redux/modules/reviews";
 import { openModal } from "../redux/modules/modal";
 import { postReviewDB, editReviewDB } from "../redux/modules/reviews.jsx";
+import { resetImageDt, editPosts3Url } from "../redux/modules/image";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { history } from "../redux/configureStore";
@@ -26,30 +27,48 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import styled from "styled-components";
 
-/*
- * @한울
- * 리뷰와 공통으로 쓸수있는 컴포넌트: Preview.jsx ImagePreview.jsx
- */
 const MySwal = withReactContent(Swal);
 
 const ReviewWrite = () => {
   const dispatch = useDispatch();
+
+  // 할당
   const { postId, reviewId } = useParams();
   const path = useLocation().pathname;
-  const reviewWrite = path === "/review/write";
+  const reviewWrite = path === `/review/write/${postId}`;
   const reviewEdit = path === `/review/edit/${reviewId}`;
 
-  // 인풋 한번에 받기 (체크박스는 e.target.id 가 아니라 e.target.checked 로 받아야해서 인라인에 적용함)
   const [inputs, setinputs] = useState({});
-  const { represent, imageArr, fileObj } = useSelector((state) => state.image);
-  // const { reviewTitle, reviewContent } = useSelector(
-  //   (state) => state.user.review.reviewData.buyer
-  // );
+  const { imageArr, fileObj } = useSelector((state) => state.image);
 
+  // redux 리셋
+  useEffect(() => {
+    dispatch(clearPreview());
+    dispatch(getNowReview([]));
+    dispatch(resetImageDt([]));
+  }, []);
+
+  // 데이터 불러오기
+  useEffect(() => {
+    if (path === reviewEdit) {
+      dispatch(getReviewOne(reviewId));
+    }
+  }, []);
+
+  // 데이터 불러오기
+  // useEffect(() => {
+  //   if (path === reviewWrite) {
+  //     dispatch(editPosts3Url([]));
+  //   }
+  //   if (path === reviewEdit) {
+  //     dispatch(editPosts3Url(nowPost?.images));
+  //   }
+  // }, [nowPost?.images]);
+
+  // function
   const InputChange = (e) => {
     const { id, value } = e.target;
     setinputs({ ...inputs, [id]: value });
-    console.log(inputs);
   };
 
   const reviewSubmit = () => {
@@ -70,7 +89,6 @@ const ReviewWrite = () => {
       return;
     }
 
-    console.log(imageArr);
     setinputs({ ...inputs, imageUrl: imageArr, category: "도자기" });
 
     const formData = new FormData();
@@ -84,7 +102,6 @@ const ReviewWrite = () => {
     }
 
     if (reviewWrite) {
-      console.log("reviewWrite");
       dispatch(postReviewDB(postId, formData));
     } else if (reviewEdit) {
       dispatch(editReviewDB(reviewId, formData));
@@ -102,8 +119,6 @@ const ReviewWrite = () => {
       // setinputs({ reviewTitle: reviewTitle, reviewContent: reviewContent });
     }
   }, []);
-
-  const [image, setImage] = useState(null);
 
   return (
     <Wrap margin="16px">

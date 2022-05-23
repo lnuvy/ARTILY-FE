@@ -77,36 +77,40 @@ const StoreEdit = () => {
   useEffect(() => {
     if (path === `/store/write`) {
       dispatch(editPosts3Url([]));
+      return;
     }
     if (path === `/store/edit/${postId}`) {
       dispatch(editPosts3Url(nowPost?.images));
+      return;
     }
   }, [nowPost?.images]);
 
   useEffect(() => {
-    // console.log(nowPost);
-    setReceiveCategory(nowPost?.category);
-    setReceiveAddress(nowPost?.changeAddress);
-    setInputs({
-      transaction: nowPost?.transaction,
-      delivery: nowPost
-        ? nowPost.transaction === "전체"
-          ? true
-          : nowPost.transaction === "택배"
-          ? true
-          : false
-        : null,
-      direct: nowPost
-        ? nowPost.transaction === "전체"
-          ? true
-          : nowPost.transaction === "택배"
-          ? false
-          : true
-        : null,
-      postTitle: nowPost?.postTitle,
-      postContent: nowPost?.postContent,
-      price: nowPost?.price,
-    });
+    if (path === `/store/edit/${postId}`) {
+      setReceiveCategory(nowPost?.category);
+      setReceiveAddress(nowPost?.changeAddress);
+      setInputs({
+        transaction: nowPost?.transaction,
+        delivery: nowPost
+          ? nowPost.transaction === "전체"
+            ? true
+            : nowPost.transaction === "택배"
+            ? true
+            : false
+          : null,
+        direct: nowPost
+          ? nowPost.transaction === "전체"
+            ? true
+            : nowPost.transaction === "택배"
+            ? false
+            : true
+          : null,
+        postTitle: nowPost?.postTitle,
+        postContent: nowPost?.postContent,
+        price: nowPost?.price,
+      });
+      return;
+    }
   }, [nowPost]);
 
   // functions

@@ -30,13 +30,6 @@ import { priceComma } from "../shared/utils";
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // reset
-    dispatch(getNowReview([]));
-    // get
-    dispatch(getReviewOne(reviewId.reviewId));
-  }, []);
-  //
   const reviewId = useParams();
 
   const reviewData = useSelector((state) => state.review.reviewData);
@@ -76,6 +69,14 @@ const ReviewDetail = (props) => {
     dispatch(addFollowDB(userData));
     setNowFollowing(!nowFollowing);
   };
+
+  useEffect(() => {
+    // reset
+    dispatch(getNowReview([]));
+    // get
+    dispatch(getReviewOne(reviewId));
+  }, []);
+  //
 
   return (
     <>
