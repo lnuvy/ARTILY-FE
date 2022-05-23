@@ -73,6 +73,11 @@ const ReviewSelect = () => {
           <Wrap margin="16px auto 0" width="fit-content">
             <Button onClick={() => history.goBack()}>돌아가기</Button>
           </Wrap>
+          <Wrap margin="16px auto 0" width="fit-content">
+            <Button onClick={() => history.push("/review/write/48d3da2aa233")}>
+              임시 글쓰기
+            </Button>
+          </Wrap>
         </>
       )}
 
