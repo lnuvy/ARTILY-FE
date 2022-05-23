@@ -44,11 +44,11 @@ export const getReviewDB = () => {
 };
 
 export const getMyBuyDB = () => {
-  console.log("hi");
   return async function (dispatch, getState, { history }) {
     Apis.getMyBuy()
       .then(function (response) {
         console.log(response);
+        dispatch(getBuyList(response.data.myBuy));
       })
       .catch(function (error) {
         console.error(error);
@@ -84,9 +84,11 @@ export const postReviewDB = (postID, contents) => {
   };
 };
 
-export const editReviewDB = (reviewId, contents) => {
+export const editReviewDB = (postId, contents) => {
+  console.log(postId);
+  console.log(contents);
   return async function (dispatch, getState, { history }) {
-    Apis.postReview(reviewId, contents)
+    Apis.postReview(postId, contents)
       .then(function (response) {
         console.log(response);
         alert("수정되었습니다");

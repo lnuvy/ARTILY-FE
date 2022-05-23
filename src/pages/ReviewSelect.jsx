@@ -21,7 +21,7 @@ import { getPostDB } from "../redux/modules/store";
 
 const ReviewSelect = () => {
   const dispatch = useDispatch();
-  const mybuyList = useSelector((state) => state.user.user.myBuy);
+  const mybuyList = useSelector((state) => state.review?.buyList);
 
   useEffect(() => {
     dispatch(getMyBuyDB());
@@ -37,8 +37,8 @@ const ReviewSelect = () => {
           내가 구입한 작품
         </Text>
       </Wrap>
-
-      {mybuyList && mybuyList.length === !0 ? (
+      {console.log(mybuyList && mybuyList)}
+      {mybuyList && mybuyList.length > 0 ? (
         mybuyList.map((l, i) => {
           return (
             <Flex
@@ -48,7 +48,9 @@ const ReviewSelect = () => {
               <Image
                 width="80px"
                 height="80px"
-                src={`${l.imageUrl && l.imageUrl[0]}`}
+                src={`${
+                  l.images && l.images[0].imageUrl && l.images[0].imageUrl
+                }`}
               ></Image>
               <Wrap fg="1" margin="0 0 0 16px">
                 <Text h1 bold margin="0 0 16px">

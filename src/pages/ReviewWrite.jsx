@@ -48,8 +48,15 @@ const ReviewWrite = () => {
   // redux 리셋
   useEffect(() => {
     dispatch(clearPreview());
-    dispatch(getNowReview([]));
+    dispatch(
+      getNowReview({
+        buyer: [],
+        defferents: [],
+        myLike: "-",
+      })
+    );
     dispatch(resetImageDt([]));
+    dispatch(editPosts3Url([]));
   }, []);
 
   useEffect(() => {
@@ -59,17 +66,16 @@ const ReviewWrite = () => {
       dispatch(editPosts3Url(buyer && buyer[0]?.images));
     }
   }, []);
-  // componentwillunmount 역할
+
   useEffect(() => {
-    // 이미지 리덕스 데이터 초기화
     if (reviewWrite) {
       setinputs({});
       dispatch(clearPreview());
     } else if (reviewEdit) {
       dispatch(getReviewOne(reviewId));
       setinputs({
-        reviewTitle: buyer[0].reviewTitle,
-        reviewContent: buyer[0].reviewContent,
+        reviewTitle: buyer[0]?.reviewTitle,
+        reviewContent: buyer[0]?.reviewContent,
       });
     }
   }, []);
@@ -90,9 +96,9 @@ const ReviewWrite = () => {
     const formData = new FormData();
     formData.append("reviewTitle", inputs.reviewTitle);
     formData.append("reviewContent", inputs.reviewContent);
-    for (let i = 0; i < imageArr.length; i++) {
+    for (let i = 0; i < fileObj.length; i++) {
       console.log(fileObj[i]);
-      formData.append("imageUrl", fileObj[i]);
+      formData.append("image", fileObj[i]);
     }
 
     for (let i = 0; i < imageDt.length; i++) {
@@ -107,7 +113,7 @@ const ReviewWrite = () => {
     if (reviewWrite) {
       dispatch(postReviewDB(postId, formData));
     } else if (reviewEdit) {
-      dispatch(editReviewDB(reviewId, formData));
+      dispatch(editReviewDB(postId, formData));
     }
   };
 
