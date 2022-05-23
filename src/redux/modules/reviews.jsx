@@ -43,9 +43,23 @@ export const getReviewDB = () => {
   };
 };
 
+export const getMyBuyDB = () => {
+  console.log("hi");
+  return async function (dispatch, getState, { history }) {
+    Apis.getMyBuy()
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+};
+
 export const getReviewOne = (reviewId) => {
   return async function (dispatch, getState, { history }) {
-    Apis.getReviewDetail(reviewId)
+    console.log(reviewId);
+    Apis.getReviewDetail(reviewId.reviewId)
       .then(function (response) {
         console.log(response);
         dispatch(getNowReview(response.data));
@@ -132,7 +146,7 @@ const reviewSlice = createSlice({
     getNowReview: (state, action) => {
       console.log(action.payload);
       state.detailData.buyer = action.payload.buyer;
-      state.detailData.defferents = action.payload.defferents;
+      state.detailData.defferentInfo = action.payload.defferentInfo;
     },
     getMyLike: (state, action) => {
       state.detailData.myLike = action.payload;

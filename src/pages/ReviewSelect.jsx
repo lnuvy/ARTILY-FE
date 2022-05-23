@@ -16,36 +16,15 @@ import {
 } from "../elements";
 import { history } from "../redux/configureStore";
 
-import { getReviewDB, getBuyList } from "../redux/modules/reviews";
+import { getReviewDB, getBuyList, getMyBuyDB } from "../redux/modules/reviews";
 import { getPostDB } from "../redux/modules/store";
 
 const ReviewSelect = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-
-  const posts = useSelector((state) => state.store.list);
-
-  // const mybuyList = [];
   const mybuyList = useSelector((state) => state.user.user.myBuy);
 
-  function myBuyListCheck() {
-    if (user.isLogin === true) {
-      console.log("hi");
-      user.user.myBuy.forEach((mybuy) => {
-        posts.map((post) => {
-          if (post.postId === mybuy) {
-            console.log(post);
-            dispatch(getBuyList(post));
-            // mybuyList.push(post);
-          }
-        });
-      });
-    }
-  }
-
   useEffect(() => {
-    dispatch(getReviewDB());
-    dispatch(getPostDB());
+    dispatch(getMyBuyDB());
   }, []);
 
   return (

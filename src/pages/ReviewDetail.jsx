@@ -32,12 +32,11 @@ const ReviewDetail = (props) => {
 
   const reviewId = useParams();
 
-  const reviewData = useSelector((state) => state.review.reviewData);
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
   const detailData = useSelector((state) => state.review.detailData);
   const currentUser = useSelector((state) => state.user?.user);
 
-  const isMe = reviewData?.user?.userId === currentUser?.userId;
+  const isMe = detailData?.user?.userId === currentUser?.userId;
 
   function editFunc() {
     history.push(`/review/edit/${reviewId}`);
@@ -49,6 +48,10 @@ const ReviewDetail = (props) => {
 
   function likeFunc() {
     dispatch(likeReviewDB(reviewId.reviewId));
+  }
+
+  function goDifferentWorkFunc(postId) {
+    history.push(`/store/view/${postId}`);
   }
 
   function loginAlert() {
@@ -157,7 +160,7 @@ const ReviewDetail = (props) => {
                   <Image
                     width="96px"
                     height="96px"
-                    src={`${v.seller.imageUrl[0]}`}
+                    src={`${v.seller.imageUrl}`}
                   />
                   <Wrap margin="0 0 0 16px ">
                     <Text h3 medium margin="0 0 8px">
@@ -222,11 +225,19 @@ const ReviewDetail = (props) => {
                   )}
                 </Flex>
                 <Grid gtc="1fr 1fr">
-                  {detailData.defferents &&
-                    detailData.defferents.map((v, i) => {
+                  {console.log(detailData)}
+                  {detailData.defferentInfo &&
+                    detailData.defferentInfo.map((v, i) => {
                       return (
                         <>
-                          <OtherWorkCard key={i} {...v} onClick={() => null} />
+                          <OtherWorkCard
+                            key={i}
+                            {...v}
+                            onClick={() =>
+                              history.push(`/store/view/${v.postId}`)
+                            }
+                            src={v.images && v.images[0].imageUrl}
+                          />
                         </>
                       );
                     })}
