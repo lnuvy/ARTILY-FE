@@ -35,7 +35,7 @@ const ReviewDetail = (props) => {
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
   const detailData = useSelector((state) => state.review.detailData);
   const currentUser = useSelector((state) => state.user?.user);
-  console.log("!!!!!!!", detailData);
+
   const isMe =
     detailData?.buyer && detailData?.buyer[0]?.userId === currentUser?.userId;
 
@@ -191,10 +191,11 @@ const ReviewDetail = (props) => {
                     </>
                   ) : (
                     <>
-                      <Flex padding="6px" onClick={followToggle}>
-                        <FollowCheck text follow={nowFollowing} />
-                      </Flex>
-
+                      <Wrap margin="0 0 0 8px" fg="1">
+                        <Flex padding="6px" onClick={followToggle}>
+                          <FollowCheck text follow={nowFollowing} />
+                        </Flex>
+                      </Wrap>
                       <Text lineHeight="22px">
                         <Button
                           fontSize="16px"
