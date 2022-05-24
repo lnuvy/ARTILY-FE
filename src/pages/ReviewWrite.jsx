@@ -36,10 +36,6 @@ const ReviewWrite = () => {
   // 할당
   const { postId, reviewId } = useParams();
   const path = useLocation().pathname;
-  const reviewWrite = path === `/review/write/${postId}`;
-  console.log(reviewId);
-  const reviewEdit = path === `/review/edit/${reviewId}`;
-  console.log(reviewEdit);
 
   const [inputs, setinputs] = useState({});
   const { imageDt, imageArr, fileObj } = useSelector((state) => state.image);
@@ -60,25 +56,27 @@ const ReviewWrite = () => {
   }, []);
 
   useEffect(() => {
-    if (reviewWrite) {
+    if (path === `/review/write/${postId}`) {
       dispatch(editPosts3Url([]));
-    } else if (reviewEdit) {
+    }
+    if (path === `/review/edit/${reviewId}`) {
       dispatch(editPosts3Url(buyer && buyer[0]?.images));
     }
-  }, []);
+  }, [buyer[0]?.images]);
 
   useEffect(() => {
-    if (reviewWrite) {
+    if (path === `/review/write/${postId}`) {
       setinputs({});
       dispatch(clearPreview());
-    } else if (reviewEdit) {
+    }
+    if (path === `/review/edit/${reviewId}`) {
       dispatch(getReviewOne(reviewId));
       setinputs({
         reviewTitle: buyer[0]?.reviewTitle,
         reviewContent: buyer[0]?.reviewContent,
       });
     }
-  }, []);
+  }, [buyer[0]?.reviewTitle]);
 
   // function
   const InputChange = (e) => {
@@ -96,24 +94,41 @@ const ReviewWrite = () => {
     const formData = new FormData();
     formData.append("reviewTitle", inputs.reviewTitle);
     formData.append("reviewContent", inputs.reviewContent);
-    for (let i = 0; i < fileObj.length; i++) {
-      console.log(fileObj[i]);
-      formData.append("image", fileObj[i]);
+
+    if (path === `/review/write/${postId}`) {
+      for (let i = 0; i < fileObj.length; i++) {
+        console.log(fileObj[i]);
+        formData.append("imageUrl", fileObj[i]);
+      }
     }
 
-    for (let i = 0; i < imageDt.length; i++) {
-      console.log(imageDt[i]);
-      formData.append("imgDt", imageDt[i]);
+    if (path === `/review/edit/${reviewId}`) {
+      if (fileObj.length > 0) {
+        console.log("hi");
+        for (let i = 0; i < fileObj.length; i++) {
+          formData.append("imageUrl", fileObj[i]);
+        }
+      }
+
+      if (imageDt.length > 0) {
+        console.log("hi");
+        for (let i = 0; i < imageDt.length; i++) {
+          console.log(imageDt[i]);
+          formData.append("imgDt", imageDt[i]);
+        }
+      }
     }
 
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    if (reviewWrite) {
+    if (path === `/review/write/${postId}`) {
       dispatch(postReviewDB(postId, formData));
-    } else if (reviewEdit) {
-      dispatch(editReviewDB(postId, formData));
+    }
+    if (path === `/review/edit/${reviewId}`) {
+      console.log("hi");
+      dispatch(editReviewDB(reviewId, formData));
     }
   };
 

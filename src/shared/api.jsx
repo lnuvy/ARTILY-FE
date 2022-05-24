@@ -30,10 +30,8 @@ export const Apis = {
     Api.get(`api/review?page=${pageNumber}&limit=${limit}`),
   getReviewDetail: (reviewId) => Api.get(`api/review/detail/${reviewId}`),
   likeReview: (reviewId) => Api.post(`api/like/${reviewId}`),
-  postReview: (postId, reviewContents) => {
-    console.log(reviewContents);
-    Api.post(`api/review/${postId}`, reviewContents);
-  },
+  postReview: (postId, reviewContents) =>
+    Api.post(`api/review/${postId}`, reviewContents),
   editReview: (reviewId, reviewContents) =>
     Api.patch(`api/review/${reviewId}`, reviewContents),
   deleteReview: (reviewId) =>

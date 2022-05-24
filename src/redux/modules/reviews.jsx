@@ -88,7 +88,7 @@ export const editReviewDB = (postId, contents) => {
   console.log(postId);
   console.log(contents);
   return async function (dispatch, getState, { history }) {
-    Apis.postReview(postId, contents)
+    Apis.editReview(postId, contents)
       .then(function (response) {
         console.log(response);
         alert("수정되었습니다");
