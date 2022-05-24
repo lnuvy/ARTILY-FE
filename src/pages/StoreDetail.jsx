@@ -180,7 +180,12 @@ const StoreDetail = () => {
               {/* 5.18 cursor:pointer를 위한 style-components 추가 */}
               <ProfileBtn
                 onClick={() => {
-                  history.push(`/userprofile/${detailData.user.userId}`);
+                  //내 글일경우 마이페이지로 이동
+                  if (detailData.user.userId === currentUser.userId) {
+                    history.push(`/mypage`);
+                  } else {
+                    history.push(`/userprofile/${detailData.user.userId}`);
+                  }
                 }}
               >
                 <Flex>
@@ -188,6 +193,7 @@ const StoreDetail = () => {
                     circle
                     size="32"
                     src={detailData?.user?.profileImage}
+                    border="1px solid #eee"
                   />
                   <Text margin="0 0 0 8px">{detailData?.user?.nickname}</Text>
                 </Flex>
@@ -233,7 +239,6 @@ const StoreDetail = () => {
               </Flex>
             </Flex>
           </Wrap>
-          {/* 이 부분 수정 필요 */}
           <ImageCarousel src={detailData.images} />
 
           <Wrap margin="16px 16px 64px">

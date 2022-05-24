@@ -13,8 +13,13 @@ const StoreMore = (props) => {
     // console.log(images);
     return (
       <Card onClick={() => history.push(`/store/view/${postId}`)}>
-        <Image height="168px" br="8px" src={images[0]?.imageUrl} />
-        <Text medium h1 margin="8px 0 9px">
+        <Image
+          height="168px"
+          br="8px"
+          src={images[0]?.imageUrl}
+          shadow="1px 1px 3px #ddd"
+        />
+        <Text medium h2 margin="8px 0 9px">
           {postTitle}
         </Text>
         <Flex>

@@ -103,8 +103,7 @@ const MypageEdit = () => {
                 width="120px"
                 height="120px"
                 br="60px"
-                shadow="1px 1px 3px #ddd"
-                border="1px solid #eee"
+                border="1px solid #ddd"
                 src={
                   preview ? preview : getProfile ? getProfile.profileImage : ""
                 }

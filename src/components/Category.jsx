@@ -21,13 +21,12 @@ const cate = [
 const Category = (props) => {
   const dispatch = useDispatch();
 
-  const { review } = props;
+  const { review, data } = props;
   const [current, setCurrent] = useState("전체");
-
   useEffect(() => {
     review
-      ? dispatch(filteringReviewData(current))
-      : dispatch(filteringData(current));
+      ? dispatch(filteringReviewData(current)) //리뷰
+      : dispatch(filteringData(current)); //스토어
   }, [current]);
 
   return (
@@ -42,6 +41,7 @@ const Category = (props) => {
     >
       {cate.map((c, i) => {
         if (c === current) {
+          //클릭했을때
           return (
             <Button
               key={`${c}_${i}`}
@@ -49,7 +49,9 @@ const Category = (props) => {
               width="100%"
               br="0"
               borderRight="1px solid black"
-              onClick={(e) => setCurrent(e.target.innerText)}
+              onClick={(e) => {
+                setCurrent(e.target.innerText);
+              }}
               bc="white"
             >
               <Text body2 bold>
@@ -66,7 +68,10 @@ const Category = (props) => {
               br="0"
               borderRight="1px solid black"
               border={`1px solid ${theme.pallete.gray2}`}
-              onClick={(e) => setCurrent(e.target.innerText)}
+              onClick={(e) => {
+                setCurrent(e.target.innerText);
+                data(e.target.innerText);
+              }}
               bc="white"
             >
               <Text body2>{c}</Text>
