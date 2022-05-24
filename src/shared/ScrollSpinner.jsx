@@ -17,7 +17,7 @@ export default function ScrollSpinner(props) {
             cy="138"
             r="114"
             stroke="#eee"
-            stroke-width="13"
+            strokeWidth="13"
           />
           <circle
             id="upper"
@@ -25,10 +25,10 @@ export default function ScrollSpinner(props) {
             cy="138"
             r="123"
             stroke="#FEC623"
-            stroke-width="30"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-dasharray="373 100"
+            strokeWidth="30"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="373 100"
             style={{ animationDuration: props.speed + "s" }}
           />
         </g>
