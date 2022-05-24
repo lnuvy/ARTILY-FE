@@ -5,7 +5,12 @@ import { history } from "../redux/configureStore";
 import { Grid, Wrap } from "../elements";
 import { ReviewCard, Category } from "../components/index";
 // moduels
-import { getReviewData, getReviewDB } from "../redux/modules/reviews";
+import {
+  getReviewData,
+  getReviewDB,
+  likeReviewListDB,
+  myreviewLikeList,
+} from "../redux/modules/reviews";
 
 const Review = () => {
   const dispatch = useDispatch();
@@ -20,6 +25,9 @@ const Review = () => {
   useEffect(() => {
     // reset
     dispatch(getReviewData(null));
+  }, []);
+
+  useEffect(() => {
     // get
     dispatch(getReviewDB());
   }, []);

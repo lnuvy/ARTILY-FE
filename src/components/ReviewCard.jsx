@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import theme from "../styles/theme";
 // components
 import { Card } from "../components/index";
 import { Flex, Image, Text, Icon } from "../elements/index";
 import { Favorite } from "../assets/icons";
+import {
+  getReviewData,
+  getReviewDB,
+  likeReviewListDB,
+  myreviewLikeList,
+} from "../redux/modules/reviews";
 
 const ReviewCard = (props) => {
-  // const postList = useSelector((state) => state.store.list);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(myreviewLikeList([]));
+  }, []);
+
+  useEffect(() => {
+    // get
+    dispatch(likeReviewListDB());
+  }, []);
 
   const {
     onClick,

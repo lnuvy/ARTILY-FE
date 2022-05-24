@@ -8,20 +8,19 @@ import { Apis } from "../../shared/api";
  */
 
 const initialState = {
-  //  Reveiw.js
   list: null,
   filterList: null,
-  // ReviewDetail.js
+  myReviewLike: false,
+  myReviewLikeList: [],
+  reviewData: null,
+  buyList: null,
+  isFetching: false,
+  infinityScroll: {},
   detailData: {
     buyer: [],
     defferents: [],
     myLike: "-",
   },
-
-  reviewData: null,
-  buyList: null,
-  isFetching: false,
-  infinityScroll: {},
 };
 
 export const getReviewDB = () => {
@@ -111,6 +110,37 @@ export const likeReviewDB = (reviewId) => {
   };
 };
 
+export const likeReviewListDB = (reviewId) => {
+  console.log("hi");
+  return async function (dispatch, getState, { history }) {
+    console.log(reviewId);
+    Apis.getLikeReview()
+      .then((res) => {
+        console.log(res);
+        if (reviewId) {
+          console.log(reviewId);
+          const likeList = res.data.likeList;
+          likeList.map((v, i) => {
+            if (reviewId === v) {
+              console.log(v);
+              dispatch(myReviewLike(true));
+              return;
+            } else {
+              console.log("false");
+              dispatch(myReviewLike(false));
+              return;
+            }
+          });
+        }
+        dispatch(myreviewLikeList(res.data.likeList));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+  };
+};
+
 const reviewSlice = createSlice({
   name: "reivew",
   initialState: initialState,
@@ -129,6 +159,12 @@ const reviewSlice = createSlice({
     },
     getMyLike: (state, action) => {
       state.detailData.myLike = action.payload;
+    },
+    myReviewLike: (state, action) => {
+      state.myReviewLike = action.payload;
+    },
+    myreviewLikeList: (state, action) => {
+      state.myreviewLikeList = action.payload;
     },
     getSellItem: (state, action) => {
       function checkSellItem(element) {
@@ -166,5 +202,7 @@ export const {
   getBuyList,
   getMyLike,
   getSellItem,
+  myReviewLike,
+  myreviewLikeList,
 } = actions;
 export default reducer;

@@ -23,12 +23,21 @@ import {
   getNowReview,
   likeReviewDB,
   deleteReviewDB,
+  likeReviewListDB,
 } from "../redux/modules/reviews";
 import { addFollowDB, getFollowDB } from "../redux/modules/follow";
 import { priceComma } from "../shared/utils";
 
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
+  const reviewId = useParams();
+
+  const reviewData = useSelector((state) => state.review.reviewData);
+  const myFollowList = useSelector((state) => state.followUser.myFollowing);
+  const detailData = useSelector((state) => state.review.detailData);
+  const currentUser = useSelector((state) => state.user?.user);
+  const reviewLike = useSelector((state) => state.review.myReviewLike);
+  const isMe = reviewData?.user?.userId === currentUser?.userId;
 
   useEffect(() => {
     // reset
@@ -36,15 +45,11 @@ const ReviewDetail = (props) => {
     // get
     dispatch(getReviewOne(reviewId.reviewId));
   }, []);
+
+  useEffect(() => {
+    dispatch(likeReviewListDB(reviewId.reviewId));
+  }, [likeFunc]);
   //
-  const reviewId = useParams();
-
-  const reviewData = useSelector((state) => state.review.reviewData);
-  const myFollowList = useSelector((state) => state.followUser.myFollowing);
-  const detailData = useSelector((state) => state.review.detailData);
-  const currentUser = useSelector((state) => state.user?.user);
-
-  const isMe = reviewData?.user?.userId === currentUser?.userId;
 
   function editFunc() {
     history.push(`/review/edit/${reviewId}`);
@@ -56,6 +61,7 @@ const ReviewDetail = (props) => {
 
   function likeFunc() {
     dispatch(likeReviewDB(reviewId.reviewId));
+    dispatch(likeReviewListDB(reviewId.reviewId));
   }
 
   function loginAlert() {
@@ -79,7 +85,6 @@ const ReviewDetail = (props) => {
 
   return (
     <>
-      {/* {console.log(Array.isArray(detailData.buyer))} */}
       {detailData.buyer &&
         detailData.buyer.map((v) => (
           <>
@@ -235,7 +240,8 @@ const ReviewDetail = (props) => {
             <FixedChatBar>
               <Icon width="fit-content" height="fit-content" onClick={likeFunc}>
                 <Flex>
-                  {detailData && detailData.myLike === 1 ? (
+                  {console.log(reviewLike)}
+                  {reviewLike ? (
                     <FavoriteFilled color={theme.color.brandColor} />
                   ) : (
                     <Favorite color={theme.color.brandColor} />
