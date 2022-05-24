@@ -293,6 +293,7 @@ const StoreDetail = () => {
 
                   {isMe ? (
                     <>
+                      <Wrap fg="1"></Wrap>
                       <Text lineHeight="22px">
                         <Button
                           fontSize="16px"
@@ -308,7 +309,11 @@ const StoreDetail = () => {
                     </>
                   ) : (
                     <>
-                      <Wrap margin="0 0 0 4px" fg="1"></Wrap>
+                      <Wrap margin="0 0 0 4px" fg="1">
+                        <Flex padding="6px" onClick={clickFollowbtn}>
+                          <FollowCheck text follow={nowFollowing} />
+                        </Flex>
+                      </Wrap>
                       <Text lineHeight="22px">
                         <Button
                           fontSize="16px"

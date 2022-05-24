@@ -59,12 +59,13 @@ const ReviewDetail = (props) => {
   const [nowFollowing, setNowFollowing] = useState(false);
 
   // 팔로우 토글
-  const followToggle = (v) => {
+  const followToggle = () => {
     const userData = {
-      followId: v.userId,
-      followName: v.nickname,
-      profileImage: v.profileImage,
+      followId: detailData.buyer[0].userId,
+      followName: detailData.buyer[0].nickname,
+      profileImage: detailData.buyer[0].profileImage,
     };
+    console.log(userData);
 
     dispatch(addFollowDB(userData));
     setNowFollowing(!nowFollowing);
@@ -118,18 +119,8 @@ const ReviewDetail = (props) => {
                       </>
                     ) : (
                       <>
-                        <Flex
-                          padding="6px"
-                          onClick={() => {
-                            followToggle(v);
-                          }}
-                        >
-                          <FollowCheck
-                            text
-                            follow={myFollowList.find(
-                              (f) => f.followId === v.userId
-                            )}
-                          />
+                        <Flex padding="6px" onClick={followToggle}>
+                          <FollowCheck text follow={nowFollowing} />
                         </Flex>
                         <Flex
                           padding="6px"
@@ -201,17 +192,9 @@ const ReviewDetail = (props) => {
                   ) : (
                     <>
                       <Wrap margin="0 0 0 8px" fg="1">
-                        <Button
-                          fontSize="16px"
-                          color={`${theme.color.brandColor}`}
-                          text
-                          onClick={() => {
-                            console.log("팔로우 버튼 눌렀다");
-                            dispatch(addFollowDB(v.userId));
-                          }}
-                        >
-                          팔로우
-                        </Button>
+                        <Flex padding="6px" onClick={followToggle}>
+                          <FollowCheck text follow={nowFollowing} />
+                        </Flex>
                       </Wrap>
                       <Text lineHeight="22px">
                         <Button

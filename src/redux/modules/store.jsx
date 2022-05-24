@@ -23,7 +23,7 @@ const initialState = {
   // infinityScroll: {},
 
   // paging: { start: null, next: null, size: 3 },
-  // is_loading: false,
+  isLoading: false,
 
   detailData: null,
   otherPost: [],
@@ -33,11 +33,6 @@ const initialState = {
 
 export const getPostDB = (pageNumber) => {
   return async function (dispatch, getState, { history }) {
-    // const pageHandler = {
-    //   page: 1,
-    //   limit: 6,
-    // };
-    // let _paging =getState().store.paging
     Apis.getStore(pageNumber)
       .then((res) => {
         console.log("스토어 get요청", res.data.data);
@@ -202,6 +197,7 @@ const postsSlice = createSlice({
     getStoreData: (state, action) => {
       state.list = action.payload;
       // state.list.push(...action.payload.list);
+      state.isLoading = false;
       state.filterList = action.payload;
     },
     // 데이터 하나 특정하기

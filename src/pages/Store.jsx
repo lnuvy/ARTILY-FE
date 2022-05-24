@@ -33,8 +33,8 @@ const Store = () => {
 
   const dispatch = useDispatch();
   const { list, filterList } = useSelector((state) => state.store);
+
   const getPostList = () => {
-    setIsLoading(true);
     Apis.getStore(pageNumber)
       .then((response) => {
         console.log("서버에게 받은 데이터", response.data.data);
@@ -235,7 +235,7 @@ const Store = () => {
                       }
                     } else {
                       <StoreCard
-                        key={l.postId}
+                        key={l.postTitle}
                         {...l}
                         imageUrl={l.images[0].imageUrl}
                         onClick={() => handleClickData(l)}
