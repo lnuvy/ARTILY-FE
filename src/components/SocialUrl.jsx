@@ -34,7 +34,7 @@ const SocialUrl = ({ snsUrl }) => {
                   //5.15 앞에 http://를 붙여야 제대로 연결이 되는 것 같습니다.
                   //인스타그램 같은 경우 풀 주소를 받지말고 아이디만 받자
                   <a
-                    href={`http://instagram.com/${snsUrl[0]}`}
+                    href={`http://Instagram.com/${snsUrl[0]}`}
                     target="_blank"
                     rel="noreferrer"
                   >
