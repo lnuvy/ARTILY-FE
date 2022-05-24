@@ -92,6 +92,7 @@ const ImageSqure = styled.div`
   background-repeat: no-repeat;
   border: ${({ border }) => border};
   border-radius: ${({ br }) => br};
+  box-shadow: ${({ shadow }) => shadow};
 `;
 
 export default Image;

@@ -44,8 +44,8 @@ const ReviewSelect = () => {
   }
 
   useEffect(() => {
-    dispatch(getReviewDB());
-    dispatch(getPostDB());
+    // dispatch(getReviewDB());
+    // dispatch(getPostDB());
   }, []);
 
   return (

@@ -29,9 +29,11 @@ const Input = (props) => {
     type,
     autoComplete,
     withBtn,
+    //5.23 모바일에서 input박스가 높이값이 없어서 뭉개져 보이는 현상을 막기위해 추가함
+    height,
   } = props;
 
-  const styles = { width, fg, margin, alert, icon, padding, br };
+  const styles = { width, fg, margin, alert, icon, padding, br, height };
 
   if (withBtn) {
     return (
@@ -109,6 +111,7 @@ export default Input;
 
 Input.defaultProps = {
   width: "100%",
+  height: "",
   fg: "0",
   margin: "0",
   icon: false,
@@ -163,7 +166,7 @@ const InputContainer = styled.input`
 `;
 
 const SquareInput = styled.input`
-  height: fit-content;
+  height: ${({ height }) => height};
   width: ${({ width }) => width};
   padding: ${({ padding }) => padding};
   background: rgba(255, 255, 255, 0.05);

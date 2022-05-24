@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Apis } from "../../shared/api";
-import { changeAddressDB } from "./user";
-
+import { addMyPost, changeAddressDB } from "./user";
+// import _ from "lodash";
+// import { storeDummy } from "../../shared/Dummy";
 const MySwal = withReactContent(Swal);
 
 /*
@@ -20,39 +21,29 @@ const initialState = {
   // isFetching: false,
   // infinityScroll: {},
 
-  paging: { page: 1, size: 3 },
-  isLoading: false,
+  // paging: { start: null, next: null, size: 3 },
+  // is_loading: false,
 
   detailData: null,
   otherPost: [],
 };
 
-export const getPostDB = (page = 1, size = 3, data) => {
-  // return async function (dispatch, getState, { history }) {
-  //   // const pageHandler = {
-  //   //   page: 1,
-  //   //   limit: 6,
-  //   // };
-  //   const _paging = getState().store.paging;
-  //   if (!_paging.page) {
-  //     return;
-  //   }
-  //   dispatch(Loading(true));
-  //   Apis.getStore(data)
-  //     .then((res) => {
-  //       let paging = {
-  //         page: res.data.length === size ? page + 1 : null,
-  //         size: size,
-  //         next:
-  //           res.data.length === size + 1 ? res.data[res.data.length - 1] : null,
-  //       };
-  //       console.log("스토어 get요청", res.data);
-  //       dispatch(getStoreData(res.data.data, data, paging));
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+export const getPostDB = (pageNumber) => {
+  return async function (dispatch, getState, { history }) {
+    // const pageHandler = {
+    //   page: 1,
+    //   limit: 6,
+    // };
+    // let _paging =getState().store.paging
+    Apis.getStore(pageNumber)
+      .then((res) => {
+        console.log("스토어 get요청", res.data.data);
+        dispatch(getStoreData(res.data.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 };
 
 export const getPostOne = (postId) => {
@@ -161,14 +152,9 @@ const postsSlice = createSlice({
   reducers: {
     // 처음 모든 데이터 불러오기만하기 (list 는 저장용도)
     getStoreData: (state, action) => {
-      state.list.push(...action.payload); //수정 필요할 듯
-      state.isLoading = false;
-      if (action.payload.paging) {
-        state.paging = action.payload.paging;
-      }
+      state.list = action.payload;
       // state.list.push(...action.payload.list);
       state.filterList = action.payload;
-      console.log(state.list);
     },
     // 데이터 하나 특정하기
     go2detail: (state, action) => {
@@ -251,9 +237,6 @@ const postsSlice = createSlice({
         }
       });
     },
-    Loading: (state, action) => {
-      state.isLoading = action.payload.isLoding;
-    },
   },
 });
 
@@ -268,6 +251,5 @@ export const {
   otherPost,
   markupToggle,
   deletePost,
-  Loading,
 } = actions;
 export default reducer;
