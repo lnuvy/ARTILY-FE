@@ -1,10 +1,13 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Favorite, FavoriteFilled } from "../assets/icons";
 import { Flex, Icon, Image, Text } from "../elements";
 import { priceComma } from "../shared/utils";
 import theme from "../styles/theme";
 import Card from "./Card";
+import { getMyPostLikeDB } from "../redux/modules/store";
+import { history } from "../redux/configureStore";
+import _ from "lodash";
 
 // TODO: 아이콘 색깔채운거 받아야하나 ?
 import { IoMdHeart } from "react-icons/io";
@@ -20,12 +23,20 @@ const StoreCard = (props) => {
     changeAddress,
     markupCnt,
     onClick,
+    myLike,
     isHome = false, // 홈에서 이미지 24로 바꾸기
   } = props;
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user?.user);
+  const likeThisPostList = useSelector((state) => state.store.myPostLikeList);
 
-  const userInfo = useSelector((state) => state.user.user);
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(getMyPostLikeDB());
+    }
+  }, []);
 
-  const isMyMarkup = userInfo?.myMarkup?.find((id) => id === postId);
+  const isMyMarkup = likeThisPostList?.find((v) => v === postId);
 
   return (
     <Card onClick={onClick}>
@@ -42,10 +53,10 @@ const StoreCard = (props) => {
         </Text>
       </Flex>
       <Text h3 medium>
-        {postTitle}
+        {postTitle ? postTitle : "-"}
       </Text>
       <Text body2 color={theme.pallete.gray3}>
-        {transaction}
+        {transaction ? transaction : "-"}
 
         {changeAddress &&
           (changeAddress.length > 10
@@ -53,7 +64,7 @@ const StoreCard = (props) => {
             : ` ∙ ${changeAddress}`)}
       </Text>
       <Flex>
-        <Text fg="1">{price ? `${priceComma(price)}원` : ``}</Text>
+        <Text fg="1">{price ? `${priceComma(price)}` : `0`} 원</Text>
         <Icon width="fit-content">
           <Flex>
             {isMyMarkup ? (

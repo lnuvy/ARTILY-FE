@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isCompositeComponent } from "react-dom/test-utils";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Apis } from "../../shared/api";
@@ -26,6 +27,8 @@ const initialState = {
 
   detailData: null,
   otherPost: [],
+  myPostLike: false,
+  myPostLikeList: [],
 };
 
 export const getPostDB = (pageNumber) => {
@@ -59,6 +62,51 @@ export const getPostOne = (postId) => {
     // const allList = getState().store.list;
     // const now = allList.find((l) => l.postId === postId);
     // dispatch(go2detail(now));
+  };
+};
+
+export const getMyPostLikeDB = (postId) => {
+  return async function (dispatch, getState, { history }) {
+    Apis.getMyPostLike()
+      .then((res) => {
+        if (postId) {
+          const likeList = res.data.markUpList;
+          likeList.map((v, i) => {
+            if (postId === v) {
+              dispatch(myPostLike(true));
+              return;
+            } else {
+              dispatch(myPostLike(false));
+              return;
+            }
+          });
+        }
+        dispatch(myPostLikeList(res.data.markUpList));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+  };
+};
+
+export const postMyPostLikeDB = (postId) => {
+  return async function (dispatch, getState, { history }) {
+    Apis.postMyPostLIke(postId)
+      .then((res) => {
+        console.log(res);
+        if (res.data.msg === "성공") {
+          dispatch(myPostLike(true));
+          return true;
+        } else {
+          dispatch(myPostLike(false));
+          return false;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
   };
 };
 
@@ -208,6 +256,14 @@ const postsSlice = createSlice({
       state.otherPost = action.payload;
     },
 
+    myPostLike: (state, action) => {
+      state.myPostLike = action.payload;
+    },
+
+    myPostLikeList: (state, action) => {
+      state.myPostLikeList = action.payload;
+    },
+
     // 마크업 1 늘리고 줄이기
     markupToggle: (state, action) => {
       const { isUp } = action.payload;
@@ -247,5 +303,7 @@ export const {
   otherPost,
   markupToggle,
   deletePost,
+  myPostLike,
+  myPostLikeList,
 } = actions;
 export default reducer;

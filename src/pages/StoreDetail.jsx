@@ -9,7 +9,9 @@ import {
   Wrap,
   ImageCarousel,
   Button,
+  Icon,
 } from "../elements";
+import { FavoriteFilled, Favorite } from "../assets/icons/index";
 
 import {
   deletePostDB,
@@ -17,6 +19,8 @@ import {
   go2detail,
   otherPost,
   filteringData,
+  getMyPostLikeDB,
+  postMyPostLikeDB,
 } from "../redux/modules/store";
 
 import { getFollowDB } from "../redux/modules/follow";
@@ -36,38 +40,49 @@ import { IoMdHeart } from "react-icons/io";
 import { socket } from "../shared/socket";
 import { makeChatRoom } from "../redux/modules/chat";
 import { postMarkupToggle } from "../redux/modules/user";
-import { Heart } from "../assets/icons";
 import { FollowCheck, StoreMore } from "../components";
 
 const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
 
+  // 할당
   const detailData = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
+
   const { chatData } = useSelector((state) => state.chat);
+  const likeThisPost = useSelector((state) => state.store.myPostLike);
 
-  // userId만 받던거에서 다 받는걸로 수정
   const followInfo = detailData?.user;
+  const isMe = detailData?.user?.userId === currentUser?.userId;
+  const [nowFollowing, setNowFollowing] = useState(false);
+  const [myLike, setMyLike] = useState(false);
 
+  // reset
   useEffect(() => {
-    // reset
     dispatch(go2detail([]));
     dispatch(otherPost([]));
     dispatch(filteringData("전체"));
-    // getdata
-    dispatch(getPostOne(postId));
+  }, [postId]);
 
+  useEffect(() => {
+    dispatch(getPostOne(postId));
+  }, [postId]);
+
+  useEffect(() => {
     if (currentUser) {
       dispatch(getFollowDB());
     }
-  }, [postId]);
+  }, [currentUser]);
 
-  const isMe = detailData?.user?.userId === currentUser?.userId;
-
-  const [nowFollowing, setNowFollowing] = useState(false);
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(getMyPostLikeDB(postId));
+      dispatch(getPostOne(postId));
+    }
+  }, [likeThisPost]);
 
   useEffect(() => {
     const result =
@@ -78,6 +93,7 @@ const StoreDetail = () => {
     }
   }, [detailData]);
 
+  // func
   const deletePosting = async () => {
     const result = await deleteSwal();
     console.log(result);
@@ -101,9 +117,18 @@ const StoreDetail = () => {
   };
 
   // 찜하기
-  const markupToggle = () => {
-    if (currentUser && !isMe) {
-      dispatch(postMarkupToggle(postId));
+  const markupToggle = async () => {
+    const likeFunc = () => {
+      if (currentUser) {
+        dispatch(postMyPostLikeDB(postId));
+      }
+    };
+    if ((await likeFunc()) === true) {
+      setMyLike(true);
+      console.log(myLike);
+    } else {
+      setMyLike(false);
+      console.log(myLike);
     }
   };
 
@@ -323,19 +348,20 @@ const StoreDetail = () => {
           </Wrap>
 
           <FixedChatBar>
-            <Flex onClick={markupToggle}>
-              {currentUser &&
-              currentUser?.myMarkup?.find((id) => id === postId) ? (
-                <IoMdHeart size={24} color={theme.pallete.primary850} />
-              ) : (
-                <Heart />
-              )}
+            <Flex>
+              <Icon onClick={markupToggle}>
+                {likeThisPost === true ? (
+                  <FavoriteFilled color={theme.pallete.primary850} />
+                ) : (
+                  <Favorite color={theme.pallete.primary850} />
+                )}
+              </Icon>
 
               <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
                 {detailData.markupCnt}
               </Text>
               <Text h3 medium margin="0 20px">
-                {detailData.price && priceComma(detailData.price)}원
+                {detailData.price ? priceComma(detailData.price) : 0} 원
               </Text>
             </Flex>
             <Flex jc="end">
