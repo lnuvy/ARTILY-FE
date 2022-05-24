@@ -8,6 +8,7 @@ import {
   getPostDB,
   go2detail,
   filteringData,
+  getMyPostLikeDB,
 } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
 import _ from "lodash";
@@ -21,14 +22,15 @@ import InfinityScroll from "../shared/InfinityScroll";
 const Store = () => {
   const dispatch = useDispatch();
   const { list, filterList } = useSelector((state) => state.store);
+  const currentUser = useSelector((state) => state.user?.user);
 
   // 카테고리 필터링
   useEffect(() => {
     // store data reset
     dispatch(getStoreData([]));
     // store api 두번요청되는걸 막기위함
-    dispatch(getPostDB());}
-  , []);
+    dispatch(getPostDB());
+  }, []);
 
   // 모달 필터링
   const [filtering, setFiltering] = useState({
@@ -165,20 +167,31 @@ const Store = () => {
         </Wrap>
 
         <InfinityScroll
-        callNext ={()=>{
-          console.log("next!!!!!!")
-        }}
-        // is_next = {paging.next?true:false}
-        // loading={is_loading}
+          callNext={() => {
+            console.log("next!!!!!!");
+          }}
+          // is_next = {paging.next?true:false}
+          // loading={is_loading}
         >
-        <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
-          {searchList && query !== ""
-            ? searchList
-            : filterList &&
-              filterList.map((v) => {
-                if (isFree) {
-                  // 문자열이어야 검색이 돼서 수정함
-                  if (v.price === "0") {//가격이 0원인 게시글 리스트를 보여줌
+          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
+            {searchList && query !== ""
+              ? searchList
+              : filterList &&
+                filterList.map((v) => {
+                  if (isFree) {
+                    // 문자열이어야 검색이 돼서 수정함
+                    if (v.price === "0") {
+                      //가격이 0원인 게시글 리스트를 보여줌
+                      return (
+                        <StoreCard
+                          key={v.postId}
+                          {...v}
+                          imageUrl={v.images[0].imageUrl}
+                          onClick={() => handleClickData(v)}
+                        />
+                      );
+                    }
+                  } else
                     return (
                       <StoreCard
                         key={v.postId}
@@ -187,18 +200,8 @@ const Store = () => {
                         onClick={() => handleClickData(v)}
                       />
                     );
-                  }
-                } else
-                  return (
-                    <StoreCard
-                      key={v.postId}
-                      {...v}
-                      imageUrl={v.images[0].imageUrl}
-                      onClick={() => handleClickData(v)}
-                    />
-                  );
-              })}
-        </Grid>
+                })}
+          </Grid>
         </InfinityScroll>
       </Wrap>
       <Footer />

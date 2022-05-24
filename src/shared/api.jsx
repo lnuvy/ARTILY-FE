@@ -48,6 +48,8 @@ export const Apis = {
   patchStore: (postId, data) =>
     Api.patch(`/api/post/${postId}`, data, formDataConfig),
   deleteStore: (postId) => Api.delete(`/api/post/${postId}`),
+  getMyPostLike: () => Api.get(`/api/markup`),
+  postMyPostLIke: (postId) => Api.post(`/api/markup/${postId}`),
 
   // user API
   getKakaoCode: (code) => Api.get(`/oauth/kakao/callback?code=${code}`),
@@ -57,7 +59,6 @@ export const Apis = {
   patchProfile: (data) => Api.patch(`/api/profile`, data, formDataConfig), // 회원가입후 닉네임/프사
   patchEditProfile: (data) =>
     Api.patch(`/api/profile/update`, data, formDataConfig),
-  postMarkUp: (postId) => Api.post(`/api/markup/${postId}`),
 
   //mypage API
   getMypageData: () => Api.get(`/api/myprofile`),

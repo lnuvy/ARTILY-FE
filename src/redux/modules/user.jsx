@@ -204,18 +204,19 @@ export const postMarkupToggle = (postId) => {
     Apis.postMarkUp(postId)
       .then((res) => {
         console.log(res);
-        const { myMarkup } = getState().user.user;
-        // 이미 좋아요가 돼있다면 markup 리스트에 postId를 빼기
-        if (myMarkup.find((id) => id === postId)) {
-          dispatch(postMarkup({ postId, isUp: false }));
-          // 리덕스 내에서 해당 포스팅 숫자 하나 올리기 (이건 store에 있는 액션함수임)
-          dispatch(markupToggle({ isUp: false }));
-          // 본인 유저정보의 myMarkup 안에 해당 포스트 아이디가 없다면 추가
-        } else {
-          dispatch(postMarkup({ postId, isUp: true }));
-          // 리덕스 내에서 해당 포스팅 숫자 하나 올리기 (이건 store에 있는 액션함수임)
-          dispatch(markupToggle({ isUp: true }));
-        }
+
+        // const { myMarkup } = getState().user.user;
+        // // 이미 좋아요가 돼있다면 markup 리스트에 postId를 빼기
+        // if (myMarkup.find((id) => id === postId)) {
+        //   dispatch(postMarkup({ postId, isUp: false }));
+        //   // 리덕스 내에서 해당 포스팅 숫자 하나 올리기 (이건 store에 있는 액션함수임)
+        //   dispatch(markupToggle({ isUp: false }));
+        //   // 본인 유저정보의 myMarkup 안에 해당 포스트 아이디가 없다면 추가
+        // } else {
+        //   dispatch(postMarkup({ postId, isUp: true }));
+        //   // 리덕스 내에서 해당 포스팅 숫자 하나 올리기 (이건 store에 있는 액션함수임)
+        //   dispatch
+        // }
       })
       .catch(async (err) => {
         console.log("마크업 에러", err);
