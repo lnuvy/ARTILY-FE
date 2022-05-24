@@ -5,7 +5,7 @@ import theme from "../styles/theme";
 // components
 import { Card } from "../components/index";
 import { Flex, Image, Text, Icon } from "../elements/index";
-import { Favorite } from "../assets/icons";
+import { Favorite, FavoriteFilled } from "../assets/icons";
 import {
   getReviewData,
   getReviewDB,
@@ -14,17 +14,6 @@ import {
 } from "../redux/modules/reviews";
 
 const ReviewCard = (props) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(myreviewLikeList([]));
-  }, []);
-
-  useEffect(() => {
-    // get
-    dispatch(likeReviewListDB());
-  }, []);
-
   const {
     onClick,
     _key,
@@ -40,6 +29,23 @@ const ReviewCard = (props) => {
     //
     category,
   } = props;
+
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user?.user);
+  const myReviewLikeList = useSelector(
+    (state) => state.review.myreviewLikeList2
+  );
+  const myReviewLikeCheck = myReviewLikeList.find((v) => v === reviewId);
+
+  useEffect(() => {
+    dispatch(myreviewLikeList([]));
+  }, []);
+
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(likeReviewListDB());
+    }
+  }, [myReviewLikeCheck]);
 
   return (
     <Card onClick={onClick} _key={_key}>
@@ -57,7 +63,12 @@ const ReviewCard = (props) => {
         </Text>
         <Icon width="fit-content">
           <Flex>
-            <Favorite size="16" color={`${theme.color.brandColor}`} />
+            {myReviewLikeCheck && myReviewLikeCheck ? (
+              <FavoriteFilled size="16" color={`${theme.color.brandColor}`} />
+            ) : (
+              <Favorite size="16" color={`${theme.color.brandColor}`} />
+            )}
+
             <Text body2 margin="0 0 0 4px">
               {likeCnt}
             </Text>

@@ -56,31 +56,27 @@ const StoreDetail = () => {
   const followInfo = detailData?.user;
   const isMe = detailData?.user?.userId === currentUser?.userId;
   const [nowFollowing, setNowFollowing] = useState(false);
-  const [myLike, setMyLike] = useState(false);
 
   // reset
   useEffect(() => {
     dispatch(go2detail([]));
     dispatch(otherPost([]));
     dispatch(filteringData("전체"));
-  }, [postId]);
+  }, []);
 
   useEffect(() => {
     dispatch(getPostOne(postId));
-  }, [postId]);
+  }, []);
+
+  useEffect(() => {
+    dispatch(getMyPostLikeDB(postId));
+  }, []);
 
   useEffect(() => {
     if (currentUser) {
       dispatch(getFollowDB());
     }
   }, [currentUser]);
-
-  useEffect(() => {
-    if (currentUser) {
-      dispatch(getMyPostLikeDB(postId));
-      dispatch(getPostOne(postId));
-    }
-  }, [likeThisPost]);
 
   useEffect(() => {
     const result =
@@ -108,26 +104,14 @@ const StoreDetail = () => {
       profileImage: followInfo.profileImage,
     };
 
-    console.log(userData);
-
     dispatch(addFollowDB(userData));
     setNowFollowing(!nowFollowing);
   };
 
   // 찜하기
   const markupToggle = async () => {
-    const likeFunc = () => {
-      if (currentUser) {
-        dispatch(postMyPostLikeDB(postId));
-      }
-    };
-    if ((await likeFunc()) === true) {
-      setMyLike(true);
-      console.log(myLike);
-    } else {
-      setMyLike(false);
-      console.log(myLike);
-    }
+    dispatch(postMyPostLikeDB(postId));
+    dispatch(getPostOne(postId));
   };
 
   // 더보기

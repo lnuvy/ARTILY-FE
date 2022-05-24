@@ -42,14 +42,19 @@ const ReviewDetail = (props) => {
   useEffect(() => {
     // reset
     dispatch(getNowReview([]));
-    // get
+  }, []);
+
+  useEffect(() => {
     dispatch(getReviewOne(reviewId.reviewId));
   }, []);
 
   useEffect(() => {
     dispatch(likeReviewListDB(reviewId.reviewId));
-  }, [likeFunc]);
-  //
+  }, []);
+
+  useEffect(() => {
+    dispatch(likeReviewListDB(reviewId.reviewId));
+  }, [reviewLike]);
 
   function editFunc() {
     history.push(`/review/edit/${reviewId}`);
@@ -59,8 +64,11 @@ const ReviewDetail = (props) => {
     dispatch(deleteReviewDB(reviewId.reviewId));
   }
 
-  function likeFunc() {
-    dispatch(likeReviewDB(reviewId.reviewId));
+  async function likeFunc() {
+    await dispatch(likeReviewDB(reviewId.reviewId)).try(likeFuncList());
+  }
+
+  function likeFuncList() {
     dispatch(likeReviewListDB(reviewId.reviewId));
   }
 
@@ -240,8 +248,7 @@ const ReviewDetail = (props) => {
             <FixedChatBar>
               <Icon width="fit-content" height="fit-content" onClick={likeFunc}>
                 <Flex>
-                  {console.log(reviewLike)}
-                  {reviewLike ? (
+                  {reviewLike && reviewLike ? (
                     <FavoriteFilled color={theme.color.brandColor} />
                   ) : (
                     <Favorite color={theme.color.brandColor} />

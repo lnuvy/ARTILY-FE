@@ -10,8 +10,8 @@ import { Apis } from "../../shared/api";
 const initialState = {
   list: null,
   filterList: null,
-  myReviewLike: false,
-  myReviewLikeList: [],
+  myReviewLike: null,
+  myreviewLikeList2: [],
   reviewData: null,
   buyList: null,
   isFetching: false,
@@ -111,14 +111,10 @@ export const likeReviewDB = (reviewId) => {
 };
 
 export const likeReviewListDB = (reviewId) => {
-  console.log("hi");
   return async function (dispatch, getState, { history }) {
-    console.log(reviewId);
     Apis.getLikeReview()
       .then((res) => {
-        console.log(res);
         if (reviewId) {
-          console.log(reviewId);
           const likeList = res.data.likeList;
           likeList.map((v, i) => {
             if (reviewId === v) {
@@ -132,6 +128,7 @@ export const likeReviewListDB = (reviewId) => {
             }
           });
         }
+        console.log(res.data.likeList);
         dispatch(myreviewLikeList(res.data.likeList));
       })
       .catch((err) => {
@@ -164,7 +161,7 @@ const reviewSlice = createSlice({
       state.myReviewLike = action.payload;
     },
     myreviewLikeList: (state, action) => {
-      state.myreviewLikeList = action.payload;
+      state.myreviewLikeList2 = action.payload;
     },
     getSellItem: (state, action) => {
       function checkSellItem(element) {
