@@ -5,6 +5,7 @@ import { closeModal } from "../../../redux/modules/modal";
 
 import styled from "styled-components";
 import theme from "../../../styles/theme";
+import { useHistory } from "react-router-dom";
 
 const cate = [
   "회화",
@@ -18,6 +19,7 @@ const cate = [
 
 const CategoryModal = ({ setReceiveCategory, receiveCategory }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [current, setCurrent] = useState(receiveCategory);
 
   const divClickChange = (c) => {
@@ -29,39 +31,55 @@ const CategoryModal = ({ setReceiveCategory, receiveCategory }) => {
     setReceiveCategory(current);
     dispatch(closeModal());
   };
+  const closeCategory = () => {
+    dispatch(closeModal());
+  };
   return (
     <Wrap padding="0" bc="white">
-      <Text h1 medium textAlign="center" margin="32px 0 10px">
+      <Text h1 medium textAlign="center" margin="40px 0 40px">
         카테고리 선택
       </Text>
+
       <Grid rg="0" height="fit-content" cg="0px" bc="white">
         {cate.map((c, i) => {
           return (
-            <Flex
-              key={`${c}_type_idx${i}`}
-              jc="space-between"
-              height="fit-content"
-              // margin="0 20px"
-              borderTop={`1px solid ${theme.pallete.gray1}`}
-              onClick={() => divClickChange(c)}
-            >
-              <label htmlFor={c} style={{ margin: "0 0 0 16px" }}>
-                {c}
-              </label>
-              <Radio
-                type="radio"
-                value={c}
-                checked={current === c}
-                onChange={(e) => setCurrent(e.target.value)}
-              />
-            </Flex>
+            <Wrapcate key={`${c}_type_idx${i}`}>
+              <Flex
+                jc="space-between"
+                height="fit-content"
+                // margin="0 20px"
+                onClick={() => divClickChange(c)}
+                className="wrap"
+              >
+                <label htmlFor={c} style={{ margin: "0 0 0 16px" }}>
+                  {c}
+                </label>
+
+                <Radio
+                  type="radio"
+                  value={c}
+                  checked={current === c}
+                  onChange={(e) => setCurrent(e.target.value)}
+                />
+              </Flex>{" "}
+            </Wrapcate>
           );
         })}
       </Grid>
+
       <SubmitDiv>
-        <Button width="100%" margin="20px 0 0" onClick={submitCategory}>
-          선택 완료
-        </Button>
+        <Flex>
+          <Button
+            width="100%"
+            margin="20px 5px 20px 0 "
+            onClick={submitCategory}
+          >
+            선택 완료
+          </Button>
+          <Button width="100%" margin="20px 0 20px 0" onClick={closeCategory}>
+            취소
+          </Button>
+        </Flex>
       </SubmitDiv>
     </Wrap>
   );
@@ -92,5 +110,10 @@ const SubmitDiv = styled.div`
   position: absolute;
   bottom: 16px;
 `;
-
+const Wrapcate = styled.div`
+  &:nth-of-type(1) {
+    border-top: 1px solid ${({ theme }) => theme.pallete.gray1};
+  }
+  border-bottom: 1px solid ${({ theme }) => theme.pallete.gray1}; ;
+`;
 export default CategoryModal;

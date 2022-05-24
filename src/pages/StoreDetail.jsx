@@ -28,7 +28,7 @@ import { priceComma } from "../shared/utils";
 import theme from "../styles/theme";
 import SellLabel from "../components/SellLabel";
 import { deleteSwal } from "../shared/commonAlert";
-
+import { NoInfo } from "../components";
 // 임시 아이콘
 import { IoMdHeart } from "react-icons/io";
 
@@ -305,11 +305,19 @@ const StoreDetail = () => {
                     </>
                   )}
                 </Flex>
-                <Grid gtc="1fr 1fr" rg="18px" cg="8px" margin="0 0 20px">
-                  {otherPosts.map((post) => {
-                    return <StoreMore key={post.postId} {...post} />;
-                  })}
-                </Grid>
+                <NoInfo
+                  list={otherPosts}
+                  text1="아직 작가의 다른 작품이 없어요."
+                  text2="다른 작가의 작품을 구경해보시겠어요?"
+                  underlineBtn="스토어로 이동"
+                  movePage="/store"
+                >
+                  <Grid gtc="1fr 1fr" rg="18px" cg="8px" margin="0 0 20px">
+                    {otherPosts.map((post) => {
+                      return <StoreMore key={post.postId} {...post} />;
+                    })}
+                  </Grid>
+                </NoInfo>
               </>
             )}
           </Wrap>

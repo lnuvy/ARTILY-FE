@@ -70,8 +70,6 @@ const MyPage = () => {
               height="90px"
               bg="#ddd"
               br="45px"
-              shadow="1px 1px 2px #ddd"
-              border="1px solid #eee"
               src={
                 getProfile && getProfile.profileImage
                   ? getProfile.profileImage
@@ -295,15 +293,14 @@ const Mytab = styled.div`
     border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   }
   .sell {
-    border-top: ${({ theme }) => `8px solid ${theme.pallete.gray1}`};
+    border-top: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   }
   .logout {
-    border-bottom: ${({ theme }) => `8px solid ${theme.pallete.gray1}`};
+    border-bottom: ${({ theme }) => `1px solid ${theme.pallete.gray1}`};
   }
 `;
 
 const CurrentDiv = styled.div`
-  font-weight: bold;
   padding: 5px 10px;
   margin: 10px 0 0;
   cursor: pointer;

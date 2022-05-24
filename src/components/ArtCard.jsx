@@ -45,6 +45,7 @@ const ArtCard = (props) => {
   } = props;
 
   const nowuser = userInfo;
+  console.log(nowuser);
   const deletePosting = async () => {
     const result = await deleteSwal();
     // console.log(result);
@@ -171,7 +172,6 @@ const ArtCard = (props) => {
                 width="140px"
                 src={images[0].imageUrl}
                 margin="0 10px 10px 10px"
-                shadow="1px 1px 3px #ddd"
               />
               <Wrap width="60%">
                 <Text bold>{postTitle}</Text>
@@ -193,12 +193,7 @@ const ArtCard = (props) => {
       <Card onClick={onClick}>
         <Label>
           <SellLabel pageLabel done={done} />
-          <Image
-            height="168px"
-            br="8px"
-            shadow="1px 1px 3px 1px #ddd"
-            src={images[0].imageUrl}
-          />
+          <Image height="168px" br="8px" src={images[0].imageUrl} />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
         <Flex margin="0 0 8px 0">
@@ -222,20 +217,15 @@ const ArtCard = (props) => {
     //리뷰목록
     return (
       <Card onClick={onClick}>
-        <Image
-          height="168px"
-          br="8px"
-          src={images[0].imageUrl}
-          shadow="1px 1px 3px 1px #ddd"
-        />
+        <Image height="168px" br="8px" src={images[0].imageUrl} />
         <Text margin="8px 0 0 0" bold>
           {reviewTitle}
         </Text>
         <Text body2>{reviewContent}</Text>
         <Flex margin="8px 0 10px 0 ">
-          <Image circle size="20" src={nowuser?.profileImage} />
+          <Image circle size="20" src={profileImage} />
           <Text fg="1" margin="0 0 0 4px">
-            {nowuser?.nickname}
+            {nickname}
           </Text>
           <Flex fg="0">
             <Favorite size="16" color={`${theme.color.brandColor}`} />
@@ -252,12 +242,7 @@ const ArtCard = (props) => {
       <Card onClick={onClick}>
         <Label>
           <SellLabel done={done} pageLabel />
-          <Image
-            height="168px"
-            br="8px"
-            src={images[0].imageUrl}
-            shadow="1px 1px 3px 1px #ddd"
-          />
+          <Image height="168px" br="8px" src={images[0].imageUrl} />
         </Label>
         <Text margin="8px 0 0 0">{postTitle}</Text>
         <Flex margin="0 0 8px 0">

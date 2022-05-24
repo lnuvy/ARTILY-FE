@@ -26,7 +26,7 @@ import {
 } from "../redux/modules/reviews";
 import { addFollowDB, getFollowDB } from "../redux/modules/follow";
 import { priceComma } from "../shared/utils";
-
+import { NoInfo } from "../components";
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ const ReviewDetail = (props) => {
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
   const detailData = useSelector((state) => state.review.detailData);
   const currentUser = useSelector((state) => state.user?.user);
-
+  console.log(detailData);
   const isMe =
     detailData?.buyer && detailData?.buyer[0]?.userId === currentUser?.userId;
 
@@ -57,6 +57,7 @@ const ReviewDetail = (props) => {
 
   // 팔로우정보
   const [nowFollowing, setNowFollowing] = useState(false);
+  const [nowsellerFollowing, setNowSellerFollowing] = useState(false);
 
   // 팔로우 토글
   const followToggle = () => {
@@ -69,6 +70,17 @@ const ReviewDetail = (props) => {
 
     dispatch(addFollowDB(userData));
     setNowFollowing(!nowFollowing);
+  };
+  const sellerfollow = () => {
+    const userData = {
+      followId: detailData.buyer[0].seller.user.userId,
+      followName: detailData.buyer[0].nickname,
+      profileImage: detailData.buyer[0].profileImage,
+    };
+    console.log(userData);
+
+    dispatch(addFollowDB(userData));
+    setNowSellerFollowing(!nowsellerFollowing);
   };
 
   useEffect(() => {
@@ -175,7 +187,12 @@ const ReviewDetail = (props) => {
 
               <Wrap margin="16px">
                 <Flex margin="0 0 11px">
-                  <Text h2>작가명의 다른 작품</Text>
+                  <Seller>
+                    <Text h3>
+                      <span className="seller">{v.seller.user.nickname} </span>
+                      님의 다른 작품
+                    </Text>
+                  </Seller>
                   {isMe ? (
                     <>
                       <Wrap fg="1"></Wrap>
@@ -192,8 +209,8 @@ const ReviewDetail = (props) => {
                   ) : (
                     <>
                       <Wrap margin="0 0 0 8px" fg="1">
-                        <Flex padding="6px" onClick={followToggle}>
-                          <FollowCheck text follow={nowFollowing} />
+                        <Flex padding="6px" onClick={sellerfollow}>
+                          <FollowCheck text follow={nowsellerFollowing} />
                         </Flex>
                       </Wrap>
                       <Text lineHeight="22px">
@@ -208,24 +225,32 @@ const ReviewDetail = (props) => {
                     </>
                   )}
                 </Flex>
-                <Grid gtc="1fr 1fr">
-                  {console.log(detailData)}
-                  {detailData.defferentInfo &&
-                    detailData.defferentInfo.map((v, i) => {
-                      return (
-                        <>
-                          <OtherWorkCard
-                            key={i}
-                            {...v}
-                            onClick={() =>
-                              history.push(`/store/view/${v.postId}`)
-                            }
-                            src={v.images && v.images[0].imageUrl}
-                          />
-                        </>
-                      );
-                    })}
-                </Grid>
+                <NoInfo
+                  list={detailData.defferentInfo}
+                  text1="아직 작가의 다른 작품이 없어요."
+                  text2="다른 작가의 작품을 구경해보시겠어요?"
+                  underlineBtn="스토어로 이동"
+                  movePage="/store"
+                >
+                  <Grid gtc="1fr 1fr">
+                    {console.log(detailData)}
+                    {detailData.defferentInfo &&
+                      detailData.defferentInfo.map((v, i) => {
+                        return (
+                          <>
+                            <OtherWorkCard
+                              key={i}
+                              {...v}
+                              onClick={() =>
+                                history.push(`/store/view/${v.postId}`)
+                              }
+                              src={v.images && v.images[0].imageUrl}
+                            />
+                          </>
+                        );
+                      })}
+                  </Grid>
+                </NoInfo>
               </Wrap>
             </Wrap>
             <FixedChatBar>
@@ -267,4 +292,9 @@ const FixedChatBar = styled.div`
   border-top: 1px solid ${theme.pallete.gray1};
   max-width: ${theme.view.maxWidth};
   height: 56px;
+`;
+const Seller = styled.div`
+  .seller {
+    font-weight: bold;
+  }
 `;

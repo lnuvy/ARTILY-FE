@@ -3,8 +3,19 @@ import styled from "styled-components";
 
 // 필터링에서 사용하는 동글동글 토글되는 버튼
 const ToggleButton = (props) => {
-  const { children, onClick, jc, width, margin, padding, fg, bc, select } =
-    props;
+  const {
+    children,
+    onClick,
+    jc,
+    width,
+    margin,
+    padding,
+    fg,
+    bc,
+    select,
+    border,
+    color,
+  } = props;
 
   const styles = {
     select,
@@ -14,6 +25,8 @@ const ToggleButton = (props) => {
     padding,
     fg,
     bc,
+    border,
+    color,
   };
 
   return (
@@ -42,8 +55,8 @@ const ButtonStyle = styled.button`
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   border-radius: 8px;
-  color: ${({ theme }) => theme.pallete.gray2};
-  border: 1px solid ${({ theme }) => theme.pallete.gray2};
+  color: ${({ color }) => color};
+  border: ${({ border }) => border};
   justify-content: center;
   flex-grow: ${({ fg }) => fg};
   width: ${({ width }) => width};

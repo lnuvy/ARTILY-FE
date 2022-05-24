@@ -29,7 +29,7 @@ const StoreCard = (props) => {
 
   return (
     <Card onClick={onClick}>
-      <Image height="168px" br="8px" src={imageUrl} border="1px solid #eee" />
+      <Image height="168px" br="8px" src={imageUrl} />
       <Flex margin="8px 0">
         {isHome ? (
           <Image circle size="24" src={user?.profileImage} />
