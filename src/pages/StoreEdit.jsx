@@ -300,7 +300,7 @@ const StoreEdit = () => {
 const Inputcate = styled.input`
   border-bottom: 1px solid #000;
   margin: 0 0 1em;
-  width: 343px;
+  width: 100%;
   height: 49px;
   padding: 16px 12px;
   margin-bottom: 0;
