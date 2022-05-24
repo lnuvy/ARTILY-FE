@@ -30,8 +30,10 @@ export const Apis = {
     Api.get(`api/review?page=${pageNumber}&limit=${limit}`),
   getReviewDetail: (reviewId) => Api.get(`api/review/detail/${reviewId}`),
   likeReview: (reviewId) => Api.post(`api/like/${reviewId}`),
-  postReview: (postId, reviewContents) =>
-    Api.post(`api/review/${postId}`, reviewContents),
+  postReview: (postId, reviewContents) => {
+    console.log(reviewContents);
+    Api.post(`api/review/${postId}`, reviewContents);
+  },
   editReview: (reviewId, reviewContents) =>
     Api.patch(`api/review/${reviewId}`, reviewContents),
   deleteReview: (reviewId) =>
@@ -71,6 +73,9 @@ export const Apis = {
 
   //follow API
   postAddFollow: (followId) => Api.post(`/api/follow/${followId}`),
+
+  // mybuy API
+  getMyBuy: () => Api.get(`/api/mybuy`),
 
   getMyFollowlist: () => Api.get(`/api/follow/myfollowlist`),
   getMyFollowerlist: () => Api.get(`/api/follow/myfollowerlist`),

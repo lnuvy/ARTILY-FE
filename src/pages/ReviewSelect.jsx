@@ -16,36 +16,15 @@ import {
 } from "../elements";
 import { history } from "../redux/configureStore";
 
-import { getReviewDB, getBuyList } from "../redux/modules/reviews";
+import { getReviewDB, getBuyList, getMyBuyDB } from "../redux/modules/reviews";
 import { getPostDB } from "../redux/modules/store";
 
 const ReviewSelect = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-
-  const posts = useSelector((state) => state.store.list);
-
-  // const mybuyList = [];
-  const mybuyList = useSelector((state) => state.user.user.myBuy);
-
-  function myBuyListCheck() {
-    if (user.isLogin === true) {
-      console.log("hi");
-      user.user.myBuy.forEach((mybuy) => {
-        posts.map((post) => {
-          if (post.postId === mybuy) {
-            console.log(post);
-            dispatch(getBuyList(post));
-            // mybuyList.push(post);
-          }
-        });
-      });
-    }
-  }
+  const mybuyList = useSelector((state) => state.review?.buyList);
 
   useEffect(() => {
-    // dispatch(getReviewDB());
-    // dispatch(getPostDB());
+    dispatch(getMyBuyDB());
   }, []);
 
   return (
@@ -58,8 +37,8 @@ const ReviewSelect = () => {
           내가 구입한 작품
         </Text>
       </Wrap>
-
-      {mybuyList && mybuyList.length === !0 ? (
+      {console.log(mybuyList && mybuyList)}
+      {mybuyList && mybuyList.length > 0 ? (
         mybuyList.map((l, i) => {
           return (
             <Flex
@@ -69,7 +48,9 @@ const ReviewSelect = () => {
               <Image
                 width="80px"
                 height="80px"
-                src={`${l.imageUrl && l.imageUrl[0]}`}
+                src={`${
+                  l.images && l.images[0].imageUrl && l.images[0].imageUrl
+                }`}
               ></Image>
               <Wrap fg="1" margin="0 0 0 16px">
                 <Text h1 bold margin="0 0 16px">
@@ -93,6 +74,11 @@ const ReviewSelect = () => {
           </Text>
           <Wrap margin="16px auto 0" width="fit-content">
             <Button onClick={() => history.goBack()}>돌아가기</Button>
+          </Wrap>
+          <Wrap margin="16px auto 0" width="fit-content">
+            <Button onClick={() => history.push("/review/write/48d3da2aa233")}>
+              임시 글쓰기
+            </Button>
           </Wrap>
         </>
       )}

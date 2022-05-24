@@ -10,11 +10,11 @@ const OtherWorkCard = (props) => {
   // const postList = useSelector((state) => state.store.list);
   // console.log(postList);
 
-  const { onClick, postId, postTitle, price } = props;
+  const { onClick, postId, postTitle, price, src } = props;
 
   return (
-    <Card>
-      <Image height="168px" />
+    <Card onClick={onClick}>
+      <Image height="168px" src={src} />
       <Wrap margin="0 0 ">
         <Text>{postTitle}</Text>
         <Text>{priceComma(price)}원</Text>

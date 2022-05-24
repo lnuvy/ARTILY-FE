@@ -180,7 +180,7 @@ const Review = () => {
                   console.log(v);
                   return (
                     <ReviewCard
-                      _key={i}
+                      _key={`${i}_${Math.random() * 10}`}
                       onClick={() => clickCard(v.reviewId)}
                       {...v}
                       images={v.images[0].imageUrl}
@@ -199,7 +199,7 @@ const Review = () => {
                 filteringList.map((d, i) => {
                   return (
                     <ReviewCard
-                      _key={i}
+                      _key={`${i}_${Math.random() * 10}`}
                       onClick={() => clickCard(d.reviewId)}
                       {...d}
                       images={d.images[0].imageUrl}

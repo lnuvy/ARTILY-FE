@@ -41,13 +41,26 @@ export const getReviewDB = (pageNumber) => {
   };
 };
 
+export const getMyBuyDB = () => {
+  return async function (dispatch, getState, { history }) {
+    Apis.getMyBuy()
+      .then(function (response) {
+        console.log(response);
+        dispatch(getBuyList(response.data.myBuy));
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+};
+
 export const getReviewOne = (reviewId) => {
   return async function (dispatch, getState, { history }) {
+    console.log(reviewId);
     Apis.getReviewDetail(reviewId)
       .then(function (response) {
         console.log(response);
         dispatch(getNowReview(response.data));
-        // dispatch(getSellItem(response.data));
       })
       .catch(function (error) {
         console.error(error);
@@ -69,9 +82,11 @@ export const postReviewDB = (postID, contents) => {
   };
 };
 
-export const editReviewDB = (reviewId, contents) => {
+export const editReviewDB = (postId, contents) => {
+  console.log(postId);
+  console.log(contents);
   return async function (dispatch, getState, { history }) {
-    Apis.postReview(reviewId, contents)
+    Apis.postReview(postId, contents)
       .then(function (response) {
         console.log(response);
         alert("수정되었습니다");
@@ -126,7 +141,7 @@ const reviewSlice = createSlice({
     getNowReview: (state, action) => {
       console.log(action.payload);
       state.detailData.buyer = action.payload.buyer;
-      state.detailData.defferents = action.payload.defferents;
+      state.detailData.defferentInfo = action.payload.defferentInfo;
     },
     getMyLike: (state, action) => {
       state.detailData.myLike = action.payload;
