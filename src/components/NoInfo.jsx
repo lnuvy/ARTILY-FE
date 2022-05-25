@@ -17,7 +17,7 @@ const NoInfo = ({
   const history = useHistory();
   if (list && list.length > 0) return <>{children}</>;
   return (
-    <Grid textAlign="center" margin="160px 0 ">
+    <Grid textAlign="center" margin="60px 0 ">
       {/* 해당 내용이랑 어울리는 디자인 이미지 */}
       {/* <Image /> */}
       <Text>{text1}</Text>
