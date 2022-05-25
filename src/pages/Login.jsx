@@ -14,7 +14,7 @@ const Login = () => {
   return (
     <>
       <Wrap textAlign="center" margin="100px 0">
-        <img src="/images/artily.png" />
+        <img src="/images/Artily.png" />
         <Sub>회원 서비스 이용을 위해 로그인 해주세요!</Sub>
       </Wrap>
       <Kakaobtn>
