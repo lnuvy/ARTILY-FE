@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { ProfileCard } from "../components";
+import { ProfileCard, NoInfo } from "../components";
 import { Button, Flex, Text, Wrap } from "../elements";
 import theme from "../styles/theme";
 import { getChatList } from "../redux/modules/chat";
@@ -44,9 +44,14 @@ const SellComplete = () => {
             작품을 구매한 분은 누구인가요?
           </Text>
         </Flex>
-        {console.log(chatRoom)}
         {chatRoom === undefined ? (
-          <Text>hi</Text>
+          <>
+            <NoInfo
+              text1="구매한 작업이 없습니다."
+              button="돌아가기"
+              movePage="/mypage"
+            />
+          </>
         ) : (
           chatRoom
             .filter((v) => v.post.postId === postId)
@@ -69,10 +74,10 @@ const SellComplete = () => {
               );
             })
         )}
-        <ProfileCard
+        {/* <ProfileCard
           onClick={() => setCurrentSelect(1)}
           current={currentSelect === 1}
-        />
+        /> */}
 
         <Sellbtn>
           <Button shadow width="100%" onClick={changeStateToComplete}>
