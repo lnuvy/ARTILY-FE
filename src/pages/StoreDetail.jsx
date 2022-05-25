@@ -153,7 +153,7 @@ const StoreDetail = () => {
 
     const chatPostData = {
       postId,
-      imageUrl: detailData.images[0].imageUrl,
+      imageUrl: detailData.images[0]?.imageUrl,
       postTitle: detailData.postTitle,
       price: detailData.price,
       done: detailData.done,
