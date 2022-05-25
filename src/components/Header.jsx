@@ -110,7 +110,7 @@ const Header = (props) => {
       <>
         <HeaderStyle>
           <Flex height="48px">
-            <Icon margin="8px 8px 16px" onClick={() => history.goBack()}>
+            <Icon margin="16px 8px" onClick={() => history.goBack()}>
               <ArrowBack />
             </Icon>
           </Flex>

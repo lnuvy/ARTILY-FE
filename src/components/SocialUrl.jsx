@@ -28,7 +28,7 @@ const SocialUrl = ({ snsUrl }) => {
         <Flex padding="0.5em 0">
           {insta && (
             <Flex margin="0 30px 0 0">
-              <img src="/images/instagram.svg" alt="인스타" />
+              <img src="/images/Instagram.svg" alt="인스타" />
               <Text className="site" margin="0 0 0 5px">
                 {insta && (
                   //5.15 앞에 http://를 붙여야 제대로 연결이 되는 것 같습니다.

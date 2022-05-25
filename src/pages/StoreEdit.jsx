@@ -11,6 +11,7 @@ import { inputSpaceReg } from "../shared/utils";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { history } from "../redux/configureStore";
+import styled from "styled-components";
 import {
   editPostDB,
   getPostOne,
@@ -218,13 +219,16 @@ const StoreEdit = () => {
   return (
     <>
       <Wrap margin="16px">
-        <Flex jc="space-between" margin="10px 0 10px">
+        <Flex jc="space-between" margin="10px 0 5px">
           <Preview />
         </Flex>
         <ToggleButton
+          margin="0 5px 10px 0"
           onClick={() => setInputs({ ...inputs, delivery: !inputs.delivery })}
           id="delivery"
           select={inputs?.delivery}
+          color="#FD7A00"
+          border="1px solid #FD7A00"
         >
           택배
         </ToggleButton>
@@ -232,6 +236,8 @@ const StoreEdit = () => {
           onClick={() => setInputs({ ...inputs, direct: !inputs.direct })}
           id="direct"
           select={inputs?.direct}
+          color="#FD7A00"
+          border="1px solid #FD7A00"
         >
           직거래
         </ToggleButton>
@@ -243,14 +249,18 @@ const StoreEdit = () => {
             onClick={modalOn}
           />
         )}
-        <Input
-          readOnly
-          value={receiveCategory || "카테고리 선택 "}
-          icon={<IoIosArrowForward size={28} />}
+        <Wrapcate
           onClick={() => {
             modalOn("category");
           }}
-        />
+        >
+          <Inputcate
+            readOnly
+            value={receiveCategory || ""}
+            placeholder="카테고리 선택"
+          />
+          <IoIosArrowForward size={28} className="arrow" />
+        </Wrapcate>
         <Input
           id="postTitle"
           type="text"
@@ -287,4 +297,25 @@ const StoreEdit = () => {
   );
 };
 
+const Inputcate = styled.input`
+  border-bottom: 1px solid #000;
+  margin: 0 0 1em;
+  width: 100%;
+  height: 49px;
+  padding: 16px 12px;
+  margin-bottom: 0;
+
+  &::placeholder {
+    font-weight: bold;
+    color: #000;
+  }
+`;
+const Wrapcate = styled.div`
+  position: relative;
+  .arrow {
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+`;
 export default StoreEdit;

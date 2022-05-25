@@ -103,7 +103,123 @@
 
 // export default Review;
 
-import React, { useEffect, useState, useRef } from "react";
+// import React, { useEffect, useState, useRef } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { history } from "../redux/configureStore";
+// // components
+// import { Grid, Wrap } from "../elements";
+// import { ReviewCard, Category } from "../components/index";
+// // moduels
+// import { getReviewData, getReviewDB } from "../redux/modules/reviews";
+// import { Apis } from "../shared/api";
+// import ScrollSpinner from "../shared/ScrollSpinner";
+
+// const Review = () => {
+//   const dispatch = useDispatch();
+//   const [data, setData] = useState();
+//   const [reviewsList, setReviewList] = useState([]);
+//   const [pageNumber, setPageNumber] = useState(1);
+//   const [isLoading, setIsLoading] = useState(true);
+
+//   const reviewList = useSelector((state) => state.review.list);
+//   const filteringList = useSelector((state) => state.review.filterList);
+//   const loader = useRef(null);
+//   function clickCard(reviewId) {
+//     history.push(`/review/view/${reviewId}`);
+//   }
+//   const getReviewList = () => {
+//     setIsLoading(true);
+//     Apis.getReview(pageNumber)
+//       .then((response) => {
+//         console.log("서버에게 받은 데이터", response.data.reviews);
+//         setIsLoading(false);
+//         setReviewList((items) => [...items, ...response.data.reviews]);
+//         // setHasMore(pageNumber !== PAGE_LIMIT);
+//       })
+//       .catch((error) => console.warn(error));
+//   };
+
+//   useEffect(() => {
+//     getReviewList(pageNumber);
+//   }, [pageNumber]);
+
+//   const onIntersect = (entries) => {
+//     entries.forEach((element) => {
+//       if (element.isIntersecting) {
+//         setPageNumber((prev) => prev + 1);
+//       }
+//     });
+//   };
+//   useEffect(() => {
+//     const options = {
+//       root: null,
+//       rootMargin: "0px",
+//       threshold: 0.25,
+//     };
+
+//     const observer = new IntersectionObserver(onIntersect, options);
+//     observer.observe(loader.current);
+//     return () => observer.disconnect();
+//   }, [loader]);
+//   useEffect(() => {
+//     // reset
+//     dispatch(getReviewData());
+//     // get
+//     dispatch(getReviewDB());
+//   }, []);
+
+//   return (
+//     <>
+//       <Grid>
+//         <Category review data={setData} />
+//         {setData === "전체" ? (
+//           <Wrap margin="16px">
+//             <Grid gtc="1fr 1fr" margin="0 0 20px">
+//               {filteringList &&
+//                 reviewsList.map((v, i) => {
+//                   console.log(v);
+//                   return (
+//                     <ReviewCard
+//                       _key={`${v}_${i}`}
+//                       onClick={() => clickCard(v.reviewId)}
+//                       {...v}
+//                       images={v.images[0].imageUrl}
+//                     />
+//                   );
+//                 })}
+//             </Grid>
+//             <div ref={loader} className="loader">
+//               {isLoading && <ScrollSpinner />}
+//             </div>
+//           </Wrap>
+//         ) : (
+//           <Wrap margin="16px">
+//             <Grid gtc="1fr 1fr" margin="0 0 20px">
+//               {filteringList &&
+//                 filteringList.map((d, i) => {
+//                   return (
+//                     <ReviewCard
+//                       _key={`${d}_${i}`}
+//                       onClick={() => clickCard(d.reviewId)}
+//                       {...d}
+//                       images={d.images[0].imageUrl}
+//                     />
+//                   );
+//                 })}
+//             </Grid>
+//             <div ref={loader} className="loader">
+//               {isLoading && <ScrollSpinner />}
+//             </div>
+//           </Wrap>
+//         )}
+//       </Grid>
+//     </>
+//   );
+// };
+
+// export default Review;
+
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 // components
@@ -111,62 +227,26 @@ import { Grid, Wrap } from "../elements";
 import { ReviewCard, Category } from "../components/index";
 // moduels
 import { getReviewData, getReviewDB } from "../redux/modules/reviews";
-import { Apis } from "../shared/api";
-import ScrollSpinner from "../shared/ScrollSpinner";
 
 const Review = () => {
   const dispatch = useDispatch();
-  const [data, setData] = useState();
-  const [reviewsList, setReviewList] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
 
   const reviewList = useSelector((state) => state.review.list);
   const filteringList = useSelector((state) => state.review.filterList);
-  const loader = useRef(null);
+
   function clickCard(reviewId) {
     history.push(`/review/view/${reviewId}`);
   }
-  const getReviewList = () => {
-    setIsLoading(true);
-    Apis.getReview(pageNumber)
-      .then((response) => {
-        console.log("서버에게 받은 데이터", response.data.reviews);
-        setIsLoading(false);
-        setReviewList((items) => [...items, ...response.data.reviews]);
-        // setHasMore(pageNumber !== PAGE_LIMIT);
-      })
-      .catch((error) => console.warn(error));
-  };
 
-  useEffect(() => {
-    getReviewList(pageNumber);
-  }, [pageNumber]);
-
-  const onIntersect = (entries) => {
-    entries.forEach((element) => {
-      if (element.isIntersecting) {
-        setPageNumber((prev) => prev + 1);
-      }
-    });
-  };
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.25,
-    };
-
-    const observer = new IntersectionObserver(onIntersect, options);
-    observer.observe(loader.current);
-    return () => observer.disconnect();
-  }, [loader]);
   useEffect(() => {
     // reset
     dispatch(getReviewData(null));
+<<<<<<< HEAD
   }, []);
 
   useEffect(() => {
+=======
+>>>>>>> a27e41e9de3452e6f4d3678f3603916f7f1aa28d
     // get
     dispatch(getReviewDB());
   }, []);
@@ -174,47 +254,23 @@ const Review = () => {
   return (
     <>
       <Grid>
-        <Category review data={setData} />
-        {setData === "전체" ? (
-          <Wrap margin="16px">
-            <Grid gtc="1fr 1fr" margin="0 0 20px">
-              {filteringList &&
-                reviewsList.map((v, i) => {
-                  console.log(v);
-                  return (
-                    <ReviewCard
-                      _key={`${v}_${i}`}
-                      onClick={() => clickCard(v.reviewId)}
-                      {...v}
-                      images={v.images[0].imageUrl}
-                    />
-                  );
-                })}
-            </Grid>
-            <div ref={loader} className="loader">
-              {isLoading && <ScrollSpinner />}
-            </div>
-          </Wrap>
-        ) : (
-          <Wrap margin="16px">
-            <Grid gtc="1fr 1fr" margin="0 0 20px">
-              {filteringList &&
-                filteringList.map((d, i) => {
-                  return (
-                    <ReviewCard
-                      _key={`${d}_${i}`}
-                      onClick={() => clickCard(d.reviewId)}
-                      {...d}
-                      images={d.images[0].imageUrl}
-                    />
-                  );
-                })}
-            </Grid>
-            <div ref={loader} className="loader">
-              {isLoading && <ScrollSpinner />}
-            </div>
-          </Wrap>
-        )}
+        <Category review />
+        <Wrap margin="16px">
+          <Grid gtc="1fr 1fr" margin="0 0 20px">
+            {filteringList &&
+              filteringList.map((v, i) => {
+                console.log(v.images);
+                return (
+                  <ReviewCard
+                    _key={i}
+                    onClick={() => clickCard(v.reviewId)}
+                    {...v}
+                    images={v.images[0].imageUrl || null}
+                  />
+                );
+              })}
+          </Grid>
+        </Wrap>
       </Grid>
     </>
   );

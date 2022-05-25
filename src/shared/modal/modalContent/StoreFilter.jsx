@@ -100,6 +100,8 @@ const StoreFilter = ({ filtering, setFiltering }) => {
           if (filter.transaction === l)
             return (
               <ToggleButton
+                color="#999"
+                border="1px solid #999"
                 margin="0 8px 0 0"
                 select
                 onClick={toggleTransaction}
@@ -111,6 +113,8 @@ const StoreFilter = ({ filtering, setFiltering }) => {
           else
             return (
               <ToggleButton
+                color="#999"
+                border="1px solid #999"
                 margin="0 8px 0 0"
                 onClick={toggleTransaction}
                 key={`${l}_${i}`}
@@ -127,6 +131,8 @@ const StoreFilter = ({ filtering, setFiltering }) => {
         if (filter.region.find((find) => find === r))
           return (
             <ToggleButton
+              color="#999"
+              border="1px solid #999"
               margin="8px 8px 0 0"
               select
               onClick={toggleRegion}
@@ -138,6 +144,8 @@ const StoreFilter = ({ filtering, setFiltering }) => {
         else
           return (
             <ToggleButton
+              color="#999"
+              border="1px solid #999"
               margin="8px 8px 0 0"
               onClick={toggleRegion}
               key={`${r}_${i}`}
