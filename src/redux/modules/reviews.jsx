@@ -116,8 +116,9 @@ export const likeReviewDB = (reviewId) => {
     Apis.likeReview(reviewId)
       .then(function (response) {
         console.log(response);
-        dispatch(getMyLike(response.data.totalLike));
-        dispatch(getReviewOne(reviewId));
+        // dispatch(getMyLike(response.data.totalLike));
+        // dispatch(getReviewOne(reviewId));
+        history.go(0);
       })
       .catch(function (error) {
         console.error(error.message);
