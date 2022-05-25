@@ -241,12 +241,9 @@ const Review = () => {
   useEffect(() => {
     // reset
     dispatch(getReviewData(null));
-<<<<<<< HEAD
   }, []);
 
   useEffect(() => {
-=======
->>>>>>> a27e41e9de3452e6f4d3678f3603916f7f1aa28d
     // get
     dispatch(getReviewDB());
   }, []);
