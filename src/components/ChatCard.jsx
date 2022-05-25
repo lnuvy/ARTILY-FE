@@ -10,9 +10,11 @@ const ChatCard = ({ room, onClick }) => {
   const { user } = useSelector((state) => state.user);
 
   const target =
-    room?.targetUser.userId === user.userId ? room.createUser : room.targetUser;
-  const nowConnected = target.connected;
-
+    room?.targetUser?.userId === user?.userId
+      ? room.createUser
+      : room.targetUser;
+  // const nowConnected = target.connected;
+  console.log(room);
   return (
     <Flex
       jc="space-between"
@@ -22,7 +24,7 @@ const ChatCard = ({ room, onClick }) => {
     >
       <Flex>
         <Flex margin="0 14px 0 0 ">
-          {/* <NowConnected nowConnected={nowConnected} /> */}
+          {/* <NowConnected /> */}
           <Image circle size={50} src={target?.profileImage} />
           {room?.newMessage > 0 && (
             <ReceiveMsg>
@@ -77,15 +79,15 @@ const ReceiveMsg = styled.div`
   left: -10px;
 `;
 
-const NowConnected = styled.div`
-  width: 6px;
-  height: 6px;
-  border-radius: 70%;
-  background-color: ${({ nowConnected }) =>
-    nowConnected ? `${theme.pallete.primary900};` : `${theme.pallete.gray2};`};
+// const NowConnected = styled.div`
+//   width: 6px;
+//   height: 6px;
+//   border-radius: 70%;
+//   background-color: ${({ nowConnected }) =>
+//     nowConnected ? `${theme.pallete.primary900};` : `${theme.pallete.gray2};`};
 
-  position: relative;
-  top: -20px;
-`;
+//   position: relative;
+//   top: -20px;
+// `;
 
 export default ChatCard;

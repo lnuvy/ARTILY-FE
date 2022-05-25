@@ -128,7 +128,7 @@ const ChatRoom = () => {
         <Icon margin="20px 15px" onClick={() => history.goBack()}>
           <ArrowBack />
         </Icon>
-        {/* <button
+        <button
           onClick={() => {
             window.alert("채팅방을 나가시겠습니까?");
             leaveRoom();
@@ -136,7 +136,7 @@ const ChatRoom = () => {
           }}
         >
           나가기
-        </button> */}
+        </button>
       </Wraptop>
 
       <Wrapinfo>
