@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Button, Grid, Text, Flex, Wrap } from "../elements";
+import { NoInfo } from "../components";
 import { getDetail, getMySellListDB } from "../redux/modules/mypage";
 import { history } from "../redux/configureStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +13,6 @@ import theme from "../styles/theme";
 const Manage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mypage.sellList);
-  console.log(mystoreList);
 
   const handleClickData = (data) => {
     dispatch(getDetail(data));
@@ -20,37 +20,36 @@ const Manage = () => {
   };
   useEffect(() => {
     dispatch(getMySellListDB());
-  }, []);
+  }, [mystoreList]);
   return (
     <>
       <Inner>
         <Text h2 bold margin="8px 0 13px 16px">
           판매 작품 관리하기
         </Text>
+        {console.log(mystoreList)}
         <Grid gtc="auto" rg="8px" cg="8px" margin="10px 0 20px 0">
-          {mystoreList?.map((list) => {
-            console.log(list);
-            //판매글이 없다면?
-            if (!list) {
+          {!mystoreList === [] ? (
+            mystoreList?.map((list) => {
+              console.log(list);
+              //판매글이 없다면?
+
               return (
-                <p>
-                  아직 등록한 작품이 없어요.
-                  <br />
-                  작품을 등록하시겠어요?
-                </p>
+                <ArtCard
+                  mystore
+                  key={list.postId}
+                  postId={list.postId}
+                  className="sell"
+                  {...list}
+                  onClick={() => handleClickData(list)}
+                />
               );
-            }
-            return (
-              <ArtCard
-                mystore
-                key={list.postId}
-                postId={list.postId}
-                className="sell"
-                {...list}
-                onClick={() => handleClickData(list)}
-              />
-            );
-          })}
+            })
+          ) : (
+            <>
+              <NoInfo text1="작성한 글이 없습니다" />
+            </>
+          )}
         </Grid>
         <Sellbtn>
           <Button
