@@ -56,6 +56,14 @@ const StoreDetail = () => {
   const followInfo = detailData?.user;
   const isMe = detailData?.user?.userId === currentUser?.userId;
   const [nowFollowing, setNowFollowing] = useState(false);
+  const likeThisPostList = useSelector((state) => state.store.myPostLikeList);
+
+  const isMyMarkup = likeThisPostList?.find((v) => v === postId);
+
+  // 0. 컴포넌트를 렌더링한다.
+  // 1. detailData.markupCnt 를 불러온다
+  // 2. likeThisPost를 불러온다.
+  // 3.
 
   // reset
   useEffect(() => {
@@ -66,11 +74,7 @@ const StoreDetail = () => {
 
   useEffect(() => {
     dispatch(getPostOne(postId));
-  }, []);
-
-  useEffect(() => {
-    dispatch(getMyPostLikeDB(postId));
-  }, []);
+  }, [detailData]);
 
   useEffect(() => {
     if (currentUser) {
@@ -95,6 +99,12 @@ const StoreDetail = () => {
       dispatch(deletePostDB(postId));
     }
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(getMyPostLikeDB());
+    }
+  }, []);
 
   // 팔로우
   const clickFollowbtn = () => {
@@ -310,7 +320,7 @@ const StoreDetail = () => {
           <FixedChatBar>
             <Flex>
               <Icon onClick={markupToggle}>
-                {likeThisPost === true ? (
+                {isMyMarkup ? (
                   <FavoriteFilled color={theme.pallete.primary850} />
                 ) : (
                   <Favorite color={theme.pallete.primary850} />
@@ -318,7 +328,7 @@ const StoreDetail = () => {
               </Icon>
 
               <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
-                {detailData.markupCnt}
+                {detailData?.markupCnt}
               </Text>
               <Text h3 medium margin="0 20px">
                 {detailData.price ? priceComma(detailData.price) : 0} 원

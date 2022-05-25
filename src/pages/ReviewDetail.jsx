@@ -38,6 +38,12 @@ const ReviewDetail = (props) => {
   const currentUser = useSelector((state) => state.user?.user);
   const reviewLike = useSelector((state) => state.review.myReviewLike);
   const isMe = reviewData?.user?.userId === currentUser?.userId;
+  const myReviewLikeList = useSelector(
+    (state) => state.review.myreviewLikeList2
+  );
+  const myReviewLikeCheck = myReviewLikeList.find(
+    (v) => v === reviewId.reviewId
+  );
 
   useEffect(() => {
     // reset
@@ -49,12 +55,10 @@ const ReviewDetail = (props) => {
   }, []);
 
   useEffect(() => {
-    dispatch(likeReviewListDB(reviewId.reviewId));
-  }, []);
-
-  useEffect(() => {
-    dispatch(likeReviewListDB(reviewId.reviewId));
-  }, [reviewLike]);
+    if (currentUser) {
+      dispatch(likeReviewListDB());
+    }
+  }, [myReviewLikeCheck]);
 
   function editFunc() {
     history.push(`/review/edit/${reviewId}`);
@@ -105,6 +109,10 @@ const ReviewDetail = (props) => {
                     <Text margin="0 0 0 8px" contents={v.nickname}></Text>
                   </Flex>
                   <Flex>
+                    {console.log(
+                      reviewData?.user?.userId === currentUser?.userId
+                    )}
+
                     {isMe ? (
                       <>
                         <Flex
@@ -248,7 +256,7 @@ const ReviewDetail = (props) => {
             <FixedChatBar>
               <Icon width="fit-content" height="fit-content" onClick={likeFunc}>
                 <Flex>
-                  {reviewLike && reviewLike ? (
+                  {myReviewLikeCheck && myReviewLikeCheck ? (
                     <FavoriteFilled color={theme.color.brandColor} />
                   ) : (
                     <Favorite color={theme.color.brandColor} />

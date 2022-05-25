@@ -27,7 +27,7 @@ const initialState = {
 
   detailData: null,
   otherPost: [],
-  myPostLike: false,
+  myPostLike: null,
   myPostLikeList: [],
 };
 

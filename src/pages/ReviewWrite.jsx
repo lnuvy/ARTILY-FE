@@ -36,7 +36,7 @@ const ReviewWrite = () => {
   const dispatch = useDispatch();
   const { postId, reviewId } = useParams();
   const path = useLocation().pathname;
-  const reviewWrite = path === "/review/write";
+  const reviewWrite = path === `/review/write/${postId}`;
   const reviewEdit = path === `/review/edit/${reviewId}`;
 
   // 인풋 한번에 받기 (체크박스는 e.target.id 가 아니라 e.target.checked 로 받아야해서 인라인에 적용함)
@@ -83,10 +83,14 @@ const ReviewWrite = () => {
       console.log(pair[0] + ", " + pair[1]);
     }
 
+    console.log(postId);
+    // /review/write/4c96e2b7a1e8
+
     if (reviewWrite) {
       console.log("reviewWrite");
       dispatch(postReviewDB(postId, formData));
     } else if (reviewEdit) {
+      console.log("reviewWrite");
       dispatch(editReviewDB(reviewId, formData));
     }
   };
