@@ -489,7 +489,7 @@ const Store = () => {
               })}
         </Grid>
       </Wrap>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
