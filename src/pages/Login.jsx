@@ -1,6 +1,6 @@
 import React from "react";
-import { Flex, Button, Wrap } from "../elements";
-
+import { Flex, Button, Wrap, Text } from "../elements";
+import styled from "styled-components";
 const Login = () => {
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_KEY;
   const KAKAO_REDIRECT_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
@@ -13,33 +13,51 @@ const Login = () => {
   const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=asdf`;
   return (
     <>
-      <Flex jc="center" margin="80px 0 10px 0">
-        <h2>ARTILY</h2>
-      </Flex>
-      <Flex jc="center">
-        <p>회원 서비스 이용을 위해 로그인 해주세요!</p>
-      </Flex>
-      <Wrap jc="center" margin="100px 0 0 0" padding="0 16px" width="100%">
-        <Button
-          outline
-          bc="white"
-          width="100%"
-          margin="0 0 16px"
-          onClick={() => (window.location.href = KAKAO_AUTH_URL)}
-        >
+      <Wrap textAlign="center" margin="100px 0">
+        <img src="/images/Artily.png" />
+        <Sub>회원 서비스 이용을 위해 로그인 해주세요!</Sub>
+      </Wrap>
+      <Kakaobtn>
+        <img src="/images/Kakao.png" />
+        <button onClick={() => (window.location.href = KAKAO_AUTH_URL)}>
           카카오로 시작하기
-        </Button>
-        <Button
+        </button>
+        {/* <Button
           outline
           bc="white"
           width="100%"
           onClick={() => (window.location.href = NAVER_AUTH_URL)}
         >
           네이버로 시작하기
-        </Button>
-      </Wrap>
+        </Button> */}
+      </Kakaobtn>
     </>
   );
 };
 
+const Sub = styled.p`
+  color: ${({ theme }) => theme.pallete.gray2};
+  font-size: 16px;
+  padding-top: 10px;
+`;
+const Kakaobtn = styled.div`
+  position: relative;
+  text-align: center;
+  padding: 0 16px;
+  img {
+    position: absolute;
+    top: 10px;
+    left: 38px;
+  }
+  button {
+    width: 100%;
+
+    border-radius: 8px;
+    border: 1px solid #dedede;
+    background-color: #fff;
+    height: 54px;
+    color: #000;
+    font-size: 16px;
+  }
+`;
 export default Login;

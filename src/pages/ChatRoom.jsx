@@ -79,7 +79,7 @@ const ChatRoom = () => {
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      setMessages((messages) => [...messages, data]);
+      setMessages((messages) => [...messages, data]); //과거 채팅기록 받아오기
     });
 
     return () => {

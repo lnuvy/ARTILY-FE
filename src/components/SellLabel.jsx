@@ -66,11 +66,13 @@ const SmallLabel = styled.div`
   .complete,
   .selling {
     height: 28px;
-    padding: 0 5px;
+    text-align: center;
     font-size: 13px;
-    margin: 10px 0 0 8px;
+    margin-left: 8px;
+
     border-radius: 5px;
     line-height: 28px;
+    min-width: 52px;
   }
   .complete {
     color: #fff;
