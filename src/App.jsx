@@ -13,6 +13,7 @@ import theme from "./styles/theme";
 import AuthRoute from "./routes/AuthRoute";
 import NoAuthRoute from "./routes/NoAuthRoute";
 import DragModal from "./shared/modal/DragModal";
+import { Helmet } from "react-helmet";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,28 +59,43 @@ function App() {
     });
   });
 
-  if (isLogin) {
-    return (
-      <MaxContainer>
-        <ConnectedRouter history={history}>
-          <Header>ARTIN</Header>
-          <AuthRoute />
+  return (
+    <>
+      <Helmet>
+        <title>Artily</title>
+        <meta property="description" content="신예 작가들의 작품 거래 플랫폼" />
+        <meta property="og:title" content="Artily" />
+        <meta
+          property="og:description"
+          content="신예 작가들의 작품 거래 플랫폼"
+        />
+        <meta property="og:image" content="%PUBLIC_URL%/images/artily-og.png" />
+      </Helmet>
+      {isLogin ? (
+        <>
+          <MaxContainer>
+            <ConnectedRouter history={history}>
+              <Header>ARTIN</Header>
+              <AuthRoute />
 
-          {modalOn && (title ? <Modal /> : <DragModal />)}
-        </ConnectedRouter>
-      </MaxContainer>
-    );
-  } else
-    return (
-      <MaxContainer>
-        <ConnectedRouter history={history}>
-          <Header>ARTIN</Header>
-          <NoAuthRoute />
+              {modalOn && (title ? <Modal /> : <DragModal />)}
+            </ConnectedRouter>
+          </MaxContainer>
+        </>
+      ) : (
+        <>
+          <MaxContainer>
+            <ConnectedRouter history={history}>
+              <Header>ARTIN</Header>
+              <NoAuthRoute />
 
-          {modalOn && (title ? <Modal /> : <DragModal />)}
-        </ConnectedRouter>
-      </MaxContainer>
-    );
+              {modalOn && (title ? <Modal /> : <DragModal />)}
+            </ConnectedRouter>
+          </MaxContainer>
+        </>
+      )}
+    </>
+  );
 }
 export default App;
 

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard, NoInfo, SocialUrl } from "../components";
 import theme from "../styles/theme";
-import { getUserInfo, userLogout } from "../redux/modules/user";
+import { getUserInfo, userLogout, logoutDB } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
 import { compose } from "redux";
 import { getFollowDB, getFollowerDB } from "../redux/modules/follow";
@@ -158,7 +158,7 @@ const MyPage = () => {
         <Flex
           onClick={() => {
             removeToken();
-            dispatch(userLogout());
+            dispatch(logoutDB());
             socket.disconnect();
           }}
         >

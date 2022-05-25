@@ -9,6 +9,7 @@ import { markupToggle } from "./store";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { authAlert } from "../../shared/commonAlert";
+import { clearFollow } from "./follow";
 
 const MySwal = withReactContent(Swal);
 
@@ -229,6 +230,13 @@ export const postMarkupToggle = (postId) => {
           }
         }
       });
+  };
+};
+
+export const logoutDB = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(userLogout());
+    dispatch(clearFollow());
   };
 };
 

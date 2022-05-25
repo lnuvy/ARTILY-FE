@@ -14,10 +14,15 @@ const ChatCard = ({ room, onClick }) => {
   const nowConnected = target.connected;
 
   return (
-    <Flex jc="space-between" margin="16px 24px" onClick={onClick}>
+    <Flex
+      jc="space-between"
+      margin="16px 24px"
+      onClick={onClick}
+      // borderBottom={`1px solid ${theme.pallete.gray1}`}
+    >
       <Flex>
-        <Flex>
-          <NowConnected nowConnected={nowConnected} />
+        <Flex margin="0 14px 0 0 ">
+          {/* <NowConnected nowConnected={nowConnected} /> */}
           <Image circle size={50} src={target?.profileImage} />
           {room?.newMessage > 0 && (
             <ReceiveMsg>

@@ -27,6 +27,7 @@ const Button = (props) => {
     fontSize,
     color,
     shadow,
+    cursor,
   } = props;
 
   const styles = {
@@ -51,6 +52,7 @@ const Button = (props) => {
     fontSize,
     color,
     shadow,
+    cursor,
   };
 
   return (
@@ -79,10 +81,10 @@ Button.defaultProps = {
   bottom: null,
   left: null,
   right: null,
+  cursor: "pointer",
 };
 
 const ButtonStyle = styled.button`
-  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   display: ${({ display }) => display};
   flex-grow: ${({ fg }) => fg};
@@ -101,6 +103,7 @@ const ButtonStyle = styled.button`
   font-size: ${({ fontSize }) => fontSize}; // 5.12 민경
   color: ${({ color }) => color}; // 5.12 민경
   justify-content: center;
+  cursor: ${({ cursor }) => cursor};
 
   ${(props) =>
     props.text

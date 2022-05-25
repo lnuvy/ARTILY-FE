@@ -114,13 +114,12 @@ const ArtCard = (props) => {
             {done === true ? (
               <Button
                 text
+                cursor="default"
                 fg="1"
                 br="0"
-                onClick={() => {
-                  //done이 true(판매완료)로 바뀌어야 함. 아직 구현 못함
-                }}
+                color={`${theme.pallete.gray2}`}
               >
-                판매중으로 상태변경하기
+                판매 완료
               </Button>
             ) : (
               <Button

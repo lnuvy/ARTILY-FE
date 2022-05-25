@@ -145,6 +145,10 @@ const postsSlice = createSlice({
       state.userfollower = action.payload;
       console.log(state.userfollower);
     },
+    clearFollow: (state, action) => {
+      state = initialState;
+      console.log("clear");
+    },
   },
 });
 
@@ -160,5 +164,6 @@ export const {
   getfollowerdata,
   getuserfollowdata,
   getuserfollowerdata,
+  clearFollow,
 } = actions;
 export default reducer;

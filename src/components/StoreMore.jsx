@@ -7,12 +7,12 @@ import Card from "./Card";
 import theme from "../styles/theme";
 
 const StoreMore = (props) => {
-  const { postId, images, markupCnt, postTitle, price } = props;
+  const { postId, images, markupCnt, postTitle, price, onClick } = props;
 
   if (postId) {
-    // console.log(images);
     return (
-      <Card onClick={() => history.push(`/store/view/${postId}`)}>
+      <Card onClick={onClick}>
+        {console.log(postId)}
         <Image
           height="168px"
           br="8px"

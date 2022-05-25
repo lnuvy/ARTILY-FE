@@ -1,20 +1,39 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { ProfileCard } from "../components";
+import { ProfileCard, NoInfo } from "../components";
 import { Button, Flex, Text, Wrap } from "../elements";
 import theme from "../styles/theme";
+import { getChatList } from "../redux/modules/chat";
+import { sellCompleteDB } from "../redux/modules/store";
+import { useLocation } from "react-router-dom";
 
 const SellComplete = () => {
-  const { roomList, userConnection } = useSelector((state) => state.chat);
+  const dispatch = useDispatch();
+  const path = useLocation().pathname;
+
+  const { chatRoom } = useSelector((state) => state.chat.chatData);
   const { postId } = useParams();
 
-  const [currentSelect, setCurrentSelect] = useState(0);
+  const [currentSelect, setCurrentSelect] = useState(undefined);
+  const [selectedUserId, setSelectedUserId] = useState(undefined);
 
   const arr = new Array(3);
 
   console.log(arr);
+
+  useEffect(() => {
+    dispatch(getChatList());
+  }, []);
+
+  function changeStateToComplete() {
+    if (!selectedUserId) {
+      alert("구매한 사람을 선택하세요");
+      return;
+    }
+    dispatch(sellCompleteDB(postId, selectedUserId, path));
+  }
 
   console.log(postId, currentSelect);
   return (
@@ -25,26 +44,43 @@ const SellComplete = () => {
             작품을 구매한 분은 누구인가요?
           </Text>
         </Flex>
-        <ProfileCard current={currentSelect === 0} />
-        <ProfileCard current={currentSelect === 1} />
-        <ProfileCard current={currentSelect === 2} />
-        {/* {arr.map((l, i) => {
-          return (
-            <ProfileCard
-              key={Math.random().toString(12)}
-              current={currentSelect === i}
-              onClick={setCurrentSelect(i)}
+        {chatRoom === undefined ? (
+          <>
+            <NoInfo
+              text1="구매한 작업이 없습니다."
+              button="돌아가기"
+              movePage="/mypage"
             />
-          );
-        })} */}
+          </>
+        ) : (
+          chatRoom
+            .filter((v) => v.post.postId === postId)
+            .map((v, i) => {
+              const targetUser = v.targetUser;
+
+              return (
+                <>
+                  <Selectbox>
+                    <ProfileCard
+                      {...targetUser}
+                      onClick={() => {
+                        setCurrentSelect(i);
+                        setSelectedUserId(targetUser.userId);
+                      }}
+                      current={currentSelect === i}
+                    />
+                  </Selectbox>
+                </>
+              );
+            })
+        )}
+        {/* <ProfileCard
+          onClick={() => setCurrentSelect(1)}
+          current={currentSelect === 1}
+        /> */}
+
         <Sellbtn>
-          <Button
-            shadow
-            width="100%"
-            onClick={() => {
-              console.log("선택완료");
-            }}
-          >
+          <Button shadow width="100%" onClick={changeStateToComplete}>
             선택완료
           </Button>
         </Sellbtn>
@@ -61,5 +97,7 @@ const Sellbtn = styled.div`
   width: 100%;
   padding: 16px;
 `;
+
+const Selectbox = styled.div``;
 
 export default SellComplete;

@@ -62,7 +62,7 @@ const Header = (props) => {
             >
               <Logo />
             </Icon>
-            <Icon
+            {/* <Icon
               onClick={(e) => {
                 e.stopPropagation();
                 history.push("/chat");
@@ -70,7 +70,7 @@ const Header = (props) => {
               margin="0 16px 0 0"
             >
               <Notification margin="0 16px 0 0" />
-            </Icon>
+            </Icon> */}
             <Icon
               onClick={(e) => {
                 //로그인 시에만 채팅 목록을 볼 수 있도록 조건 추가

@@ -28,7 +28,7 @@ const initialState = {
   detailData: null,
   otherPost: [],
   myPostLike: null,
-  myPostLikeList: [],
+  myPostLikeList: undefined,
 };
 
 export const getPostDB = (pageNumber) => {
@@ -69,20 +69,21 @@ export const getMyPostLikeDB = (postId) => {
   return async function (dispatch, getState, { history }) {
     Apis.getMyPostLike()
       .then((res) => {
-        if (postId) {
-          const likeList = res.data.markUpList;
-          console.log(likeList);
-          console.log(postId);
-          likeList.map((v, i) => {
-            if (postId === v) {
-              dispatch(myPostLike(true));
-              return;
-            } else {
-              dispatch(myPostLike(false));
-              return;
-            }
-          });
-        }
+        console.log(res);
+        // if (postId) {
+        //   const likeList = res.data.markUpList;
+        //   console.log(likeList);
+        //   console.log(postId);
+        //   likeList.map((v, i) => {
+        //     if (postId === v) {
+        //       dispatch(myPostLike(true));
+        //       return;
+        //     } else {
+        //       dispatch(myPostLike(false));
+        //       return;
+        //     }
+        //   });
+        // }
         dispatch(myPostLikeList(res.data.markUpList));
       })
       .catch((err) => {
@@ -97,13 +98,13 @@ export const postMyPostLikeDB = (postId) => {
     Apis.postMyPostLIke(postId)
       .then((res) => {
         console.log(res);
-        if (res.data.msg === "성공") {
-          dispatch(myPostLike(true));
-          return true;
-        } else {
-          dispatch(myPostLike(false));
-          return false;
-        }
+        // if (res.data.msg === "성공") {
+        //   dispatch(myPostLike(true));
+
+        // } else {
+        //   dispatch(myPostLike(false));
+        // }
+        history.go(0);
       })
       .catch((err) => {
         console.log(err);
@@ -184,6 +185,24 @@ export const deletePostDB = (postId) => {
         });
         dispatch(deletePost(postId));
         history.replace("/store");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const sellCompleteDB = (postId, userId) => {
+  return async function (dispatch, getState, { history }) {
+    const data = {
+      userId: userId,
+    };
+    Apis.makePostStateDone(postId, data)
+      .then((res) => {
+        console.log(res);
+        alert("판매 완료 처리 되었습니다");
+
+        history.push("/mypage/manage");
       })
       .catch((err) => {
         console.log(err);

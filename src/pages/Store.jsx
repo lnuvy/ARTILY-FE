@@ -453,6 +453,7 @@ const Store = () => {
             </Text> */}
           </Flex>
         </Wrap>
+        {console.log(filterList)}
 
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
           {searchList && query !== ""
@@ -460,9 +461,7 @@ const Store = () => {
             : filterList &&
               filterList.map((v) => {
                 if (isFree) {
-                  // 문자열이어야 검색이 돼서 수정함
                   if (v.price === "0") {
-                    //가격이 0원인 게시글 리스트를 보여줌
                     return (
                       <StoreCard
                         key={v.postId}
