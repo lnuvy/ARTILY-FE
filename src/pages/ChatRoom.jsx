@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { Flex, Image, Input, Text, Wrap, Icon } from "../elements";
+import {
+  Flex,
+  Image,
+  Input,
+  Text,
+  Wrap,
+  Icon,
+  Button,
+  Grid,
+} from "../elements";
 import { socket } from "../shared/socket";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,19 +18,25 @@ import theme from "../styles/theme";
 import { ChatFileInput } from "../components";
 import { ArrowUpward } from "../assets/icons";
 import { priceComma } from "../shared/utils";
-
+import { ArrowBack } from "../assets/icons";
+import { useHistory } from "react-router-dom";
 const ChatRoom = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { pathname } = useLocation();
 
   // url 에서 가져온 현재 방 이름
   const roomName = pathname.slice(6);
   const from = useSelector((state) => state.user.user?.userId);
+  const targetUserId = useSelector(
+    (state) => state.chat.nowChat.targetUser.userId
+  );
+  console.log(targetUserId);
 
   const { chatData, nowChat, roomMessages } = useSelector(
     (state) => state.chat
   );
-
+  // import recei
   const target =
     nowChat?.targetUser?.userId === from
       ? nowChat.createUser
@@ -97,19 +112,34 @@ const ChatRoom = () => {
     scrollToBottom();
   }, [messages]);
 
-  // const leaveRoom = () => {
-  //   socket.emit("leave_room", roomName);
-  // };
+  const leaveRoom = () => {
+    socket.emit("leave_room", roomName, targetUserId);
+  };
 
   useEffect(() => {
-    socket.on("leave_room", (data) => {
+    socket.on("_room", (data) => {
       console.log(data);
     });
   });
 
   return (
     <>
-      <Wrap padding="10px 16px">
+      <Wraptop>
+        <Icon margin="20px 15px" onClick={() => history.goBack()}>
+          <ArrowBack />
+        </Icon>
+        <button
+          onClick={() => {
+            window.alert("채팅방을 나가시겠습니까?");
+            leaveRoom();
+            history.goBack();
+          }}
+        >
+          나가기
+        </button>
+      </Wraptop>
+
+      <Wrapinfo>
         <Flex>
           {isDone ? (
             <ImageDark>
@@ -149,7 +179,7 @@ const ChatRoom = () => {
             </Flex>
           </Flex>
         </Flex>
-      </Wrap>
+      </Wrapinfo>
 
       <Container>
         {messages?.length > 0 &&
@@ -284,5 +314,22 @@ const FixedChatBar = styled.div`
   z-index: 20;
   background-color: white;
 `;
-
+const Wraptop = styled.div`
+  position: relative;
+  button {
+    position: absolute;
+    top: 0px;
+    right: 23px;
+    line-height: 24px;
+    font-size: 15px;
+    font-weight: bold;
+    color: ${({ theme }) => theme.pallete.primary850};
+    background-color: #fff;
+  }
+`;
+const Wrapinfo = styled.div`
+  /* border-top: 1px solid #eee; */
+  padding: 15px 16px;
+  background-color: #fffbe4;
+`;
 export default ChatRoom;

@@ -18,7 +18,8 @@ const Header = (props) => {
   //   path
   // );
   const isLogin = useSelector((state) => state.user.isLogin);
-
+  const roomName = useSelector((state) => state.chat.nowChat.roomName);
+  console.log(roomName);
   const { cg, width, gtc, textAlign, padding } = props;
 
   const styles = {
@@ -41,10 +42,11 @@ const Header = (props) => {
 
   const reviewWrite = path === "/review/write";
   const storeWrite = path === "/store/write";
-  const profile =
+  const Notarrowbtn =
     path === "/profile" ||
     path === "/profile/detail" ||
-    path === "/mypage/edit";
+    path === "/mypage/edit" ||
+    path === `/chat/${roomName}`;
 
   if (isShowNow)
     return (
@@ -105,7 +107,7 @@ const Header = (props) => {
         <ContentsContainer2 />
       </>
     );
-  } else if (!profile) {
+  } else if (!Notarrowbtn) {
     return (
       <>
         <HeaderStyle>

@@ -44,6 +44,7 @@ const ReviewDetail = (props) => {
   const myReviewLikeCheck = myReviewLikeList.find(
     (v) => v === reviewId.reviewId
   );
+  console.log(reviewId.reviewId);
 
   useEffect(() => {
     // reset

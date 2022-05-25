@@ -104,7 +104,11 @@ const MypageEdit = () => {
                 height="120px"
                 br="60px"
                 src={
-                  preview ? preview : getProfile ? getProfile.profileImage : ""
+                  preview
+                    ? preview
+                    : getProfile.profileImage
+                    ? getProfile.profileImage
+                    : ""
                 }
               />
 
@@ -161,7 +165,7 @@ const MypageEdit = () => {
                     fg="1"
                     br="6px"
                     type="text"
-                    placeholder="instargram 주소"
+                    placeholder="instargram ID"
                     value={website1 || ""}
                     onChange={(e) => setWebsite1(e.target.value)}
                   />

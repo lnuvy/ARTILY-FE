@@ -45,7 +45,6 @@ const ArtCard = (props) => {
   } = props;
 
   const nowuser = userInfo;
-  console.log(nowuser);
   const deletePosting = async () => {
     const result = await deleteSwal();
     // console.log(result);
