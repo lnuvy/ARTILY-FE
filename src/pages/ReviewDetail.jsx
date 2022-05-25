@@ -195,7 +195,11 @@ const ReviewDetail = (props) => {
                 <Text contents={v.reviewContent}></Text>
               </Wrap>
 
-              <Wrap padding="10px 16px 16px" bc={`${theme.pallete.primary100}`}>
+              <Wrap
+                padding="10px 16px 16px"
+                onClick={() => history.push(`/store/view/${v.seller.postId}`)}
+                bc={`${theme.pallete.primary100}`}
+              >
                 <Flex>
                   <Text h2 lineHeight="22px" margin="0 0 8px">
                     구매한 작품

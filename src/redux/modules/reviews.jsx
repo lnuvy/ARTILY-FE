@@ -201,7 +201,7 @@ const reviewSlice = createSlice({
         return;
       }
       state.filterList = state.list.filter(
-        (v) => v.seller.category === action.payload
+        (v) => v.seller?.category === action.payload
       );
     },
   },

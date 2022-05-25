@@ -15,6 +15,7 @@ const Wrap = (props) => {
     fg,
     border,
     borderBottom,
+    onClick,
   } = props;
 
   const styles = {
@@ -33,7 +34,11 @@ const Wrap = (props) => {
     borderBottom,
   };
 
-  return <WrapStyle {...styles}>{children}</WrapStyle>;
+  return (
+    <WrapStyle onClick={onClick} {...styles}>
+      {children}
+    </WrapStyle>
+  );
 };
 
 Wrap.defaultProps = {
