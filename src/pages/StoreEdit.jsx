@@ -125,17 +125,23 @@ const StoreEdit = () => {
 
   // 맵 모달
   const modalOn = (reg) => {
-    dispatch(
-      openModal({
-        title: "위치 선택",
-        content: (
-          <MapModal
-            setReceiveAddress={setReceiveAddress}
-            currentAddress={receiveAddress}
-          />
-        ),
-      })
-    );
+    if (reg === "category") {
+      dispatch(
+        openDragModal(<CategoryModal setReceiveCategory={setReceiveCategory} />)
+      );
+    } else {
+      dispatch(
+        openModal({
+          title: "위치 선택",
+          content: (
+            <MapModal
+              setReceiveAddress={setReceiveAddress}
+              currentAddress={receiveAddress}
+            />
+          ),
+        })
+      );
+    }
   };
 
   // 데이터 전달
