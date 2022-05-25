@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { Preview } from "../components";
 import { Button, Flex, Input, Textarea, ToggleButton, Wrap } from "../elements";
 import { clearPreview, editPosts3Url } from "../redux/modules/image";
-import { openDragModal } from "../redux/modules/modal";
+import { openDragModal, openModal } from "../redux/modules/modal";
 // import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
 import { inputSpaceReg } from "../shared/utils";
@@ -125,26 +125,17 @@ const StoreEdit = () => {
 
   // 맵 모달
   const modalOn = (reg) => {
-    if (reg === "category") {
-      dispatch(
-        openDragModal(
-          <CategoryModal
-            setReceiveCategory={setReceiveCategory}
-            receiveCategory={receiveCategory}
-          />
-        ),
-        [nowPost]
-      );
-    } else {
-      dispatch(
-        openDragModal(
+    dispatch(
+      openModal({
+        title: "위치 선택",
+        content: (
           <MapModal
             setReceiveAddress={setReceiveAddress}
             currentAddress={receiveAddress}
           />
-        )
-      );
-    }
+        ),
+      })
+    );
   };
 
   // 데이터 전달

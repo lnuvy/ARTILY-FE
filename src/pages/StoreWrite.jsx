@@ -68,20 +68,14 @@ const StoreWrite = () => {
   }, []);
 
   const modalOn = (reg) => {
-    if (reg === "category") {
-      dispatch(
-        openDragModal(<CategoryModal setReceiveCategory={setReceiveCategory} />)
-      );
-    } else {
-      dispatch(
-        openDragModal(
-          <MapModal
-            setReceiveAddress={setReceiveAddress}
-            currentAddress={receiveAddress}
-          />
-        )
-      );
-    }
+    dispatch(
+      openModal(
+        <MapModal
+          setReceiveAddress={setReceiveAddress}
+          currentAddress={receiveAddress}
+        />
+      )
+    );
   };
 
   const submitPost = () => {
