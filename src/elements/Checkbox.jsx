@@ -35,7 +35,6 @@ Checkbox.defaultProps = {};
 
 const CheckboxWrap = styled.div`
   flex-grow: ${({ fg }) => fg};
-
   display: flex;
   align-items: center;
   margin: ${({ margin }) => margin};
