@@ -126,14 +126,16 @@ const StoreDetail = () => {
     dispatch(getPostOne(postId));
   };
 
+  // const userId = detailData?.user?.userId;
   // 더보기
-  const moveToProfile = (userId) => {
-    if (userId === currentUser.userId) {
-      history.push(`/mypage`);
-    }
-    history.push(`/userprofile/${userId}`);
-  };
-
+  // const moveToProfile = () => {
+  //   if (detailData?.user?.userId === currentUser?.userId) {
+  //     history.push(`/mypage`);
+  //   }
+  //   history.push(`/userprofile/${userId}`);
+  // };
+  console.log(currentUser?.userId);
+  console.log(detailData?.user?.userId);
   // 채팅하기 버튼 눌렀을때
   const startChat = () => {
     const postUser = detailData.user;
@@ -293,9 +295,16 @@ const StoreDetail = () => {
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
                           text
-                          onClick={() =>
-                            moveToProfile(otherPosts[0].user.userId)
-                          }
+                          onClick={() => {
+                            //내 글일경우 마이페이지로 이동
+                            if (detailData.user.userId === currentUser.userId) {
+                              history.push(`/mypage`);
+                            } else {
+                              history.push(
+                                `/userprofile/${detailData.user.userId}`
+                              );
+                            }
+                          }}
                         >
                           더보기
                         </Button>
@@ -314,9 +323,16 @@ const StoreDetail = () => {
                           color={`${theme.color.brandColor}`}
                           text
                           padding="0"
-                          onClick={() =>
-                            moveToProfile(otherPosts[0].user.userId)
-                          }
+                          onClick={() => {
+                            //내 글일경우 마이페이지로 이동
+                            if (detailData.user.userId === currentUser.userId) {
+                              history.push(`/mypage`);
+                            } else {
+                              history.push(
+                                `/userprofile/${detailData.user.userId}`
+                              );
+                            }
+                          }}
                         >
                           더보기
                         </Button>
