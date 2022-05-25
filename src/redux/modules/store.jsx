@@ -27,7 +27,7 @@ const initialState = {
 
   detailData: null,
   otherPost: [],
-  myPostLike: false,
+  myPostLike: null,
   myPostLikeList: [],
 };
 
@@ -71,6 +71,8 @@ export const getMyPostLikeDB = (postId) => {
       .then((res) => {
         if (postId) {
           const likeList = res.data.markUpList;
+          console.log(likeList);
+          console.log(postId);
           likeList.map((v, i) => {
             if (postId === v) {
               dispatch(myPostLike(true));

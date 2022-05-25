@@ -8,20 +8,19 @@ import { Apis } from "../../shared/api";
  */
 
 const initialState = {
-  //  Reveiw.js
   list: null,
   filterList: null,
-  // ReviewDetail.js
+  myReviewLike: null,
+  myreviewLikeList2: [],
+  reviewData: null,
+  buyList: null,
+  isFetching: false,
+  infinityScroll: {},
   detailData: {
     buyer: [],
     defferents: [],
     myLike: "-",
   },
-
-  reviewData: null,
-  buyList: null,
-  isFetching: false,
-  infinityScroll: {},
 };
 
 export const getReviewDB = (pageNumber) => {
@@ -126,6 +125,34 @@ export const likeReviewDB = (reviewId) => {
   };
 };
 
+export const likeReviewListDB = (reviewId) => {
+  return async function (dispatch, getState, { history }) {
+    Apis.getLikeReview()
+      .then((res) => {
+        if (reviewId) {
+          const likeList = res.data.likeList;
+          likeList.map((v, i) => {
+            if (reviewId === v) {
+              console.log(v);
+              dispatch(myReviewLike(true));
+              return;
+            } else {
+              console.log("false");
+              dispatch(myReviewLike(false));
+              return;
+            }
+          });
+        }
+        console.log(res.data.likeList);
+        dispatch(myreviewLikeList(res.data.likeList));
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response);
+      });
+  };
+};
+
 const reviewSlice = createSlice({
   name: "reivew",
   initialState: initialState,
@@ -145,6 +172,12 @@ const reviewSlice = createSlice({
     },
     getMyLike: (state, action) => {
       state.detailData.myLike = action.payload;
+    },
+    myReviewLike: (state, action) => {
+      state.myReviewLike = action.payload;
+    },
+    myreviewLikeList: (state, action) => {
+      state.myreviewLikeList2 = action.payload;
     },
     getSellItem: (state, action) => {
       function checkSellItem(element) {
@@ -182,5 +215,7 @@ export const {
   getBuyList,
   getMyLike,
   getSellItem,
+  myReviewLike,
+  myreviewLikeList,
 } = actions;
 export default reducer;

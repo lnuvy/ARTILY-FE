@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Preview, Card } from "../components";
+import { Preview, Card, NoInfo } from "../components";
 import ImagePreview from "../components/ImagePreview";
 import theme from "../styles/theme";
 import {
@@ -69,12 +69,19 @@ const ReviewSelect = () => {
         })
       ) : (
         <>
-          <Text textAlign="center" margin="160px 0 0">
+          <>
+            <NoInfo
+              text1="구매한 작업이 없습니다."
+              button="돌아가기"
+              movePage="/mypage"
+            />
+          </>
+          {/* <Text textAlign="center" margin="160px 0 0">
             구매한 작업이 없습니다.
           </Text>
           <Wrap margin="16px auto 0" width="fit-content">
             <Button onClick={() => history.goBack()}>돌아가기</Button>
-          </Wrap>
+          </Wrap> */}
           <Wrap margin="16px auto 0" width="fit-content">
             <Button onClick={() => history.push("/review/write/48d3da2aa233")}>
               임시 글쓰기

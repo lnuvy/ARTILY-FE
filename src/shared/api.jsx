@@ -38,6 +38,7 @@ export const Apis = {
     Api.delete(`api/review/${reviewId}`, { reviewId: reviewId }),
   likeReview: (reviewId) =>
     Api.post(`api/like/${reviewId}`, { reviewId: reviewId }),
+  getLikeReview: () => Api.get(`api/like`),
 
   // store API
   // getStore: (pageHandler) =>

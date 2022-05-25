@@ -450,12 +450,12 @@ const Store = () => {
                   );
                 }
               })}
-            <Text body3 margin="16px 0 0" color={theme.pallete.gray3}>
+            {/* <Text body3 margin="16px 0 0" color={theme.pallete.gray3}>
               {filtering.transaction === "전체" ||
               filtering.region.indexOf("전체") === 1
                 ? null
                 : ` 검색 결과 ${filterList.length}건`}
-            </Text>
+            </Text> */}
           </Flex>
         </Wrap>
 
@@ -489,7 +489,7 @@ const Store = () => {
               })}
         </Grid>
       </Wrap>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

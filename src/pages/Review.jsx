@@ -241,6 +241,9 @@ const Review = () => {
   useEffect(() => {
     // reset
     dispatch(getReviewData(null));
+  }, []);
+
+  useEffect(() => {
     // get
     dispatch(getReviewDB());
   }, []);

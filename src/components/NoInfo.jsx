@@ -17,15 +17,14 @@ const NoInfo = ({
   const history = useHistory();
   if (list && list.length > 0) return <>{children}</>;
   return (
-    <Grid textAlign="center" margin="40px 0 20px 0 ">
+    <Grid textAlign="center" margin="160px 0 ">
       {/* 해당 내용이랑 어울리는 디자인 이미지 */}
       {/* <Image /> */}
       <Text>{text1}</Text>
       <Text>{text2}</Text>
       {button ? (
         <Button
-          width="90%"
-          margin="40px auto 0 auto"
+          margin="20px auto 0 auto"
           onClick={() => {
             history.push(movePage);
           }}

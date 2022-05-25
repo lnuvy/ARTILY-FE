@@ -58,31 +58,31 @@ const StoreDetail = () => {
   const followInfo = detailData?.user;
   const isMe = detailData?.user?.userId === currentUser?.userId;
   const [nowFollowing, setNowFollowing] = useState(false);
-  const [myLike, setMyLike] = useState(false);
+  const likeThisPostList = useSelector((state) => state.store.myPostLikeList);
+
+  const isMyMarkup = likeThisPostList?.find((v) => v === postId);
+
+  // 0. 컴포넌트를 렌더링한다.
+  // 1. detailData.markupCnt 를 불러온다
+  // 2. likeThisPost를 불러온다.
+  // 3.
 
   // reset
   useEffect(() => {
     dispatch(go2detail([]));
     dispatch(otherPost([]));
     dispatch(filteringData("전체"));
-  }, [postId]);
+  }, []);
 
   useEffect(() => {
     dispatch(getPostOne(postId));
-  }, [postId]);
+  }, []);
 
   useEffect(() => {
     if (currentUser) {
       dispatch(getFollowDB());
     }
   }, [currentUser]);
-
-  useEffect(() => {
-    if (currentUser) {
-      dispatch(getMyPostLikeDB(postId));
-      dispatch(getPostOne(postId));
-    }
-  }, [likeThisPost]);
 
   useEffect(() => {
     const result =
@@ -102,6 +102,12 @@ const StoreDetail = () => {
     }
   };
 
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(getMyPostLikeDB());
+    }
+  }, []);
+
   // 팔로우
   const clickFollowbtn = () => {
     const userData = {
@@ -110,26 +116,14 @@ const StoreDetail = () => {
       profileImage: followInfo.profileImage,
     };
 
-    console.log(userData);
-
     dispatch(addFollowDB(userData));
     setNowFollowing(!nowFollowing);
   };
 
   // 찜하기
   const markupToggle = async () => {
-    const likeFunc = () => {
-      if (currentUser) {
-        dispatch(postMyPostLikeDB(postId));
-      }
-    };
-    if ((await likeFunc()) === true) {
-      setMyLike(true);
-      console.log(myLike);
-    } else {
-      setMyLike(false);
-      console.log(myLike);
-    }
+    dispatch(postMyPostLikeDB(postId));
+    dispatch(getPostOne(postId));
   };
 
   // 더보기
@@ -350,7 +344,7 @@ const StoreDetail = () => {
           <FixedChatBar>
             <Flex>
               <Icon onClick={markupToggle}>
-                {likeThisPost === true ? (
+                {isMyMarkup ? (
                   <FavoriteFilled color={theme.pallete.primary850} />
                 ) : (
                   <Favorite color={theme.pallete.primary850} />
@@ -358,7 +352,7 @@ const StoreDetail = () => {
               </Icon>
 
               <Text h3 medium margin="0 0 0 4px" color={theme.pallete.gray3}>
-                {detailData.markupCnt}
+                {detailData?.markupCnt}
               </Text>
               <Text h3 medium margin="0 20px">
                 {detailData.price ? priceComma(detailData.price) : 0} 원

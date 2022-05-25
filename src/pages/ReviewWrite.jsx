@@ -36,6 +36,8 @@ const ReviewWrite = () => {
   // 할당
   const { postId, reviewId } = useParams();
   const path = useLocation().pathname;
+  const reviewWrite = path === `/review/write/${postId}`;
+  const reviewEdit = path === `/review/edit/${reviewId}`;
 
   const [inputs, setinputs] = useState({});
   const { imageDt, imageArr, fileObj } = useSelector((state) => state.image);
@@ -123,11 +125,14 @@ const ReviewWrite = () => {
       console.log(pair[0] + ", " + pair[1]);
     }
 
-    if (path === `/review/write/${postId}`) {
+    console.log(postId);
+    // /review/write/4c96e2b7a1e8
+
+    if (reviewWrite) {
+      console.log("reviewWrite");
       dispatch(postReviewDB(postId, formData));
-    }
-    if (path === `/review/edit/${reviewId}`) {
-      console.log("hi");
+    } else if (reviewEdit) {
+      console.log("reviewWrite");
       dispatch(editReviewDB(reviewId, formData));
     }
   };
