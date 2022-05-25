@@ -94,6 +94,7 @@ const chatSlice = createSlice({
     },
 
     // 목록 보고있을때 lastMessage 와 lastTime 갱신하기
+    //가장 최근 메시지 띄우기
     receiveChat: (state, action) => {
       const { roomName, message, time, from } = action.payload;
 

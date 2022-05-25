@@ -24,7 +24,9 @@ const Chat = () => {
     socket.on("join_room", (data) => {
       console.log("join_room socketOn:  ", data);
       dispatch(receiveChatRoom(data));
-      socket.emit("enter_room", data.roomName);
+      socket.emit("enter_room", data.roomName); //내가 보내는거
+      //키값이 서버와 동일해야 실행됨
+      //서버는 socket.on(받는거)
     });
 
     socket.on("receive_message", (data) => {

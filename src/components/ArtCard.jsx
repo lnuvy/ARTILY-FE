@@ -70,9 +70,7 @@ const ArtCard = (props) => {
 
             <Wrap>
               <Flex>
-                <Text medium h2 fg="1" margin="10px 0 0 0">
-                  {postTitle}
-                </Text>
+                <SellList>{postTitle}</SellList>
                 <SellLabel manageLabel done={done} />
               </Flex>
               {price ? (
@@ -292,5 +290,16 @@ const Label = styled.div`
 const Border = styled.div`
   padding-top: 10px;
   border-top: 1px solid #ddd;
+`;
+//게시글 제목 글자수 길어지는거 방지
+const SellList = styled.p`
+  width: 60%;
+  text-overflow: ellipsis;
+  /* overflow: hidden; */
+  /* white-space: nowrap; */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 라인수 */
+
+  -webkit-box-orient: vertical;
 `;
 export default ArtCard;
