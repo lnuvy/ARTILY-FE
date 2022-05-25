@@ -111,6 +111,10 @@ const StoreDetail = () => {
 
   // 팔로우
   const clickFollowbtn = () => {
+    if (!currentUser) {
+      alert("로그인하세요");
+      return;
+    }
     const userData = {
       followId: followInfo.userId,
       followName: followInfo.nickname,
@@ -122,24 +126,28 @@ const StoreDetail = () => {
   };
 
   // 찜하기
-  const markupToggle = async () => {
-    console.log(myLike);
-
-    await dispatch(postMyPostLikeDB(postId));
-
-    // dispatch(getPostOne(postId));
+  const markupToggle = () => {
+    if (!currentUser) {
+      alert("로그인해주세요");
+      return;
+    }
+    dispatch(postMyPostLikeDB(postId));
   };
 
   // 더보기
   const moveToProfile = (userId) => {
-    if (userId === currentUser.userId) {
-      history.push(`/mypage`);
-    }
+    // if (userId === currentUser.userId) {
+    //   history.push(`/mypage`);
+    // }
     history.push(`/userprofile/${userId}`);
   };
 
   // 채팅하기 버튼 눌렀을때
   const startChat = () => {
+    if (!currentUser) {
+      alert("로그인해주세요");
+      return;
+    }
     const postUser = detailData.user;
     const nowUser = currentUser?.userId;
     let roomName = `from${nowUser}_to${postUser.userId}_${postId}`;
@@ -149,7 +157,6 @@ const StoreDetail = () => {
         (room) => room.roomName === roomName
       );
       if (isExistRoom) {
-        console.log("isExistRoom!!!!!!!");
         history.push(`/chat/${roomName}`);
         return;
       }
@@ -169,8 +176,6 @@ const StoreDetail = () => {
       profileImage: detailData.user.profileImage,
       connected: null,
     };
-
-    console.log(targetUser);
 
     socket.emit("join_room", roomName, postUser, chatPostData);
     dispatch(
@@ -286,7 +291,7 @@ const StoreDetail = () => {
               <>
                 <Flex margin="4px 0 10px">
                   <Text h2 lineHeight="22px">
-                    작가의 다른 작품
+                    {detailData?.user?.nickname}의 다른 작품
                   </Text>
 
                   {isMe ? (
@@ -337,7 +342,16 @@ const StoreDetail = () => {
                 >
                   <Grid gtc="1fr 1fr" rg="18px" cg="8px" margin="0 0 20px">
                     {otherPosts.map((post) => {
-                      return <StoreMore key={post.postId} {...post} />;
+                      return (
+                        <StoreMore
+                          key={post.postId}
+                          {...post}
+                          onClick={() => {
+                            history.push(`/store/view/${post.postId}`);
+                            history.go(0);
+                          }}
+                        />
+                      );
                     })}
                   </Grid>
                 </NoInfo>
@@ -370,13 +384,20 @@ const StoreDetail = () => {
               </Text>
             </Flex>
             <Flex jc="end">
-              {isMe ? (
+              {currentUser && isMe ? (
                 <Button padding="8px 16px">
                   <Text color="white">판매완료로 변경</Text>
                 </Button>
-              ) : (
+              ) : currentUser && !isMe ? (
                 <Button padding="12px 16px" onClick={startChat}>
                   채팅하기
+                </Button>
+              ) : (
+                <Button
+                  padding="12px 16px"
+                  onClick={() => history.push("/mypage")}
+                >
+                  로그인
                 </Button>
               )}
             </Flex>

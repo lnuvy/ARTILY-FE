@@ -263,28 +263,24 @@ const ChatRoom = () => {
       </Container>
       <FixedChatBar>
         <Flex>
-          <ChatFileInput />
-          {uploadFile ? (
-            <Image width="60px" height="50px" src={uploadFile} />
-          ) : (
-            <Input
-              withBtn
-              icon={
-                <Icon padding="0" onClick={sendMessage}>
-                  <ArrowUpward />
-                </Icon>
-              }
-              fg="1"
-              square
-              br="8px"
-              placeholder="메세지를 작성해주세요"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") sendMessage();
-              }}
-            />
-          )}
+          {/* <ChatFileInput /> */}
+          <Input
+            withBtn
+            icon={
+              <Icon padding="0" onClick={sendMessage}>
+                <ArrowUpward />
+              </Icon>
+            }
+            fg="1"
+            square
+            br="8px"
+            placeholder="메세지를 작성해주세요"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") sendMessage();
+            }}
+          />
         </Flex>
       </FixedChatBar>
     </>

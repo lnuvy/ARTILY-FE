@@ -70,6 +70,10 @@ const ReviewDetail = (props) => {
   }
 
   async function likeFunc() {
+    if (!currentUser) {
+      alert("로그인하세요");
+      return;
+    }
     await dispatch(likeReviewDB(reviewId.reviewId)).try(likeFuncList());
   }
 
@@ -91,6 +95,10 @@ const ReviewDetail = (props) => {
 
   // 팔로우 토글
   const followToggle = () => {
+    if (!currentUser) {
+      alert("로그인하세요");
+      return;
+    }
     const userData = {
       followId: detailData.buyer[0].userId,
       followName: detailData.buyer[0].nickname,
@@ -102,6 +110,10 @@ const ReviewDetail = (props) => {
     setNowFollowing(!nowFollowing);
   };
   const sellerfollow = () => {
+    if (!currentUser) {
+      alert("로그인하세요");
+      return;
+    }
     const userData = {
       followId: detailData.buyer[0].seller.user.userId,
       followName: detailData.buyer[0].nickname,
@@ -216,12 +228,7 @@ const ReviewDetail = (props) => {
 
               <Wrap margin="16px">
                 <Flex margin="0 0 11px">
-                  <Seller>
-                    <Text h3>
-                      <span className="seller">{v.seller.user.nickname} </span>
-                      님의 다른 작품
-                    </Text>
-                  </Seller>
+                  <Text h2>{v.seller.user.nickname}의 다른 작품</Text>
                   {isMe ? (
                     <>
                       <Wrap fg="1"></Wrap>
@@ -230,6 +237,9 @@ const ReviewDetail = (props) => {
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
                           text
+                          onClick={() =>
+                            history.push(`/userprofile/${v.seller.user.userId}`)
+                          }
                         >
                           더보기
                         </Button>
@@ -247,6 +257,9 @@ const ReviewDetail = (props) => {
                           fontSize="16px"
                           color={`${theme.color.brandColor}`}
                           text
+                          onClick={() =>
+                            history.push(`/userprofile/${v.seller.user.userId}`)
+                          }
                         >
                           더보기
                         </Button>
