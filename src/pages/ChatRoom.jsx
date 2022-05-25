@@ -113,8 +113,7 @@ const ChatRoom = () => {
   }, [messages]);
 
   const leaveRoom = () => {
-    socket.emit("leave_room", roomName);
-    // dispatch(receiveChat(data));
+    socket.emit("leave_room", roomName, targetUserId);
   };
 
   useEffect(() => {

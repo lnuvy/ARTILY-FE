@@ -369,7 +369,7 @@ const Store = () => {
   const modalOn = () => {
     dispatch(
       openModal({
-        title: " ",
+        title: "",
         content: (
           <StoreFilter filtering={filtering} setFiltering={setFiltering} />
         ),
@@ -398,12 +398,7 @@ const Store = () => {
         />
         <Wrap margin="16px 0">
           <Flex jc="space-between">
-            <Checkbox
-              checked={isFree}
-              id="checkFree"
-              zoom={1.3}
-              onChange={checkFree}
-            >
+            <Checkbox checked={isFree} id="checkFree" onChange={checkFree}>
               <Text body2>나눔 작품만 보기</Text>
             </Checkbox>
             <Flex onClick={modalOn} jc="center" ai="center">
