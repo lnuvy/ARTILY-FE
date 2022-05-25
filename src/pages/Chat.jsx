@@ -13,6 +13,7 @@ import {
 import Loader from "../shared/Loader";
 import { socket } from "../shared/socket";
 import theme from "../styles/theme";
+import styled from "styled-components";
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -47,18 +48,20 @@ const Chat = () => {
   return (
     <>
       <Suspense fallback={Loader}>
-        <Grid border={`1px solid ${theme.pallete.gray1}`}>
+        <Grid>
           <NoInfo
             list={chatData?.chatRoom}
             text1="아직 대화중인 사람이 없어요!"
           >
             {chatData?.chatRoom?.map((room, i) => {
               return (
-                <ChatCard
-                  key={room.roomName}
-                  room={room}
-                  onClick={() => enterRoom(room.roomName)}
-                />
+                <CardWrap>
+                  <ChatCard
+                    key={room.roomName}
+                    room={room}
+                    onClick={() => enterRoom(room.roomName)}
+                  />
+                </CardWrap>
               );
             })}
           </NoInfo>
@@ -69,3 +72,8 @@ const Chat = () => {
 };
 
 export default Chat;
+
+const CardWrap = styled.div`
+  color: red;
+  border-bottom: 1px solid ${theme.pallete.gray1};
+`;

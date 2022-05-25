@@ -162,7 +162,7 @@ const ReviewDetail = (props) => {
                         <Flex padding="6px" onClick={followToggle}>
                           <FollowCheck text follow={nowFollowing} />
                         </Flex>
-                        <Flex
+                        {/* <Flex
                           padding="6px"
                           onClick={() => {
                             console.log("신고하기");
@@ -171,7 +171,7 @@ const ReviewDetail = (props) => {
                           <Text body1 color={theme.pallete.primary900}>
                             신고
                           </Text>
-                        </Flex>
+                        </Flex> */}
                       </>
                     )}
                   </Flex>
