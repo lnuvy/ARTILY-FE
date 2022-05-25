@@ -18,7 +18,7 @@ const Login = () => {
         <Sub>회원 서비스 이용을 위해 로그인 해주세요!</Sub>
       </Wrap>
       <Kakaobtn>
-        <img src="/images/KakaoLogo.png" />
+        <img src="/images/Kakao.png" />
         <button onClick={() => (window.location.href = KAKAO_AUTH_URL)}>
           카카오로 시작하기
         </button>
