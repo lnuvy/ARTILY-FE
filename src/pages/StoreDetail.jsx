@@ -385,7 +385,13 @@ const StoreDetail = () => {
             </Flex>
             <Flex jc="end">
               {currentUser && isMe ? (
-                <Button padding="8px 16px">
+                <Button
+                  padding="8px 16px"
+                  onClick={() => {
+                    //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
+                    history.push(`/completed/${postId}`);
+                  }}
+                >
                   <Text color="white">판매완료로 변경</Text>
                 </Button>
               ) : currentUser && !isMe ? (

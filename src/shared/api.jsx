@@ -53,6 +53,7 @@ export const Apis = {
   deleteStore: (postId) => Api.delete(`/api/post/${postId}`),
   getMyPostLike: () => Api.get(`/api/markup`),
   postMyPostLIke: (postId) => Api.post(`/api/markup/${postId}`),
+  makePostStateDone: (postId, data) => Api.patch(`/api/done/${postId}`, data),
 
   // user API
   getKakaoCode: (code) => Api.get(`/oauth/kakao/callback?code=${code}`),

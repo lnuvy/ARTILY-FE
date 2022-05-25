@@ -192,6 +192,24 @@ export const deletePostDB = (postId) => {
   };
 };
 
+export const sellCompleteDB = (postId, userId) => {
+  return async function (dispatch, getState, { history }) {
+    const data = {
+      userId: userId,
+    };
+    Apis.makePostStateDone(postId, data)
+      .then((res) => {
+        console.log(res);
+        alert("판매 완료 처리 되었습니다");
+
+        history.push("/mypage/manage");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 const postsSlice = createSlice({
   name: "store",
   initialState: initialState,
