@@ -76,7 +76,7 @@ const StoreDetail = () => {
 
   useEffect(() => {
     dispatch(getPostOne(postId));
-  }, [detailData]);
+  }, []);
 
   useEffect(() => {
     if (currentUser) {
