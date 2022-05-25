@@ -163,7 +163,10 @@ const Review = () => {
   }, [loader]);
   useEffect(() => {
     // reset
-    dispatch(getReviewData());
+    dispatch(getReviewData(null));
+  }, []);
+
+  useEffect(() => {
     // get
     dispatch(getReviewDB());
   }, []);
