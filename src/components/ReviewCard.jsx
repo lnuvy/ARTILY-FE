@@ -6,12 +6,6 @@ import theme from "../styles/theme";
 import { Card } from "../components/index";
 import { Flex, Image, Text, Icon } from "../elements/index";
 import { Favorite, FavoriteFilled } from "../assets/icons";
-import {
-  getReviewData,
-  getReviewDB,
-  likeReviewListDB,
-  myreviewLikeList,
-} from "../redux/modules/reviews";
 
 const ReviewCard = (props) => {
   const {
@@ -35,17 +29,9 @@ const ReviewCard = (props) => {
   const myReviewLikeList = useSelector(
     (state) => state.review.myreviewLikeList2
   );
-  const myReviewLikeCheck = myReviewLikeList.find((v) => v === reviewId);
 
-  useEffect(() => {
-    dispatch(myreviewLikeList([]));
-  }, []);
-
-  useEffect(() => {
-    if (currentUser) {
-      dispatch(likeReviewListDB());
-    }
-  }, [myReviewLikeCheck]);
+  const myReviewLikeListArray = [...myReviewLikeList];
+  const myReviewLikeCheck = myReviewLikeListArray.find((v) => v === reviewId);
 
   return (
     <Card onClick={onClick} _key={_key}>

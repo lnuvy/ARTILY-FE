@@ -59,7 +59,7 @@ const ReviewDetail = (props) => {
     if (currentUser) {
       dispatch(likeReviewListDB());
     }
-  }, [myReviewLikeCheck]);
+  }, []);
 
   function editFunc() {
     history.push(`/review/edit/${reviewId}`);

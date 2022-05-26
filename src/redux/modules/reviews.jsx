@@ -114,7 +114,7 @@ export const likeReviewDB = (reviewId) => {
   return async function (dispatch, getState, { history }) {
     Apis.likeReview(reviewId)
       .then(function (response) {
-        // console.log(response);
+        console.log(response);
         // dispatch(getMyLike(response.data.totalLike));
         // dispatch(getReviewOne(reviewId));
         history.go(0);
