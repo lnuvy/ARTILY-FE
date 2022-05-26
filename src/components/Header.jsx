@@ -104,7 +104,13 @@ const Header = (props) => {
         {console.log(param)}
         <HeaderStyle2>
           <Flex height="48px" margin="0 60px 0 0">
-            <Icon margin="0 0 0 16px" onClick={() => history.goBack()}>
+            <Icon
+              margin="0 0 0 16px"
+              onClick={() => {
+                console.log("hi");
+                history.goBack();
+              }}
+            >
               <Close />
             </Icon>
             <Text medium fg="1" textAlign="center">
