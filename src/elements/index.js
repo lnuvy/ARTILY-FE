@@ -4,6 +4,7 @@ import Flex from "./Flex";
 import Grid from "./Grid";
 import Image from "./Image";
 import ImageCarousel from "./ImageCarousel";
+import ImageCarouselBanner from "./ImageCarouselBanner";
 import Input from "./Input";
 import InputRef from "./InputRef";
 import Text from "./Text";
@@ -28,4 +29,5 @@ export {
   Image,
   ToggleButton,
   Wrap,
+  ImageCarouselBanner,
 };

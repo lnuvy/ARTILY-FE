@@ -65,7 +65,12 @@ const Store = () => {
     })
     .map((l) => {
       return (
-        <StoreCard key={l.postId} {...l} onClick={() => handleClickData(l)} />
+        <StoreCard
+          key={l.postId}
+          {...l}
+          imageUrl={l.images[0].imageUrl}
+          onClick={() => handleClickData(l)}
+        />
       );
     });
 
