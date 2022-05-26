@@ -178,7 +178,9 @@ const ButtonWrap = styled.div`
   position: fixed;
   z-index: 100;
   top: 0;
+  right: 0;
   margin: 0 auto;
-  width: 100%;
+  width: fit-content;
+
   max-width: ${theme.view.maxWidth};
 `;

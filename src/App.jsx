@@ -109,4 +109,5 @@ const MaxContainer = styled.div`
   margin: 0 auto;
   position: relative;
   overflow-x: hidden;
+  transform: translateZ(0);
 `;
