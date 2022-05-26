@@ -222,7 +222,7 @@ const SquareInput = styled.input`
     `
       : `
       color: ${({ color }) => color};
-      border: 1px solid ${theme.pallete.gray3};
+      border: ${({ border }) => border};
       :focus {
         border: 1px solid ${theme.color.brandColor};
       }
