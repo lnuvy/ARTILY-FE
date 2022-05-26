@@ -302,6 +302,7 @@ const StoreDetail = () => {
                       <Text lineHeight="22px">
                         <Button
                           fontSize="16px"
+                          padding="0px"
                           color={`${theme.color.brandColor}`}
                           text
                           onClick={() => {
