@@ -210,13 +210,14 @@ const ChatRoom = () => {
                   fd="column"
                   ai="flex-end"
                 >
-                  <Flex fd="column" ai="start" margin="16px">
+                  <Flex fd="column" ai="start" margin="16px 16px 0 0">
                     <Flex
                       width="fit-content"
                       height="fit-content"
                       padding="8px"
                       bc={theme.pallete.primary700}
                       br="8px"
+                      minWidth="48px"
                     >
                       <Text>{msg.message}</Text>
                     </Flex>
@@ -235,7 +236,7 @@ const ChatRoom = () => {
               );
             else
               return (
-                <Wrap padding="19px 19px 0 19px" key={`${i}_msg_${msg}`}>
+                <Wrap margin="16px 16px 0 16px" key={`${i}_msg_${msg}`}>
                   <Flex width="fit-content">
                     <Image
                       circle
@@ -271,7 +272,6 @@ const ChatRoom = () => {
                           style={{
                             fontSize: "10px",
                             color: `${theme.pallete.gray3}`,
-                            margin: "5px 5px 5px 0",
                           }}
                         >
                           {moment(msg.time).format("a hh:mm")}
@@ -292,7 +292,7 @@ const ChatRoom = () => {
             withBtn
             padding="12px 16px"
             icon={
-              <Icon padding="0" onClick={sendMessage}>
+              <Icon padding="1px" onClick={sendMessage}>
                 <ArrowUpward color="white" />
               </Icon>
             }
@@ -314,7 +314,7 @@ const ChatRoom = () => {
 };
 
 const Container = styled.div`
-  height: calc(100vh - 188px);
+  height: calc(100vh - 80px);
   background-color: #f3f3f3;
 
   overflow-y: scroll;
