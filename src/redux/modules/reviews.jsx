@@ -199,7 +199,7 @@ const reviewSlice = createSlice({
         state.filterList = state.list;
         return;
       }
-      state.filterList = state.list.filter(
+      state.filterList = state.list?.filter(
         (v) => v.seller?.category === action.payload
       );
     },

@@ -35,6 +35,8 @@ const Input = (props) => {
     placeholderColor,
     fontSize,
     border,
+    iconRight,
+    iconTop,
   } = props;
 
   const styles = {
@@ -50,6 +52,8 @@ const Input = (props) => {
     placeholderColor,
     fontSize,
     border,
+    iconRight,
+    iconTop,
   };
 
   if (withBtn) {
@@ -95,7 +99,7 @@ const Input = (props) => {
             autoComplete={autoComplete} // autoComplete off 추가
             {...styles}
           />
-          {icon ? <InputIcon>{icon}</InputIcon> : ""}
+          {icon ? <InputIcon {...styles}>{icon}</InputIcon> : ""}
         </InputBox>
         {alertMessage ? <InputAlert>{alertMessage}</InputAlert> : ""}
       </InputWrap>
@@ -139,6 +143,8 @@ Input.defaultProps = {
   color: theme.pallete.black,
   placeholderColor: theme.pallete.gray3,
   fontSize: "14px",
+  iconRight: "0px",
+  iconTop: "5px",
 };
 
 const InputWrap = styled.div`
@@ -239,8 +245,8 @@ const InputIcon = styled.div`
   /* background-image: url(); */
   /* background-color: grey; */
   position: absolute;
-  top: 5px;
-  right: 0px;
+  top: ${({ iconTop }) => iconTop};
+  right: ${({ iconRight }) => iconRight};
 `;
 
 const BtnWrap = styled.div`

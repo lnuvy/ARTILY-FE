@@ -12,6 +12,7 @@ import {
   Text,
   Textarea,
   Wrap,
+  Icon,
 } from "../elements";
 import { clearPreview } from "../redux/modules/image";
 import { getReviewOne, getNowReview } from "../redux/modules/reviews";
@@ -22,6 +23,7 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { inputSpaceReg, priceComma } from "../shared/utils";
+import { NavigationNext, Close } from "../assets/icons/index";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -157,6 +159,14 @@ const ReviewWrite = () => {
       />
       <ButtonWrap>
         <Flex>
+          <Icon
+            margin="0 0 0 16px"
+            onClick={() => {
+              history.goBack();
+            }}
+          >
+            <Close />
+          </Icon>
           <Wrap fg="1"></Wrap>
           <Button
             color={theme.color.brandColor}
@@ -178,9 +188,9 @@ const ButtonWrap = styled.div`
   position: fixed;
   z-index: 100;
   top: 0;
-  right: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   margin: 0 auto;
-  width: fit-content;
-
+  width: 100%;
   max-width: ${theme.view.maxWidth};
 `;
