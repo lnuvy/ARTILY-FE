@@ -319,6 +319,7 @@ const Container = styled.div`
 
   overflow-y: scroll;
   margin-top: 142px;
+  padding-bottom: 80px;
 `;
 
 const ImageDark = styled.div`
