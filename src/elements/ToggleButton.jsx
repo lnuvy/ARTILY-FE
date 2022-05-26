@@ -15,6 +15,7 @@ const ToggleButton = (props) => {
     select,
     border,
     color,
+    fontSize,
   } = props;
 
   const styles = {
@@ -27,6 +28,7 @@ const ToggleButton = (props) => {
     bc,
     border,
     color,
+    fontSize,
   };
 
   return (
@@ -49,6 +51,7 @@ ToggleButton.defaultProps = {
   bc: `white`,
   select: false,
   id: false,
+  fontSize: "16px",
 };
 
 const ButtonStyle = styled.button`
@@ -62,6 +65,7 @@ const ButtonStyle = styled.button`
   width: ${({ width }) => width};
   margin: ${({ margin }) => margin};
   padding: ${({ padding }) => padding};
+  font-size: ${({ fontSize }) => fontSize};
   background-color: white;
   ${({ select, theme }) =>
     select

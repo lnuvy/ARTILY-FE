@@ -43,10 +43,11 @@ const CheckboxWrap = styled.div`
 const CheckboxStyle = styled.input`
   zoom: ${({ zoom }) => zoom};
   border-radius: 0;
+  appearance: none;
+  display: none;
   -o-appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   :hover {
     cursor: pointer;
   }

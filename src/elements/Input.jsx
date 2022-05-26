@@ -34,6 +34,7 @@ const Input = (props) => {
     color,
     placeholderColor,
     fontSize,
+    border,
   } = props;
 
   const styles = {
@@ -48,6 +49,7 @@ const Input = (props) => {
     color,
     placeholderColor,
     fontSize,
+    border,
   };
 
   if (withBtn) {
@@ -193,6 +195,7 @@ const SquareInput = styled.input`
   width: ${({ width }) => width};
   padding: ${({ padding }) => padding};
   border-radius: ${({ br }) => br};
+  border: ${({ border }) => border};
   color: ${({ color }) => color};
   font-size: ${({ fontSize }) => fontSize};
   :focus {

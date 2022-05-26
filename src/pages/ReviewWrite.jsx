@@ -156,15 +156,18 @@ const ReviewWrite = () => {
         textLine={100}
       />
       <ButtonWrap>
-        <Button
-          color={theme.color.brandColor}
-          text
-          fontSize="16px"
-          padding="14px 16px"
-          onClick={reviewSubmit}
-        >
-          완료
-        </Button>
+        <Flex>
+          <Wrap fg="1"></Wrap>
+          <Button
+            color={theme.color.brandColor}
+            text
+            fontSize="16px"
+            padding="14px 16px"
+            onClick={reviewSubmit}
+          >
+            완료
+          </Button>
+        </Flex>
       </ButtonWrap>
     </Wrap>
   );
@@ -173,7 +176,9 @@ const ReviewWrite = () => {
 export default ReviewWrite;
 const ButtonWrap = styled.div`
   position: fixed;
-  top: 0;
-  right: 0;
   z-index: 100;
+  top: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: ${theme.view.maxWidth};
 `;
