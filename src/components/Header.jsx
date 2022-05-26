@@ -40,20 +40,12 @@ const Header = (props) => {
     path === "/mypage";
 
   const param = useParams();
-  {
-    console.log(path);
-  }
-  {
-    console.log(param);
-  }
-  {
-    console.log(path.split("/"));
-  }
+
   const isWrite =
     (path.split("/")[1] === "review" && path.split("/")[2] === "write") ||
-    path === "/store/write";
-  const reviewWrite = path === `/review/write/${param}`;
-  const storeWrite = path === `/store/write`;
+    path === "/store/write" ||
+    (path.split("/")[1] === "review" && path.split("/")[2] === "edit") ||
+    (path.split("/")[1] === "store" && path.split("/")[2] === "edit");
 
   const Notarrowbtn =
     path === "/profile" ||
@@ -127,17 +119,21 @@ const Header = (props) => {
             </Icon> */}
             {console.log(path)}
             <Text medium fg="1" textAlign="center">
-              {path.split("/")[3] === "select"}
               {path.split("/")[3] === "select" ? (
                 <Icon margin="16px 8px" onClick={() => history.goBack()}>
                   <ArrowBack />
                 </Icon>
               ) : path === `/store/write` ? (
                 "작품 등록"
+              ) : path.split("/")[1] === "review" &&
+                path.split("/")[2] === "edit" ? (
+                "리뷰 수정"
+              ) : path.split("/")[1] === "store" &&
+                path.split("/")[2] === "edit" ? (
+                "작품 수정"
               ) : (
                 "리뷰 등록"
               )}
-              {/* {storeWrite && "작품 등록"} */}
             </Text>
           </Flex>
         </HeaderStyle2>
