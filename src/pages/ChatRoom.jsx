@@ -58,7 +58,6 @@ const ChatRoom = () => {
   useEffect(() => {
     setMessages(roomMessages);
     // 채팅데이터 삭제
-    dispatch(clearChat);
   }, []);
 
   // 상단 채팅끌어오기위해 데이터 20개단위로 자르기
@@ -139,10 +138,10 @@ const ChatRoom = () => {
             <Image
               circle
               size="25"
-              src={nowChat?.targetUser?.profileImage}
+              src={nowChat?.createUser?.profileImage}
             ></Image>
             <Text h2 medium margin="0 0 0 5px">
-              {nowChat?.targetUser?.nickname}
+              {nowChat?.createUser?.nickname}
             </Text>
           </Flex>
         </div>

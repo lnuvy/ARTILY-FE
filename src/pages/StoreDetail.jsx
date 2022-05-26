@@ -38,7 +38,7 @@ import { IoMdHeart } from "react-icons/io";
 
 // 채팅
 import { socket } from "../shared/socket";
-import { makeChatRoom } from "../redux/modules/chat";
+import { makeChatRoom, clearChat } from "../redux/modules/chat";
 import { postMarkupToggle } from "../redux/modules/user";
 import { FollowCheck, StoreMore } from "../components";
 
@@ -51,7 +51,8 @@ const StoreDetail = () => {
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
-
+  const done = detailData;
+  console.log(done);
   const { chatData } = useSelector((state) => state.chat);
   const likeThisPost = useSelector((state) => state.store.myPostLike);
 
@@ -63,6 +64,7 @@ const StoreDetail = () => {
   const [myLike, setMyLike] = useState(undefined);
   const [myLikeCount, setMyLikeCount] = useState(undefined);
 
+  const { nowChat, roomMessages } = useSelector((state) => state.chat);
   // reset
   useEffect(() => {
     dispatch(go2detail([]));
@@ -163,7 +165,7 @@ const StoreDetail = () => {
         return;
       }
     }
-
+    // dispatch(nowChat);
     const chatPostData = {
       postId,
       imageUrl: detailData.images[0]?.imageUrl,
@@ -400,11 +402,10 @@ const StoreDetail = () => {
               </Text>
             </Flex>
             <Flex jc="end">
-              {currentUser && isMe ? (
+              {currentUser && isMe && done === false ? (
                 <Button
                   padding="8px 16px"
                   onClick={() => {
-                    //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
                     history.push(`/completed/${postId}`);
                   }}
                 >

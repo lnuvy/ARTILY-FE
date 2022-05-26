@@ -86,11 +86,7 @@ const chatSlice = createSlice({
     },
     //다른 게시글 채팅걸었을때 채팅기록 안남아있도록
     clearChat: (state, action) => {
-      state = {
-        chatData: [],
-        roomMessages: [],
-        nowChat: {},
-      };
+      state.nowChat = [];
     },
     // 목록창에서 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
