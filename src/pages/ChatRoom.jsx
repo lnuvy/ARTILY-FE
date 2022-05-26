@@ -20,6 +20,7 @@ import { ArrowUpward } from "../assets/icons";
 import { priceComma } from "../shared/utils";
 import { ArrowBack } from "../assets/icons";
 import { useHistory } from "react-router-dom";
+import { resetMessages, clearChat } from "../redux/modules/chat";
 const ChatRoom = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -56,6 +57,8 @@ const ChatRoom = () => {
 
   useEffect(() => {
     setMessages(roomMessages);
+    // 채팅데이터 삭제
+    dispatch(clearChat);
   }, []);
 
   // 상단 채팅끌어오기위해 데이터 20개단위로 자르기
@@ -116,6 +119,7 @@ const ChatRoom = () => {
   //채팅방 나가기
   const leaveRoom = () => {
     socket.emit("leave_room", roomName, targetUserId);
+    // dispatch(resetMessages());
   };
 
   useEffect(() => {
@@ -289,6 +293,7 @@ const ChatRoom = () => {
               </Icon>
             }
             fg="1"
+            padding="12px"
             square
             br="8px"
             placeholder="메세지를 작성해주세요"
