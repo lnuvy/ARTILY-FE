@@ -221,7 +221,7 @@ const InputIcon = styled.div`
   /* background-image: url(); */
   /* background-color: grey; */
   position: absolute;
-  top: 8px;
+  top: 5px;
   right: 0px;
 `;
 

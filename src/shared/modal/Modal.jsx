@@ -11,7 +11,6 @@ import { closeModal } from "../../redux/modules/modal";
 
 const Modal = () => {
   const dispatch = useDispatch();
-
   const modal = useSelector((state) => state.modal);
 
   const modalClose = () => {
@@ -35,12 +34,12 @@ const Modal = () => {
           height="fit-content"
           jc="space-between"
         >
-          <Text h1 bold>
+          {/* <Text h1 bold>
             {modal.title}
-          </Text>
-          <Icon onClick={modalClose}>
+          </Text> */}
+          {/* <Icon onClick={modalClose}>
             <Close />
-          </Icon>
+          </Icon> */}
         </Flex>
         <ContentWrap>{modal.content}</ContentWrap>
       </Flex>

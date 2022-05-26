@@ -71,15 +71,17 @@ const Preview = () => {
     <FileWrap>
       <Flex>
         <Button
-          padding="8px 16px"
+          padding="8px 0"
           outline
           width="64px"
           height="64px"
           border={`1px solid ${theme.pallete.gray1}}`}
         >
           <UploadLabel htmlFor="file">
-            <AddPhoto />
-            <Text>{image.imageArr ? image.imageArr.length : 0}/10</Text>
+            <AddPhoto color={theme.pallete.gray3} />
+            <Text width="64px" body2 color={theme.pallete.gray3}>
+              {image.imageArr ? image.imageArr.length : 0}/10
+            </Text>
           </UploadLabel>
         </Button>
         <input
@@ -106,5 +108,5 @@ const UploadLabel = styled.label`
 const FileWrap = styled.div`
   overflow: auto;
   overflow-y: hidden;
-  padding: 16px 0;
+  padding: 6px 0 0;
 `;

@@ -13,6 +13,7 @@ import { Close } from "../assets/icons/index";
 import styled from "styled-components";
 
 import { AiOutlineClose } from "react-icons/ai";
+import theme from "../styles/theme";
 
 const ImagePreview = (props) => {
   const dispatch = useDispatch();
@@ -105,7 +106,7 @@ export default ImagePreview;
 const MainImageLabel = styled.div`
   position: absolute;
   bottom: 0;
-  background-color: black;
+  background-color: ${theme.pallete.gray4};
   color: white;
   width: 100%;
   border-radius: 0px 0px 8px 8px;

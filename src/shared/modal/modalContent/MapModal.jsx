@@ -15,17 +15,32 @@ import {
   MapMarker,
 } from "react-kakao-maps-sdk";
 import { AiOutlineSearch } from "react-icons/ai";
+import { NavigationNext } from "../../../assets/icons";
 
 import { changeMarker, currentmap } from "../../geolocation/KakaoGeolocation";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../../redux/modules/modal";
+import {
+  openDragModal,
+  openModal,
+  closeModal,
+} from "../../../redux/modules/modal";
 import { MyLocation } from "../../../assets/icons";
 import styled from "styled-components";
+import theme from "../../../styles/theme";
 
 const { kakao } = window;
 
 const MapModal = ({ setReceiveAddress, currentAddress }) => {
   const dispatch = useDispatch();
+
+  const modalOn = (reg) => {
+    dispatch(
+      openModal({
+        title: "위치 선택",
+        content: "하이",
+      })
+    );
+  };
 
   const cityList = [
     "서울",
@@ -98,6 +113,13 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
 
   return (
     <Wrap height="100%">
+      <Input
+        readOnly
+        value="지역을 선택하세요"
+        color={theme.pallete.black}
+        icon={<NavigationNext size={28} />}
+        onClick={modalOn}
+      />
       <Selectbox id="city" onChange={addressValue}>
         <option value="">지역을 선택하세요</option>
         {cityList.map((v, i) => {
@@ -130,6 +152,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
 const Selectbox = styled.select`
   padding: 16px 12px;
   width: 100%;
+  border: 1px solid black;
 `;
 
 export default MapModal;
