@@ -236,6 +236,7 @@ const StoreEdit = () => {
           color={`${theme.color.brandColor}`}
           padding="8px"
           border={`1px solid ${theme.color.brandColor}`}
+          fontSize="16px !important"
         >
           택배
         </ToggleButton>
@@ -257,6 +258,7 @@ const StoreEdit = () => {
               color={theme.pallete.black}
               icon={<NavigationNext size={28} />}
               onClick={modalOn}
+              fontSize="14px"
             />
             <Wrap margin="8px 0 0 0" />
           </>
@@ -307,18 +309,24 @@ const StoreEdit = () => {
         width={`${theme.view.maxWidth}`}
         margin="0 auto"
       > */}
+
       <ButtonWrap>
-        <Button
-          text
-          color={theme.color.brandColor}
-          fontSize="16px"
-          onClick={submitPost}
-        >
-          완료
-          {/* {path === `/store/edit/${postId}` && "판매 작품 수정하기"}
+        <Flex>
+          <Wrap fg="1"></Wrap>
+          <Button
+            text
+            color={theme.color.brandColor}
+            fontSize="16px"
+            padding="14px 16px"
+            onClick={submitPost}
+          >
+            완료
+            {/* {path === `/store/edit/${postId}` && "판매 작품 수정하기"}
           {path === `/store/write` && "판매 작품 등록하기"} */}
-        </Button>
+          </Button>
+        </Flex>
       </ButtonWrap>
+
       {/* </Wrap> */}
     </>
   );
@@ -345,9 +353,11 @@ const Wrapcate = styled.div`
 `;
 
 const ButtonWrap = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: fixed;
   z-index: 100;
+  top: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: ${theme.view.maxWidth};
 `;
 export default StoreEdit;

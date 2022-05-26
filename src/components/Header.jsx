@@ -40,7 +40,9 @@ const Header = (props) => {
     path === "/mypage";
 
   const param = useParams();
-  const isWrite = path === "/review/write" || path === "/store/write";
+  const isWrite =
+    (path.split("/")[1] === "review" && path.split("/")[2] === "write") ||
+    path === "/store/write";
   const reviewWrite = path === `/review/write/${param}`;
   const storeWrite = path === `/store/write`;
 
@@ -99,30 +101,37 @@ const Header = (props) => {
     return (
       <>
         {console.log(path)}
-        <HeaderStyle>
+        {console.log(param)}
+        <HeaderStyle2>
           <Flex height="48px" margin="0 60px 0 0">
             <Icon margin="0 0 0 16px" onClick={() => history.goBack()}>
               <Close />
             </Icon>
             <Text medium fg="1" textAlign="center">
-              {reviewWrite && "리뷰 등록"}
+              {path.split("/")[1] === "review" &&
+                path.split("/")[2] === "write" &&
+                "리뷰 등록"}
               {storeWrite && "작품 등록"}
             </Text>
           </Flex>
-        </HeaderStyle>
+        </HeaderStyle2>
         <ContentsContainer2 />
       </>
     );
   } else if (!Notarrowbtn) {
     return (
       <>
-        <HeaderStyle>
+        {console.log(
+          path.split("/")[1] === "review" && path.split("/")[2] === "write"
+        )}
+        {console.log(param)}
+        <HeaderStyle2>
           <Flex height="48px">
             <Icon margin="16px 8px" onClick={() => history.goBack()}>
               <ArrowBack />
             </Icon>
           </Flex>
-        </HeaderStyle>
+        </HeaderStyle2>
         <ContentsContainer2 />
       </>
     );
@@ -134,6 +143,17 @@ Header.defaultProps = {
 };
 
 const HeaderStyle = styled.div`
+  width: 100vw;
+  max-width: ${theme.view.maxWidth};
+  height: 98px;
+  padding: ${({ padding }) => padding};
+  padding-bottom: 0;
+  position: fixed;
+  background-color: white;
+  z-index: 99;
+`;
+
+const HeaderStyle2 = styled.div`
   width: 100vw;
   max-width: ${theme.view.maxWidth};
   height: fit-content;

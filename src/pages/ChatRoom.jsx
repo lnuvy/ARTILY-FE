@@ -141,7 +141,7 @@ const ChatRoom = () => {
               size="25"
               src={nowChat?.targetUser?.profileImage}
             ></Image>
-            <Text body1 margin="0 0 0 5px">
+            <Text h2 medium margin="0 0 0 5px">
               {nowChat?.targetUser?.nickname}
             </Text>
           </Flex>
@@ -214,12 +214,11 @@ const ChatRoom = () => {
                   fd="column"
                   ai="flex-end"
                 >
-                  <Flex fd="column" ai="start">
+                  <Flex fd="column" ai="start" margin="16px">
                     <Flex
                       width="fit-content"
                       height="fit-content"
                       padding="8px"
-                      margin="15px 20px 5px 5px"
                       bc={theme.pallete.primary700}
                       br="8px"
                     >
@@ -249,7 +248,15 @@ const ChatRoom = () => {
                       src={target.profileImage}
                     />
                     <Flex fd="column" ai="start">
-                      <p style={{ fontSize: "12px", margin: "4px 0" }}>
+                      <p
+                        body3
+                        medium
+                        style={{
+                          fontSize: "12px",
+                          margin: "4px 0",
+                          color: `${theme.pallete.gray3}`,
+                        }}
+                      >
                         {target.nickname}
                       </p>
                       <Flex
@@ -287,9 +294,10 @@ const ChatRoom = () => {
           {/* <ChatFileInput /> */}
           <Input
             withBtn
+            padding="12px 16px"
             icon={
               <Icon padding="0" onClick={sendMessage}>
-                <ArrowUpward />
+                <ArrowUpward color="white" />
               </Icon>
             }
             fg="1"
@@ -298,6 +306,7 @@ const ChatRoom = () => {
             br="8px"
             placeholder="메세지를 작성해주세요"
             value={message}
+            border={`1px solid ${theme.pallete.gray1}`}
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={(e) => {
               if (e.key === "Enter") sendMessage();
@@ -311,7 +320,8 @@ const ChatRoom = () => {
 
 const Container = styled.div`
   height: calc(100vh - 188px);
-  background-color: #e0e0e0;
+  background-color: #f3f3f3;
+
   overflow-y: scroll;
   margin-top: 142px;
 `;
@@ -348,8 +358,8 @@ const Wraptop = styled.div`
     top: 20px;
     left: 50px;
   }
-  width: 100vw;
   max-width: ${theme.view.maxWidth};
+  width: 100%;
   height: fit-content;
   padding: ${({ padding }) => padding};
   padding-bottom: 0;
@@ -360,10 +370,12 @@ const Wraptop = styled.div`
 const Wrapinfo = styled.div`
   /* border-top: 1px solid #eee; */
   padding: 15px 16px;
-  background-color: #d3d3d3;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #e0e0e0;
   margin: 64px 0 0 0;
   position: fixed;
-  width: 100vw;
+  max-width: ${theme.view.maxWidth};
+  width: 100%;
 `;
 const Wraptarget = styled.div``;
 export default ChatRoom;

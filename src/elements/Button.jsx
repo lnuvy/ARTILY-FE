@@ -84,6 +84,8 @@ Button.defaultProps = {
   left: null,
   right: null,
   cursor: "pointer",
+  fontSize: "16px",
+  fontWeight: "500",
 };
 
 const ButtonStyle = styled.button`
@@ -103,6 +105,7 @@ const ButtonStyle = styled.button`
   border: ${({ border }) => border};
   border-right: ${({ borderRight }) => borderRight};
   font-size: ${({ fontSize }) => fontSize}; // 5.12 민경
+  font-weight: ${({ fontWeight }) => fontWeight}; // 5.12 민경
   color: ${({ color }) => color}; // 5.12 민경
   justify-content: center;
   cursor: ${({ cursor }) => cursor};
@@ -112,6 +115,8 @@ const ButtonStyle = styled.button`
       ? `
     background-color: transparent;
     padding: ${(props) => (props.padding ? props.padding : "8px")}
+    font-size: ${({ fontSize }) => fontSize}; 
+    font-weight: ${({ fontWeight }) => fontWeight};
     
     :focus {      
     }
@@ -124,12 +129,14 @@ const ButtonStyle = styled.button`
     background-color: transparent;
     color: ${theme.color.black};
     border: ${({ border }) => border};
+    font-size: ${({ fontSize }) => fontSize}; 
+    font-weight: ${({ fontWeight }) => fontWeight};
     :focus {
       background-color: ${theme.color.lightGray};
-      opacity: 0.8;
+      opacity: 1;
     }
     :hover {
-      opacity: 0.8;
+      opacity: 1;
       cursor: pointer;
     }
     `
@@ -138,19 +145,23 @@ const ButtonStyle = styled.button`
       background-color: ${props.bc};
       color: ${theme.color.white};
       border: none;
+      font-size: ${({ fontSize }) => fontSize}; 
+      font-weight: ${({ fontWeight }) => fontWeight};
       
       filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     `
       : `
     background-color: ${props.bc};
     color: ${theme.color.white};
+    font-size: ${({ fontSize }) => fontSize}; 
+    font-weight: ${({ fontWeight }) => fontWeight};
     border: none;
     border-right: ${({ borderRight }) => borderRight};
     :focus {
-      opacity: 0.9;
+      opacity: 1;
     }
     :hover {
-      opacity: 0.8;
+      opacity: 1;
       cursor: pointer;
     }
     

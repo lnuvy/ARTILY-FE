@@ -37,7 +37,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
     dispatch(
       openModal({
         title: "위치 선택",
-        content: "하이",
+        content: <></>,
       })
     );
   };
@@ -113,29 +113,26 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
 
   return (
     <Wrap height="100%">
-      <Input
-        readOnly
-        value="지역을 선택하세요"
-        color={theme.pallete.black}
-        icon={<NavigationNext size={28} />}
-        onClick={modalOn}
-      />
-      <Selectbox id="city" onChange={addressValue}>
-        <option value="">지역을 선택하세요</option>
-        {cityList.map((v, i) => {
-          return (
-            <>
-              <option value={v}>{v}</option>
-            </>
-          );
-        })}
-      </Selectbox>
+      <SelectboxWrap>
+        <Selectbox id="city" onChange={addressValue}>
+          <Option value="">지역을 선택하세요</Option>
+          {cityList.map((v, i) => {
+            return (
+              <>
+                <Option value={v}>{v}</Option>
+              </>
+            );
+          })}
+        </Selectbox>
+      </SelectboxWrap>
+      <Wrap margin="12px 0 0 0" />
       <Input
         id="gu"
         placeholder="구를 입력하세요"
         onChange={addressValue}
         value={gu}
       />
+      <Wrap margin="12px 0 0 0" />
       <Input
         id="dong"
         placeholder="동을 입력하세요"
@@ -149,10 +146,27 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
   );
 };
 
-const Selectbox = styled.select`
-  padding: 16px 12px;
+const SelectboxWrap = styled.div`
+  background-color: white;
   width: 100%;
-  border: 1px solid black;
+  font-size: 14px;
+  color: ${theme.pallete.black};
+  padding: 8px 4px;
+  border: 1px solid ${theme.pallete.gray1};
+  border-radius: 4px;
 `;
+
+const Selectbox = styled.select`
+  background-color: white;
+  width: 100%;
+  font-size: 14px;
+  color: ${theme.pallete.black};
+
+  :focus {
+    outline: none;
+  }
+`;
+
+const Option = styled.option``;
 
 export default MapModal;

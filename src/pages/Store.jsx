@@ -73,7 +73,7 @@ const Store = () => {
   const modalOn = () => {
     dispatch(
       openModal({
-        title: "",
+        title: "타이틀",
         content: (
           <StoreFilter filtering={filtering} setFiltering={setFiltering} />
         ),
@@ -98,6 +98,7 @@ const Store = () => {
           placeholder="작가명, 작품명 검색..."
           icon={<Search color={theme.pallete.gray2} />}
           value={query}
+          border={`1px solid ${theme.pallete.gray1}`}
           onChange={(e) => setQuery(e.target.value)}
         />
         <Wrap margin="16px 0">

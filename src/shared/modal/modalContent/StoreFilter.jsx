@@ -124,36 +124,38 @@ const StoreFilter = ({ filtering, setFiltering }) => {
             );
         })}
       </Wrap>
-      <Text h2 bold>
-        지역
-      </Text>
-      {regions.map((r, i) => {
-        if (filter.region.find((find) => find === r))
-          return (
-            <ToggleButton
-              color="#999"
-              border="1px solid #999"
-              margin="8px 8px 0 0"
-              select
-              onClick={toggleRegion}
-              key={`${r}_${i}`}
-            >
-              {r}
-            </ToggleButton>
-          );
-        else
-          return (
-            <ToggleButton
-              color="#999"
-              border="1px solid #999"
-              margin="8px 8px 0 0"
-              onClick={toggleRegion}
-              key={`${r}_${i}`}
-            >
-              {r}
-            </ToggleButton>
-          );
-      })}
+      <Wrap padding="0 0 ">
+        <Text h2 bold>
+          지역
+        </Text>
+        {regions.map((r, i) => {
+          if (filter.region.find((find) => find === r))
+            return (
+              <ToggleButton
+                color="#999"
+                border="1px solid #999"
+                margin="8px 8px 0 0"
+                select
+                onClick={toggleRegion}
+                key={`${r}_${i}`}
+              >
+                {r}
+              </ToggleButton>
+            );
+          else
+            return (
+              <ToggleButton
+                color="#999"
+                border="1px solid #999"
+                margin="8px 8px 0 0"
+                onClick={toggleRegion}
+                key={`${r}_${i}`}
+              >
+                {r}
+              </ToggleButton>
+            );
+        })}
+      </Wrap>
       <Button margin="16px 0" width="100%" onClick={submitFilter}>
         이 조건으로 검색하기
       </Button>
