@@ -10,6 +10,7 @@ import { Notification, Chat, Close } from "../assets/icons/index";
 import { useSelector } from "react-redux";
 import ArrowBack from "../assets/icons/ArrowBack";
 import theme from "../styles/theme";
+import { useParams } from "react-router-dom";
 
 const Header = (props) => {
   const path = useLocation().pathname;
@@ -38,15 +39,17 @@ const Header = (props) => {
     path === "/review" ||
     path === "/mypage";
 
-  const isWrite = path === "/review/write";
+  const param = useParams();
+  const isWrite = path === "/review/write" || path === "/store/write";
+  const reviewWrite = path === `/review/write/${param}`;
+  const storeWrite = path === `/store/write`;
 
-  const reviewWrite = path === "/review/write";
-  const storeWrite = path === "/store/write";
   const Notarrowbtn =
     path === "/profile" ||
     path === "/profile/detail" ||
     path === "/mypage/edit" ||
-    path === `/chat/${roomName}`;
+    path === `/chat/${roomName}` ||
+    path === `/mypage/manage`;
 
   if (isShowNow)
     return (
@@ -90,15 +93,19 @@ const Header = (props) => {
         <ContentsContainer />
       </>
     );
-  else if (isWrite) {
+  else if (isWrite === true) {
+    {
+      console.log(isWrite);
+    }
     return (
       <>
+        {console.log(path)}
         <HeaderStyle>
           <Flex height="48px" margin="0 60px 0 0">
             <Icon margin="0 0 0 16px" onClick={() => history.goBack()}>
               <Close />
             </Icon>
-            <Text fg="1" textAlign="center">
+            <Text medium fg="1" textAlign="center">
               {reviewWrite && "리뷰 등록"}
               {storeWrite && "작품 등록"}
             </Text>
@@ -107,7 +114,7 @@ const Header = (props) => {
         <ContentsContainer2 />
       </>
     );
-  } else if (!Notarrowbtn) {
+  } else if (Notarrowbtn) {
     return (
       <>
         <HeaderStyle>

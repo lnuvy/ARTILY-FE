@@ -6,6 +6,7 @@ import { accrueImage, inputfileObj } from "../redux/modules/image";
 import styled from "styled-components";
 
 import { AddPhoto } from "../assets/icons";
+import theme from "../styles/theme";
 
 /*
  * @한울 4/30
@@ -69,7 +70,13 @@ const Preview = () => {
   return (
     <FileWrap>
       <Flex>
-        <Button padding="8px 16px" outline width="64px" height="64px">
+        <Button
+          padding="8px 16px"
+          outline
+          width="64px"
+          height="64px"
+          border={`1px solid ${theme.pallete.gray1}}`}
+        >
           <UploadLabel htmlFor="file">
             <AddPhoto />
             <Text>{image.imageArr ? image.imageArr.length : 0}/10</Text>
@@ -83,7 +90,6 @@ const Preview = () => {
           onChange={selectFile}
           ref={fileInput}
         />
-
         <ImagePreview imageArr={image && image.imageArr} />
       </Flex>
     </FileWrap>

@@ -241,13 +241,16 @@ const StoreEdit = () => {
           직거래
         </ToggleButton>
         {inputs.direct && (
-          <Input
-            readOnly
-            value={receiveAddress ? receiveAddress : "위치 선택"}
-            color={theme.pallete.black}
-            icon={<NavigationNext size={28} />}
-            onClick={modalOn}
-          />
+          <>
+            <Input
+              readOnly
+              value={receiveAddress ? receiveAddress : "위치 선택"}
+              color={theme.pallete.black}
+              icon={<NavigationNext size={28} />}
+              onClick={modalOn}
+            />
+            <Wrap margin="8px 0 0 0" />
+          </>
         )}
 
         <Input

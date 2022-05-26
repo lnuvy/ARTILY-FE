@@ -28,6 +28,7 @@ const Button = (props) => {
     color,
     shadow,
     cursor,
+    outlineColor,
   } = props;
 
   const styles = {
@@ -53,6 +54,7 @@ const Button = (props) => {
     color,
     shadow,
     cursor,
+    outlineColor,
   };
 
   return (
@@ -121,7 +123,7 @@ const ButtonStyle = styled.button`
       ? `
     background-color: transparent;
     color: ${theme.color.black};
-    border: 1px solid ${theme.color.black};
+    border: ${({ border }) => border};
     :focus {
       background-color: ${theme.color.lightGray};
       opacity: 0.8;
