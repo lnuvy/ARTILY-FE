@@ -16,6 +16,7 @@ const modalSlice = createSlice({
       state.modalOn = true;
     },
     openDragModal: (state, action) => {
+      state.title = action.payload.title;
       state.content = action.payload;
       state.modalOn = true;
     },
