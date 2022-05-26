@@ -116,6 +116,7 @@ const Header = (props) => {
             <Text medium fg="1" textAlign="center">
               {path.split("/")[1] === "review" &&
                 path.split("/")[2] === "write" &&
+                !path.split("/")[3] === "select" &&
                 "리뷰 등록"}
               {storeWrite && "작품 등록"}
             </Text>
