@@ -236,6 +236,7 @@ const StoreEdit = () => {
           color={`${theme.color.brandColor}`}
           padding="8px"
           border={`1px solid ${theme.color.brandColor}`}
+          fontSize="16px !important"
         >
           택배
         </ToggleButton>
@@ -257,6 +258,7 @@ const StoreEdit = () => {
               color={theme.pallete.black}
               icon={<NavigationNext size={28} />}
               onClick={modalOn}
+              fontSize="14px"
             />
             <Wrap margin="8px 0 0 0" />
           </>
@@ -312,6 +314,7 @@ const StoreEdit = () => {
           text
           color={theme.color.brandColor}
           fontSize="16px"
+          padding="14px 16px"
           onClick={submitPost}
         >
           완료
@@ -345,7 +348,7 @@ const Wrapcate = styled.div`
 `;
 
 const ButtonWrap = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   z-index: 100;

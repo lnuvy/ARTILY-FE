@@ -95,6 +95,9 @@ const TextareaContainer = styled.textarea`
   font-size: 14px;
   letter-spacing: -0.41 px;
   line-height: 22px;
+  :focus {
+    outline: none;
+  }
   :focus-visible {
     outline: none;
   }

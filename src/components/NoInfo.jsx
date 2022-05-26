@@ -25,6 +25,7 @@ const NoInfo = ({
       {button ? (
         <Button
           margin="20px auto 0 auto"
+          fontSize="14px"
           onClick={() => {
             history.push(movePage);
           }}

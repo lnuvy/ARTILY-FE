@@ -33,6 +33,7 @@ const Input = (props) => {
     height,
     color,
     placeholderColor,
+    fontSize,
   } = props;
 
   const styles = {
@@ -46,6 +47,7 @@ const Input = (props) => {
     height,
     color,
     placeholderColor,
+    fontSize,
   };
 
   if (withBtn) {
@@ -134,6 +136,7 @@ Input.defaultProps = {
   autoComplete: "off",
   color: theme.pallete.black,
   placeholderColor: theme.pallete.gray3,
+  fontSize: "14px",
 };
 
 const InputWrap = styled.div`
@@ -151,6 +154,10 @@ const InputContainer = styled.input`
   padding: ${({ padding }) => padding};
   color: ${({ color }) => color};
   border-radius: 0px;
+  font-size: ${({ fontSize }) => fontSize};
+  :focus {
+    outline: none;
+  }
   :focus-visible {
     outline: none;
   }
@@ -159,6 +166,7 @@ const InputContainer = styled.input`
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.41px;
+    font-size: ${({ fontSize }) => fontSize};
   }
   ${(props) =>
     props.alert
@@ -186,6 +194,10 @@ const SquareInput = styled.input`
   padding: ${({ padding }) => padding};
   border-radius: ${({ br }) => br};
   color: ${({ color }) => color};
+  font-size: ${({ fontSize }) => fontSize};
+  :focus {
+    outline: none;
+  }
   :focus-visible {
     outline: none;
   }
@@ -193,12 +205,14 @@ const SquareInput = styled.input`
     color: ${({ placeholderColor }) => placeholderColor};
     line-height: 21px;
     letter-spacing: -0.41px;
+    font-size: ${({ fontSize }) => fontSize};
   }
   ${(props) =>
     props.alert
       ? `
       color: ${({ color }) => color};
       border: 1px solid ${theme.color.danger};
+      font-size: ${({ fontSize }) => fontSize};
       :focus {
         border: 1px solid ${theme.color.danger};
       }
@@ -211,6 +225,7 @@ const SquareInput = styled.input`
       }
       ::placeholder {
         color: ${({ placeholderColor }) => placeholderColor};
+        font-size: ${({ fontSize }) => fontSize};
       }
     `}
 `;

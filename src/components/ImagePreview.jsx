@@ -75,6 +75,7 @@ const ImagePreview = (props) => {
           return (
             <Wrap width="64px" position="relative" key={i}>
               <Image
+                border={`1px solid ${theme.pallete.gray1}`}
                 br="8px"
                 imageArr
                 src={image.imageUrl ? image.imageUrl : image}

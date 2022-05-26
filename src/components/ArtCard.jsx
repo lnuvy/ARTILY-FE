@@ -95,6 +95,7 @@ const ArtCard = (props) => {
               borderRight={`1px solid ${theme.pallete.gray1}`}
               padding="10px 20px"
               br="0"
+              color={theme.pallete.black}
               onClick={() => {
                 // console.log(postId);
                 history.push(`/store/edit/${postId}`);
@@ -106,6 +107,7 @@ const ArtCard = (props) => {
               text
               borderRight={`1px solid ${theme.pallete.gray1}`}
               br="0"
+              color={theme.pallete.black}
               padding="10px 20px"
               onClick={deletePosting}
             >
@@ -127,6 +129,7 @@ const ArtCard = (props) => {
                 fg="1"
                 br="0"
                 padding="10px 20px"
+                color={theme.pallete.black}
                 onClick={() => {
                   //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
                   history.push(`/completed/${postId}`);

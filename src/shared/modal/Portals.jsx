@@ -15,9 +15,9 @@ const Portals = ({ children }) => {
 
   return ReactDOM.createPortal(
     <Background onClick={modalClose}>
-      <Wrap marign="0 16px">
+      <WrapBox>
         <Content onClick={(e) => e.stopPropagation()}>{children}</Content>
-      </Wrap>
+      </WrapBox>
     </Background>,
     el
   );
@@ -40,13 +40,19 @@ const Background = styled.div`
   overflow: hidden;
 `;
 
+const WrapBox = styled.div`
+  padding: 0 16px;
+  width: 100%;
+`;
+
 // 컨텐츠: 모달 본체
 const Content = styled.div`
   z-index: 204;
   height: fit-content;
 
   margin: 0 auto;
-  width: calc(${({ theme }) => theme.view.maxWidth} - 32px);
+  max-width: ${({ theme }) => theme.view.maxWidth};
+  width: 100%;
   border-radius: 8px;
   background-color: #fff;
 
