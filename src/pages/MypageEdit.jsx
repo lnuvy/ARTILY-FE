@@ -20,6 +20,8 @@ import { Front, Back } from "../shared/NicknameDummy.js";
 import { editProfileDB } from "../redux/modules/user";
 import { ArrowBack, Refresh } from "../assets/icons";
 import { nicknameCheck } from "../shared/regCheck/RegCheck";
+import theme from "../styles/theme";
+
 const randomnickFront = Front;
 const randomnickBack = Back;
 
@@ -90,12 +92,14 @@ const MypageEdit = () => {
         <Icon margin="8px" onClick={() => history.goBack()}>
           <ArrowBack />
         </Icon>
+
         <Text h2 bold margin="13px 0">
           프로필 수정하기
         </Text>
       </Flex>
       <Outline>
         <div className="box">
+          <Wrap margin="64px 0 " />
           <Wrapprofile>
             <Flex jc="center">
               <Image
@@ -124,113 +128,111 @@ const MypageEdit = () => {
           <Wrap margin="0 20px">
             <Flex padding="10px 0">
               <Flex width="100%">
-                <Flex width="30%">
-                  <Text textAlign="left" fg="1">
-                    닉네임
-                  </Text>
-                </Flex>
-                <Flex width="70%">
-                  <Input
-                    icon={<Refresh onClick={renameRandom} />}
-                    square
-                    placeholder={getProfile?.nickname || "닉네임 자리"}
-                    border="1px solid #d3d3d3"
-                    br="6px"
-                    fg="1"
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
-                  />
-                </Flex>
+                <Text textAlign="left" width="80px">
+                  닉네임
+                </Text>
+
+                <Input
+                  icon={<Refresh onClick={renameRandom} />}
+                  square
+                  placeholder={getProfile?.nickname || "닉네임 자리"}
+                  border={`1px solid ${theme.pallete.gray1}`}
+                  br="6px"
+                  fg="1"
+                  iconRight="4px"
+                  padding="8px"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                />
               </Flex>
             </Flex>
             <Flex padding="10px 0 5px">
               <Flex width="100%">
-                <Flex width="30%">
-                  <Text textAlign="left" fg="1">
-                    웹사이트
-                  </Text>
-                </Flex>
-                <Flex width="70%">
-                  <Input
-                    square
-                    icon={
-                      <Flex>
-                        <img src="/images/Instagram.svg" alt="인스타" />
-                      </Flex>
-                    }
-                    fg="1"
-                    br="6px"
-                    type="text"
-                    placeholder="instargram ID"
-                    value={website1 || ""}
-                    onChange={(e) => setWebsite1(e.target.value)}
-                  />
-                </Flex>
+                <Text textAlign="left" width="80px">
+                  웹사이트
+                </Text>
+
+                <Input
+                  square
+                  icon={
+                    <Flex>
+                      <img src="/images/Instagram.svg" alt="인스타" />
+                    </Flex>
+                  }
+                  iconRight="4px"
+                  padding="8px"
+                  border={`1px solid ${theme.pallete.gray1}`}
+                  fg="1"
+                  br="6px"
+                  type="text"
+                  placeholder="instargram ID"
+                  value={website1 || ""}
+                  onChange={(e) => setWebsite1(e.target.value)}
+                />
               </Flex>
             </Flex>
             {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
             <Flex width="100%">
-              <Flex width="30%">
-                <Text></Text>
-              </Flex>
-              <Flex width="70%">
-                <Input
-                  square
-                  fg="1"
-                  br="6px"
-                  icon={
-                    <Flex>
-                      <img src="/images/Behance.svg" alt="비핸스" />
-                    </Flex>
-                  }
-                  type="text"
-                  placeholder="Behance 주소"
-                  value={website2}
-                  onChange={(e) => setWebsite2(e.target.value)}
-                />
-              </Flex>
+              <Text textAlign="left" width="80px"></Text>
+
+              <Input
+                square
+                fg="1"
+                br="6px"
+                iconRight="4px"
+                padding="8px"
+                border={`1px solid ${theme.pallete.gray1}`}
+                icon={
+                  <Flex>
+                    <img src="/images/Behance.svg" alt="비핸스" />
+                  </Flex>
+                }
+                type="text"
+                placeholder="Behance 주소"
+                value={website2}
+                onChange={(e) => setWebsite2(e.target.value)}
+              />
             </Flex>
             <Flex padding="5px 0 10px">
               <Flex width="100%">
-                <Flex width="30%">
-                  <Text></Text>
-                </Flex>
-                <Flex width="70%">
-                  <Input
-                    fg="1"
-                    square
-                    br="6px"
-                    icon={
-                      <Flex>
-                        <img src="/images/web.svg" alt="포트폴리오" />
-                      </Flex>
-                    }
-                    type="text"
-                    placeholder="other website"
-                    value={website3 || ""}
-                    onChange={(e) => setWebsite3(e.target.value)}
-                  />
-                </Flex>
-              </Flex>
-            </Flex>
-            <Flex padding="20px 0 10px 0" width="100%">
-              <Flex width="30%">
-                <Text textAlign="left" fg="1">
-                  소개
-                </Text>
-              </Flex>
-              <Flex width="70%">
-                <Textarea
+                <Text textAlign="left" width="80px"></Text>
+
+                <Input
                   fg="1"
-                  value={introduce}
-                  onChange={(e) => setIntroduce(e.target.value)}
-                  maxLength="100"
+                  square
                   br="6px"
+                  iconRight="4px"
+                  padding="8px"
+                  border={`1px solid ${theme.pallete.gray1}`}
+                  icon={
+                    <Flex>
+                      <img src="/images/web.svg" alt="포트폴리오" />
+                    </Flex>
+                  }
+                  type="text"
+                  placeholder="other website"
+                  value={website3 || ""}
+                  onChange={(e) => setWebsite3(e.target.value)}
                 />
               </Flex>
             </Flex>
+            <Flex padding="20px 0 10px 0" width="100%">
+              <Text align-items="start" textAlign="left" width="80px" fg="0">
+                소개
+              </Text>
+
+              <Textarea
+                fg="1"
+                value={introduce}
+                onChange={(e) => setIntroduce(e.target.value)}
+                maxLength="50"
+                padding="8px"
+                border={`1px solid ${theme.pallete.gray1}`}
+                br="6px"
+              />
+            </Flex>
           </Wrap>
-          <Flex width="90%" margin="15px auto">
+          <BottomWrap>
             <Button
               width="100%"
               onClick={() => {
@@ -240,12 +242,20 @@ const MypageEdit = () => {
             >
               수정 완료
             </Button>
-          </Flex>
+          </BottomWrap>
         </div>
       </Outline>
     </>
   );
 };
+
+const BottomWrap = styled.div`
+  position: fixed;
+  bottom: 16px;
+  width: 100%;
+  padding: 0 16px;
+  max-width: ${theme.view.maxWidth};
+`;
 
 const Wrapprofile = styled.div`
   position: relative;
@@ -282,15 +292,13 @@ const ImgBox = styled.div`
   }
 `;
 const Outline = styled.div`
-  height: 85vh;
   position: relative;
   .box {
     /* background-color: #ddd; */
     width: 100%;
-    position: absolute;
-    top: 50%;
+    /* top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* translate(x축,y축) */
+    transform: translate(-50%, -50%); translate(x축,y축) */
     //요소의 가장 좌측과 상단을 기준으로 50%를 이동하는 것이므로, 요소자체를 마이너스 값을 통해 다시 절반을 좌측, 상단으로 당겨오는 것.
     //transform 값을 적용하기 전에는 왼쪽 위 꼭짓점이 정 중앙에 배치된 상태.
   }
