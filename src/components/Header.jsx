@@ -40,7 +40,9 @@ const Header = (props) => {
     path === "/mypage";
 
   const param = useParams();
-  const isWrite = path === "/review/write" || path === "/store/write";
+  const isWrite =
+    (path.split("/")[1] === "review" && path.split("/")[2] === "write") ||
+    path === "/store/write";
   const reviewWrite = path === `/review/write/${param}`;
   const storeWrite = path === `/store/write`;
 
@@ -99,13 +101,16 @@ const Header = (props) => {
     return (
       <>
         {console.log(path)}
+        {console.log(param)}
         <HeaderStyle2>
           <Flex height="48px" margin="0 60px 0 0">
             <Icon margin="0 0 0 16px" onClick={() => history.goBack()}>
               <Close />
             </Icon>
             <Text medium fg="1" textAlign="center">
-              {reviewWrite && "리뷰 등록"}
+              {path.split("/")[1] === "review" &&
+                path.split("/")[2] === "write" &&
+                "리뷰 등록"}
               {storeWrite && "작품 등록"}
             </Text>
           </Flex>
@@ -116,6 +121,10 @@ const Header = (props) => {
   } else if (!Notarrowbtn) {
     return (
       <>
+        {console.log(
+          path.split("/")[1] === "review" && path.split("/")[2] === "write"
+        )}
+        {console.log(param)}
         <HeaderStyle2>
           <Flex height="48px">
             <Icon margin="16px 8px" onClick={() => history.goBack()}>

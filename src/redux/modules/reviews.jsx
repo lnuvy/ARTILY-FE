@@ -71,7 +71,7 @@ export const postReviewDB = (postID, contents) => {
   return async function (dispatch, getState, { history }) {
     Apis.postReview(postID, contents)
       .then(function (response) {
-        // console.log(response);
+        console.log(response);
         history.push("/review");
       })
       .catch(function (error) {
@@ -86,7 +86,7 @@ export const editReviewDB = (postId, contents) => {
   return async function (dispatch, getState, { history }) {
     Apis.editReview(postId, contents)
       .then(function (response) {
-        // console.log(response);
+        console.log(response);
         alert("수정되었습니다");
         history.push("/review");
       })

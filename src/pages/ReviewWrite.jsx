@@ -27,6 +27,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import styled from "styled-components";
 import { set } from "lodash";
+import theme from "../styles/theme";
 
 const MySwal = withReactContent(Swal);
 
@@ -126,34 +127,42 @@ const ReviewWrite = () => {
     // console.log(postId);
     // /review/write/4c96e2b7a1e8
 
-    if (reviewWrite) {
+    if (path === `/review/write/${postId}`) {
       // console.log("reviewWrite");
       dispatch(postReviewDB(postId, formData));
-    } else if (reviewEdit) {
+    } else if (path === `/review/edit/${reviewId}`) {
       // console.log("reviewWrite");
       dispatch(editReviewDB(reviewId, formData));
     }
   };
 
   return (
-    <Wrap margin="16px">
+    <Wrap margin="0 16px">
       <Preview />
-
+      <Wrap margin="8px 0 0 0" />
       <Input
         id="reviewTitle"
         placeholder="제목을 입력해주세요."
         value={inputs?.reviewTitle}
         onChange={InputChange}
       />
+      <Wrap margin="8px 0 0 0" />
       <Textarea
         id="reviewContent"
         value={inputs.reviewContent}
+        border="none"
         placeholder="작품에 대한 후기를 작성해주세요. 허위로 작성된 글은 게시가 제한될 수 있습니다."
         onChange={InputChange}
         textLine={100}
       />
       <ButtonWrap>
-        <Button text onClick={reviewSubmit}>
+        <Button
+          color={theme.color.brandColor}
+          text
+          fontSize="16px"
+          padding="14px 16px"
+          onClick={reviewSubmit}
+        >
           완료
         </Button>
       </ButtonWrap>
@@ -163,8 +172,8 @@ const ReviewWrite = () => {
 
 export default ReviewWrite;
 const ButtonWrap = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
-  z-index: 999;
+  z-index: 100;
 `;

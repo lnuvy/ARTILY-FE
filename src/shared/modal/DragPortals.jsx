@@ -35,7 +35,7 @@ const Background = styled.div`
   text-align: center;
   background-color: rgba(0, 0, 0, 0.8);
   overflow: hidden;
-  padding-top: 20px;
+  padding-top: 100px;
 `;
 
 // 컨텐츠: 모달 본체
