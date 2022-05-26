@@ -10,7 +10,7 @@ const DragModal = () => {
 
   const modal = useSelector((state) => state.modal);
 
-  console.log(modal);
+  // console.log(modal);
 
   // 모달 띄웠을때 배경 스크롤 막기
   useEffect(() => {

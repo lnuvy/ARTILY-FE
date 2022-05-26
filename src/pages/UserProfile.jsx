@@ -22,7 +22,7 @@ const UserProfile = () => {
   const currentUser = useSelector((state) => state?.mypage.userInfo);
   const nowUser = useSelector((state) => state?.mypage.userInfo.user);
   const otherUser = currentUser.user;
-  console.log(currentUser);
+  // console.log(currentUser);
   const {
     myMarkups = null,
     myPosts = null,
@@ -35,7 +35,7 @@ const UserProfile = () => {
   // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
-    console.log(innerText);
+    // console.log(innerText);
     setCurrent(menus.find((l) => l === innerText));
   };
 
@@ -118,7 +118,7 @@ const UserProfile = () => {
               {myPosts &&
                 current === "판매목록" &&
                 myPosts.map((post) => {
-                  console.log(post);
+                  // console.log(post);
                   return (
                     <ArtCard
                       sellLabel

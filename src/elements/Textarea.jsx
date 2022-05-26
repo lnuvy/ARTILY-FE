@@ -70,7 +70,7 @@ Textarea.defaultProps = {
   width: "100%",
   fg: "0",
   margin: "0",
-  padding: "12px",
+  padding: "0",
   onChange: () => {},
   br: "",
 };
@@ -85,15 +85,16 @@ const TextareaBox = styled.div`
 `;
 
 const TextareaContainer = styled.textarea`
-  height: calc(
-    ${({ textLine }) => textLine}rem + (${({ padding }) => padding} * 2)
-  );
+  height: calc(${({ textLine }) => textLine}rem);
   width: ${({ width }) => width};
   padding: ${({ padding }) => padding}; // 0지움
   background: rgba(255, 255, 255, 0.05);
   border-radius: 2px;
   border: ${({ border }) => border}!important;
   resize: none;
+  font-size: 14px;
+  letter-spacing: -0.41 px;
+  line-height: 22px;
   :focus-visible {
     outline: none;
   }

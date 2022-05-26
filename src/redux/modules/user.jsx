@@ -42,7 +42,7 @@ export const kakaoLogin = (code) => {
   return async function (dispatch, getState, { history }) {
     Apis.getKakaoCode(code)
       .then((res) => {
-        console.log("로그인 직후 데이터모양", res.data);
+        // console.log("로그인 직후 데이터모양", res.data);
 
         const {
           token,
@@ -67,7 +67,7 @@ export const kakaoLogin = (code) => {
         history.replace("/");
       })
       .catch((err) => {
-        console.log("카카오로그인", err);
+        // console.log("카카오로그인", err);
         console.log(err.response);
       });
   };
@@ -77,7 +77,7 @@ export const naverLogin = (code, state) => {
   return async function (dispatch, getState, { history }) {
     Apis.getNaverCode(code, state)
       .then((res) => {
-        console.log("네이버로그인 직후 데이터모양", res.data);
+        // console.log("네이버로그인 직후 데이터모양", res.data);
         const {
           token,
           nickname,
@@ -102,7 +102,7 @@ export const naverLogin = (code, state) => {
         history.push("/");
       })
       .catch((err) => {
-        console.log("네이버로그인 에러", err);
+        // console.log("네이버로그인 에러", err);
         console.log(err.response);
       });
   };
@@ -112,7 +112,7 @@ export const getUserInfo = () => {
   return async function (dispatch, getState, { history }) {
     Apis.getUser()
       .then((res) => {
-        console.log("getUser 데이터모양", res);
+        // console.log("getUser 데이터모양", res);
         const { user } = res.data;
         dispatch(getUser(user));
         // if (user.type === "new") {
@@ -124,7 +124,7 @@ export const getUserInfo = () => {
         // }
       })
       .catch((err) => {
-        console.log("getUser 에러", err);
+        // console.log("getUser 에러", err);
         console.log(err.response);
       });
   };
@@ -136,7 +136,7 @@ export const setProfileDB = (formData, goDetail = null) => {
   return function (dispatch, getState, { history }) {
     Apis.patchProfile(formData)
       .then((res) => {
-        console.log("setProfileDB 데이터모양", res);
+        // console.log("setProfileDB 데이터모양", res);
         if (goDetail) {
           MySwal.fire({
             icon: "question",
@@ -162,7 +162,7 @@ export const setProfileDB = (formData, goDetail = null) => {
         }
       })
       .catch((error) => {
-        console.log("프로필 정보 전송 실패", error);
+        // console.log("프로필 정보 전송 실패", error);
         window.alert("프로필 저장에 문제가 발생했습니다!");
       });
   };
@@ -178,7 +178,7 @@ export const editProfileDB = (formData) => {
         // window.location.reload();
       })
       .catch((error) => {
-        console.log("프로필 수정 정보 전달 실패", error);
+        // console.log("프로필 수정 정보 전달 실패", error);
         window.alert("프로필 수정 정보 저장에 문제가 발생했습니다!");
       });
   };
@@ -220,7 +220,7 @@ export const postMarkupToggle = (postId) => {
         // }
       })
       .catch(async (err) => {
-        console.log("마크업 에러", err);
+        // console.log("마크업 에러", err);
         console.log(err.response);
         // 401 에러일때 띄우기
         if (err.response.status === 401) {
@@ -257,7 +257,7 @@ const userSlice = createSlice({
     editUser: (state, action) => {},
     // 카테고리 필터 이름변경
     userLogout: (state) => {
-      console.log("액션 찍힘 ?");
+      // console.log("액션 찍힘 ?");
       state.user = null;
       state.isLogin = false;
     },

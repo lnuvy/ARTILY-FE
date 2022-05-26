@@ -56,9 +56,9 @@ const Setprofile = () => {
 
   const selectFile = (e) => {
     const reader = new FileReader();
-    console.log(reader);
+    // console.log(reader);
     const file = fileInput.current.files[0];
-    console.log(file);
+    // console.log(file);
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       dispatch(setProfileImage(reader.result));
@@ -81,10 +81,10 @@ const Setprofile = () => {
     formData.append("profileImage", file);
     formData.append("nickname", nickname);
 
-    console.log("formData", formData);
+    // console.log("formData", formData);
 
     for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+      // console.log(pair[0] + ", " + pair[1]);
     }
     dispatch(setProfileDB(formData, "goDetail"));
   };

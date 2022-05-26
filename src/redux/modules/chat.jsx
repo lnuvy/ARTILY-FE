@@ -22,15 +22,15 @@ export const getChatList = () => {
   return async function (dispatch, getState, { history }) {
     Apis.getChatData()
       .then((res) => {
-        console.log("TODO res 데이터 잘보기", res);
+        // console.log("TODO res 데이터 잘보기", res);
         if (res.status === 204) {
-          console.log("아직 채팅방없음");
+          // console.log("아직 채팅방없음");
         }
         dispatch(chatInfo(res.data.newChat));
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response);
+        // console.log(err.response);
       });
   };
 };
@@ -39,7 +39,7 @@ export const getChatMessages = (roomName) => {
   return async function (dispatch, getState, { history }) {
     Apis.getMessages(roomName)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (roomName === res.data.roomUser.roomName) {
           dispatch(getMessages(res.data.roomUser.messages));
           history.push(`/chat/${roomName}`);
@@ -69,7 +69,7 @@ const chatSlice = createSlice({
       // TODO 다시볼것
       state.chatData.chatRoom.push(action.payload);
       state.nowChat = action.payload;
-      console.log("채팅하기 누른사람만 떠야함");
+      // console.log("채팅하기 누른사람만 떠야함");
     },
 
     getNowChatInfo: (state, action) => {
@@ -88,7 +88,7 @@ const chatSlice = createSlice({
     // 목록창에서 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
       const { roomName } = action.payload;
-      console.log("receiveChatRoom 이름", roomName);
+      // console.log("receiveChatRoom 이름", roomName);
 
       state.chatData.chatRoom.unshift(action.payload);
     },

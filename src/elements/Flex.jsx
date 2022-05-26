@@ -19,6 +19,11 @@ const Flex = (props) => {
     br,
     borderTop,
     borderBottom,
+    position,
+    top,
+    bottom,
+    right,
+    left,
   } = props;
 
   const styles = {
@@ -34,6 +39,11 @@ const Flex = (props) => {
     br,
     borderTop,
     borderBottom,
+    position,
+    top,
+    bottom,
+    right,
+    left,
   };
 
   if (child) {
@@ -60,6 +70,7 @@ Flex.defaultProps = {
   padding: "0",
   jc: "left",
   bc: "transparent",
+  position: "",
 };
 
 const FlexStyle = styled.div`
@@ -77,6 +88,12 @@ const FlexStyle = styled.div`
 
   border-top: ${({ borderTop }) => borderTop};
   border-bottom: ${({ borderBottom }) => borderBottom};
+
+  position: ${({ position }) => position};
+  top: ${({ top }) => top};
+  bottom: ${({ bottom }) => bottom};
+  left: ${({ left }) => left};
+  right: ${({ right }) => right};
 `;
 
 const FlexChild = styled.div`

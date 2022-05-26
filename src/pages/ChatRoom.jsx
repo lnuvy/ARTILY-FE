@@ -31,9 +31,7 @@ const ChatRoom = () => {
   const targetUserId = useSelector(
     (state) => state?.chat?.nowChat?.targetUser?.userId
   );
-
-  console.log(from);
-  console.log("targetUser", targetUserId);
+  // console.log(targetUserId);
 
   const { chatData, nowChat, roomMessages } = useSelector(
     (state) => state.chat
@@ -44,7 +42,7 @@ const ChatRoom = () => {
     nowChat?.targetUser?.userId === from
       ? nowChat.createUser
       : nowChat.targetUser;
-  console.log("target!!!!!!", target);
+  // console.log("target!!!!!!", target);
   // const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
 
@@ -122,7 +120,7 @@ const ChatRoom = () => {
 
   useEffect(() => {
     socket.on("_room", (data) => {
-      console.log(data);
+      // console.log(data);
     });
   });
 

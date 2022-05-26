@@ -14,7 +14,7 @@ const ChatCard = ({ room, onClick }) => {
       ? room.createUser
       : room.targetUser;
   // const nowConnected = target.connected;
-  console.log(room);
+  // console.log(room);
   return (
     <Flex
       jc="space-between"

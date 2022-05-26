@@ -37,6 +37,7 @@ const StoreCard = (props) => {
   }, []);
 
   const isMyMarkup = likeThisPostList?.find((v) => v === postId);
+  // console.log(likeThisPostList);
 
   return (
     <Card onClick={onClick}>

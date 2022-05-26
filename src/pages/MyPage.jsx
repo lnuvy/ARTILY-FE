@@ -20,7 +20,7 @@ const MyPage = () => {
   const getProfile = useSelector((state) => state.user.user);
   // 웹사이트 주소 외부링크 연결
   const myAllList = useSelector((state) => state.mypage.list);
-  console.log(myAllList);
+  // console.log(myAllList);
 
   // 팔로워 목록 불러오기 위해 사용함
   useEffect(() => {
@@ -201,7 +201,7 @@ const MyPage = () => {
             {myPosts &&
               current === "판매목록" &&
               myPosts.map((post) => {
-                console.log(post);
+                // console.log(post);
                 return (
                   <ArtCard
                     sellLabel

@@ -9,6 +9,7 @@ import {
   resetImageDt,
   addImageDt,
 } from "../redux/modules/image";
+import { Close } from "../assets/icons/index";
 import styled from "styled-components";
 
 import { AiOutlineClose } from "react-icons/ai";
@@ -40,8 +41,8 @@ const ImagePreview = (props) => {
       }
     });
 
-    console.log(imageArr);
-    console.log(filtered);
+    // console.log(imageArr);
+    // console.log(filtered);
     dispatch(accrueImageDelete(filtered));
 
     // 수정단계의 대표이미지일때
@@ -80,16 +81,16 @@ const ImagePreview = (props) => {
                 width="64px"
               />
               <Button
-                padding="2px"
+                padding="1px"
                 position="absolute"
                 top="-6px"
                 right="-6px"
                 bc="black"
-                width="fit-content"
-                height="12px"
+                width="16px"
+                height="16px"
                 onClick={() => removeImage(image, i)}
               >
-                <AiOutlineClose size={12} />
+                <Close size={12} color="white" />
               </Button>
               {i === 0 && <MainImageLabel>대표 사진</MainImageLabel>}
             </Wrap>

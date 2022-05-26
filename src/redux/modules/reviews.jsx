@@ -31,7 +31,7 @@ export const getReviewDB = (pageNumber) => {
     // };
     Apis.getReview(pageNumber)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         dispatch(getReviewData(response.data.reviews));
       })
       .catch(function (error) {
@@ -44,7 +44,7 @@ export const getMyBuyDB = () => {
   return async function (dispatch, getState, { history }) {
     Apis.getMyBuy()
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         dispatch(getBuyList(response.data.myBuy));
       })
       .catch(function (error) {
@@ -55,10 +55,10 @@ export const getMyBuyDB = () => {
 
 export const getReviewOne = (reviewId) => {
   return async function (dispatch, getState, { history }) {
-    console.log(reviewId);
+    // console.log(reviewId);
     Apis.getReviewDetail(reviewId)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         dispatch(getNowReview(response.data));
       })
       .catch(function (error) {
@@ -69,10 +69,9 @@ export const getReviewOne = (reviewId) => {
 
 export const postReviewDB = (postID, contents) => {
   return async function (dispatch, getState, { history }) {
-    console.log("hi");
     Apis.postReview(postID, contents)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         history.push("/review");
       })
       .catch(function (error) {
@@ -82,12 +81,12 @@ export const postReviewDB = (postID, contents) => {
 };
 
 export const editReviewDB = (postId, contents) => {
-  console.log(postId);
-  console.log(contents);
+  // console.log(postId);
+  // console.log(contents);
   return async function (dispatch, getState, { history }) {
     Apis.editReview(postId, contents)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         alert("수정되었습니다");
         history.push("/review");
       })
@@ -101,7 +100,7 @@ export const deleteReviewDB = (reviewId) => {
   return async function (dispatch, getState, { history }) {
     Apis.deleteReview(reviewId)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         alert("삭제되었습니다");
         history.push("/review");
       })
@@ -115,7 +114,7 @@ export const likeReviewDB = (reviewId) => {
   return async function (dispatch, getState, { history }) {
     Apis.likeReview(reviewId)
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         // dispatch(getMyLike(response.data.totalLike));
         // dispatch(getReviewOne(reviewId));
         history.go(0);
@@ -134,17 +133,17 @@ export const likeReviewListDB = (reviewId) => {
           const likeList = res.data.likeList;
           likeList.map((v, i) => {
             if (reviewId === v) {
-              console.log(v);
+              // console.log(v);
               dispatch(myReviewLike(true));
               return;
             } else {
-              console.log("false");
+              // console.log("false");
               dispatch(myReviewLike(false));
               return;
             }
           });
         }
-        console.log(res.data.likeList);
+        // console.log(res.data.likeList);
         dispatch(myreviewLikeList(res.data.likeList));
       })
       .catch((err) => {
@@ -161,13 +160,13 @@ const reviewSlice = createSlice({
     getReviewData: (state, action) => {
       state.list = action.payload;
       state.filterList = action.payload;
-      console.log(state.list);
+      // console.log(state.list);
     },
     getBuyList: (state, action) => {
       state.buyList = action.payload;
     },
     getNowReview: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.detailData.buyer = action.payload.buyer;
       state.detailData.defferentInfo = action.payload.defferentInfo;
     },
@@ -196,7 +195,7 @@ const reviewSlice = createSlice({
     // 카테고리 필터 이름변경
     filteringReviewData: (state, action) => {
       if (action.payload === "전체") {
-        console.log(action.payload);
+        // console.log(action.payload);
         state.filterList = state.list;
         return;
       }

@@ -21,7 +21,7 @@ const SellComplete = () => {
 
   const arr = new Array(3);
 
-  console.log(arr);
+  // console.log(arr);
 
   useEffect(() => {
     dispatch(getChatList());
@@ -35,7 +35,7 @@ const SellComplete = () => {
     dispatch(sellCompleteDB(postId, selectedUserId, path));
   }
 
-  console.log(postId, currentSelect);
+  // console.log(postId, currentSelect);
   return (
     <>
       <Wrap bc="#E0E0E0" height="calc(100vh - 48px)">

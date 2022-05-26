@@ -50,15 +50,15 @@ const imageSlice = createSlice({
 
     // 프리뷰 사진을 지울때
     removePreview: (state, action) => {
-      console.log(state.imageArr);
-      console.log(action);
+      // console.log(state.imageArr);
+      // console.log(action);
       state.imageArr = state.imageArr.filter((el) => {
         return el !== action.payload;
       });
     },
 
     removeFileObj: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       if (state.fileObj.length === 1) {
         state.fileObj = [];
       } else {
@@ -81,7 +81,7 @@ const imageSlice = createSlice({
 
     // 5/9 파일형태 저장
     inputfileObj: (state, action) => {
-      console.log("inputfileObj");
+      // console.log("inputfileObj");
       state.fileObj.push(action.payload);
     },
 

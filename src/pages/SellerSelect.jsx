@@ -20,11 +20,10 @@ const SellerSelect = () => {
 
   function myBuyListCheck() {
     if (user.isLogin === true) {
-      console.log("hi");
       user.user.myBuy.forEach((mybuy) => {
         posts.map((post) => {
           if (post.postId === mybuy) {
-            console.log(post);
+            // console.log(post);
             dispatch(getBuyList(post));
             // mybuyList.push(post);
           }

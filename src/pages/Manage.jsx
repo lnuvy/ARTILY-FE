@@ -12,7 +12,7 @@ import theme from "../styles/theme";
 const Manage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mypage.sellList);
-  console.log(mystoreList);
+  // console.log(mystoreList);
 
   const handleClickData = (data) => {
     dispatch(getDetail(data));
