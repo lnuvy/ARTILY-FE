@@ -87,7 +87,6 @@ const UserFollow = () => {
                   width="60px"
                   height="60px"
                   bg="#ddd"
-                  shadow="1px 0.5px 2px #888"
                   br="30px"
                   src={follower?.profileImage}
                   onClick={() => {
@@ -130,7 +129,6 @@ const UserFollow = () => {
                   width="60px"
                   height="60px"
                   bg="#ddd"
-                  shadow="1px 0.5px 2px #888"
                   br="30px"
                   src={follow?.profileImage}
                   onClick={() => {

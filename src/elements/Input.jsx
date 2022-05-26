@@ -222,9 +222,6 @@ const SquareInput = styled.input`
       color: ${({ color }) => color};
       border: 1px solid ${theme.color.danger};
       font-size: ${({ fontSize }) => fontSize};
-      :focus {
-        border: 1px solid ${theme.color.danger};
-      }
     `
       : `
       color: ${({ color }) => color};

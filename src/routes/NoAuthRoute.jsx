@@ -39,7 +39,7 @@ const NoAuthRoute = () => {
         <Route path="/test" component={Test} />
         <Route path="/login" exact component={Login} />
         <Route path="/oauth/kakao/callback" component={RedirectKakao} />
-        <Route path="/oauth/naver/callback" component={RedirectNaver} />
+        {/* <Route path="/oauth/naver/callback" component={RedirectNaver} /> */}
         <Route path="/*" component={Login} />
       </Switch>
     </Suspense>
