@@ -27,15 +27,18 @@ const ChatRoom = () => {
 
   // url 에서 가져온 현재 방 이름
   const roomName = pathname.slice(6);
-  const from = useSelector((state) => state.user.user?.userId);
+  const from = useSelector((state) => state?.user?.user?.userId);
   const targetUserId = useSelector(
-    (state) => state.chat.nowChat.targetUser.userId
+    (state) => state?.chat?.nowChat?.targetUser?.userId
   );
-  console.log(targetUserId);
+
+  console.log(from);
+  console.log("targetUser", targetUserId);
 
   const { chatData, nowChat, roomMessages } = useSelector(
     (state) => state.chat
   );
+  console.log("!!!!!!!!!!!!!!!!!!!", nowChat);
   // import recei
   const target =
     nowChat?.targetUser?.userId === from
@@ -112,6 +115,7 @@ const ChatRoom = () => {
     scrollToBottom();
   }, [messages]);
 
+  //채팅방 나가기
   const leaveRoom = () => {
     socket.emit("leave_room", roomName, targetUserId);
   };
@@ -128,24 +132,39 @@ const ChatRoom = () => {
         <Icon margin="20px 15px" onClick={() => history.goBack()}>
           <ArrowBack />
         </Icon>
+        <div className="targetInfo">
+          <Flex>
+            <Image
+              circle
+              size="25"
+              src={nowChat?.targetUser?.profileImage}
+            ></Image>
+            <Text body1 margin="0 0 0 5px">
+              {nowChat?.targetUser?.nickname}
+            </Text>
+          </Flex>
+        </div>
         <button
           onClick={() => {
-            window.alert("채팅방을 나가시겠습니까?");
+            // window.confirm("채팅방을 나가시겠습니까?");
+            if (window.confirm("채팅방을 나가시겠습니까?")) {
+              history.goBack();
+            } else {
+              return;
+            }
             leaveRoom();
-            history.goBack();
           }}
         >
           나가기
         </button>
       </Wraptop>
-
       <Wrapinfo>
         <Flex>
           {isDone ? (
             <ImageDark>
               <Image
                 br="8px"
-                src={chatData?.post?.imageUrl}
+                src={nowChat.post.imageUrl}
                 width="48px"
                 height="48px"
               />
@@ -170,11 +189,11 @@ const ChatRoom = () => {
               <p
                 style={{
                   fontSize: "12px",
-                  fontWeight: "700",
+                  fontWeight: "600",
                   marginLeft: "23px",
                 }}
               >
-                {priceComma(nowChat?.post?.price)}
+                {priceComma(nowChat?.post?.price)}원
               </p>
             </Flex>
           </Flex>
@@ -291,11 +310,11 @@ const Container = styled.div`
   height: calc(100vh - 188px);
   background-color: #e0e0e0;
   overflow-y: scroll;
-  margin: 0 0 72px;
+  margin-top: 142px;
 `;
 
 const ImageDark = styled.div`
-  background-color: rgba(0, 0, 0, 0.4);
+  /* background-color: rgba(0, 0, 0, 0.4); */
 `;
 
 const FixedChatBar = styled.div`
@@ -306,7 +325,6 @@ const FixedChatBar = styled.div`
   width: 100vw;
   max-width: ${({ theme }) => `${theme.view.maxWidth}`};
   padding: 10px 12px;
-  border-top: 1px solid gray;
   z-index: 20;
   background-color: white;
 `;
@@ -314,18 +332,35 @@ const Wraptop = styled.div`
   position: relative;
   button {
     position: absolute;
-    top: 0px;
+    top: 20px;
     right: 23px;
     line-height: 24px;
     font-size: 15px;
-    font-weight: bold;
+    /* font-weight: bold; */
     color: ${({ theme }) => theme.pallete.primary850};
     background-color: #fff;
   }
+  .targetInfo {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+  }
+  width: 100vw;
+  max-width: ${theme.view.maxWidth};
+  height: fit-content;
+  padding: ${({ padding }) => padding};
+  padding-bottom: 0;
+  position: fixed;
+  background-color: #fff;
+  z-index: 99;
 `;
 const Wrapinfo = styled.div`
   /* border-top: 1px solid #eee; */
   padding: 15px 16px;
-  background-color: #fffbe4;
+  background-color: #d3d3d3;
+  margin: 64px 0 0 0;
+  position: fixed;
+  width: 100vw;
 `;
+const Wraptarget = styled.div``;
 export default ChatRoom;

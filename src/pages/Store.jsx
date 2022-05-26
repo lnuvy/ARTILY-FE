@@ -453,7 +453,6 @@ const Store = () => {
             </Text> */}
           </Flex>
         </Wrap>
-        {console.log(filterList)}
 
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
           {searchList && query !== ""

@@ -31,9 +31,9 @@ const StoreCard = (props) => {
   const likeThisPostList = useSelector((state) => state.store.myPostLikeList);
 
   useEffect(() => {
-    if (currentUser) {
-      dispatch(getMyPostLikeDB());
-    }
+    // if (currentUser) {
+    // dispatch(getMyPostLikeDB());
+    // }
   }, []);
 
   const isMyMarkup = likeThisPostList?.find((v) => v === postId);
