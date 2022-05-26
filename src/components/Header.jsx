@@ -20,7 +20,7 @@ const Header = (props) => {
   // );
   const isLogin = useSelector((state) => state.user.isLogin);
   const roomName = useSelector((state) => state.chat.nowChat.roomName);
-  // console.log(roomName);
+  console.log(roomName);
   const { cg, width, gtc, textAlign, padding } = props;
 
   const styles = {

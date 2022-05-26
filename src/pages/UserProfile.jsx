@@ -206,6 +206,6 @@ const Follower = styled.span`
 `;
 
 const Tab = styled.div`
-  border-top: 8px solid ${({ theme }) => theme.pallete.gray1};
+  border-top: 1px solid ${({ theme }) => theme.pallete.gray1};
 `;
 export default UserProfile;
