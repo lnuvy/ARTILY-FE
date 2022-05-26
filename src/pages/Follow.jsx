@@ -3,14 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Grid, Flex, Text, Image } from "../elements";
-import { NoInfo } from "../components";
 import {
   addFollowDB,
   getFollowDB,
   getFollowerDB,
   deleteFollowerDB,
 } from "../redux/modules/follow";
-
+import { NoInfo } from "../components";
 const Follow = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -78,79 +77,70 @@ const Follow = () => {
         })}
       </Grid>
 
-      {current === `팔로워` && !nowfollowerList === []
-        ? nowfollowerList.map((follower, l) => {
-            return (
-              <Profile key={l}>
-                <Flex>
-                  <Image
-                    margin="0 16px 0 0"
-                    width="60px"
-                    height="60px"
-                    bg="#ddd"
-                    shadow="1px 0.5px 2px #888"
-                    br="30px"
-                    onClick={() => {
-                      history.push(`/userprofile/${follower.userId}`); //누르면 팔로우한 유저의 프로필로 이동
-                    }}
-                    src={follower?.profileImage}
-                  ></Image>
-                  <Text fg="1" body2 bold margin="5px 0 10px 0">
-                    {nowfollowerList.length ? follower.nickname : ""}
-                  </Text>
-                  <DeleteBtn
-                    height="38px"
-                    padding="3px 17px"
-                    onClick={() => deleteMyFollower(follower)}
-                  >
-                    삭제
-                  </DeleteBtn>
-                </Flex>
-              </Profile>
-            );
-          })
-        : current === `팔로워` && (
-            <>
-              <NoInfo text1="팔로워가 없습니다." />
-            </>
-          )}
-      {current === `팔로잉` && !nowfollowList === []
-        ? nowfollowList.map((follow, l) => {
-            return (
-              <Profile key={l}>
-                <Flex>
-                  <Image
-                    margin="0 16px 0 0"
-                    width="60px"
-                    height="60px"
-                    bg="#ddd"
-                    shadow="1px 0.5px 2px #888"
-                    br="30px"
-                    src={follow?.profileImage}
-                    onClick={() => {
-                      history.push(`/userprofile/${follow.followId}`);
-                    }}
-                  ></Image>
-                  <Text fg="1" body2 bold margin="5px 0 10px 0">
-                    {nowfollowList.length ? follow.followName : ""}
-                  </Text>
-                  {/* 이미 팔로잉 한 상태일때 */}
-                  <FollowBtn
-                    height="38px"
-                    padding="3px 17px"
-                    onClick={() => unfollow(follow)}
-                  >
-                    언팔로우
-                  </FollowBtn>
-                </Flex>
-              </Profile>
-            );
-          })
-        : current === `팔로잉` && (
-            <>
-              <NoInfo text1="팔로잉이 없습니다." />
-            </>
-          )}
+      {current === `팔로워` &&
+        nowfollowerList?.map((follower, l) => {
+          return (
+            <Profile key={l}>
+              <Flex>
+                <Image
+                  margin="0 16px 0 0"
+                  width="60px"
+                  height="60px"
+                  bg="#ddd"
+                  shadow="1px 0.5px 2px #888"
+                  br="30px"
+                  onClick={() => {
+                    history.push(`/userprofile/${follower.userId}`); //누르면 팔로우한 유저의 프로필로 이동
+                  }}
+                  src={follower?.profileImage}
+                ></Image>
+                <Text fg="1" body2 bold margin="5px 0 10px 0">
+                  {nowfollowerList.length ? follower.nickname : ""}
+                </Text>
+                <DeleteBtn
+                  height="38px"
+                  padding="3px 17px"
+                  onClick={() => deleteMyFollower(follower)}
+                >
+                  삭제
+                </DeleteBtn>
+              </Flex>
+            </Profile>
+          );
+        })}
+
+      {current === `팔로잉` &&
+        nowfollowList?.map((follow, l) => {
+          return (
+            <Profile key={l}>
+              <Flex>
+                <Image
+                  margin="0 16px 0 0"
+                  width="60px"
+                  height="60px"
+                  bg="#ddd"
+                  shadow="1px 0.5px 2px #888"
+                  br="30px"
+                  src={follow?.profileImage}
+                  onClick={() => {
+                    history.push(`/userprofile/${follow.followId}`);
+                  }}
+                ></Image>
+                <Text fg="1" body2 bold margin="5px 0 10px 0">
+                  {nowfollowList.length ? follow.followName : ""}
+                </Text>
+                {/* 이미 팔로잉 한 상태일때 */}
+                <FollowBtn
+                  height="38px"
+                  padding="3px 17px"
+                  onClick={() => unfollow(follow)}
+                >
+                  언팔로우
+                </FollowBtn>
+              </Flex>
+            </Profile>
+          );
+        })}
     </>
   );
 };
