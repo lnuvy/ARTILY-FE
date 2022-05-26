@@ -13,7 +13,7 @@ import theme from "./styles/theme";
 import AuthRoute from "./routes/AuthRoute";
 import NoAuthRoute from "./routes/NoAuthRoute";
 import DragModal from "./shared/modal/DragModal";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ function App() {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>Artily</title>
         <meta property="description" content="신예 작가들의 작품 거래 플랫폼" />
         <meta property="og:title" content="Artily" />
@@ -70,7 +70,7 @@ function App() {
           content="신예 작가들의 작품 거래 플랫폼"
         />
         <meta property="og:image" content="%PUBLIC_URL%/images/artily-og.png" />
-      </Helmet>
+      </Helmet> */}
       {isLogin ? (
         <>
           <MaxContainer>
