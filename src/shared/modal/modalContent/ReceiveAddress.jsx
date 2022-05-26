@@ -41,7 +41,7 @@ const ReceiveAddress = () => {
           margin="0 10px 0 0px"
           value={address}
           onChange={(e) => {
-            console.log("location");
+            // console.log("location");
             // setGu(e.target.value);
             // setDong(e.target.value);
           }}

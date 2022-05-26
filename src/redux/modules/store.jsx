@@ -35,7 +35,7 @@ export const getPostDB = (pageNumber) => {
   return async function (dispatch, getState, { history }) {
     Apis.getStore(pageNumber)
       .then((res) => {
-        console.log("스토어 get요청", res.data.data);
+        // console.log("스토어 get요청", res.data.data);
         dispatch(getStoreData(res.data.data));
       })
       .catch((err) => {
@@ -48,7 +48,7 @@ export const getPostOne = (postId) => {
   return async function (dispatch, getState, { history }) {
     Apis.getStoreDetail(postId)
       .then((res) => {
-        console.log("스토어 상세페이지", res.data);
+        // console.log("스토어 상세페이지", res.data);
         const { detail, getUser } = res.data.data;
         dispatch(go2detail(...detail));
         dispatch(otherPost(getUser));
@@ -69,21 +69,6 @@ export const getMyPostLikeDB = (postId) => {
   return async function (dispatch, getState, { history }) {
     Apis.getMyPostLike()
       .then((res) => {
-        console.log(res);
-        // if (postId) {
-        //   const likeList = res.data.markUpList;
-        //   console.log(likeList);
-        //   console.log(postId);
-        //   likeList.map((v, i) => {
-        //     if (postId === v) {
-        //       dispatch(myPostLike(true));
-        //       return;
-        //     } else {
-        //       dispatch(myPostLike(false));
-        //       return;
-        //     }
-        //   });
-        // }
         dispatch(myPostLikeList(res.data.markUpList));
       })
       .catch((err) => {
@@ -97,7 +82,7 @@ export const postMyPostLikeDB = (postId) => {
   return async function (dispatch, getState, { history }) {
     Apis.postMyPostLIke(postId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         // if (res.data.msg === "성공") {
         //   dispatch(myPostLike(true));
 
@@ -298,14 +283,14 @@ const postsSlice = createSlice({
       state.list.forEach((post) => {
         if (post.postId === state.detailData.postId) {
           post.markupCnt = state.detailData.markupCnt;
-          console.log("마크업카운트 전체리스트에 적용");
+          // console.log("마크업카운트 전체리스트에 적용");
           return;
         }
       });
       state.filterList.forEach((post) => {
         if (post.postId === state.detailData.postId) {
           post.markupCnt = state.detailData.markupCnt;
-          console.log("마크업카운트 필터리스트에 적용");
+          // console.log("마크업카운트 필터리스트에 적용");
           return;
         }
       });

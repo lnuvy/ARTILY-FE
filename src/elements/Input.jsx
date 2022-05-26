@@ -31,9 +31,22 @@ const Input = (props) => {
     withBtn,
     //5.23 모바일에서 input박스가 높이값이 없어서 뭉개져 보이는 현상을 막기위해 추가함
     height,
+    color,
+    placeholderColor,
   } = props;
 
-  const styles = { width, fg, margin, alert, icon, padding, br, height };
+  const styles = {
+    width,
+    fg,
+    margin,
+    alert,
+    icon,
+    padding,
+    br,
+    height,
+    color,
+    placeholderColor,
+  };
 
   if (withBtn) {
     return (
@@ -115,10 +128,12 @@ Input.defaultProps = {
   fg: "0",
   margin: "0",
   icon: false,
-  padding: "12px",
+  padding: "9px 0",
   readOnly: false,
   onChange: () => {},
   autoComplete: "off",
+  color: theme.pallete.black,
+  placeholderColor: theme.pallete.gray3,
 };
 
 const InputWrap = styled.div`
@@ -134,13 +149,13 @@ const InputContainer = styled.input`
   height: fit-content;
   width: ${({ width }) => width};
   padding: ${({ padding }) => padding};
-  background: rgba(255, 255, 255, 0.05);
+  color: ${({ color }) => color};
   border-radius: 0px;
   :focus-visible {
     outline: none;
   }
   ::placeholder {
-    color: ${theme.pallete.gray3};
+    color: ${({ placeholderColor }) => placeholderColor};
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.41px;
@@ -148,7 +163,7 @@ const InputContainer = styled.input`
   ${(props) =>
     props.alert
       ? `
-      color: ${theme.color.black};
+      color: ${({ color }) => color};
       border-bottom: 1px solid ${theme.color.danger};
       :focus {
         // borde-bottom: 1px solid ${theme.color.danger};
@@ -156,8 +171,8 @@ const InputContainer = styled.input`
       }
     `
       : `
-      color: ${theme.color.black};
-      border-bottom: 1px solid ${theme.color.black};
+      color: ${({ color }) => color};
+      border-bottom: 1px solid ${theme.pallete.gray1};
       :focus {
         // border-bottom: 1px solid ${theme.color.brandColor};
         // box-shadow: 0px 0px 6px ${theme.color.brandColor};
@@ -169,31 +184,33 @@ const SquareInput = styled.input`
   height: ${({ height }) => height};
   width: ${({ width }) => width};
   padding: ${({ padding }) => padding};
-  background: rgba(255, 255, 255, 0.05);
   border-radius: ${({ br }) => br};
+  color: ${({ color }) => color};
   :focus-visible {
     outline: none;
   }
   ::placeholder {
-    color: ${theme.pallete.gray3};
-    font-size: 14px;
+    color: ${({ placeholderColor }) => placeholderColor};
     line-height: 21px;
     letter-spacing: -0.41px;
   }
   ${(props) =>
     props.alert
       ? `
-      color: ${theme.color.black};
+      color: ${({ color }) => color};
       border: 1px solid ${theme.color.danger};
       :focus {
         border: 1px solid ${theme.color.danger};
       }
     `
       : `
-      color: ${theme.color.black};
+      color: ${({ color }) => color};
       border: 1px solid ${theme.pallete.gray3};
       :focus {
         border: 1px solid ${theme.color.brandColor};
+      }
+      ::placeholder {
+        color: ${({ placeholderColor }) => placeholderColor};
       }
     `}
 `;
@@ -205,7 +222,7 @@ const InputIcon = styled.div`
   /* background-color: grey; */
   position: absolute;
   top: 8px;
-  right: 8px;
+  right: 0px;
 `;
 
 const BtnWrap = styled.div`
@@ -217,7 +234,7 @@ const BtnWrap = styled.div`
 `;
 
 const InputLabel = styled.label`
-  color: ${theme.color.black};
+  color: ${({ color }) => color};
   display: inline-block;
   margin-bottom: 4px;
   font-size: 12px;

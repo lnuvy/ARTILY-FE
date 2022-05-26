@@ -99,40 +99,38 @@ const ReviewWrite = () => {
 
     if (path === `/review/write/${postId}`) {
       for (let i = 0; i < fileObj.length; i++) {
-        console.log(fileObj[i]);
+        // console.log(fileObj[i]);
         formData.append("imageUrl", fileObj[i]);
       }
     }
 
     if (path === `/review/edit/${reviewId}`) {
       if (fileObj.length > 0) {
-        console.log("hi");
         for (let i = 0; i < fileObj.length; i++) {
           formData.append("imageUrl", fileObj[i]);
         }
       }
 
       if (imageDt.length > 0) {
-        console.log("hi");
         for (let i = 0; i < imageDt.length; i++) {
-          console.log(imageDt[i]);
+          // console.log(imageDt[i]);
           formData.append("imgDt", imageDt[i]);
         }
       }
     }
 
     for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+      // console.log(pair[0] + ", " + pair[1]);
     }
 
-    console.log(postId);
+    // console.log(postId);
     // /review/write/4c96e2b7a1e8
 
     if (reviewWrite) {
-      console.log("reviewWrite");
+      // console.log("reviewWrite");
       dispatch(postReviewDB(postId, formData));
     } else if (reviewEdit) {
-      console.log("reviewWrite");
+      // console.log("reviewWrite");
       dispatch(editReviewDB(reviewId, formData));
     }
   };

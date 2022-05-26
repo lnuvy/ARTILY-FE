@@ -60,8 +60,8 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
     const guArray = address.gu.split("");
     const dongArray = address.dong.split("");
 
-    console.log(guArray[guArray.length - 1]);
-    console.log(dongArray[dongArray.length - 1]);
+    // console.log(guArray[guArray.length - 1]);
+    // console.log(dongArray[dongArray.length - 1]);
 
     if (!(guArray[guArray.length - 1] === "구")) {
       alert("구를 잘못 입력하셨습니다. 00구 형식으로 입력하세요.");
@@ -78,7 +78,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
 
   const addressValue = (e) => {
     const { id, value } = e.target;
-    console.log(id);
+    // console.log(id);
 
     if (e.target.id === "city") {
       setAddress({ ...address, city: e.target.value });

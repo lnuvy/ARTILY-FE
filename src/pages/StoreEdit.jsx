@@ -8,6 +8,7 @@ import { openDragModal, openModal } from "../redux/modules/modal";
 // import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
 import { inputSpaceReg } from "../shared/utils";
+import { NavigationNext } from "../assets/icons/index";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { history } from "../redux/configureStore";
@@ -27,6 +28,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import MapModal from "../shared/modal/modalContent/MapModal";
 import { now } from "lodash";
+import theme from "../styles/theme";
 
 const MySwal = withReactContent(Swal);
 
@@ -146,8 +148,8 @@ const StoreEdit = () => {
 
   // 데이터 전달
   const submitPost = () => {
-    console.log(imageDt);
-    console.log(imageArr);
+    // console.log(imageDt);
+    // console.log(imageArr);
     const { postTitle, price, postContent } = inputs;
 
     if (!(inputs.delivery || inputs.direct)) {
@@ -184,7 +186,7 @@ const StoreEdit = () => {
     }
 
     for (let i = 0; i < imageDt.length; i++) {
-      console.log(imageDt[i]);
+      // console.log(imageDt[i]);
       formData.append("imgDt", imageDt[i]);
     }
 
@@ -200,10 +202,10 @@ const StoreEdit = () => {
     }
 
     for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+      // console.log(pair[0] + ", " + pair[1]);
     }
 
-    console.log(formData.getAll("image"));
+    // console.log(formData.getAll("image"));
 
     if (path === `/store/edit/${postId}`) {
       dispatch(editPostDB(postId, formData));
@@ -242,36 +244,37 @@ const StoreEdit = () => {
           <Input
             readOnly
             value={receiveAddress ? receiveAddress : "위치 선택"}
-            icon={<IoIosArrowForward size={28} />}
+            color={theme.pallete.black}
+            icon={<NavigationNext size={28} />}
             onClick={modalOn}
           />
         )}
-        <Wrapcate
+
+        <Input
+          readOnly
+          value={receiveCategory || "카테고리 선택"}
+          color={theme.pallete.black}
+          icon={<NavigationNext size={28} />}
+          placeholderColor={theme.pallete.black}
           onClick={() => {
             modalOn("category");
           }}
-        >
-          <Inputcate
-            readOnly
-            value={receiveCategory || ""}
-            placeholder="카테고리 선택"
-          />
-          <IoIosArrowForward size={28} className="arrow" />
-        </Wrapcate>
+        />
+        <Wrap margin="8px 0 0 0" />
         <Input
           id="postTitle"
           type="text"
           placeholder="작품명을 입력해 주세요."
-          padding="16px 12px"
           value={inputs.postTitle}
           onChange={handleChange}
+          placeholderColor={theme.pallete.gray3}
         />
+        <Wrap margin="8px 0 0 0" />
         <Input
           id="price"
           placeholder="가격"
           type="number"
           margin="0 0 10px"
-          padding="16px 12px"
           value={inputs.price}
           onChange={handleChange}
         />
@@ -279,17 +282,24 @@ const StoreEdit = () => {
           id="postContent"
           placeholder="작품을 설명하는 글을 적어주세요. 허위로 작성한 글은 게시가 제한 될 수 있습니다."
           value={inputs.postContent}
-          maxLength="100"
+          // maxLength="100"
           onChange={handleChange}
           border="1px solid transparent"
+          textLine="32"
         />
       </Wrap>
-      <Flex width="90%" margin="0 auto">
+      <Wrap
+        position="fixed"
+        bottom="16px"
+        padding="0 16px"
+        width={`${theme.view.maxWidth}`}
+        margin="0 auto"
+      >
         <Button width="100%" onClick={submitPost}>
           {path === `/store/edit/${postId}` && "판매 작품 수정하기"}
           {path === `/store/write` && "판매 작품 등록하기"}
         </Button>
-      </Flex>
+      </Wrap>
     </>
   );
 };
@@ -303,11 +313,18 @@ const Inputcate = styled.input`
   margin-bottom: 0;
 
   &::placeholder {
-    font-weight: bold;
-    color: #000;
   }
 `;
 const Wrapcate = styled.div`
+  position: relative;
+  .arrow {
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+`;
+
+const FloatingBtn = styled.div`
   position: relative;
   .arrow {
     position: absolute;

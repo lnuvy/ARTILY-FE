@@ -27,7 +27,7 @@ const CategoryModal = ({ setReceiveCategory, receiveCategory }) => {
   };
 
   const submitCategory = () => {
-    console.log(current);
+    // console.log(current);
     setReceiveCategory(current);
     dispatch(closeModal());
   };
@@ -68,18 +68,14 @@ const CategoryModal = ({ setReceiveCategory, receiveCategory }) => {
       </Grid>
 
       <SubmitDiv>
-        <Flex>
-          <Button
-            width="100%"
-            margin="20px 5px 20px 0 "
-            onClick={submitCategory}
-          >
-            선택 완료
-          </Button>
-          <Button width="100%" margin="20px 0 20px 0" onClick={closeCategory}>
+        {/* <Flex> */}
+        <Button width="100%" margin="20px 5px 20px 0 " onClick={submitCategory}>
+          선택 완료
+        </Button>
+        {/* <Button width="100%" margin="20px 0 20px 0" onClick={closeCategory}>
             취소
           </Button>
-        </Flex>
+        </Flex> */}
       </SubmitDiv>
     </Wrap>
   );

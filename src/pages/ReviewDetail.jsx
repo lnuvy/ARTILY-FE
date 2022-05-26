@@ -44,7 +44,7 @@ const ReviewDetail = (props) => {
   const myReviewLikeCheck = myReviewLikeList.find(
     (v) => v === reviewId.reviewId
   );
-  console.log(reviewId.reviewId);
+  // console.log(reviewId.reviewId);
 
   useEffect(() => {
     // reset
@@ -104,7 +104,7 @@ const ReviewDetail = (props) => {
       followName: detailData.buyer[0].nickname,
       profileImage: detailData.buyer[0].profileImage,
     };
-    console.log(userData);
+    // console.log(userData);
 
     dispatch(addFollowDB(userData));
     setNowFollowing(!nowFollowing);
@@ -119,7 +119,7 @@ const ReviewDetail = (props) => {
       followName: detailData.buyer[0].nickname,
       profileImage: detailData.buyer[0].profileImage,
     };
-    console.log(userData);
+    // console.log(userData);
 
     dispatch(addFollowDB(userData));
     setNowSellerFollowing(!nowsellerFollowing);
@@ -132,7 +132,7 @@ const ReviewDetail = (props) => {
 
   useEffect(() => {
     // get
-    console.log(reviewId);
+    // console.log(reviewId);
     dispatch(getReviewOne(reviewId.reviewId));
   }, []);
   //
@@ -156,7 +156,7 @@ const ReviewDetail = (props) => {
                         <Flex
                           padding="6px"
                           onClick={() => {
-                            console.log("수정");
+                            // console.log("수정");
                             history.push(`/review/edit/${reviewId.reviewId}`);
                           }}
                         >
@@ -279,7 +279,7 @@ const ReviewDetail = (props) => {
                   movePage="/store"
                 >
                   <Grid gtc="1fr 1fr">
-                    {console.log(detailData)}
+                    {/* {console.log(detailData)} */}
                     {detailData.defferentInfo &&
                       detailData.defferentInfo.map((v, i) => {
                         return (

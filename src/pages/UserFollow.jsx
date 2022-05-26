@@ -18,14 +18,14 @@ const UserFollow = () => {
   // const userFollowNick = nowUserInfo?.nickname;
 
   const myInfo = useSelector((state) => state.user?.user);
-  console.log("내 정보 :", myInfo);
+  // console.log("내 정보 :", myInfo);
 
   // 리덕스정보 다가져오기
   const { myFollower, myFollowing, userfollow, userfollower } = useSelector(
     (state) => state.followUser
   );
 
-  console.log(myFollower, myFollowing, userfollow, userfollower);
+  // console.log(myFollower, myFollowing, userfollow, userfollower);
 
   // 내 팔로워, 팔로우 목록 dispatch
   useEffect(() => {
@@ -78,7 +78,7 @@ const UserFollow = () => {
       {/* 팔로워 */}
       {current === `팔로워` &&
         userfollower?.map((follower, l) => {
-          console.log(follower);
+          // console.log(follower);
           return (
             <Profile key={l}>
               <Flex>
@@ -106,7 +106,7 @@ const UserFollow = () => {
                     padding="3px 17px"
                     // prev={clickfollow === "언팔로우" ? true : false}
                     onClick={() => {
-                      console.log("여긴어디~~~?");
+                      // console.log("여긴어디~~~?");
                       // changefollows();
                       // dispatch(DeleteFollowDB(follow.followId));
                     }}
@@ -121,7 +121,7 @@ const UserFollow = () => {
         })}
       {current === `팔로잉` &&
         userfollow?.map((follow, l) => {
-          console.log(follow);
+          // console.log(follow);
           return (
             <Profile key={l} onClick={() => {}}>
               <Flex>
@@ -149,7 +149,7 @@ const UserFollow = () => {
                   // prev={clickfollow === "언팔로우" ? true : false}
                   alreadyFollow={true}
                   onClick={() => {
-                    console.log("여기 클릭뭐임?");
+                    // console.log("여기 클릭뭐임?");
                     // changefollows();
                     // dispatch(DeleteFollowDB(follow.followId));
                   }}

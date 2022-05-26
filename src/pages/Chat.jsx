@@ -23,7 +23,7 @@ const Chat = () => {
     dispatch(getChatList());
 
     socket.on("join_room", (data) => {
-      console.log("join_room socketOn:  ", data);
+      // console.log("join_room socketOn:  ", data);
       dispatch(receiveChatRoom(data));
       socket.emit("enter_room", data.roomName); //내가 보내는거
       //키값이 서버와 동일해야 실행됨

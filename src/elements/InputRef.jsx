@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 import theme from "../styles/theme";
+import { NavigationNext } from "../assets/icons/index";
 
 // 5/7 ref 사용하는 인풋 따로만듬
 const InputRef = forwardRef((props, ref) => {

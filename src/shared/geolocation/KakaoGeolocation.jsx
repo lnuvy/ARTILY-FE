@@ -25,7 +25,7 @@ export const currentmap = async (setAddress, setPosition) => {
         setPosition({ lat, lng });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         console.log(err.response);
       });
   });

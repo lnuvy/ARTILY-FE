@@ -16,6 +16,10 @@ const Wrap = (props) => {
     border,
     borderBottom,
     onClick,
+    bottom,
+    right,
+    left,
+    top,
   } = props;
 
   const styles = {
@@ -32,6 +36,10 @@ const Wrap = (props) => {
     fg,
     border,
     borderBottom,
+    bottom,
+    right,
+    left,
+    top,
   };
 
   return (
@@ -62,6 +70,10 @@ const WrapStyle = styled.div`
   flex-grow: ${({ fg }) => fg}; // 5.12 추가 민경
   border: ${({ border }) => border}; // 5.14 추가 민경
   border-bottom: ${({ borderBottom }) => borderBottom}; // 5.14 추가 민경
+  top: ${({ top }) => top};
+  left: ${({ left }) => left};
+  bottom: ${({ bottom }) => bottom};
+  right: ${({ right }) => right};
 `;
 
 export default Wrap;

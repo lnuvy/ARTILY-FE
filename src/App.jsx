@@ -48,14 +48,14 @@ function App() {
 
   useEffect(() => {
     socket.on("user connected", (data) => {
-      console.log(data);
+      // console.log(data);
       // dispatch(chatUserConnected(data));
     });
   });
 
   useEffect(() => {
     socket.on("user disconnected", (data) => {
-      console.log(data);
+      // console.log(data);
     });
   });
 

@@ -23,7 +23,7 @@ const Home = () => {
   );
 
   const move2detail = (data, path) => {
-    console.log(data, path);
+    // console.log(data, path);
     if (path === "store") {
       history.push(`/${path}/view/${data.postId}`);
       return;

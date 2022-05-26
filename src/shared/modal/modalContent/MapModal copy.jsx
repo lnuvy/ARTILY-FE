@@ -68,11 +68,11 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
 
   const inputSearch = () => {
     const { value } = inputRef.current;
-    console.log(value, /\S/.test(value));
+    // console.log(value, /\S/.test(value));
     if (/\S/.test(value)) setQuery(value);
   };
 
-  console.log(address);
+  // console.log(address);
   const nowPosition = () => {
     currentmap(setAddress, setPosition);
 
@@ -84,7 +84,7 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
   };
 
   const submitAddress = () => {
-    console.log(address);
+    // console.log(address);
     setReceiveAddress(address);
     dispatch(closeModal());
   };

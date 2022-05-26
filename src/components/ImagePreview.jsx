@@ -40,8 +40,8 @@ const ImagePreview = (props) => {
       }
     });
 
-    console.log(imageArr);
-    console.log(filtered);
+    // console.log(imageArr);
+    // console.log(filtered);
     dispatch(accrueImageDelete(filtered));
 
     // 수정단계의 대표이미지일때
