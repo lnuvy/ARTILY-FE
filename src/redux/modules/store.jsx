@@ -98,12 +98,12 @@ export const postMyPostLikeDB = (postId) => {
   };
 };
 
-export const addPostDB = (data, address) => {
+export const addPostDB = (data, address, direct) => {
   return async function (dispatch, getState, { history }) {
     const nowUser = getState().user.user;
     Apis.postStore(data)
       .then((res) => {
-        if (!nowUser.address) {
+        if (!nowUser.address && direct === true) {
           MySwal.fire({
             title: "주소 기본등록",
             text: "지금 설정한 주소를 기본주소로 저장할까요?",

@@ -20,6 +20,7 @@ const Text = (props) => {
     lineHeight,
     contents,
     //5.5 underline 들어간 text 만들기 위해 추가했습니다. -영경
+    width,
     textDeco,
   } = props;
 
@@ -39,6 +40,7 @@ const Text = (props) => {
     contents,
     textDeco,
     size,
+    width,
   };
 
   if (h1) {
@@ -105,6 +107,7 @@ const Headline = styled.h1`
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
   ${(props) => (props.lineHeight ? props.lineHeight : null)};
+  width: ${({ width }) => width};
 `;
 
 const Subtitle1 = styled.h2`
@@ -118,6 +121,7 @@ const Subtitle1 = styled.h2`
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
   ${(props) => (props.lineHeight ? props.lineHeight : null)};
+  width: ${({ width }) => width};
 `;
 
 const Subtitle2 = styled.h3`
@@ -131,6 +135,7 @@ const Subtitle2 = styled.h3`
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
   ${(props) => (props.lineHeight ? props.lineHeight : null)};
+  width: ${({ width }) => width};
 `;
 
 const Body1 = styled.p`
@@ -144,6 +149,7 @@ const Body1 = styled.p`
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
   ${(props) => (props.lineHeight ? props.lineHeight : null)};
+  width: ${({ width }) => width};
 `;
 
 const Body2 = styled.p`
@@ -157,6 +163,7 @@ const Body2 = styled.p`
   flex-grow: ${({ fg }) => fg};
   text-align: ${({ textAlign }) => textAlign};
   ${(props) => (props.lineHeight ? props.lineHeight : null)};
+  width: ${({ width }) => width};
 `;
 
 const Body3 = styled.p`
@@ -171,6 +178,7 @@ const Body3 = styled.p`
   text-align: ${({ textAlign }) => textAlign};
   ${(props) => (props.lineHeight ? props.lineHeight : null)};
   text-decoration: ${({ textDeco }) => textDeco};
+  width: ${({ width }) => width};
 `;
 
 export default Text;

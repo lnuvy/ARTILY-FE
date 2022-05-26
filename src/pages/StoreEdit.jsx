@@ -211,23 +211,31 @@ const StoreEdit = () => {
       dispatch(editPostDB(postId, formData));
     }
     if (path === `/store/write`) {
-      dispatch(addPostDB(formData, receiveAddress));
+      if (inputs.delivery && !inputs.direct) {
+        dispatch(addPostDB(formData, receiveAddress, false));
+        return;
+      }
+      if (!inputs.delivery && inputs.direct) {
+        dispatch(addPostDB(formData, receiveAddress, true));
+      }
     }
   };
 
   return (
     <>
-      <Wrap margin="16px">
-        <Flex jc="space-between" margin="10px 0 5px">
+      <Wrap margin="0 16px 16px">
+        <Flex jc="space-between">
           <Preview />
         </Flex>
+        <Wrap margin="16px 0 0 0" />
         <ToggleButton
           margin="0 5px 10px 0"
           onClick={() => setInputs({ ...inputs, delivery: !inputs.delivery })}
           id="delivery"
           select={inputs?.delivery}
-          color="#FD7A00"
-          border="1px solid #FD7A00"
+          color={`${theme.color.brandColor}`}
+          padding="8px"
+          border={`1px solid ${theme.color.brandColor}`}
         >
           택배
         </ToggleButton>
@@ -235,8 +243,9 @@ const StoreEdit = () => {
           onClick={() => setInputs({ ...inputs, direct: !inputs.direct })}
           id="direct"
           select={inputs?.direct}
-          color="#FD7A00"
-          border="1px solid #FD7A00"
+          color={`${theme.color.brandColor}`}
+          padding="8px"
+          border={`1px solid ${theme.color.brandColor}`}
         >
           직거래
         </ToggleButton>
@@ -275,7 +284,7 @@ const StoreEdit = () => {
         <Wrap margin="8px 0 0 0" />
         <Input
           id="price"
-          placeholder="가격"
+          placeholder="₩ 가격"
           type="number"
           margin="0 0 10px"
           value={inputs.price}
@@ -288,21 +297,29 @@ const StoreEdit = () => {
           // maxLength="100"
           onChange={handleChange}
           border="1px solid transparent"
-          textLine="32"
+          textLine="64"
         />
       </Wrap>
-      <Wrap
+      {/* <Wrap
         position="fixed"
         bottom="16px"
         padding="0 16px"
         width={`${theme.view.maxWidth}`}
         margin="0 auto"
-      >
-        <Button width="100%" onClick={submitPost}>
-          {path === `/store/edit/${postId}` && "판매 작품 수정하기"}
-          {path === `/store/write` && "판매 작품 등록하기"}
+      > */}
+      <ButtonWrap>
+        <Button
+          text
+          color={theme.color.brandColor}
+          fontSize="16px"
+          onClick={submitPost}
+        >
+          완료
+          {/* {path === `/store/edit/${postId}` && "판매 작품 수정하기"}
+          {path === `/store/write` && "판매 작품 등록하기"} */}
         </Button>
-      </Wrap>
+      </ButtonWrap>
+      {/* </Wrap> */}
     </>
   );
 };
@@ -327,12 +344,10 @@ const Wrapcate = styled.div`
   }
 `;
 
-const FloatingBtn = styled.div`
-  position: relative;
-  .arrow {
-    position: absolute;
-    top: 10px;
-    right: 0;
-  }
+const ButtonWrap = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
 `;
 export default StoreEdit;

@@ -99,8 +99,7 @@ const TextareaContainer = styled.textarea`
     outline: none;
   }
   ::placeholder {
-    color: ${theme.color.black};
-    opacity: 0.3;
+    color: ${theme.pallete.gray3};
   }
   ${(props) =>
     props.alert
