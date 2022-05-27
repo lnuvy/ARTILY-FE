@@ -48,14 +48,14 @@ const Review = () => {
           <Grid gtc="1fr 1fr" margin="0 0 20px">
             {filteringList &&
               filteringList.map((v, i) => {
-                // console.log(v.images);
+                console.log(v.images);
 
                 return (
                   <ReviewCard
                     _key={i}
                     onClick={() => clickCard(v.reviewId)}
                     {...v}
-                    images={v.images[0].imageUrl || null}
+                    images={(v.images && v.images[0].imageUrl) || null}
                   />
                 );
               })}
