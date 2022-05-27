@@ -268,7 +268,7 @@ const Outline = styled.div`
   .box {
     /* background-color: #ddd; */
     width: 100%;
-    position: absolute;
+    /* position: absolute; */
     /* top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); translate(x축,y축) */
