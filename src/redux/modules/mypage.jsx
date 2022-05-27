@@ -26,7 +26,7 @@ export const getmyPageDB = () => {
       })
       .catch((error) => {
         // console.log("마이페이지 조회 실패", error);
-        window.alert("마이페이지를 조회하는 데 문제가 발생했습니다!");
+        console.log("마이페이지를 조회하는 데 문제가 발생했습니다!");
       });
   };
 };
