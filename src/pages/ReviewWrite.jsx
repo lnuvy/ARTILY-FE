@@ -39,16 +39,16 @@ const ReviewWrite = () => {
   // 할당
   const { postId, reviewId } = useParams();
   const path = useLocation().pathname;
-  const reviewWrite = path === `/review/write/${postId}`;
-  const reviewEdit = path === `/review/edit/${reviewId}`;
 
   const [inputs, setinputs] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const { imageDt, imageArr, fileObj } = useSelector((state) => state.image);
   const buyer = useSelector((state) => state.review?.detailData?.buyer);
 
   // redux 리셋
   useEffect(() => {
     dispatch(clearPreview());
+    setIsLoading(false);
     dispatch(
       getNowReview({
         buyer: [],
@@ -91,6 +91,9 @@ const ReviewWrite = () => {
 
   const reviewSubmit = () => {
     const { reviewTitle, reviewContent } = inputs;
+    setIsLoading(true);
+    console.log(isLoading);
+
     inputSpaceReg(reviewTitle);
     inputSpaceReg(reviewContent);
 
@@ -175,7 +178,7 @@ const ReviewWrite = () => {
             padding="14px 16px"
             onClick={reviewSubmit}
           >
-            완료
+            {isLoading ? "업로드중" : "완료"}
           </Button>
         </Flex>
       </ButtonWrap>

@@ -123,9 +123,8 @@ export const addPostDB = (data, address, direct) => {
               Swal.fire("", "저장하지 않고 게시글을 등록합니다.", "info");
             }
           });
-        } else {
-          Swal.fire("", "게시글 등록 완료", "success");
         }
+        Swal.fire("", "게시글 등록 완료", "success");
         // addMyPost()
         history.replace("/store");
       })
