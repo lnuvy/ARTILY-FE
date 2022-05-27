@@ -38,7 +38,6 @@ const ChatRoom = () => {
 
   const { chatData, nowChat, roomMessages, getChatMessages, clearChat } =
     useSelector((state) => state.chat);
-  console.log("!!!!!!!!!!!!!!!!!!!", nowChat);
   // import recei
   const target =
     nowChat?.targetUser?.userId === from
@@ -332,8 +331,9 @@ const ChatRoom = () => {
 };
 
 const Container = styled.div`
-  height: calc(100vh - 188px);
-  background-color: #e0e0e0;
+  height: calc(100vh - 146px);
+  background-color: #f3f3f3;
+
   overflow-y: scroll;
   margin-top: 142px;
   padding-bottom: 80px;

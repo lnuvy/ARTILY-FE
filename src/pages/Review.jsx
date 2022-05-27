@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 // components
 import { Grid, Wrap } from "../elements";
-import { ReviewCard, Category } from "../components/index";
+import { ReviewCard, Category, NoInfo } from "../components/index";
 // moduels
 import {
   getReviewData,
@@ -49,6 +49,7 @@ const Review = () => {
             {filteringList &&
               filteringList.map((v, i) => {
                 // console.log(v.images);
+
                 return (
                   <ReviewCard
                     _key={i}
