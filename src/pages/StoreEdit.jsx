@@ -218,12 +218,17 @@ const StoreEdit = () => {
     if (path === `/store/edit/${postId}`) {
       dispatch(editPostDB(postId, formData));
     }
+    console.log(inputs.delivery);
+    console.log(inputs.direct);
     if (path === `/store/write`) {
       if (inputs.delivery && !inputs.direct) {
         dispatch(addPostDB(formData, receiveAddress, false));
         return;
       }
       if (!inputs.delivery && inputs.direct) {
+        dispatch(addPostDB(formData, receiveAddress, true));
+      }
+      if (inputs.delivery && inputs.direct) {
         dispatch(addPostDB(formData, receiveAddress, true));
       }
     }
