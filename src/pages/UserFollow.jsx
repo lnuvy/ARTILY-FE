@@ -97,23 +97,6 @@ const UserFollow = () => {
                 <Text fg="1" body2 bold margin="5px 0 10px 0">
                   {userfollower?.length ? follower.nickname : ""}
                 </Text>
-                {follower.userId === myInfo.userId ? (
-                  ""
-                ) : (
-                  <FollowerBtn
-                    height="38px"
-                    padding="3px 17px"
-                    // prev={clickfollow === "언팔로우" ? true : false}
-                    onClick={() => {
-                      // console.log("여긴어디~~~?");
-                      // changefollows();
-                      // dispatch(DeleteFollowDB(follow.followId));
-                    }}
-                  >
-                    {/* {clickfollow} */}
-                    여긴어디?
-                  </FollowerBtn>
-                )}
               </Flex>
             </Profile>
           );
@@ -140,21 +123,6 @@ const UserFollow = () => {
                 </Text>
                 {/* 나도 이미 팔로우가 되어있는 사람일 경우 언팔로우 버튼 */}
                 {/* 리스트에 본인이 있을경우 버튼이 없음 */}
-
-                <FollowBtn
-                  height="38px"
-                  padding="3px 17px"
-                  // prev={clickfollow === "언팔로우" ? true : false}
-                  alreadyFollow={true}
-                  onClick={() => {
-                    // console.log("여기 클릭뭐임?");
-                    // changefollows();
-                    // dispatch(DeleteFollowDB(follow.followId));
-                  }}
-                >
-                  여긴또뭐임
-                  {/* {clickfollow} */}
-                </FollowBtn>
               </Flex>
             </Profile>
           );
