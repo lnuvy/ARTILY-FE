@@ -16,6 +16,7 @@ import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
 import { FilterFilled, Search } from "../assets/icons";
 import theme from "../styles/theme";
+import { NoInfo } from "../components";
 
 const Store = () => {
   const dispatch = useDispatch();
@@ -51,28 +52,27 @@ const Store = () => {
     }
   };
 
-  // 검색필터
-  const searchList = filterList
-    ?.filter((l) => {
-      const address = l?.user?.address || "";
-      const title = l?.postTitle;
-      const artist = l?.user?.nickname;
-      const q = query;
+  const filterNull = filterList?.filter((l) => {
+    const address = l?.user?.address || "";
+    const title = l?.postTitle;
+    const artist = l?.user?.nickname;
+    const q = query;
 
-      if (title && artist) {
-        return title.includes(q) || artist.includes(q) || address.includes(q);
-      }
-    })
-    .map((l) => {
-      return (
-        <StoreCard
-          key={l.postId}
-          {...l}
-          imageUrl={l.images[0].imageUrl}
-          onClick={() => handleClickData(l)}
-        />
-      );
-    });
+    if (title && artist) {
+      return title.includes(q) || artist.includes(q) || address.includes(q);
+    }
+  });
+  // 검색필터
+  const searchList = filterNull.map((l) => {
+    return (
+      <StoreCard
+        key={l.postId}
+        {...l}
+        imageUrl={l.images[0].imageUrl}
+        onClick={() => handleClickData(l)}
+      />
+    );
+  });
 
   // 필터링 모달 켜기
   const modalOn = () => {
@@ -131,6 +131,7 @@ const Store = () => {
                   : filtering.transaction}
               </Text>
             )}
+
             {filtering.region[0] !== "전체" &&
               filtering.region.map((r, i, arr) => {
                 if (i + 1 === arr.length) {
@@ -159,14 +160,24 @@ const Store = () => {
               })}
           </Flex>
         </Wrap>
-
-        <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
-          {searchList && query !== ""
-            ? searchList
-            : filterList &&
-              filterList.map((v) => {
-                if (isFree) {
-                  if (v.price === "0") {
+        <NoInfo list={searchList} text1="검색결과가 없습니다.">
+          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
+            {searchList && query !== ""
+              ? searchList
+              : filterList &&
+                filterList.map((v) => {
+                  if (isFree) {
+                    if (v.price === "0") {
+                      return (
+                        <StoreCard
+                          key={v.postId}
+                          {...v}
+                          imageUrl={v.images[0].imageUrl}
+                          onClick={() => handleClickData(v)}
+                        />
+                      );
+                    }
+                  } else
                     return (
                       <StoreCard
                         key={v.postId}
@@ -175,18 +186,9 @@ const Store = () => {
                         onClick={() => handleClickData(v)}
                       />
                     );
-                  }
-                } else
-                  return (
-                    <StoreCard
-                      key={v.postId}
-                      {...v}
-                      imageUrl={v.images[0].imageUrl}
-                      onClick={() => handleClickData(v)}
-                    />
-                  );
-              })}
-        </Grid>
+                })}
+          </Grid>
+        </NoInfo>
       </Wrap>
     </>
   );
