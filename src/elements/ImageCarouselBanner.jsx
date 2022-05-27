@@ -30,18 +30,28 @@ const ImageCarouselBanner = (props) => {
             // console.log(img);
             return (
               <Grid key={`${i}_번째_${img}`}>
-                <Image
-                  height="240px"
-                  src={img.imageUrl}
-                  backgroundSize="cover"
-                  alt="img"
-                />
+                <BannerWrap>
+                  <Image
+                    height="240px"
+                    src={img.imageUrl}
+                    backgroundSize="cover"
+                    alt="img"
+                    onClick={() =>
+                      window.open(
+                        "https://docs.google.com/forms/d/1LKIsSbs2Am7yN8cHabHuCbuKlmYqYiz0f1ZdTgqtVig/viewform",
+                        "_blank"
+                      )
+                    }
+                  />
+                </BannerWrap>
               </Grid>
             );
           })
         ) : (
           <Grid>
-            <Image height="240px" src={src && src[0]?.imageUrl} alt="img" />
+            <BannerWrap>
+              <Image height="240px" src={src && src[0]?.imageUrl} alt="img" />
+            </BannerWrap>
           </Grid>
         )}
       </StyledSlider>
@@ -66,6 +76,10 @@ const StyledSlider = styled(Slider)`
       margin: 0;
     }
   }
+`;
+
+const BannerWrap = styled.div`
+  cursor: pointer;
 `;
 
 export default ImageCarouselBanner;

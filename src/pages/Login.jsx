@@ -19,7 +19,7 @@ const Login = () => {
         <Sub>회원 서비스 이용을 위해 로그인 해주세요!</Sub>
       </Wrap>
       <Kakaobtn>
-        <img src="/images/Kakao.png" />
+        <KakaoImg />
         <button onClick={() => (window.location.href = KAKAO_AUTH_URL)}>
           카카오로 시작하기
         </button>
@@ -36,6 +36,15 @@ const Login = () => {
   );
 };
 
+const KakaoImg = styled.div`
+  background-image: url("/images/Kakao.png");
+  background-size: contain;
+  height: 42px;
+  width: 42px;
+  position: absolute;
+  top: 6px;
+  left: 28px;
+`;
 const Sub = styled.p`
   color: ${({ theme }) => theme.pallete.gray2};
   font-size: 16px;
