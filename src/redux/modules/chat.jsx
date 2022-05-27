@@ -39,7 +39,7 @@ export const getChatMessages = (roomName) => {
   return async function (dispatch, getState, { history }) {
     Apis.getMessages(roomName)
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         if (roomName === res.data.roomUser.roomName) {
           dispatch(getMessages(res.data.roomUser.messages));
           history.push(`/chat/${roomName}`);
@@ -84,7 +84,10 @@ const chatSlice = createSlice({
     resetMessages: (state, action) => {
       state.roomMessages = [];
     },
-
+    //다른 게시글 채팅걸었을때 채팅기록 안남아있도록
+    clearChat: (state, action) => {
+      state.nowChat = [];
+    },
     // 목록창에서 누군가 채팅걸었을때 바로 채팅방 목록 생기게하기
     receiveChatRoom: (state, action) => {
       const { roomName } = action.payload;
@@ -123,7 +126,7 @@ export const {
   getNowChatInfo,
   resetMessages,
   newNotification,
-
+  clearChat,
   receiveChatRoom,
   receiveChat,
 } = actions;

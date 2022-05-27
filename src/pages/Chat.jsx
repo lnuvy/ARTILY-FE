@@ -18,12 +18,12 @@ import styled from "styled-components";
 const Chat = () => {
   const dispatch = useDispatch();
   const { chatData } = useSelector((state) => state.chat);
-  console.log({ chatData });
+
   useEffect(() => {
     dispatch(getChatList());
 
     socket.on("join_room", (data) => {
-      // console.log("join_room socketOn:  ", data);
+      console.log("join_room socketOn:  ", data);
       dispatch(receiveChatRoom(data));
       socket.emit("enter_room", data.roomName); //내가 보내는거
       //키값이 서버와 동일해야 실행됨
@@ -42,7 +42,7 @@ const Chat = () => {
 
   const enterRoom = async (roomName) => {
     dispatch(getNowChatInfo(roomName));
-    await dispatch(getChatMessages(roomName));
+    await dispatch(getChatMessages(roomName));//`/chat/${roomName}`로 이동
   };
 
   return (

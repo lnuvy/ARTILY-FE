@@ -58,16 +58,17 @@ const Header = (props) => {
       <>
         <HeaderStyle {...styles}>
           {/* May9 아이콘 버튼의 경우 Icon 컴포넌트 안에 이미지를 넣어 감싸는식으로 작업 */}
-          <Flex margin="0 0 18px">
-            <Icon
-              fg="1"
-              height="22px"
-              width="69px"
-              onClick={() => history.push("/home")}
-            >
-              <Logo />
-            </Icon>
-            {/* <Icon
+          <WrapLogo>
+            <Flex margin="0 0 18px">
+              <Icon
+                height="22px"
+                width="69px"
+                onClick={() => history.push("/home")}
+              >
+                <Logo />
+              </Icon>
+
+              {/* <Icon
               onClick={(e) => {
                 e.stopPropagation();
                 history.push("/chat");
@@ -76,20 +77,19 @@ const Header = (props) => {
             >
               <Notification margin="0 16px 0 0" />
             </Icon> */}
-            <Icon
-              onClick={(e) => {
-                //로그인 시에만 채팅 목록을 볼 수 있도록 조건 추가
-                if (!isLogin) {
-                  history.push("/login");
-                } else {
+
+              <div
+                className="logo"
+                onClick={(e) => {
                   e.stopPropagation();
                   history.push("/chat");
-                }
-              }}
-            >
-              <Chat margin="0 16px 0 0" />
-            </Icon>
-          </Flex>
+                  window.location.reload();
+                }}
+              >
+                <Chat margin="0 16px 0 0" />
+              </div>
+            </Flex>
+          </WrapLogo>
           <Navigation />
         </HeaderStyle>
         <ContentsContainer />
@@ -190,5 +190,12 @@ const ContentsContainer = styled.div`
 const ContentsContainer2 = styled.div`
   padding-top: 48px;
 `;
-
+const WrapLogo = styled.div`
+  position: relative;
+  .logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+`;
 export default Header;
