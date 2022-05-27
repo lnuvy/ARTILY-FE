@@ -42,7 +42,7 @@ const Chat = () => {
 
   const enterRoom = async (roomName) => {
     dispatch(getNowChatInfo(roomName));
-    await dispatch(getChatMessages(roomName));
+    await dispatch(getChatMessages(roomName));//`/chat/${roomName}`로 이동
   };
 
   return (

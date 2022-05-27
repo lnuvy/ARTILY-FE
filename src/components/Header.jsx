@@ -80,9 +80,9 @@ const Header = (props) => {
               <div
                 className="logo"
                 onClick={(e) => {
-                  //로그인 시에만 채팅 목록을 볼 수 있도록 조건 추가
                   e.stopPropagation();
                   history.push("/chat");
+                  window.location.reload();
                 }}
               >
                 <Chat margin="0 16px 0 0" />

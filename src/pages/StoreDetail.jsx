@@ -64,7 +64,10 @@ const StoreDetail = () => {
   const [myLike, setMyLike] = useState(undefined);
   const [myLikeCount, setMyLikeCount] = useState(undefined);
 
-  const { nowChat, roomMessages } = useSelector((state) => state.chat);
+  const { nowChat, roomMessages, getNowChatInfo } = useSelector(
+    (state) => state.chat
+  );
+  console.log(nowChat);
   // reset
   useEffect(() => {
     dispatch(go2detail([]));
@@ -153,8 +156,10 @@ const StoreDetail = () => {
       return;
     }
     const postUser = detailData.user;
+    console.log(postUser);
     const nowUser = currentUser?.userId;
     let roomName = `from${nowUser}_to${postUser.userId}_${postId}`;
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!", roomName);
 
     if (chatData.chatRoom?.length > 0) {
       const isExistRoom = chatData.chatRoom.find(
@@ -193,7 +198,6 @@ const StoreDetail = () => {
         createUser: currentUser,
       })
     );
-
     history.push(`/chat/${roomName}`);
   };
 
@@ -402,7 +406,7 @@ const StoreDetail = () => {
               </Text>
             </Flex>
             <Flex jc="end">
-              {currentUser && isMe && done === false ? (
+              {currentUser && isMe ? (
                 <Button
                   padding="8px 16px"
                   onClick={() => {

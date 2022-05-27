@@ -20,7 +20,7 @@ import { ArrowUpward } from "../assets/icons";
 import { priceComma } from "../shared/utils";
 import { ArrowBack } from "../assets/icons";
 import { useHistory } from "react-router-dom";
-import { resetMessages, clearChat } from "../redux/modules/chat";
+
 const ChatRoom = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -32,11 +32,12 @@ const ChatRoom = () => {
   const targetUserId = useSelector(
     (state) => state?.chat?.nowChat?.targetUser?.userId
   );
+  const isMe = useSelector((state) => state.user.user.userId);
+  console.log(isMe);
   // console.log(targetUserId);
 
-  const { chatData, nowChat, roomMessages } = useSelector(
-    (state) => state.chat
-  );
+  const { chatData, nowChat, roomMessages, getChatMessages, clearChat } =
+    useSelector((state) => state.chat);
   console.log("!!!!!!!!!!!!!!!!!!!", nowChat);
   // import recei
   const target =
@@ -57,9 +58,11 @@ const ChatRoom = () => {
 
   useEffect(() => {
     setMessages(roomMessages);
-    // 채팅데이터 삭제
   }, []);
 
+  // useEffect(() => {
+  //   dispatch(getChatMessages);
+  // }, []);
   // 상단 채팅끌어오기위해 데이터 20개단위로 자르기
   // const setInfinityPaging = (page, endpoint) => {
   //   let arr = [];
@@ -83,7 +86,7 @@ const ChatRoom = () => {
         roomName,
         from,
         message,
-        to: target.userId,
+        to: target?.userId,
         time: moment().format("YYYY-MM-DD HH:mm:ss"),
       };
       socket.emit("send_message", messageData);
@@ -96,6 +99,9 @@ const ChatRoom = () => {
   };
 
   useEffect(() => {
+    if (roomName === nowChat.roonName) {
+      setMessages(getChatMessages);
+    }
     socket.on("receive_message", (data) => {
       setMessages((messages) => [...messages, data]); //과거 채팅기록 받아오기
     });
@@ -118,7 +124,6 @@ const ChatRoom = () => {
   //채팅방 나가기
   const leaveRoom = () => {
     socket.emit("leave_room", roomName, targetUserId);
-    // dispatch(resetMessages());
   };
 
   useEffect(() => {
@@ -133,18 +138,37 @@ const ChatRoom = () => {
         <Icon margin="20px 15px" onClick={() => history.goBack()}>
           <ArrowBack />
         </Icon>
-        <div className="targetInfo">
-          <Flex>
-            <Image
-              circle
-              size="25"
-              src={nowChat?.createUser?.profileImage}
-            ></Image>
-            <Text h2 medium margin="0 0 0 5px">
-              {nowChat?.createUser?.nickname}
-            </Text>
-          </Flex>
-        </div>
+        {/* 내 userId와 이 채팅방을 만든사람의 아이디가 같다면 targetUser 정보 보여주기 */}
+        {isMe === nowChat?.createUser?.profileImage ? (
+          <div className="targetInfo">
+            <Flex>
+              <Image
+                circle
+                size="25"
+                src={nowChat?.targetUser?.profileImage}
+              ></Image>
+              <Text body1 margin="0 0 0 5px">
+                {nowChat?.targetUser?.nickname}
+              </Text>
+            </Flex>
+          </div>
+        ) : (
+          // 아이디가 다르다면 내가 만든 방이 아니니까 이 방을 만든사람 정보 보여주기
+          // 결론적으로 내가 아닌 상대 정보가 상단에 떠야함
+          <div className="targetInfo">
+            <Flex>
+              <Image
+                circle
+                size="25"
+                src={nowChat?.createUser?.profileImage}
+              ></Image>
+              <Text body1 margin="0 0 0 5px">
+                {nowChat?.createUser?.nickname}
+              </Text>
+            </Flex>
+          </div>
+        )}
+
         <button
           onClick={() => {
             // window.confirm("채팅방을 나가시겠습니까?");
@@ -213,11 +237,12 @@ const ChatRoom = () => {
                   fd="column"
                   ai="flex-end"
                 >
-                  <Flex fd="column" ai="start" margin="16px">
+                  <Flex fd="column" ai="start">
                     <Flex
                       width="fit-content"
                       height="fit-content"
                       padding="8px"
+                      margin="15px 20px 5px 5px"
                       bc={theme.pallete.primary700}
                       br="8px"
                     >
@@ -247,15 +272,7 @@ const ChatRoom = () => {
                       src={target.profileImage}
                     />
                     <Flex fd="column" ai="start">
-                      <p
-                        body3
-                        medium
-                        style={{
-                          fontSize: "12px",
-                          margin: "4px 0",
-                          color: `${theme.pallete.gray3}`,
-                        }}
-                      >
+                      <p style={{ fontSize: "12px", margin: "4px 0" }}>
                         {target.nickname}
                       </p>
                       <Flex
@@ -293,19 +310,16 @@ const ChatRoom = () => {
           {/* <ChatFileInput /> */}
           <Input
             withBtn
-            padding="12px 16px"
             icon={
               <Icon padding="0" onClick={sendMessage}>
-                <ArrowUpward color="white" />
+                <ArrowUpward />
               </Icon>
             }
             fg="1"
-            padding="12px"
             square
             br="8px"
             placeholder="메세지를 작성해주세요"
             value={message}
-            border={`1px solid ${theme.pallete.gray1}`}
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={(e) => {
               if (e.key === "Enter") sendMessage();
@@ -319,8 +333,7 @@ const ChatRoom = () => {
 
 const Container = styled.div`
   height: calc(100vh - 188px);
-  background-color: #f3f3f3;
-
+  background-color: #e0e0e0;
   overflow-y: scroll;
   margin-top: 142px;
 `;
@@ -357,8 +370,8 @@ const Wraptop = styled.div`
     top: 20px;
     left: 50px;
   }
+  width: 100vw;
   max-width: ${theme.view.maxWidth};
-  width: 100%;
   height: fit-content;
   padding: ${({ padding }) => padding};
   padding-bottom: 0;
@@ -369,12 +382,10 @@ const Wraptop = styled.div`
 const Wrapinfo = styled.div`
   /* border-top: 1px solid #eee; */
   padding: 15px 16px;
-  background-color: #f3f3f3;
-  border-bottom: 1px solid #e0e0e0;
+  background-color: #d3d3d3;
   margin: 64px 0 0 0;
   position: fixed;
-  max-width: ${theme.view.maxWidth};
-  width: 100%;
+  width: 100vw;
 `;
 const Wraptarget = styled.div``;
 export default ChatRoom;
