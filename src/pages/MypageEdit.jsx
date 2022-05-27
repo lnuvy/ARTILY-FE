@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Front, Back } from "../shared/NicknameDummy.js";
 import { editProfileDB } from "../redux/modules/user";
-import { ArrowBack, Refresh } from "../assets/icons";
+import { ArrowBack, Refresh, AddBox, Edit } from "../assets/icons";
 import { nicknameCheck } from "../shared/regCheck/RegCheck";
 import theme from "../styles/theme";
 
@@ -99,150 +99,155 @@ const MypageEdit = () => {
       </Flex>
       <Outline>
         <div className="box">
-          <Wrap margin="64px 0 " />
-          <Wrapprofile>
-            <Flex jc="center">
-              <Image
-                alt="profile"
-                width="120px"
-                height="120px"
-                br="60px"
-                src={
-                  preview ? preview : getProfile ? getProfile.profileImage : ""
-                }
-              />
-
-              <ImgBox>
-                <label htmlFor="image">
-                  <img src="../../images/edit.png" alt="파일 선택" />
-                </label>
-                <input
-                  type="file"
-                  id="image"
-                  ref={fileInput}
-                  onChange={selectFile}
-                />
-              </ImgBox>
-            </Flex>
-          </Wrapprofile>
-          <Wrap margin="0 20px">
-            <Flex padding="10px 0">
-              <Flex width="100%">
-                <Text textAlign="left" width="80px">
-                  닉네임
-                </Text>
-
-                <Input
-                  icon={<Refresh onClick={renameRandom} />}
-                  square
-                  placeholder={getProfile?.nickname || "닉네임 자리"}
-                  border={`1px solid ${theme.pallete.gray1}`}
-                  br="6px"
-                  fg="1"
-                  iconRight="4px"
-                  padding="8px"
-                  value={nickname}
-                  onChange={(e) => setNickname(e.target.value)}
-                />
-              </Flex>
-            </Flex>
-            <Flex padding="10px 0 5px">
-              <Flex width="100%">
-                <Text textAlign="left" width="80px">
-                  웹사이트
-                </Text>
-
-                <Input
-                  square
-                  icon={
-                    <Flex>
-                      <img src="/images/Instagram.svg" alt="인스타" />
-                    </Flex>
+          <Wrap margin="40px 0 84px">
+            <Wrapprofile>
+              <Flex jc="center">
+                <Image
+                  alt="profile"
+                  width="120px"
+                  height="120px"
+                  br="60px"
+                  src={
+                    preview
+                      ? preview
+                      : getProfile
+                      ? getProfile.profileImage
+                      : ""
                   }
-                  iconRight="4px"
-                  padding="8px"
-                  border={`1px solid ${theme.pallete.gray1}`}
-                  fg="1"
-                  br="6px"
-                  type="text"
-                  placeholder="instargram ID"
-                  value={website1 || ""}
-                  onChange={(e) => setWebsite1(e.target.value)}
                 />
-              </Flex>
-            </Flex>
-            {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
-            <Flex width="100%">
-              <Text textAlign="left" width="80px"></Text>
 
-              <Input
-                square
-                fg="1"
-                br="6px"
-                iconRight="4px"
-                padding="8px"
-                border={`1px solid ${theme.pallete.gray1}`}
-                icon={
-                  <Flex>
-                    <img src="/images/Behance.svg" alt="비핸스" />
-                  </Flex>
-                }
-                type="text"
-                placeholder="Behance 주소"
-                value={website2}
-                onChange={(e) => setWebsite2(e.target.value)}
-              />
-            </Flex>
-            <Flex padding="5px 0 10px">
+                <ImgBox>
+                  <label htmlFor="image">
+                    <Edit color="white" />
+                  </label>
+                  <input
+                    type="file"
+                    id="image"
+                    ref={fileInput}
+                    onChange={selectFile}
+                  />
+                </ImgBox>
+              </Flex>
+            </Wrapprofile>
+            <Wrap margin="0 20px">
+              <Flex padding="10px 0">
+                <Flex width="100%">
+                  <Text textAlign="left" width="80px">
+                    닉네임
+                  </Text>
+
+                  <Input
+                    icon={<Refresh onClick={renameRandom} />}
+                    square
+                    placeholder={getProfile?.nickname || "닉네임 자리"}
+                    border={`1px solid ${theme.pallete.gray1}`}
+                    br="6px"
+                    fg="1"
+                    iconRight="4px"
+                    padding="8px"
+                    value={nickname}
+                    onChange={(e) => setNickname(e.target.value)}
+                  />
+                </Flex>
+              </Flex>
+              <Flex padding="10px 0 5px">
+                <Flex width="100%">
+                  <Text textAlign="left" width="80px">
+                    웹사이트
+                  </Text>
+
+                  <Input
+                    square
+                    icon={
+                      <Flex>
+                        <img src="/images/Instagram.svg" alt="인스타" />
+                      </Flex>
+                    }
+                    iconRight="4px"
+                    padding="8px"
+                    border={`1px solid ${theme.pallete.gray1}`}
+                    fg="1"
+                    br="6px"
+                    type="text"
+                    placeholder="instargram ID"
+                    value={website1 || ""}
+                    onChange={(e) => setWebsite1(e.target.value)}
+                  />
+                </Flex>
+              </Flex>
+              {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
               <Flex width="100%">
                 <Text textAlign="left" width="80px"></Text>
 
                 <Input
-                  fg="1"
                   square
+                  fg="1"
                   br="6px"
                   iconRight="4px"
                   padding="8px"
                   border={`1px solid ${theme.pallete.gray1}`}
                   icon={
                     <Flex>
-                      <img src="/images/web.svg" alt="포트폴리오" />
+                      <img src="/images/Behance.svg" alt="비핸스" />
                     </Flex>
                   }
                   type="text"
-                  placeholder="other website"
-                  value={website3 || ""}
-                  onChange={(e) => setWebsite3(e.target.value)}
+                  placeholder="Behance 주소"
+                  value={website2}
+                  onChange={(e) => setWebsite2(e.target.value)}
                 />
               </Flex>
-            </Flex>
-            <Flex padding="20px 0 10px 0" width="100%">
-              <Text align-items="start" textAlign="left" width="80px" fg="0">
-                소개
-              </Text>
+              <Flex padding="5px 0 10px">
+                <Flex width="100%">
+                  <Text textAlign="left" width="80px"></Text>
 
-              <Textarea
-                fg="1"
-                value={introduce}
-                onChange={(e) => setIntroduce(e.target.value)}
-                maxLength="50"
-                padding="8px"
-                border={`1px solid ${theme.pallete.gray1}`}
-                br="6px"
-              />
-            </Flex>
+                  <Input
+                    fg="1"
+                    square
+                    br="6px"
+                    iconRight="4px"
+                    padding="8px"
+                    border={`1px solid ${theme.pallete.gray1}`}
+                    icon={
+                      <Flex>
+                        <img src="/images/web.svg" alt="포트폴리오" />
+                      </Flex>
+                    }
+                    type="text"
+                    placeholder="other website"
+                    value={website3 || ""}
+                    onChange={(e) => setWebsite3(e.target.value)}
+                  />
+                </Flex>
+              </Flex>
+              <Flex padding="20px 0 10px 0" width="100%">
+                <Text align-items="start" textAlign="left" width="80px" fg="0">
+                  소개
+                </Text>
+
+                <Textarea
+                  fg="1"
+                  value={introduce}
+                  onChange={(e) => setIntroduce(e.target.value)}
+                  maxLength="50"
+                  padding="8px"
+                  border={`1px solid ${theme.pallete.gray1}`}
+                  br="6px"
+                />
+              </Flex>
+            </Wrap>
+            <BottomWrap>
+              <Button
+                width="100%"
+                onClick={() => {
+                  window.alert("프로필이 저장되었습니다!");
+                  editUser();
+                }}
+              >
+                수정 완료
+              </Button>
+            </BottomWrap>
           </Wrap>
-          <BottomWrap>
-            <Button
-              width="100%"
-              onClick={() => {
-                window.alert("프로필이 저장되었습니다!");
-                editUser();
-              }}
-            >
-              수정 완료
-            </Button>
-          </BottomWrap>
         </div>
       </Outline>
     </>
@@ -251,10 +256,12 @@ const MypageEdit = () => {
 
 const BottomWrap = styled.div`
   position: fixed;
-  bottom: 16px;
+  bottom: 0;
+  padding: 16px;
   width: 100%;
-  padding: 0 16px;
   max-width: ${theme.view.maxWidth};
+  background-color: white;
+  height: fit-content;
 `;
 
 const Wrapprofile = styled.div`
