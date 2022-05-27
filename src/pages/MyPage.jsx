@@ -223,7 +223,7 @@ const MyPage = () => {
           text1="아직 작성한 후기가 없어요."
           text2="후기를 작성하시겠어요?"
           button="후기 작성"
-          movePage="" //후기 작성페이지로 이동
+          movePage="/review/write/select" //후기 작성페이지로 이동
         >
           <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0 10px">
             {myReviews &&

@@ -6,15 +6,15 @@ import theme from "../styles/theme";
 const Footer = () => {
   return (
     <Container>
-      <Wrap width="100vw" height="150px" padding="23px 31px 28px">
+      <Wrap width="100%" height="fit-content" padding="28px 32px 28px">
         <Text h2 color="white" margin="0 0 12px 0">
           ARTILY
         </Text>
-        <Flex margin="0 0 12px 0">
+        <Flex margin="0 0 0 0">
           <Text body2 color="white" margin="0 8px 0 0">
             Team Github
           </Text>
-          <Text color={theme.pallete.primary800}>
+          <Text color={theme.color.brandColor}>
             <a
               href="https://github.com/lnuvy/mvp-project"
               target="_blank"

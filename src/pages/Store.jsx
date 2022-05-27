@@ -65,7 +65,12 @@ const Store = () => {
     })
     .map((l) => {
       return (
-        <StoreCard key={l.postId} {...l} onClick={() => handleClickData(l)} />
+        <StoreCard
+          key={l.postId}
+          {...l}
+          imageUrl={l.images[0].imageUrl}
+          onClick={() => handleClickData(l)}
+        />
       );
     });
 
@@ -98,6 +103,8 @@ const Store = () => {
           placeholder="작가명, 작품명 검색..."
           icon={<Search color={theme.pallete.gray2} />}
           value={query}
+          iconRight="8px"
+          iconTop="8px"
           border={`1px solid ${theme.pallete.gray1}`}
           onChange={(e) => setQuery(e.target.value)}
         />

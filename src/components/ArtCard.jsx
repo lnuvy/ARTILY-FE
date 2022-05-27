@@ -62,7 +62,6 @@ const ArtCard = (props) => {
               width="96px"
               height="96px"
               src={images[0].imageUrl}
-              shadow="1px 1px 3px #ddd"
               br="8px"
               margin="6px 9px 6px 16px"
             />

@@ -237,7 +237,7 @@ const ChatRoom = () => {
                   fd="column"
                   ai="flex-end"
                 >
-                  <Flex fd="column" ai="start">
+                  <Flex fd="column" ai="start" margin="16px 16px 0 0">
                     <Flex
                       width="fit-content"
                       height="fit-content"
@@ -245,6 +245,7 @@ const ChatRoom = () => {
                       margin="15px 20px 5px 5px"
                       bc={theme.pallete.primary700}
                       br="8px"
+                      minWidth="48px"
                     >
                       <Text>{msg.message}</Text>
                     </Flex>
@@ -263,7 +264,7 @@ const ChatRoom = () => {
               );
             else
               return (
-                <Wrap padding="19px 19px 0 19px" key={`${i}_msg_${msg}`}>
+                <Wrap margin="16px 16px 0 16px" key={`${i}_msg_${msg}`}>
                   <Flex width="fit-content">
                     <Image
                       circle
@@ -291,7 +292,6 @@ const ChatRoom = () => {
                           style={{
                             fontSize: "10px",
                             color: `${theme.pallete.gray3}`,
-                            margin: "5px 5px 5px 0",
                           }}
                         >
                           {moment(msg.time).format("a hh:mm")}
@@ -311,8 +311,8 @@ const ChatRoom = () => {
           <Input
             withBtn
             icon={
-              <Icon padding="0" onClick={sendMessage}>
-                <ArrowUpward />
+              <Icon padding="1px" onClick={sendMessage}>
+                <ArrowUpward color="white" />
               </Icon>
             }
             fg="1"
@@ -336,6 +336,7 @@ const Container = styled.div`
   background-color: #e0e0e0;
   overflow-y: scroll;
   margin-top: 142px;
+  padding-bottom: 80px;
 `;
 
 const ImageDark = styled.div`

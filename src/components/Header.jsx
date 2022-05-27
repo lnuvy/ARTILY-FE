@@ -40,11 +40,12 @@ const Header = (props) => {
     path === "/mypage";
 
   const param = useParams();
+
   const isWrite =
     (path.split("/")[1] === "review" && path.split("/")[2] === "write") ||
-    path === "/store/write";
-  const reviewWrite = path === `/review/write/${param}`;
-  const storeWrite = path === `/store/write`;
+    path === "/store/write" ||
+    (path.split("/")[1] === "review" && path.split("/")[2] === "edit") ||
+    (path.split("/")[1] === "store" && path.split("/")[2] === "edit");
 
   const Notarrowbtn =
     path === "/profile" ||
@@ -104,21 +105,35 @@ const Header = (props) => {
         {console.log(param)}
         <HeaderStyle2>
           <Flex height="48px" margin="0 60px 0 0">
-            <Icon
+            {console.log(
+              path.split("/")[1] === "review" && path.split("/")[2] === "write"
+            )}
+
+            {/* <Icon
               margin="0 0 0 16px"
               onClick={() => {
-                console.log("hi");
                 history.goBack();
               }}
             >
               <Close />
-            </Icon>
+            </Icon> */}
+            {console.log(path)}
             <Text medium fg="1" textAlign="center">
-              {path.split("/")[1] === "review" &&
-                path.split("/")[2] === "write" &&
-                !path.split("/")[3] === "select" &&
-                "리뷰 등록"}
-              {storeWrite && "작품 등록"}
+              {path.split("/")[3] === "select" ? (
+                <Icon margin="16px 8px" onClick={() => history.goBack()}>
+                  <ArrowBack />
+                </Icon>
+              ) : path === `/store/write` ? (
+                "작품 등록"
+              ) : path.split("/")[1] === "review" &&
+                path.split("/")[2] === "edit" ? (
+                "리뷰 수정"
+              ) : path.split("/")[1] === "store" &&
+                path.split("/")[2] === "edit" ? (
+                "작품 수정"
+              ) : (
+                "리뷰 등록"
+              )}
             </Text>
           </Flex>
         </HeaderStyle2>
@@ -128,9 +143,6 @@ const Header = (props) => {
   } else if (!Notarrowbtn) {
     return (
       <>
-        {console.log(
-          path.split("/")[1] === "review" && path.split("/")[2] === "write"
-        )}
         {console.log(param)}
         <HeaderStyle2>
           <Flex height="48px">

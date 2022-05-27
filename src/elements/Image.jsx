@@ -20,6 +20,8 @@ const Image = (props) => {
     height,
     br, //5.3 영경 변경
     shadow,
+    backgroundPosition,
+    backgroundSize,
   } = props;
 
   const styles = {
@@ -37,6 +39,8 @@ const Image = (props) => {
     br,
     //5.13 그림자 추가
     shadow,
+    backgroundPosition,
+    backgroundSize,
   };
 
   if (circle) {
@@ -57,12 +61,14 @@ Image.defaultProps = {
   previewSize: false,
   onClick: () => {},
   bs: "cover",
-  bc: "rgba(0,0,0,0.2)",
+  bc: `${theme.pallete.gray1}`,
   //border-radius 추가했습니다. -영경
   br: "",
-  border: "none", // May8 수정
+  border: ``, // May8 수정
   //5.13 shadow 추가
   shadow: "none",
+  backgroundPosition: "center",
+  backgroundSize: "cover",
 };
 
 const ImageCircle = styled.div`
@@ -73,11 +79,11 @@ const ImageCircle = styled.div`
   background-color: ${({ bc }) => bc};
 
   background-image: url(${({ src }) => src});
-  background-size: cover;
+  background-size: ${({ backgroundSize }) => backgroundSize};
   margin: ${({ margin }) => margin};
-  background-position: center;
   background-repeat: no-repeat;
   border: ${({ border }) => border};
+  background-position: ${({ backgroundPosition }) => backgroundPosition};
 `;
 
 const ImageSqure = styled.div`
@@ -88,11 +94,11 @@ const ImageSqure = styled.div`
   background-image: url(${({ src }) => src});
   background-size: ${({ bs }) => bs};
   margin: ${({ margin }) => margin};
-  background-position: center;
   background-repeat: no-repeat;
   border: ${({ border }) => border};
   border-radius: ${({ br }) => br};
   box-shadow: ${({ shadow }) => shadow};
+  background-position: ${({ backgroundPosition }) => backgroundPosition};
 `;
 
 export default Image;

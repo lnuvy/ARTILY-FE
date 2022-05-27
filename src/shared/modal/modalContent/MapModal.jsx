@@ -71,7 +71,18 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
     dong: undefined,
   });
 
+  console.log(currentAddress?.split(" "));
+
   const submitAddress = () => {
+    if (
+      address.city === "" ||
+      address.city === undefined ||
+      address.gu === undefined ||
+      address.dong === undefined
+    ) {
+      alert("모든 항목을 입력하세요.");
+      return;
+    }
     const guArray = address.gu.split("");
     const dongArray = address.dong.split("");
 
@@ -95,6 +106,10 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
     const { id, value } = e.target;
     // console.log(id);
 
+    if (e.target.value === "지역을 선택하세요") {
+      setAddress({ ...address, city: undefined });
+      return;
+    }
     if (e.target.id === "city") {
       setAddress({ ...address, city: e.target.value });
       return;
@@ -128,14 +143,14 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
       <Wrap margin="12px 0 0 0" />
       <Input
         id="gu"
-        placeholder="구를 입력하세요"
+        placeholder="구를 입력하세요. ex) 중구"
         onChange={addressValue}
         value={gu}
       />
       <Wrap margin="12px 0 0 0" />
       <Input
         id="dong"
-        placeholder="동을 입력하세요"
+        placeholder="동을 입력하세요. ex) 태평동"
         onChange={addressValue}
         value={dong}
       />

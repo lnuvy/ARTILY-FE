@@ -1,6 +1,7 @@
 import React from "react";
 import { Flex, Button, Wrap, Text } from "../elements";
 import styled from "styled-components";
+import { LogoBig } from "../assets/images/index";
 const Login = () => {
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_KEY;
   const KAKAO_REDIRECT_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
@@ -14,7 +15,7 @@ const Login = () => {
   return (
     <>
       <Wrap textAlign="center" margin="100px 0">
-        <img src="/images/Artily.png" />
+        <LogoBig />
         <Sub>회원 서비스 이용을 위해 로그인 해주세요!</Sub>
       </Wrap>
       <Kakaobtn>

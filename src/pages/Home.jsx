@@ -1,13 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Text, Grid, Image, Wrap } from "../elements";
+import {
+  Text,
+  Grid,
+  Image,
+  Wrap,
+  Flex,
+  ImageCarousel,
+  ImageCarouselBanner,
+} from "../elements";
 import { Card, Footer, ReviewCard, StoreCard } from "../components";
 import { getHomeDataDB } from "../redux/modules/main";
 import { history } from "../redux/configureStore";
 
 import styled from "styled-components";
 import theme from "../styles/theme";
-import banner from "../assets/images/banner.png";
+import banner1 from "../assets/images/banner1.png";
+import banner2 from "../assets/images/banner2.png";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -33,9 +42,11 @@ const Home = () => {
     }
   };
 
+  const bannerImgs = [{ imageUrl: banner1 }, { imageUrl: banner2 }];
+
   return (
     <>
-      <Image height="220px" width="100%" br="0" border="none" src={banner} />
+      <ImageCarouselBanner src={bannerImgs} />
       <Wrap padding="16px 16px 28px">
         <Text bold h3 margin="0 0 10px 0">
           인기 작품
@@ -125,6 +136,12 @@ export default Home;
 const BestArtistWrap = styled.div`
   /*padding으로 양 옆값 주면 오른쪽 여백이 반영이 안되는 것 같아서 margin으로 바꿨습니다.*/
   margin: 0 16px;
+  overflow: auto;
+  overflow-y: hidden;
+`;
+
+const BannerWrap = styled.div`
+  /*padding으로 양 옆값 주면 오른쪽 여백이 반영이 안되는 것 같아서 margin으로 바꿨습니다.*/
   overflow: auto;
   overflow-y: hidden;
 `;

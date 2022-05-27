@@ -13,12 +13,7 @@ const StoreMore = (props) => {
     return (
       <Card onClick={onClick}>
         {console.log(postId)}
-        <Image
-          height="168px"
-          br="8px"
-          src={images[0]?.imageUrl}
-          shadow="1px 1px 3px #ddd"
-        />
+        <Image height="168px" br="8px" src={images[0]?.imageUrl} />
         <Text medium h2 margin="8px 0 9px">
           {postTitle}
         </Text>

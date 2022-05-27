@@ -2,13 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Preview } from "../components";
-import { Button, Flex, Input, Textarea, ToggleButton, Wrap } from "../elements";
+import {
+  Button,
+  Flex,
+  Input,
+  Textarea,
+  ToggleButton,
+  Wrap,
+  Icon,
+} from "../elements";
 import { clearPreview, editPosts3Url } from "../redux/modules/image";
 import { openDragModal, openModal } from "../redux/modules/modal";
 // import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
 import { inputSpaceReg } from "../shared/utils";
-import { NavigationNext } from "../assets/icons/index";
+import { NavigationNext, Close } from "../assets/icons/index";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { history } from "../redux/configureStore";
@@ -312,6 +320,14 @@ const StoreEdit = () => {
 
       <ButtonWrap>
         <Flex>
+          <Icon
+            margin="0 0 0 16px"
+            onClick={() => {
+              history.goBack();
+            }}
+          >
+            <Close />
+          </Icon>
           <Wrap fg="1"></Wrap>
           <Button
             text
@@ -352,13 +368,18 @@ const Wrapcate = styled.div`
   }
 `;
 
+const Box = styled.div`
+  transform: translateZ(0);
+`;
+
 const ButtonWrap = styled.div`
   position: fixed;
   z-index: 100;
   top: 0;
-  right: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   margin: 0 auto;
-  width: fit-content;
+  width: 100%;
   max-width: ${theme.view.maxWidth};
 `;
 export default StoreEdit;

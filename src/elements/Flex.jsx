@@ -24,6 +24,7 @@ const Flex = (props) => {
     bottom,
     right,
     left,
+    minWidth,
   } = props;
 
   const styles = {
@@ -44,6 +45,7 @@ const Flex = (props) => {
     bottom,
     right,
     left,
+    minWidth,
   };
 
   if (child) {
@@ -94,6 +96,7 @@ const FlexStyle = styled.div`
   bottom: ${({ bottom }) => bottom};
   left: ${({ left }) => left};
   right: ${({ right }) => right};
+  min-width: ${({ minWidth }) => minWidth};
 `;
 
 const FlexChild = styled.div`

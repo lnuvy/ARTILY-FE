@@ -87,7 +87,6 @@ const Follow = () => {
                   width="60px"
                   height="60px"
                   bg="#ddd"
-                  shadow="1px 0.5px 2px #888"
                   br="30px"
                   onClick={() => {
                     history.push(`/userprofile/${follower.userId}`); //누르면 팔로우한 유저의 프로필로 이동
@@ -119,7 +118,6 @@ const Follow = () => {
                   width="60px"
                   height="60px"
                   bg="#ddd"
-                  shadow="1px 0.5px 2px #888"
                   br="30px"
                   src={follow?.profileImage}
                   onClick={() => {
