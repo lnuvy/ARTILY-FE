@@ -160,24 +160,14 @@ const Store = () => {
               })}
           </Flex>
         </Wrap>
-        <NoInfo list={searchList} text1="검색결과가 없습니다.">
-          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
-            {searchList && query !== ""
-              ? searchList
-              : filterList &&
-                filterList.map((v) => {
-                  if (isFree) {
-                    if (v.price === "0") {
-                      return (
-                        <StoreCard
-                          key={v.postId}
-                          {...v}
-                          imageUrl={v.images[0].imageUrl}
-                          onClick={() => handleClickData(v)}
-                        />
-                      );
-                    }
-                  } else
+        {/* <NoInfo list={searchList} text1="검색결과가 없습니다."> */}
+        <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
+          {searchList && query !== ""
+            ? searchList
+            : filterList &&
+              filterList.map((v) => {
+                if (isFree) {
+                  if (v.price === "0") {
                     return (
                       <StoreCard
                         key={v.postId}
@@ -186,9 +176,19 @@ const Store = () => {
                         onClick={() => handleClickData(v)}
                       />
                     );
-                })}
-          </Grid>
-        </NoInfo>
+                  }
+                } else
+                  return (
+                    <StoreCard
+                      key={v.postId}
+                      {...v}
+                      imageUrl={v.images[0].imageUrl}
+                      onClick={() => handleClickData(v)}
+                    />
+                  );
+              })}
+        </Grid>
+        {/* </NoInfo> */}
       </Wrap>
     </>
   );
