@@ -294,12 +294,14 @@ const Border = styled.div`
 `;
 //게시글 제목 글자수 길어지는거 방지
 const SellList = styled.p`
-  width: 60%;
+  width: 40vw;
+  margin-top: 8px;
+  overflow: hidden;
+  line-height: 20px;
   text-overflow: ellipsis;
-  /* overflow: hidden; */
-  /* white-space: nowrap; */
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* 라인수 */
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 
   -webkit-box-orient: vertical;
 `;

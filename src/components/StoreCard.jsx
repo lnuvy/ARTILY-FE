@@ -8,6 +8,7 @@ import Card from "./Card";
 import { getMyPostLikeDB } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
 import _ from "lodash";
+import styled from "styled-components";
 
 // TODO: 아이콘 색깔채운거 받아야하나 ?
 import { IoMdHeart } from "react-icons/io";
@@ -53,9 +54,11 @@ const StoreCard = (props) => {
           {user?.nickname}
         </Text>
       </Flex>
-      <Text h3 medium>
-        {postTitle ? postTitle : "-"}
-      </Text>
+      <WrapTitle>
+        <Text h3 medium>
+          {postTitle ? postTitle : "-"}
+        </Text>
+      </WrapTitle>
       <Text body2 color={theme.pallete.gray3}>
         {transaction ? transaction : "-"}
 
@@ -83,5 +86,13 @@ const StoreCard = (props) => {
     </Card>
   );
 };
-
+const WrapTitle = styled.div`
+  //말줄임 효과 추가. 높이 지정
+  overflow: hidden;
+  height: 44px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
 export default StoreCard;
