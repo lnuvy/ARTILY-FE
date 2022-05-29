@@ -33,7 +33,7 @@ const ChatRoom = () => {
     (state) => state?.chat?.nowChat?.targetUser?.userId
   );
   const isMe = useSelector((state) => state.user.user.userId);
-  console.log("내 정보", isMe);
+  // console.log("내 정보", isMe);
   // console.log(targetUserId);
 
   const { chatData, nowChat, roomMessages, getChatMessages, clearChat } =
@@ -47,8 +47,8 @@ const ChatRoom = () => {
   // const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
 
-  console.log("targetUser", nowChat.targetUser);
-  console.log("createUser", nowChat.createUser);
+  // console.log("targetUser", nowChat.targetUser);
+  // console.log("createUser", nowChat.createUser);
   // 사진업로드
   const uploadFile = useSelector((state) => state.image.represent);
 
