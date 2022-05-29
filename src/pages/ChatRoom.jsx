@@ -33,17 +33,13 @@ const ChatRoom = () => {
     (state) => state?.chat?.nowChat?.targetUser?.userId
   );
   const isMe = useSelector((state) => state.user.user.userId);
-  console.log("내 정보", isMe);
 
   const { chatData, nowChat, roomMessages, getChatMessages, clearChat } =
     useSelector((state) => state.chat);
-  // import recei
   const target =
     nowChat?.targetUser?.userId === from
       ? nowChat.createUser
       : nowChat.targetUser;
-  // console.log("target!!!!!!", target);
-  // const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
 
   // 사진업로드
