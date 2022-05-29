@@ -33,7 +33,7 @@ const ChatRoom = () => {
     (state) => state?.chat?.nowChat?.targetUser?.userId
   );
   const isMe = useSelector((state) => state.user.user.userId);
-  console.log(isMe);
+  console.log("내 정보", isMe);
   // console.log(targetUserId);
 
   const { chatData, nowChat, roomMessages, getChatMessages, clearChat } =
@@ -47,6 +47,8 @@ const ChatRoom = () => {
   // const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
 
+  console.log("targetUser", nowChat.targetUser);
+  console.log("createUser", nowChat.createUser);
   // 사진업로드
   const uploadFile = useSelector((state) => state.image.represent);
 
@@ -138,7 +140,7 @@ const ChatRoom = () => {
           <ArrowBack />
         </Icon>
         {/* 내 userId와 이 채팅방을 만든사람의 아이디가 같다면 targetUser 정보 보여주기 */}
-        {isMe === nowChat?.createUser?.profileImage ? (
+        {isMe === nowChat?.createUser?.userId ? (
           <div className="targetInfo">
             <Flex>
               <Image

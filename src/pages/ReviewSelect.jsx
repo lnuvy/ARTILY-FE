@@ -37,7 +37,6 @@ const ReviewSelect = () => {
           내가 구입한 작품
         </Text>
       </Wrap>
-      {console.log(mybuyList && mybuyList)}
       {mybuyList && mybuyList.length > 0 ? (
         mybuyList.map((l, i) => {
           return (

@@ -17,7 +17,7 @@ import StoreFilter from "../shared/modal/modalContent/StoreFilter";
 import { FilterFilled, Search } from "../assets/icons";
 import theme from "../styles/theme";
 import { NoInfo } from "../components";
-
+import styled from "styled-components";
 const Store = () => {
   const dispatch = useDispatch();
   const { list, filterList } = useSelector((state) => state.store);
@@ -91,23 +91,32 @@ const Store = () => {
     dispatch(go2detail(data));
     history.push(`/store/view/${data.postId}`);
   };
+
+  const searchResult = () => {};
   return (
     <>
       <Category />
       <Wrap margin="16px 16px 24px 16px">
-        <Input
-          square
-          br="8px"
-          padding="11px 16px"
-          margin="0 0 16px"
-          placeholder="작가명, 작품명 검색..."
-          icon={<Search color={theme.pallete.gray2} />}
-          value={query}
-          iconRight="8px"
-          iconTop="8px"
-          border={`1px solid ${theme.pallete.gray1}`}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+        <SearchWrap>
+          <Input
+            square
+            br="8px"
+            padding="11px 16px"
+            margin="0 0 16px"
+            placeholder="작가명, 작품명 검색..."
+            value={query}
+            iconRight="8px"
+            iconTop="8px"
+            border={`1px solid ${theme.pallete.gray1}`}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <div className="searchBtn">
+            <Search
+              color={theme.pallete.gray2}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+        </SearchWrap>
         <Wrap margin="16px 0">
           <Flex jc="space-between">
             <Checkbox checked={isFree} id="checkFree" onChange={checkFree}>
@@ -194,4 +203,12 @@ const Store = () => {
   );
 };
 
+const SearchWrap = styled.div`
+  position: relative;
+  .searchBtn {
+    position: absolute;
+    top: 8px;
+    right: 11px;
+  }
+`;
 export default Store;

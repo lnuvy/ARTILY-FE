@@ -50,6 +50,7 @@ const ArtCard = (props) => {
     // console.log(result);
     if (result) {
       dispatch(deletePostDB(postId, true));
+      window.location.reload();
     }
   };
 
@@ -92,7 +93,7 @@ const ArtCard = (props) => {
             <Button
               text
               borderRight={`1px solid ${theme.pallete.gray1}`}
-              padding="10px 20px"
+              padding="10px 15px"
               br="0"
               color={theme.pallete.black}
               onClick={() => {
@@ -107,7 +108,7 @@ const ArtCard = (props) => {
               borderRight={`1px solid ${theme.pallete.gray1}`}
               br="0"
               color={theme.pallete.black}
-              padding="10px 20px"
+              padding="10px 15px"
               onClick={deletePosting}
             >
               삭제하기
@@ -127,7 +128,7 @@ const ArtCard = (props) => {
                 text
                 fg="1"
                 br="0"
-                padding="10px 20px"
+                padding="10px 15px"
                 color={theme.pallete.black}
                 onClick={() => {
                   //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함

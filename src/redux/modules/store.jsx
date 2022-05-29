@@ -168,7 +168,7 @@ export const deletePostDB = (postId) => {
           text: "삭제되었습니다.",
         });
         dispatch(deletePost(postId));
-        history.replace("/store");
+        // history.replace("/store");
       })
       .catch((err) => {
         console.log(err);
