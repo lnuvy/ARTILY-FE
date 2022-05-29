@@ -43,6 +43,7 @@ const Home = () => {
   };
 
   const bannerImgs = [{ imageUrl: banner1 }, { imageUrl: banner2 }];
+
   return (
     <>
       <ImageCarouselBanner src={bannerImgs} />
@@ -136,12 +137,6 @@ export default Home;
 const BestArtistWrap = styled.div`
   /*padding으로 양 옆값 주면 오른쪽 여백이 반영이 안되는 것 같아서 margin으로 바꿨습니다.*/
   margin: 0 16px;
-  overflow: auto;
-  overflow-y: hidden;
-`;
-
-const BannerWrap = styled.div`
-  /*padding으로 양 옆값 주면 오른쪽 여백이 반영이 안되는 것 같아서 margin으로 바꿨습니다.*/
   overflow: auto;
   overflow-y: hidden;
 `;
