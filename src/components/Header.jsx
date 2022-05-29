@@ -20,7 +20,6 @@ const Header = (props) => {
   // );
   const isLogin = useSelector((state) => state.user.isLogin);
   const roomName = useSelector((state) => state.chat.nowChat.roomName);
-  console.log(roomName);
   const { cg, width, gtc, textAlign, padding } = props;
 
   const styles = {
@@ -96,18 +95,18 @@ const Header = (props) => {
       </>
     );
   else if (isWrite === true) {
-    {
-      console.log(isWrite);
-    }
+    // {
+    //   console.log(isWrite);
+    // }
     return (
       <>
-        {console.log(path)}
-        {console.log(param)}
+        {/* {console.log(path)}
+        {console.log(param)} */}
         <HeaderStyle2>
-          <Flex height="48px" margin="0 60px 0 0">
-            {console.log(
+          <Flex height="48px" margin="0">
+            {/* {console.log(
               path.split("/")[1] === "review" && path.split("/")[2] === "write"
-            )}
+            )} */}
 
             {/* <Icon
               margin="0 0 0 16px"

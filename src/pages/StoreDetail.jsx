@@ -106,6 +106,7 @@ const StoreDetail = () => {
     console.log(result);
     if (result) {
       dispatch(deletePostDB(postId));
+      history.push("/store");
     }
   };
 

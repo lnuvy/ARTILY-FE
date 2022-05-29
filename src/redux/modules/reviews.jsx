@@ -69,6 +69,7 @@ export const getReviewOne = (reviewId) => {
 
 export const postReviewDB = (postID, contents) => {
   return async function (dispatch, getState, { history }) {
+    console.log("======postReviewDB");
     Apis.postReview(postID, contents)
       .then(function (response) {
         console.log(response);

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 // components
 import { Grid, Wrap } from "../elements";
-import { ReviewCard, Category } from "../components/index";
+import { ReviewCard, Category, NoInfo } from "../components/index";
 // moduels
 import {
   getReviewData,
@@ -48,13 +48,14 @@ const Review = () => {
           <Grid gtc="1fr 1fr" margin="0 0 20px">
             {filteringList &&
               filteringList.map((v, i) => {
-                // console.log(v.images);
+                console.log(v.images);
+
                 return (
                   <ReviewCard
                     _key={i}
                     onClick={() => clickCard(v.reviewId)}
                     {...v}
-                    images={v.images[0].imageUrl || null}
+                    images={(v.images && v.images[0].imageUrl) || null}
                   />
                 );
               })}

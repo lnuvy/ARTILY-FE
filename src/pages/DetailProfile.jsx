@@ -74,7 +74,7 @@ const DetailProfile = () => {
       <ProgressBar width={(count / 4) * 100 + "%"} />
       <Outline>
         <div className="box">
-          <Wrap margin="120px 0 0 0" textAlign="center">
+          <Wrap margin="80px 0 125px 0" textAlign="center">
             <LogoBig />
             <Text body1 color={theme.pallete.gray2} margin="10px 0 0 0">
               내 프로필을 완성해주세요!
@@ -253,9 +253,12 @@ const DetailProfile = () => {
 
 const BottomWrap = styled.div`
   position: fixed;
-  bottom: 16px;
+  bottom: 0;
+  padding: 16px 0;
   width: 100%;
   max-width: ${theme.view.maxWidth};
+  background-color: white;
+  height: fit-content;
 `;
 const Wrapprofile = styled.div`
   position: relative;
@@ -268,7 +271,7 @@ const Outline = styled.div`
   .box {
     /* background-color: #ddd; */
     width: 100%;
-    position: absolute;
+    /* position: absolute; */
     /* top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); translate(x축,y축) */

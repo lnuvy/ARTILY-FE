@@ -33,12 +33,11 @@ const ChatRoom = () => {
     (state) => state?.chat?.nowChat?.targetUser?.userId
   );
   const isMe = useSelector((state) => state.user.user.userId);
-  console.log(isMe);
+  console.log("내 정보", isMe);
   // console.log(targetUserId);
 
   const { chatData, nowChat, roomMessages, getChatMessages, clearChat } =
     useSelector((state) => state.chat);
-  console.log("!!!!!!!!!!!!!!!!!!!", nowChat);
   // import recei
   const target =
     nowChat?.targetUser?.userId === from
@@ -48,6 +47,8 @@ const ChatRoom = () => {
   // const nowConnected = target.connected;
   const isDone = nowChat?.post?.done;
 
+  console.log("targetUser", nowChat.targetUser);
+  console.log("createUser", nowChat.createUser);
   // 사진업로드
   const uploadFile = useSelector((state) => state.image.represent);
 
@@ -139,7 +140,7 @@ const ChatRoom = () => {
           <ArrowBack />
         </Icon>
         {/* 내 userId와 이 채팅방을 만든사람의 아이디가 같다면 targetUser 정보 보여주기 */}
-        {isMe === nowChat?.createUser?.profileImage ? (
+        {isMe === nowChat?.createUser?.userId ? (
           <div className="targetInfo">
             <Flex>
               <Image
@@ -332,8 +333,9 @@ const ChatRoom = () => {
 };
 
 const Container = styled.div`
-  height: calc(100vh - 188px);
-  background-color: #e0e0e0;
+  height: calc(100vh - 146px);
+  background-color: #f3f3f3;
+
   overflow-y: scroll;
   margin-top: 142px;
   padding-bottom: 80px;
@@ -386,7 +388,7 @@ const Wrapinfo = styled.div`
   background-color: #d3d3d3;
   margin: 64px 0 0 0;
   position: fixed;
-  width: 100vw;
+  width: 428px;
+  min-width: 375px;
 `;
-const Wraptarget = styled.div``;
 export default ChatRoom;
