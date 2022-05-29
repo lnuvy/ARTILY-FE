@@ -68,10 +68,13 @@ const ArtCard = (props) => {
             />
 
             <Wrap>
-              <Flex>
-                <SellList>{postTitle}</SellList>
-                <SellLabel manageLabel done={done} />
-              </Flex>
+              {" "}
+              <WrapTitle>
+                <Flex>
+                  <SellList>{postTitle}</SellList>
+                  <SellLabel manageLabel done={done} />
+                </Flex>{" "}
+              </WrapTitle>
               {price ? (
                 <Text fg="1" medium margin="8px 0 0 0">
                   {priceComma(price)}원
@@ -194,7 +197,7 @@ const ArtCard = (props) => {
           <SellLabel pageLabel done={done} />
           <Image height="168px" br="8px" src={images[0].imageUrl} />
         </Label>
-        <Text margin="8px 0 0 0">{postTitle}</Text>
+        <SellList2>{postTitle}</SellList2>
         <Flex margin="0 0 8px 0">
           {price ? (
             <Text fg="1" bold>
@@ -284,25 +287,33 @@ const Sell = styled.div`
     margin: auto;
   }
 `;
-
+const WrapTitle = styled.div`
+  margin-right: 16px;
+`;
 const Label = styled.div`
   position: relative;
 `;
 const Border = styled.div`
   padding-top: 10px;
-  border-top: 1px solid #ddd;
 `;
 //게시글 제목 글자수 길어지는거 방지
 const SellList = styled.p`
-  width: 40vw;
-  margin-top: 8px;
+  max-width: 40vw;
   overflow: hidden;
   line-height: 20px;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-
+`;
+const SellList2 = styled.p`
+  max-width: 40vw;
+  overflow: hidden;
+  height: 40px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  margin: 8px 0 0 0;
 `;
 export default ArtCard;
