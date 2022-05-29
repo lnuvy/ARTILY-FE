@@ -43,7 +43,6 @@ const Home = () => {
   };
 
   const bannerImgs = [{ imageUrl: banner1 }, { imageUrl: banner2 }];
-  console.log("배포!!!!!!!!!!");
   return (
     <>
       <ImageCarouselBanner src={bannerImgs} />
