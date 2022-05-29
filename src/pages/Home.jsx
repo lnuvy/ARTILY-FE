@@ -75,7 +75,7 @@ const Home = () => {
           <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
             {bestWriter.length > 0 &&
               bestWriter.map((artist, i) => {
-                console.log(artist);
+                // console.log(artist);
                 return (
                   <Card
                     key={i}
