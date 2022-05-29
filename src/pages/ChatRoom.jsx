@@ -388,7 +388,7 @@ const Wrapinfo = styled.div`
   background-color: #d3d3d3;
   margin: 64px 0 0 0;
   position: fixed;
-  width: 100vw;
+  width: 428px;
+  min-width: 375px;
 `;
-const Wraptarget = styled.div``;
 export default ChatRoom;
