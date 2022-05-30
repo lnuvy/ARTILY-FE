@@ -14,11 +14,12 @@ const Footer = () => {
           <Text body2 color="white" margin="0 8px 0 0">
             Team Github
           </Text>
-          <Text color={theme.color.brandColor}>
+          <GitAddress>
             <a
               href="https://github.com/lnuvy/mvp-project"
               target="_blank"
               rel="noreferrer"
+              className="front"
             >
               FrontEnd
             </a>
@@ -27,10 +28,11 @@ const Footer = () => {
               href="https://github.com/OhJinwooo/Project-BE"
               target="_blank"
               rel="noreferrer"
+              className="back"
             >
               BackEnd
             </a>
-          </Text>
+          </GitAddress>
         </Flex>
         {/* <Text color="white" margin="0 0 12px 0">
           footer 영역
@@ -43,5 +45,13 @@ const Footer = () => {
 const Container = styled.div`
   background-color: ${theme.pallete.gray4};
 `;
-
+const GitAddress = styled.div`
+  color: ${({ theme }) => theme.pallete.primary850};
+  .front {
+    cursor: pointer;
+  }
+  .back {
+    cursor: pointer;
+  }
+`;
 export default Footer;
