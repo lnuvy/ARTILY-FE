@@ -51,8 +51,7 @@ const StoreDetail = () => {
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
-  const done = detailData;
-  console.log(done);
+
   const { chatData } = useSelector((state) => state.chat);
   const likeThisPost = useSelector((state) => state.store.myPostLike);
 
