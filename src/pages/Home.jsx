@@ -43,7 +43,6 @@ const Home = () => {
   };
 
   const bannerImgs = [{ imageUrl: banner1 }, { imageUrl: banner2 }];
-
   return (
     <>
       <ImageCarouselBanner src={bannerImgs} />
@@ -75,7 +74,6 @@ const Home = () => {
           <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
             {bestWriter.length > 0 &&
               bestWriter.map((artist, i) => {
-                // console.log(artist);
                 return (
                   <Card
                     key={i}
@@ -101,7 +99,7 @@ const Home = () => {
                     <Text body3 textAlign="center" color={theme.pallete.gray3}>
                       {/* 작품타입 오브제 ∙  */}
                       등록작품{" "}
-                      {artist && artist.myPost ? artist.myPost.length : 0}개
+                      {artist && artist.postCount ? artist.postCount : 0}개
                     </Text>
                   </Card>
                 );
