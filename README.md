@@ -24,7 +24,7 @@
 <img src ="https://img.shields.io/badge/redux-764ABC.svg?&style=for-the-badge&logo=redux&logoColor=white"/>
 <img src="https://img.shields.io/badge/socket.io-ffffff?style=for-the-badge&logo=socket.io&logoColor=black">
 <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios.io&logoColor=white">
-<img src="https://img.shields.io/badge/styled_component-ffffff?style=for-the-badge&logo=styled_component&logoColor=black">
+<img src="https://img.shields.io/badge/styled_component-FF638A?style=for-the-badge&logo=styled_component&logoColor=black">
 
 
   
