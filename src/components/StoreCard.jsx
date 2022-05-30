@@ -89,10 +89,10 @@ const StoreCard = (props) => {
 const WrapTitle = styled.div`
   //말줄임 효과 추가. 높이 지정
   overflow: hidden;
-  height: 44px;
+  height: 22px;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 `;
 export default StoreCard;
