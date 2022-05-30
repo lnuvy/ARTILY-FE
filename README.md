@@ -38,45 +38,10 @@
 ## :books: 라이브러리
 | name                | Appliance               | version  |
 | :-----------------: | :---------------------: | :------: |
-| cors                | CORS 핸들링             |2.8.5|
-| dotenv              | 환경변수 설정           |16.0.0|
-| mongoose            | MongoDB ODM             |6.3.2|
-| jsonwebtoken        | JWT토큰 발급            |8.5.1|
-| passport            | node.js authentication  |0.5.2|
-| passport-kakao      | 카카오 로그인 모듈      |1.0.1|
-| multer              | 파일 업로드             |1.4.4|
-| multer-s3           | AWS S3 파일 업로드      |2.10.0|
-| socket.io           | 실시간 채팅             |4.5.1|
-| artillery	      | 퍼포먼스 테스팅 툴     |2.0.0-17|
-
-## :rocket: 트러블 슈팅
-<!-- ### :white_check_mark: 사용자 편의 증진
-### :white_check_mark: 서비스 보안 강화
-<details>
-  <summary>프록시 서버 및 https 적용</summary>
-  * 도입 이유
-    -
-  * 문제 상황
-    -
-  * 해결 방안
-    -
-  * 결과
-    -
-</details> -->
-<!-- ### :white_check_mark: 서버 성능 개선
- -->
-<!-- <details>
-  <summary>로드밸런싱 및 스트레스 테스트</summary>
-  * 도입 이유
-    -
-  * 문제 상황
-    -
-  * 해결 방안 (1)
-    -
-  * 해결 방안 (2)
-    -
-  * 의사 결정
-    -
-  * 결과
-    -
-</details> -->
+| react               | 자바스크립트 라이브러리       |18.0.0|
+| react-redux         | 상태 관리                 |7.2.08|
+| redux-thunk         | 비동기 작업을 위한 미들웨어   |2.4.1|
+| redux-logger        | 리덕스 작동 체크           |3.0.6|
+| socket.io           | 양방향 통신 구현           |4.4.1|
+| styled-component    | 컴포넌트 스타일링           |5.3.5|
+| axios               | api 호출                 |0.26.1|
