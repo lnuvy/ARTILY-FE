@@ -309,10 +309,10 @@ const SellList = styled.p`
 const SellList2 = styled.p`
   max-width: 40vw;
   overflow: hidden;
-  height: 40px;
+  height: 20px;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   margin: 8px 0 0 0;
 `;

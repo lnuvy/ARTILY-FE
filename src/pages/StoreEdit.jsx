@@ -178,6 +178,10 @@ const StoreEdit = () => {
       alert("카테고리, 작품명, 가격, 내용은 필수 입력 항목이에요.");
       return;
     }
+    if (inputs.price === "") {
+      alert("가격을 입력해주세요!");
+    }
+
     if (inputs.direct && !receiveAddress) {
       alert("거래하실 동네를 선택해주세요.");
       return;

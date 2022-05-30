@@ -161,7 +161,7 @@ export const deletePostDB = (postId) => {
   return async function (dispatch, getState, { history }) {
     Apis.deleteStore(postId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         Swal.fire({
           icon: "success",
           title: "포스팅 삭제",

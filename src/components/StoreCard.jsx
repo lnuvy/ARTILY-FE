@@ -68,7 +68,7 @@ const StoreCard = (props) => {
             : ` ∙ ${changeAddress}`)}
       </Text>
       <Flex>
-        <Text fg="1">{price ? `${priceComma(price)}` : `0`} 원</Text>
+        <Text fg="1">{priceComma(price)} 원</Text>
         <Icon width="fit-content">
           <Flex>
             {isMyMarkup ? (

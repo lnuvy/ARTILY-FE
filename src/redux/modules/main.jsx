@@ -22,7 +22,7 @@ export const getHomeDataDB = () => {
 
     Apis.getHome()
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         dispatch(getHomeData(response.data.data));
       })
       .catch(function (error) {
