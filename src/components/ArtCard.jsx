@@ -223,7 +223,7 @@ const ArtCard = (props) => {
         <Text margin="8px 0 0 0" bold>
           {reviewTitle}
         </Text>
-        <Text body2>{reviewContent}</Text>
+        <ReviewCon>{reviewContent}</ReviewCon>
         <Flex margin="8px 0 10px 0 ">
           <Image circle size="20" src={profileImage} />
           <Text fg="1" margin="0 0 0 4px">
@@ -310,6 +310,18 @@ const SellList2 = styled.p`
   max-width: 40vw;
   overflow: hidden;
   height: 40px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 8px 0 0 0;
+`;
+
+const ReviewCon = styled.div`
+  max-width: 40vw;
+  font-size: 14px;
+  overflow: hidden;
+  height: 32px;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
