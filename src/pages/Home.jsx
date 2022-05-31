@@ -42,6 +42,7 @@ const Home = () => {
     }
   };
 
+  const moveRightContents = () => {};
   const bannerImgs = [{ imageUrl: banner1 }, { imageUrl: banner2 }];
   return (
     <>
@@ -65,11 +66,12 @@ const Home = () => {
             })}
         </Grid>
       </Wrap>
-      <Wrap padding="0 0 24px">
+      <WrapNotice padding="0 0 24px">
         <Text bold h3 margin="0 0 18px 16px">
           아틀리가 주목하는 작가
         </Text>
-
+        <Leftbutton>버튼</Leftbutton>
+        <Rightbutton onClick={moveRightContents}>버튼</Rightbutton>
         <BestArtistWrap>
           <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
             {bestWriter.length > 0 &&
@@ -106,7 +108,7 @@ const Home = () => {
               })}
           </Grid>
         </BestArtistWrap>
-      </Wrap>
+      </WrapNotice>
       <Wrap padding="0 16px 33px">
         <Text bold h3 margin="0 0 10px 0">
           Best 후기
@@ -134,7 +136,30 @@ export default Home;
 
 const BestArtistWrap = styled.div`
   /*padding으로 양 옆값 주면 오른쪽 여백이 반영이 안되는 것 같아서 margin으로 바꿨습니다.*/
-  margin: 0 16px;
+  margin: 0 16px 24px 16px;
   overflow: auto;
   overflow-y: hidden;
+`;
+const WrapNotice = styled.div`
+  position: relative;
+`;
+const Leftbutton = styled.button`
+  position: absolute;
+  top: 0px;
+  right: 45px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #888;
+  background-color: orange;
+  cursor: pointer;
+`;
+const Rightbutton = styled.button`
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #888;
+  background-color: orange;
+  cursor: pointer;
 `;

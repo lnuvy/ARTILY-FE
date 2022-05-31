@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "../elements";
 import theme from "../styles/theme";
-
+import styled from "styled-components";
 const FollowCheck = (props) => {
   const { text = false, btn = false, follow = false } = props;
 
@@ -11,17 +11,25 @@ const FollowCheck = (props) => {
     return (
       <>
         {follow ? (
-          <Text body1 color={theme.pallete.primary900}>
+          <Unfollow body1 color={theme.pallete.primary900}>
             언팔로우
-          </Text>
+          </Unfollow>
         ) : (
-          <Text body1 color={theme.pallete.primary900}>
+          <Follow body1 color={theme.pallete.primary900}>
             팔로우
-          </Text>
+          </Follow>
         )}
       </>
     );
   if (btn) return <></>;
 };
 
+const Unfollow = styled.p`
+  cursor: pointer;
+  color: ${({ theme }) => theme.pallete.primary900};
+`;
+const Follow = styled.p`
+  cursor: pointer;
+  color: ${({ theme }) => theme.pallete.primary900};
+`;
 export default FollowCheck;

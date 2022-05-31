@@ -7,7 +7,6 @@ import theme from "../styles/theme";
 const Checkbox = (props) => {
   // zoom, onChange 추가 zoom은 체크박스가 너무 작아서 넣었습니다 -한울-
   const { children, id, fontSize, margin, fg, onChange, zoom, checked } = props;
-
   const styles = {
     margin,
     fg,
@@ -38,6 +37,7 @@ const CheckboxWrap = styled.div`
   display: flex;
   align-items: center;
   margin: ${({ margin }) => margin};
+  cursor: pointer;
 `;
 
 const CheckboxStyle = styled.input`

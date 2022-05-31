@@ -11,7 +11,6 @@ import {
 } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
 import _ from "lodash";
-
 import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
 import { FilterFilled, Search } from "../assets/icons";
@@ -21,7 +20,6 @@ import styled from "styled-components";
 const Store = () => {
   const dispatch = useDispatch();
   const { list, filterList } = useSelector((state) => state.store);
-
   // 카테고리 필터링
   useEffect(() => {
     // store data reset
@@ -119,9 +117,15 @@ const Store = () => {
         </SearchWrap>
         <Wrap margin="16px 0">
           <Flex jc="space-between">
-            <Checkbox checked={isFree} id="checkFree" onChange={checkFree}>
-              <Text body2>나눔 작품만 보기</Text>
-            </Checkbox>
+            <WrapCheck>
+              <Check
+                type="checkbox"
+                checked={isFree}
+                id="checkFree"
+                onChange={checkFree}
+              ></Check>
+              <CheckText>나눔 작품만 보기</CheckText>{" "}
+            </WrapCheck>
             <Flex onClick={modalOn} jc="center" ai="center">
               <Text body2>거래 방식 / 지역 선택하기</Text>
               {filtering.transaction === "전체" &&
@@ -210,5 +214,24 @@ const SearchWrap = styled.div`
     top: 8px;
     right: 11px;
   }
+`;
+const WrapCheck = styled.div`
+  cursor: pointer;
+`;
+const Check = styled.input`
+  //체크박스 커스텀 필요
+  //checkbox style reset
+  /* appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ddd;
+  border-radius: 3px; */
+  margin-top: 6px;
+`;
+const CheckText = styled.div`
+  float: right;
+  font-size: 14px;
+  padding-left: 5px;
+  line-height: 25px;
 `;
 export default Store;

@@ -77,7 +77,7 @@ const Header = (props) => {
               <Notification margin="0 16px 0 0" />
             </Icon> */}
 
-              <div
+              <Chatbtn
                 className="logo"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -86,7 +86,7 @@ const Header = (props) => {
                 }}
               >
                 <Chat margin="0 16px 0 0" />
-              </div>
+              </Chatbtn>
             </Flex>
           </WrapLogo>
           <Navigation />
@@ -196,5 +196,9 @@ const WrapLogo = styled.div`
     top: 0;
     right: 0;
   }
+`;
+
+const Chatbtn = styled.div`
+  cursor: pointer;
 `;
 export default Header;

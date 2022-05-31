@@ -10,11 +10,10 @@ export const socket = io(URL, { autoConnect: false });
 // 모든 이벤트 확인
 socket.onAny((event, ...args) => {
   // console.log(event, args);
-  // console.log(event, args);
+  console.log(event, args);
 });
 
 // socket.on("user connected", (data) => {
-//   console.log("세번뜨냐?");
 //   console.log(data);
 // });
 

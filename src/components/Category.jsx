@@ -22,6 +22,7 @@ const Category = (props) => {
   const dispatch = useDispatch();
 
   const { review, data } = props;
+  // console.log(review);
   const [current, setCurrent] = useState("전체");
   useEffect(() => {
     review
@@ -70,7 +71,7 @@ const Category = (props) => {
               border={`1px solid ${theme.pallete.gray2}`}
               onClick={(e) => {
                 setCurrent(e.target.innerText);
-                // data(e.target.innerText);
+                data(e.target.innerText);
               }}
               bc="white"
             >

@@ -54,5 +54,6 @@ const Underline = styled.div`
   font-size: 13px;
   text-decoration: underline;
   color: ${({ theme }) => theme.pallete.gray2};
+  cursor: pointer;
 `;
 export default NoInfo;

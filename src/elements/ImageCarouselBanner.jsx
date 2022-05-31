@@ -27,7 +27,6 @@ const ImageCarouselBanner = (props) => {
       <StyledSlider {...settings}>
         {src && src.length > 1 ? (
           src.map((img, i) => {
-            // console.log(img);
             return (
               <Grid key={`${i}_번째_${img}`}>
                 <BannerWrap>

@@ -206,12 +206,13 @@ const StoreDetail = () => {
       {detailData && (
         <>
           <Wrap margin="0 16px">
-            <Flex>
-              <Text h1 medium>
-                {detailData.postTitle}
-              </Text>
-              <SellLabel complete3 />
-            </Flex>
+            {/* <Flex> */}
+            <Text h1 medium>
+              {detailData.postTitle}
+            </Text>
+            {/* <Time>{detailData.createdAt}</Time> */}
+            {/* </Flex> */}
+            <SellLabel complete3 />
             <Flex margin="10px 0 6px" jc="space-between">
               {/* 5.18 cursor:pointer를 위한 style-components 추가 */}
               <ProfileBtn
@@ -455,5 +456,10 @@ const Edit = styled.p`
 const Delete = styled.p`
   cursor: pointer;
   color: ${({ theme }) => theme.pallete.primary900};
+`;
+const Time = styled.div`
+  flex-grow: 0;
+  font-size: 14px;
+  color: #999;
 `;
 export default StoreDetail;

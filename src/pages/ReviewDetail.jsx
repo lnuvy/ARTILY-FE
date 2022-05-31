@@ -144,12 +144,18 @@ const ReviewDetail = (props) => {
           <>
             <Wrap padding="0 0 72px">
               <Wrap margin="16px 16px 8px">
+                {/* <Flex> */}
                 <Text h1>{v.reviewTitle}</Text>
+                {/* <Time>{v.createdAt}</Time> */}
+                {/* </Flex> */}
                 <Flex margin="8px 0 0 0" jc="space-between">
-                  <Flex>
-                    <Image circle size="32" src={v.profileImage} />
-                    <Text margin="0 0 0 8px" contents={v.nickname}></Text>
-                  </Flex>
+                  <GoProfile>
+                    <Flex>
+                      <Image circle size="32" src={v.profileImage} />
+                      <Text margin="0 0 0 8px" contents={v.nickname}></Text>
+                    </Flex>
+                  </GoProfile>
+
                   <Flex>
                     {isMe ? (
                       <>
@@ -160,14 +166,14 @@ const ReviewDetail = (props) => {
                             history.push(`/review/edit/${reviewId.reviewId}`);
                           }}
                         >
-                          <Text body1 color={theme.pallete.primary900}>
+                          <Edit body1 color={theme.pallete.primary900}>
                             수정하기
-                          </Text>
+                          </Edit>
                         </Flex>
                         <Flex padding="6px 0 6px 6px" onClick={deleteFunc}>
-                          <Text body1 color={theme.pallete.primary900}>
+                          <Delete body1 color={theme.pallete.primary900}>
                             삭제하기
-                          </Text>
+                          </Delete>
                         </Flex>
                       </>
                     ) : (
@@ -324,8 +330,6 @@ const ReviewDetail = (props) => {
   );
 };
 
-export default ReviewDetail;
-
 const FixedChatBar = styled.div`
   background-color: white;
   display: flex;
@@ -344,3 +348,21 @@ const Seller = styled.div`
     font-weight: bold;
   }
 `;
+const GoProfile = styled.div`
+  cursor: pointer;
+`;
+const Edit = styled.p`
+  cursor: pointer;
+  color: ${({ theme }) => theme.pallete.primary900};
+`;
+const Delete = styled.p`
+  cursor: pointer;
+  color: ${({ theme }) => theme.pallete.primary900};
+`;
+
+const Time = styled.div`
+  flex-grow: 0;
+  font-size: 14px;
+  color: #999;
+`;
+export default ReviewDetail;
