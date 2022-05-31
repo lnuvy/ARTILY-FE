@@ -182,7 +182,7 @@ const StoreEdit = () => {
         inputs.direct === undefined ||
         inputs.direct === "")
     ) {
-      alert("거래 방식을 선택하세요.");
+      alert("택배 선택하세요.");
       return;
     }
 
@@ -219,28 +219,31 @@ const StoreEdit = () => {
       return;
     }
 
-    if (
-      price === null ||
-      price === undefined ||
-      price === "" ||
-      toString.call(price) === "[object Array]"
-    ) {
+    if (price === null || price === undefined || price === "") {
       alert("가격을 입력하세요.");
       return;
     }
 
-    if (toString.call(price) === "[object Array]") {
-      alert("숫자만 입력 가능합니다.");
-      return;
-    }
+    // if (toString.call(price) === "[object String]") {
+    //   alert("숫자만 입력 가능합니다.");
+    //   return;
+    // }
 
     setIsLoading(true);
+
+    console.log("postTitle " + postTitle);
+    console.log("postContent " + postContent);
+    console.log("category " + receiveCategory);
+    console.log("transaction " + "택배");
+    console.log("changeAddress " + "");
+    console.log("price " + Number(price) + toString.call(Number(price)));
+    console.log("images " + fileObj);
 
     const formData = new FormData();
     formData.append("category", receiveCategory);
     formData.append("postTitle", postTitle);
     formData.append("postContent", postContent);
-    formData.append("price", price);
+    formData.append("price", Number(price));
 
     for (let i = 0; i < fileObj.length; i++) {
       formData.append("image", fileObj[i]);
@@ -251,7 +254,7 @@ const StoreEdit = () => {
     }
 
     if (inputs.delivery && !inputs.direct) {
-      formData.append("changeAddress", "");
+      formData.append("changeAddress", " ");
       formData.append("transaction", "택배");
     } else if (inputs.direct && !inputs.delivery) {
       formData.append("changeAddress", receiveAddress);
