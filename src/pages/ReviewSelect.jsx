@@ -37,7 +37,6 @@ const ReviewSelect = () => {
           내가 구입한 작품
         </Text>
       </Wrap>
-      {console.log(mybuyList && mybuyList)}
       {mybuyList && mybuyList.length > 0 ? (
         mybuyList.map((l, i) => {
           return (
@@ -59,10 +58,10 @@ const ReviewSelect = () => {
                 <Text>{l.user.nickname && l.user.nickname}</Text>
               </Wrap>
               <Button
-                padding="8px 8px 9px"
+                padding="8px 6px 9px"
                 onClick={() => history.push(`/review/write/${l.postId}`)}
               >
-                리뷰쓰기
+                리뷰 쓰기
               </Button>
             </Flex>
           );

@@ -39,9 +39,9 @@ const ReviewCard = (props) => {
       <Text medium margin="8px 0 0">
         {reviewTitle}
       </Text>
-      <Text body2 margin="3px 0 0" color={`${theme.pallete.gray3}`}>
+      <ReviewCon body2 color={`${theme.pallete.gray3}`}>
         {reviewContent}
-      </Text>
+      </ReviewCon>
       <Flex margin="8px 0 0 0">
         <Image circle size="24" src={profileImage} />
         <Text fg="1" margin="0 0 0 8px">
@@ -73,4 +73,14 @@ const DisplayNone = styled.div`
   display: none;
 `;
 
+const ReviewCon = styled.div`
+  max-width: 40vw;
+  overflow: hidden;
+  height: 20px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  margin: 3px 0 0;
+`;
 export default ReviewCard;

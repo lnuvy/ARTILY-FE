@@ -20,7 +20,6 @@ const Header = (props) => {
   // );
   const isLogin = useSelector((state) => state.user.isLogin);
   const roomName = useSelector((state) => state.chat.nowChat.roomName);
-  console.log(roomName);
   const { cg, width, gtc, textAlign, padding } = props;
 
   const styles = {
@@ -117,7 +116,7 @@ const Header = (props) => {
             >
               <Close />
             </Icon> */}
-            {console.log(path)}
+            {/* {console.log(path)} */}
             <Text medium fg="1" textAlign="center">
               {path.split("/")[3] === "select" ? (
                 <Icon margin="16px 8px" onClick={() => history.goBack()}>
@@ -143,7 +142,7 @@ const Header = (props) => {
   } else if (!Notarrowbtn) {
     return (
       <>
-        {console.log(param)}
+        {/* {console.log(param)} */}
         <HeaderStyle2>
           <Flex height="48px">
             <Icon margin="16px 8px" onClick={() => history.goBack()}>

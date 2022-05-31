@@ -12,7 +12,7 @@ export const deleteSwal = async () => {
     denyButtonText: `아니오`,
     denyButtonColor: "gray",
   }).then((result) => {
-    console.log(result);
+    // console.log(result);
     if (result.isConfirmed) {
       return true;
     } else {

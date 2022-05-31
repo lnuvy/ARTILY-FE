@@ -81,7 +81,7 @@ const MyPage = () => {
                 {getProfile && getProfile.nickname ? getProfile.nickname : ""}
                 {/* 유저명 */}
               </Text>
-              <Grid
+              <FollowBtn
                 onClick={() => {
                   history.push("/follow");
                   // dispatch(saveFollowDB());
@@ -98,7 +98,7 @@ const MyPage = () => {
                   </Follower>
                   명
                 </Text>
-              </Grid>
+              </FollowBtn>
               <Text body2 color="#555" margin="0.5em 0 0 0">
                 등록한 작품{" "}
                 {myAllList.myPosts && myAllList?.myPosts.length
@@ -325,10 +325,14 @@ const Edit = styled.div`
     font-size: 15px;
     color: ${theme.color.brandColor};
   }
+  cursor: pointer;
 `;
 
 const Follower = styled.span`
   font-weight: bold;
+  cursor: pointer;
+`;
+const FollowBtn = styled.div`
   cursor: pointer;
 `;
 export default MyPage;

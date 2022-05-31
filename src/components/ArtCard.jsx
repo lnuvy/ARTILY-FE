@@ -50,6 +50,7 @@ const ArtCard = (props) => {
     // console.log(result);
     if (result) {
       dispatch(deletePostDB(postId, true));
+      window.location.reload();
     }
   };
 
@@ -67,10 +68,13 @@ const ArtCard = (props) => {
             />
 
             <Wrap>
-              <Flex>
-                <SellList>{postTitle}</SellList>
-                <SellLabel manageLabel done={done} />
-              </Flex>
+              {" "}
+              <WrapTitle>
+                <Flex>
+                  <SellList>{postTitle}</SellList>
+                  <SellLabel manageLabel done={done} />
+                </Flex>{" "}
+              </WrapTitle>
               {price ? (
                 <Text fg="1" medium margin="8px 0 0 0">
                   {priceComma(price)}원
@@ -92,7 +96,7 @@ const ArtCard = (props) => {
             <Button
               text
               borderRight={`1px solid ${theme.pallete.gray1}`}
-              padding="10px 20px"
+              padding="10px 15px"
               br="0"
               color={theme.pallete.black}
               onClick={() => {
@@ -107,7 +111,7 @@ const ArtCard = (props) => {
               borderRight={`1px solid ${theme.pallete.gray1}`}
               br="0"
               color={theme.pallete.black}
-              padding="10px 20px"
+              padding="10px 15px"
               onClick={deletePosting}
             >
               삭제하기
@@ -127,7 +131,7 @@ const ArtCard = (props) => {
                 text
                 fg="1"
                 br="0"
-                padding="10px 20px"
+                padding="10px 15px"
                 color={theme.pallete.black}
                 onClick={() => {
                   //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
@@ -193,7 +197,7 @@ const ArtCard = (props) => {
           <SellLabel pageLabel done={done} />
           <Image height="168px" br="8px" src={images[0].imageUrl} />
         </Label>
-        <Text margin="8px 0 0 0">{postTitle}</Text>
+        <SellList2>{postTitle}</SellList2>
         <Flex margin="0 0 8px 0">
           {price ? (
             <Text fg="1" bold>
@@ -219,7 +223,7 @@ const ArtCard = (props) => {
         <Text margin="8px 0 0 0" bold>
           {reviewTitle}
         </Text>
-        <Text body2>{reviewContent}</Text>
+        <ReviewCon>{reviewContent}</ReviewCon>
         <Flex margin="8px 0 10px 0 ">
           <Image circle size="20" src={profileImage} />
           <Text fg="1" margin="0 0 0 4px">
@@ -283,23 +287,45 @@ const Sell = styled.div`
     margin: auto;
   }
 `;
-
+const WrapTitle = styled.div`
+  margin-right: 16px;
+`;
 const Label = styled.div`
   position: relative;
 `;
 const Border = styled.div`
   padding-top: 10px;
-  border-top: 1px solid #ddd;
 `;
 //게시글 제목 글자수 길어지는거 방지
 const SellList = styled.p`
-  width: 60%;
+  max-width: 40vw;
+  overflow: hidden;
+  line-height: 20px;
   text-overflow: ellipsis;
-  /* overflow: hidden; */
-  /* white-space: nowrap; */
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* 라인수 */
-
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+`;
+const SellList2 = styled.p`
+  max-width: 40vw;
+  overflow: hidden;
+  height: 20px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  margin: 8px 0 0 0;
+`;
+
+const ReviewCon = styled.div`
+  max-width: 40vw;
+  font-size: 14px;
+  overflow: hidden;
+  height: 32px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 8px 0 0 0;
 `;
 export default ArtCard;

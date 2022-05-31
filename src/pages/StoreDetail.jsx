@@ -51,8 +51,7 @@ const StoreDetail = () => {
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
-  const done = detailData;
-  console.log(done);
+
   const { chatData } = useSelector((state) => state.chat);
   const likeThisPost = useSelector((state) => state.store.myPostLike);
 
@@ -67,7 +66,7 @@ const StoreDetail = () => {
   const { nowChat, roomMessages, getNowChatInfo } = useSelector(
     (state) => state.chat
   );
-  console.log(nowChat);
+  // console.log(nowChat);
   // reset
   useEffect(() => {
     dispatch(go2detail([]));
@@ -106,6 +105,7 @@ const StoreDetail = () => {
     console.log(result);
     if (result) {
       dispatch(deletePostDB(postId));
+      history.push("/store");
     }
   };
 
@@ -147,8 +147,8 @@ const StoreDetail = () => {
   //   }
   //   history.push(`/userprofile/${userId}`);
   // };
-  console.log(currentUser?.userId);
-  console.log(detailData?.user?.userId);
+  // console.log(currentUser?.userId);
+  // console.log(detailData?.user?.userId);
   // 채팅하기 버튼 눌렀을때
   const startChat = () => {
     if (!currentUser) {
@@ -244,14 +244,10 @@ const StoreDetail = () => {
                         history.push(`/store/edit/${postId}`);
                       }}
                     >
-                      <Text body1 color={theme.pallete.primary900}>
-                        수정하기
-                      </Text>
+                      <Edit>수정하기</Edit>
                     </Flex>
                     <Flex padding="6px 0 6px 6px" onClick={deletePosting}>
-                      <Text body1 color={theme.pallete.primary900}>
-                        삭제하기
-                      </Text>
+                      <Delete>삭제하기</Delete>
                     </Flex>
                   </>
                 ) : (
@@ -451,5 +447,13 @@ const FixedChatBar = styled.div`
 `;
 const ProfileBtn = styled.div`
   cursor: pointer;
+`;
+const Edit = styled.p`
+  cursor: pointer;
+  color: ${({ theme }) => theme.pallete.primary900};
+`;
+const Delete = styled.p`
+  cursor: pointer;
+  color: ${({ theme }) => theme.pallete.primary900};
 `;
 export default StoreDetail;

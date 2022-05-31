@@ -44,7 +44,7 @@ export const Apis = {
   // getStore: (pageHandler) =>
   //   Api.get(`/api/post/store&page=${pageHandler.page}`),
   getStore: (pageNumber, data) =>
-    Api.get(`api/post/store?page=${pageNumber}&limit=${limit}`, data), // /api/post?size=${size}&page=${page}
+    Api.get(`api/post/store?page=${pageNumber}&limit=${limit}`, data),
   // getStoreFilter: () => Api.get(`/api/post/`) ,
   getStoreDetail: (postId) => Api.get(`api/post/${postId}`),
   postStore: (data) => Api.post("/api/post", data, formDataConfig),

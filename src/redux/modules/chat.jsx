@@ -39,7 +39,7 @@ export const getChatMessages = (roomName) => {
   return async function (dispatch, getState, { history }) {
     Apis.getMessages(roomName)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (roomName === res.data.roomUser.roomName) {
           dispatch(getMessages(res.data.roomUser.messages));
           history.push(`/chat/${roomName}`);

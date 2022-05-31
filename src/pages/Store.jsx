@@ -16,7 +16,8 @@ import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
 import { FilterFilled, Search } from "../assets/icons";
 import theme from "../styles/theme";
-
+import { NoInfo } from "../components";
+import styled from "styled-components";
 const Store = () => {
   const dispatch = useDispatch();
   const { list, filterList } = useSelector((state) => state.store);
@@ -51,28 +52,27 @@ const Store = () => {
     }
   };
 
-  // 검색필터
-  const searchList = filterList
-    ?.filter((l) => {
-      const address = l?.user?.address || "";
-      const title = l?.postTitle;
-      const artist = l?.user?.nickname;
-      const q = query;
+  const filterNull = filterList?.filter((l) => {
+    const address = l?.user?.address || "";
+    const title = l?.postTitle;
+    const artist = l?.user?.nickname;
+    const q = query;
 
-      if (title && artist) {
-        return title.includes(q) || artist.includes(q) || address.includes(q);
-      }
-    })
-    .map((l) => {
-      return (
-        <StoreCard
-          key={l.postId}
-          {...l}
-          imageUrl={l.images[0].imageUrl}
-          onClick={() => handleClickData(l)}
-        />
-      );
-    });
+    if (title && artist) {
+      return title.includes(q) || artist.includes(q) || address.includes(q);
+    }
+  });
+  // 검색필터
+  const searchList = filterNull.map((l) => {
+    return (
+      <StoreCard
+        key={l.postId}
+        {...l}
+        imageUrl={l.images[0].imageUrl}
+        onClick={() => handleClickData(l)}
+      />
+    );
+  });
 
   // 필터링 모달 켜기
   const modalOn = () => {
@@ -91,23 +91,32 @@ const Store = () => {
     dispatch(go2detail(data));
     history.push(`/store/view/${data.postId}`);
   };
+
+  const searchResult = () => {};
   return (
     <>
       <Category />
       <Wrap margin="16px 16px 24px 16px">
-        <Input
-          square
-          br="8px"
-          padding="11px 16px"
-          margin="0 0 16px"
-          placeholder="작가명, 작품명 검색..."
-          icon={<Search color={theme.pallete.gray2} />}
-          value={query}
-          iconRight="8px"
-          iconTop="8px"
-          border={`1px solid ${theme.pallete.gray1}`}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+        <SearchWrap>
+          <Input
+            square
+            br="8px"
+            padding="11px 16px"
+            margin="0 0 16px"
+            placeholder="작가명, 작품명 검색..."
+            value={query}
+            iconRight="8px"
+            iconTop="8px"
+            border={`1px solid ${theme.pallete.gray1}`}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <div className="searchBtn">
+            <Search
+              color={theme.pallete.gray2}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+        </SearchWrap>
         <Wrap margin="16px 0">
           <Flex jc="space-between">
             <Checkbox checked={isFree} id="checkFree" onChange={checkFree}>
@@ -131,6 +140,7 @@ const Store = () => {
                   : filtering.transaction}
               </Text>
             )}
+
             {filtering.region[0] !== "전체" &&
               filtering.region.map((r, i, arr) => {
                 if (i + 1 === arr.length) {
@@ -159,7 +169,7 @@ const Store = () => {
               })}
           </Flex>
         </Wrap>
-
+        {/* <NoInfo list={searchList} text1="검색결과가 없습니다."> */}
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
           {searchList && query !== ""
             ? searchList
@@ -187,9 +197,18 @@ const Store = () => {
                   );
               })}
         </Grid>
+        {/* </NoInfo> */}
       </Wrap>
     </>
   );
 };
 
+const SearchWrap = styled.div`
+  position: relative;
+  .searchBtn {
+    position: absolute;
+    top: 8px;
+    right: 11px;
+  }
+`;
 export default Store;
