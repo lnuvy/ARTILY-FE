@@ -45,9 +45,9 @@ const StoreCard = (props) => {
       <Image height="168px" br="8px" src={imageUrl} />
       <Flex margin="8px 0">
         {isHome ? (
-          <Image circle size="24" src={user?.profileImage} />
+          <Image circle size="24" src={user ? user.profileImage : null} />
         ) : (
-          <Image circle size="32" src={user?.profileImage} />
+          <Image circle size="32" src={user ? user.profileImage : null} />
         )}
 
         <Text h3 margin="0 0 0 8px">

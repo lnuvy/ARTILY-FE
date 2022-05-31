@@ -101,6 +101,7 @@ export const postMyPostLikeDB = (postId) => {
 export const addPostDB = (data, address, direct) => {
   return async function (dispatch, getState, { history }) {
     const nowUser = getState().user.user;
+    dispatch(isLoading(true));
     Apis.postStore(data)
       .then((res) => {
         if (!nowUser.address && direct === true) {
@@ -130,7 +131,9 @@ export const addPostDB = (data, address, direct) => {
       })
       .catch((err) => {
         console.log(err);
-        console.log(err.response);
+        alert(err.response.data.msg);
+
+        dispatch(isLoading(false));
       });
   };
 };
@@ -204,6 +207,9 @@ const postsSlice = createSlice({
       // state.list.push(...action.payload.list);
       state.isLoading = false;
       state.filterList = action.payload;
+    },
+    isLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
     // 데이터 하나 특정하기
     go2detail: (state, action) => {
@@ -310,5 +316,6 @@ export const {
   deletePost,
   myPostLike,
   myPostLikeList,
+  isLoading,
 } = actions;
 export default reducer;

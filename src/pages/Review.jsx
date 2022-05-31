@@ -52,7 +52,7 @@ const Review = () => {
 
                 return (
                   <ReviewCard
-                    _key={i}
+                    key={v.reviewId}
                     onClick={() => clickCard(v.reviewId)}
                     {...v}
                     images={(v.images && v.images[0].imageUrl) || null}
