@@ -167,35 +167,74 @@ const StoreEdit = () => {
     // console.log(imageArr);
     const { postTitle, price, postContent } = inputs;
 
-    if (!(inputs.delivery || inputs.direct)) {
-      MySwal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "거래방식을 선택하세요.",
-      });
+    if (path === `/store/write`) {
+      if (fileObj.length === 0) {
+        alert("이미지를 추가하세요!");
+        return;
+      }
+    }
+
+    if (
+      (inputs.delivery === null ||
+        inputs.delivery === undefined ||
+        inputs.delivery === "") &&
+      (inputs.direct === null ||
+        inputs.direct === undefined ||
+        inputs.direct === "")
+    ) {
+      alert("택배 선택하세요.");
       return;
     }
 
     if (
-      !receiveCategory ||
-      !inputSpaceReg(postTitle) ||
-      inputs.price === "" ||
-      !inputSpaceReg(postContent)
+      inputs.direct &&
+      (receiveAddress === null ||
+        receiveAddress === undefined ||
+        receiveAddress === "")
     ) {
-      alert("카테고리, 작품명, 가격, 내용은 필수 입력 항목이에요.");
-      return;
-    }
-    if (inputs.price === "") {
-      alert("가격을 입력해주세요!");
-    }
-
-    if (inputs.direct && !receiveAddress) {
       alert("거래하실 동네를 선택해주세요.");
       return;
     }
 
+    if (
+      receiveCategory === null ||
+      receiveCategory === undefined ||
+      receiveCategory === ""
+    ) {
+      alert("카테고리를 입력하세요.");
+      return;
+    }
+
+    if (postTitle === null || postTitle === undefined || postTitle === "") {
+      alert("작품명을 입력하세요.");
+      return;
+    }
+
+    if (
+      postContent === null ||
+      postContent === undefined ||
+      postContent === ""
+    ) {
+      alert("내용을 입력하세요.");
+      return;
+    }
+
+    if (
+      price === null ||
+      price === undefined ||
+      price === "" ||
+      toString.call(price) === "[object Array]"
+    ) {
+      alert("가격을 입력하세요.");
+      return;
+    }
+
+    if (toString.call(price) === "[object Array]") {
+      alert("숫자만 입력 가능합니다.");
+      return;
+    }
+
     setIsLoading(true);
-    console.log(isLoading);
 
     const formData = new FormData();
     formData.append("category", receiveCategory);
@@ -208,7 +247,6 @@ const StoreEdit = () => {
     }
 
     for (let i = 0; i < imageDt.length; i++) {
-      // console.log(imageDt[i]);
       formData.append("imgDt", imageDt[i]);
     }
 
@@ -223,17 +261,9 @@ const StoreEdit = () => {
       formData.append("transaction", "전체");
     }
 
-    for (var pair of formData.entries()) {
-      // console.log(pair[0] + ", " + pair[1]);
-    }
-
-    // console.log(formData.getAll("image"));
-
     if (path === `/store/edit/${postId}`) {
       dispatch(editPostDB(postId, formData));
     }
-    console.log(inputs.delivery);
-    console.log(inputs.direct);
     if (path === `/store/write`) {
       if (inputs.delivery && !inputs.direct) {
         dispatch(addPostDB(formData, receiveAddress, false));
