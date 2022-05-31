@@ -8,6 +8,7 @@ import {
   Input,
   Textarea,
   ToggleButton,
+  Text,
   Wrap,
   Icon,
 } from "../elements";
@@ -55,6 +56,7 @@ const StoreEdit = () => {
   const [inputs, setInputs] = useState({});
   const [receiveAddress, setReceiveAddress] = useState(null);
   const [receiveCategory, setReceiveCategory] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 택배나 직거래일 경우 정의
   let editDelivery;
@@ -155,7 +157,12 @@ const StoreEdit = () => {
   };
 
   // 데이터 전달
-  const submitPost = () => {
+
+  function loadingSetting() {
+    submitPost();
+  }
+
+  function submitPost() {
     // console.log(imageDt);
     // console.log(imageArr);
     const { postTitle, price, postContent } = inputs;
@@ -182,6 +189,9 @@ const StoreEdit = () => {
       alert("거래하실 동네를 선택해주세요.");
       return;
     }
+
+    setIsLoading(true);
+    console.log(isLoading);
 
     const formData = new FormData();
     formData.append("category", receiveCategory);
@@ -232,7 +242,7 @@ const StoreEdit = () => {
         dispatch(addPostDB(formData, receiveAddress, true));
       }
     }
-  };
+  }
 
   return (
     <>
@@ -334,17 +344,22 @@ const StoreEdit = () => {
             <Close />
           </Icon>
           <Wrap fg="1"></Wrap>
-          <Button
-            text
-            color={theme.color.brandColor}
-            fontSize="16px"
-            padding="14px 16px"
-            onClick={submitPost}
-          >
-            완료
-            {/* {path === `/store/edit/${postId}` && "판매 작품 수정하기"}
-          {path === `/store/write` && "판매 작품 등록하기"} */}
-          </Button>
+
+          {isLoading ? (
+            <Text color={theme.pallete.gray2} margin="14px 16px">
+              업로드중
+            </Text>
+          ) : (
+            <Button
+              text
+              color={theme.color.brandColor}
+              fontSize="16px"
+              padding="14px 16px"
+              onClick={submitPost}
+            >
+              완료
+            </Button>
+          )}
         </Flex>
       </ButtonWrap>
 
