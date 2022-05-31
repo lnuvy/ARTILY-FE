@@ -70,8 +70,6 @@ const Home = () => {
         <Text bold h3 margin="0 0 18px 16px">
           아틀리가 주목하는 작가
         </Text>
-        <Leftbutton>버튼</Leftbutton>
-        <Rightbutton onClick={moveRightContents}>버튼</Rightbutton>
         <BestArtistWrap>
           <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
             {bestWriter.length > 0 &&
@@ -142,24 +140,4 @@ const BestArtistWrap = styled.div`
 `;
 const WrapNotice = styled.div`
   position: relative;
-`;
-const Leftbutton = styled.button`
-  position: absolute;
-  top: 0px;
-  right: 45px;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #888;
-  background-color: orange;
-  cursor: pointer;
-`;
-const Rightbutton = styled.button`
-  position: absolute;
-  top: 0px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #888;
-  background-color: orange;
-  cursor: pointer;
 `;
