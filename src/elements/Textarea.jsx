@@ -16,6 +16,7 @@ const Textarea = (props) => {
     margin,
     padding,
     maxLength,
+    minLength,
     textLine,
 
     //5.8 border-radius 추가했습니다 -영경
@@ -50,6 +51,7 @@ const Textarea = (props) => {
             ChangeMaxNum(e);
           }}
           maxLength={maxLength}
+          minLength={minLength}
           {...styles}
           ref={Textarea}
         ></TextareaContainer>

@@ -37,6 +37,10 @@ const Input = (props) => {
     border,
     iconRight,
     iconTop,
+    maxLength,
+    minLength,
+    min,
+    max,
   } = props;
 
   const styles = {
@@ -70,6 +74,10 @@ const Input = (props) => {
             onChange={onChange}
             readOnly={readOnly}
             onKeyPress={onKeyPress}
+            maxLength={maxLength}
+            minLength={minLength}
+            min={min}
+            max={max}
             autoComplete={autoComplete} // autoComplete off 추가
             {...styles}
           />
@@ -96,6 +104,10 @@ const Input = (props) => {
             onChange={onChange}
             readOnly={readOnly}
             onKeyPress={onKeyPress}
+            maxLength={maxLength}
+            minLength={minLength}
+            min={min}
+            max={max}
             autoComplete={autoComplete} // autoComplete off 추가
             {...styles}
           />
@@ -118,6 +130,10 @@ const Input = (props) => {
             readOnly={readOnly}
             onKeyPress={onKeyPress}
             onClick={onClick}
+            maxLength={maxLength}
+            minLength={minLength}
+            min={min}
+            max={max}
             autoComplete={autoComplete} // autoComplete off 추가
             {...styles}
           ></InputContainer>

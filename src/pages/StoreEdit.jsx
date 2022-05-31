@@ -50,13 +50,13 @@ const StoreEdit = () => {
   // selector
   const nowPost = useSelector((state) => state.store.detailData);
   const { imageArr, fileObj, imageDt } = useSelector((state) => state.image);
+  const { isLoading } = useSelector((state) => state.store);
 
   // states
   // 인풋 정의 -> 초기값은 아래와 같음.
   const [inputs, setInputs] = useState({});
   const [receiveAddress, setReceiveAddress] = useState(null);
   const [receiveCategory, setReceiveCategory] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   // 택배나 직거래일 경우 정의
   let editDelivery;
@@ -131,6 +131,9 @@ const StoreEdit = () => {
   const handleChange = (e) => {
     const { id, value } = e.target;
     // console.log(e.target.value);
+    if (id === "price" && Number(value) > 9999999) {
+      alert("가격은 9,999,999원까지만 입력 가능합니다.");
+    }
     setInputs({ ...inputs, [id]: value });
     // console.log(inputs);
   };
@@ -229,8 +232,6 @@ const StoreEdit = () => {
     //   return;
     // }
 
-    setIsLoading(true);
-
     console.log("postTitle " + postTitle);
     console.log("postContent " + postContent);
     console.log("category " + receiveCategory);
@@ -274,9 +275,11 @@ const StoreEdit = () => {
       }
       if (!inputs.delivery && inputs.direct) {
         dispatch(addPostDB(formData, receiveAddress, true));
+        return;
       }
       if (inputs.delivery && inputs.direct) {
         dispatch(addPostDB(formData, receiveAddress, true));
+        return;
       }
     }
   }
@@ -356,10 +359,11 @@ const StoreEdit = () => {
           id="postContent"
           placeholder="작품을 설명하는 글을 적어주세요. 허위로 작성한 글은 게시가 제한 될 수 있습니다."
           value={inputs.postContent}
-          // maxLength="100"
+          maxLength="299"
+          minLength="3"
           onChange={handleChange}
           border="1px solid transparent"
-          textLine="64"
+          textLine="15"
         />
       </Wrap>
       {/* <Wrap
