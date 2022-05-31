@@ -206,12 +206,10 @@ const StoreDetail = () => {
       {detailData && (
         <>
           <Wrap margin="0 16px">
-            {/* <Flex> */}
+            <Time>{detailData.createdAt}</Time>
             <Text h1 medium>
               {detailData.postTitle}
             </Text>
-            {/* <Time>{detailData.createdAt}</Time> */}
-            {/* </Flex> */}
             <SellLabel complete3 />
             <Flex margin="10px 0 6px" jc="space-between">
               {/* 5.18 cursor:pointer를 위한 style-components 추가 */}
@@ -272,6 +270,7 @@ const StoreDetail = () => {
               </Flex>
             </Flex>
           </Wrap>
+
           <ImageCarousel src={detailData.images} />
 
           <Wrap margin="16px 16px 64px">
@@ -288,10 +287,9 @@ const StoreDetail = () => {
               </Text>
             </Flex>
             <Flex>
-              <Text color="black" margin="0 0 16px">
-                {detailData?.postContent}
-              </Text>
+              <Text color="black">{detailData?.postContent}</Text>
             </Flex>
+
             {otherPosts && (
               <>
                 <Flex margin="4px 0 10px">
@@ -458,8 +456,9 @@ const Delete = styled.p`
   color: ${({ theme }) => theme.pallete.primary900};
 `;
 const Time = styled.div`
-  flex-grow: 0;
+  text-align: right;
   font-size: 14px;
   color: #999;
+  padding-bottom: 5px;
 `;
 export default StoreDetail;

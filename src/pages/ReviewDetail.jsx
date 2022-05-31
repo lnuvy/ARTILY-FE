@@ -143,11 +143,10 @@ const ReviewDetail = (props) => {
         detailData.buyer.map((v) => (
           <>
             <Wrap padding="0 0 72px">
-              <Wrap margin="16px 16px 8px">
-                {/* <Flex> */}
+              <Time>{v.createdAt}</Time>
+              <Wrap margin="0 16px 8px">
                 <Text h1>{v.reviewTitle}</Text>
-                {/* <Time>{v.createdAt}</Time> */}
-                {/* </Flex> */}
+
                 <Flex margin="8px 0 0 0" jc="space-between">
                   <GoProfile>
                     <Flex>
@@ -181,6 +180,7 @@ const ReviewDetail = (props) => {
                         <Flex padding="6px" onClick={followToggle}>
                           <FollowCheck text follow={nowFollowing} />
                         </Flex>
+
                         {/* <Flex
                           padding="6px"
                           onClick={() => {
@@ -197,7 +197,8 @@ const ReviewDetail = (props) => {
                 </Flex>
               </Wrap>
               <ImageCarousel src={v.images} />
-              <Wrap margin="16px">
+
+              <Wrap margin="5px 16px 16px 16px">
                 <Text contents={v.reviewContent}></Text>
               </Wrap>
 
@@ -361,8 +362,9 @@ const Delete = styled.p`
 `;
 
 const Time = styled.div`
-  flex-grow: 0;
   font-size: 14px;
   color: #999;
+  text-align: right;
+  padding: 0 16px 5px 0;
 `;
 export default ReviewDetail;
