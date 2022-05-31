@@ -182,7 +182,7 @@ const StoreEdit = () => {
         inputs.direct === undefined ||
         inputs.direct === "")
     ) {
-      alert("택배 선택하세요.");
+      alert("거래 방식을 선택하세요.");
       return;
     }
 
