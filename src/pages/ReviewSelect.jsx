@@ -18,7 +18,7 @@ import { history } from "../redux/configureStore";
 
 import { getReviewDB, getBuyList, getMyBuyDB } from "../redux/modules/reviews";
 import { getPostDB } from "../redux/modules/store";
-
+import styled from "styled-components";
 const ReviewSelect = () => {
   const dispatch = useDispatch();
   const mybuyList = useSelector((state) => state.review?.buyList);
@@ -57,12 +57,11 @@ const ReviewSelect = () => {
                 </Text>
                 <Text>{l.user.nickname && l.user.nickname}</Text>
               </Wrap>
-              <Button
-                padding="8px 6px 9px"
+              <WriteButton
                 onClick={() => history.push(`/review/write/${l.postId}`)}
               >
                 리뷰 쓰기
-              </Button>
+              </WriteButton>
             </Flex>
           );
         })
@@ -94,5 +93,15 @@ const ReviewSelect = () => {
     </>
   );
 };
+
+const WriteButton = styled.button`
+  padding: 8px 5px;
+  width: 72px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: ${({ theme }) => theme.pallete.primary850};
+  color: #fff;
+  margin-top: 47px;
+`;
 
 export default ReviewSelect;

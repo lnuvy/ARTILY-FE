@@ -38,6 +38,7 @@ const IconStyle = styled.div`
   margin: ${({ margin }) => margin};
 
   flex-grow: ${({ fg }) => fg};
+  cursor: pointer;
 `;
 
 export default Icon;

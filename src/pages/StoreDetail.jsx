@@ -212,7 +212,6 @@ const StoreDetail = () => {
             </Text>
             <SellLabel complete3 />
             <Flex margin="10px 0 6px" jc="space-between">
-              {/* 5.18 cursor:pointer를 위한 style-components 추가 */}
               <ProfileBtn
                 onClick={() => {
                   //내 글일경우 마이페이지로 이동
@@ -254,17 +253,6 @@ const StoreDetail = () => {
                     <Flex padding="6px" onClick={clickFollowbtn}>
                       <FollowCheck text follow={nowFollowing} />
                     </Flex>
-                    {/* <Flex
-                      padding="0"
-                      margin="0 0 0 6px"
-                      onClick={() => {
-                        console.log("신고하기");
-                      }}
-                    >
-                      <Text body1 color={theme.pallete.primary900}>
-                        신고
-                      </Text>
-                    </Flex> */}
                   </>
                 )}
               </Flex>

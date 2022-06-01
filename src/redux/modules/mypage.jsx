@@ -21,7 +21,6 @@ export const getmyPageDB = () => {
   return function (dispatch, getState, { history }) {
     Apis.getMypageData()
       .then((res) => {
-        // console.log("mypage get요청", res);
         dispatch(getmyPageData(res.data));
       })
       .catch((error) => {
@@ -51,14 +50,14 @@ export const getMySellListDB = () => {
   return function (dispatch, getState, { history }) {
     Apis.getMyList()
       .then((res) => {
-        // console.log("판매목록 조회 :", res);
+        console.log("판매목록 조회 :", res);
         // dispatch(selectList());
         const mySell = res.data;
         dispatch(mySellList(mySell));
       })
       .catch((error) => {
         // console.log("판매목록 조회 실패", error);
-        window.alert("판매목록을 조회하는 데 문제가 발생했습니다!");
+        // window.alert("판매목록을 조회하는 데 문제가 발생했습니다!");
       });
   };
 };
