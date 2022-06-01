@@ -1,0 +1,53 @@
+[debug] [2022-06-01T07:25:41.252Z] ----------------------------------------------------------------------
+[debug] [2022-06-01T07:25:41.256Z] Command:       C:\Program Files\nodejs\node.exe C:\mvp-project\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-06-01T07:25:41.257Z] CLI Version:   10.9.2
+[debug] [2022-06-01T07:25:41.257Z] Platform:      win32
+[debug] [2022-06-01T07:25:41.258Z] Node Version:  v16.14.2
+[debug] [2022-06-01T07:25:41.260Z] Time:          Wed Jun 01 2022 16:25:41 GMT+0900 (대한민국 표준시)
+[debug] [2022-06-01T07:25:41.261Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-06-01T07:25:41.356Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-06-01T07:25:41.356Z] > authorizing via signed-in user (youngkyung1762@gmail.com)
+[debug] [2022-06-01T07:25:41.356Z] [iam] checking project artily-2b6be for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-06-01T07:25:41.360Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/artily-2b6be:testIamPermissions [none]
+[debug] [2022-06-01T07:25:41.360Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/artily-2b6be:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-06-01T07:25:42.228Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/artily-2b6be:testIamPermissions 200
+[debug] [2022-06-01T07:25:42.229Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/artily-2b6be:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-06-01T07:25:42.229Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/artily-2b6be/serviceAccounts/artily-2b6be@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2022-06-01T07:25:42.230Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/artily-2b6be/serviceAccounts/artily-2b6be@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-06-01T07:25:43.129Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/artily-2b6be/serviceAccounts/artily-2b6be@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2022-06-01T07:25:43.130Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/artily-2b6be/serviceAccounts/artily-2b6be@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-06-01T07:25:43.132Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/artily-2b6be [none]
+[debug] [2022-06-01T07:25:43.528Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/artily-2b6be 200
+[debug] [2022-06-01T07:25:43.528Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/artily-2b6be {"projectId":"artily-2b6be","projectNumber":"372974667648","displayName":"artily","name":"projects/artily-2b6be","resources":{"hostingSite":"artily-2b6be"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'artily-2b6be'...
+[info] 
+[info] i  deploying functions, hosting 
+[debug] [2022-06-01T07:25:43.532Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/artily-2b6be [none]
+[debug] [2022-06-01T07:25:43.917Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/artily-2b6be 200
+[debug] [2022-06-01T07:25:43.918Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/artily-2b6be {"projectId":"artily-2b6be","projectNumber":"372974667648","displayName":"artily","name":"projects/artily-2b6be","resources":{"hostingSite":"artily-2b6be"},"state":"ACTIVE"}
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2022-06-01T07:25:43.922Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/cloudfunctions.googleapis.com [none]
+[debug] [2022-06-01T07:25:43.923Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/runtimeconfig.googleapis.com [none]
+[debug] [2022-06-01T07:25:43.924Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/cloudbuild.googleapis.com [none]
+[debug] [2022-06-01T07:25:43.926Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/artifactregistry.googleapis.com [none]
+[debug] [2022-06-01T07:25:45.053Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/artifactregistry.googleapis.com 200
+[debug] [2022-06-01T07:25:45.053Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/artifactregistry.googleapis.com [omitted]
+[debug] [2022-06-01T07:25:45.072Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/cloudfunctions.googleapis.com 200
+[debug] [2022-06-01T07:25:45.072Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2022-06-01T07:25:45.075Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/runtimeconfig.googleapis.com 200
+[debug] [2022-06-01T07:25:45.075Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2022-06-01T07:25:45.103Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/cloudbuild.googleapis.com 200
+[debug] [2022-06-01T07:25:45.103Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/artily-2b6be/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2022-06-01T07:25:45.104Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/artily-2b6be/adminSdkConfig [none]
+[debug] [2022-06-01T07:25:45.531Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/artily-2b6be/adminSdkConfig 200
+[debug] [2022-06-01T07:25:45.531Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/artily-2b6be/adminSdkConfig {"projectId":"artily-2b6be","storageBucket":"artily-2b6be.appspot.com"}
+[debug] [2022-06-01T07:25:45.532Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/artily-2b6be/configs [none]
+[debug] [2022-06-01T07:25:46.065Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/artily-2b6be/configs 200
+[debug] [2022-06-01T07:25:46.065Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/artily-2b6be/configs {}
+[info] i  functions: preparing codebase default for deployment 
+[debug] [2022-06-01T07:25:46.069Z] Validating nodejs source
