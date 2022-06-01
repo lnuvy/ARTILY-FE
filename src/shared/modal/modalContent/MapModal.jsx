@@ -27,8 +27,11 @@ import {
 import { MyLocation } from "../../../assets/icons";
 import styled from "styled-components";
 import theme from "../../../styles/theme";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const { kakao } = window;
+const MySwal = withReactContent(Swal);
 
 const MapModal = ({ setReceiveAddress, currentAddress }) => {
   const dispatch = useDispatch();
@@ -80,7 +83,11 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
       address.gu === undefined ||
       address.dong === undefined
     ) {
-      alert("모든 항목을 입력하세요.");
+      // alert("모든 항목을 입력하세요.");
+      MySwal.fire({
+        icon: "error",
+        text: "모든 항목을 빠짐없이 입력해주세요.",
+      });
       return;
     }
     const guArray = address.gu.split("");
