@@ -240,7 +240,6 @@ const MypageEdit = () => {
               <Button
                 width="100%"
                 onClick={() => {
-                  window.alert("프로필이 저장되었습니다!");
                   editUser();
                 }}
               >

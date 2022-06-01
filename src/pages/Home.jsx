@@ -18,7 +18,8 @@ import theme from "../styles/theme";
 import banner1 from "../assets/images/banner1.png";
 import banner2 from "../assets/images/banner2.png";
 import AttentionCarousel from "../elements/AttentionCarousel";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 // const Home = () => {
 //   const dispatch = useDispatch();
 //   // const getProfile = useSelector((state) => state.user.user);
@@ -224,6 +225,18 @@ const Home = () => {
       history.push(`/${path}/view/${data.reviewId}`);
     }
   };
+  const MySwal = withReactContent(Swal);
+  const howScroll = () => {
+    MySwal.fire({
+      icon: "info",
+      text: "PC에서도 [shift] + 마우스 휠을 움직여 좌우 스크롤이 가능해요!",
+      // showDenyButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        history.push("/");
+      }
+    });
+  };
 
   const prevBtn = () => {
     window.alert("오른쪽으로 이동");
@@ -258,6 +271,9 @@ const Home = () => {
         <Text bold h3 margin="0 0 18px 16px">
           아틀리가 주목하는 작가
         </Text>
+        <div className="info" onClick={howScroll}>
+          !
+        </div>
         {/* <Leftbutton onClick={prevBtn}>◀</Leftbutton>
         <Rightbutton onClick={nextBtn}>▶</Rightbutton> */}
 
@@ -337,6 +353,19 @@ const WrapNotice = styled.div`
   position: relative;
   /* background-color: #ddd; */
   height: 300px;
+  .info {
+    position: absolute;
+    top: 0;
+    right: 16px;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    border: 2px solid #777;
+    text-align: center;
+    color: #777;
+    line-height: 16px;
+    cursor: pointer;
+  }
 `;
 const Leftbutton = styled.button`
   position: absolute;

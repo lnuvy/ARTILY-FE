@@ -326,17 +326,18 @@ const StoreEdit = () => {
             <Wrap margin="8px 0 0 0" />
           </>
         )}
-
-        <Input
-          readOnly
-          value={receiveCategory || "카테고리 선택"}
-          color={theme.pallete.black}
-          icon={<NavigationNext size={28} />}
-          placeholderColor={theme.pallete.black}
-          onClick={() => {
-            modalOn("category");
-          }}
-        />
+        <Category>
+          <Input
+            readOnly
+            value={receiveCategory || "카테고리 선택"}
+            color={theme.pallete.black}
+            icon={<NavigationNext size={28} />}
+            placeholderColor={theme.pallete.black}
+            onClick={() => {
+              modalOn("category");
+            }}
+          />
+        </Category>
         <Wrap margin="8px 0 0 0" />
         <Input
           id="postTitle"
@@ -442,5 +443,8 @@ const ButtonWrap = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: ${theme.view.maxWidth};
+`;
+const Category = styled.div`
+  cursor: pointer;
 `;
 export default StoreEdit;
