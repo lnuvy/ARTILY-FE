@@ -363,8 +363,9 @@ const StoreEdit = () => {
           maxLength="299"
           minLength="3"
           onChange={handleChange}
-          border="1px solid transparent"
-          textLine="15"
+          border="1px solid #ddd"
+          padding="10px"
+          textLine="21"
         />
       </Wrap>
       {/* <Wrap
