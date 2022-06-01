@@ -12,7 +12,6 @@ const StoreMore = (props) => {
   if (postId) {
     return (
       <Card onClick={onClick}>
-        {console.log(postId)}
         <Image height="168px" br="8px" src={images[0]?.imageUrl} />
         <Text medium h2 margin="8px 0 9px">
           {postTitle}
