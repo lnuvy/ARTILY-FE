@@ -31,7 +31,6 @@ const Setprofile = () => {
   const fileInput = useRef();
   const preview = useSelector((state) => state.image.preview);
   const user = useSelector((state) => state.user.user);
-
   useEffect(() => {
     if (user.nickname === "") {
       // window.location.reload();

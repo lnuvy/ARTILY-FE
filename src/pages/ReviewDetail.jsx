@@ -286,7 +286,6 @@ const ReviewDetail = (props) => {
                   movePage="/store"
                 >
                   <Grid gtc="1fr 1fr">
-                    {/* {console.log(detailData)} */}
                     {detailData.defferentInfo &&
                       detailData.defferentInfo.map((v, i) => {
                         return (
