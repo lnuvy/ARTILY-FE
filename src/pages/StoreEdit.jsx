@@ -172,7 +172,11 @@ const StoreEdit = () => {
 
     if (path === `/store/write`) {
       if (fileObj.length === 0) {
-        alert("이미지를 추가하세요!");
+        // alert("이미지를 추가하세요!");
+        MySwal.fire({
+          icon: "error",
+          text: "이미지를 최소 1장 이상 선택해주세요.",
+        });
         return;
       }
     }
@@ -185,7 +189,11 @@ const StoreEdit = () => {
         inputs.direct === undefined ||
         inputs.direct === "")
     ) {
-      alert("거래 방식을 선택해 주세요.");
+      // alert("거래 방식을 선택해 주세요.");
+      MySwal.fire({
+        icon: "error",
+        text: "거래 방식을 선택해주세요.",
+      });
       return;
     }
 
@@ -195,7 +203,11 @@ const StoreEdit = () => {
         receiveAddress === undefined ||
         receiveAddress === "")
     ) {
-      alert("거래하실 동네를 선택해주세요.");
+      // alert("거래하실 동네를 선택해주세요.");
+      MySwal.fire({
+        icon: "error",
+        text: "거래하실 동네를 선택해주세요.",
+      });
       return;
     }
 
@@ -204,12 +216,21 @@ const StoreEdit = () => {
       receiveCategory === undefined ||
       receiveCategory === ""
     ) {
-      alert("카테고리를 입력하세요.");
+      // alert("카테고리를 입력하세요.");
+      MySwal.fire({
+        icon: "error",
+        text: "카테고리를 입력해주세요.",
+      });
       return;
     }
 
     if (postTitle === null || postTitle === undefined || postTitle === "") {
-      alert("작품명을 입력하세요.");
+      // alert("작품명을 입력하세요.");
+      MySwal.fire({
+        icon: "error",
+        text: "작품명을 입력해주세요.",
+      });
+      // history.push("/home");
       return;
     }
 
@@ -218,12 +239,20 @@ const StoreEdit = () => {
       postContent === undefined ||
       postContent === ""
     ) {
-      alert("내용을 입력하세요.");
+      // alert("내용을 입력하세요.");
+      MySwal.fire({
+        icon: "error",
+        text: "내용을 입력해주세요.",
+      });
       return;
     }
 
     if (price === null || price === undefined || price === "") {
-      alert("가격을 입력하세요.");
+      // alert("가격을 입력하세요.");
+      MySwal.fire({
+        icon: "error",
+        text: "가격을 설정해주세요. 숫자만 입력 가능합니다.",
+      });
       return;
     }
 
@@ -343,7 +372,7 @@ const StoreEdit = () => {
           id="postTitle"
           type="text"
           placeholder="작품명을 입력해 주세요."
-          value={inputs.postTitle}
+          value={inputs.postTitle || ""}
           onChange={handleChange}
           placeholderColor={theme.pallete.gray3}
         />
@@ -353,13 +382,13 @@ const StoreEdit = () => {
           placeholder="₩ 가격"
           type="number"
           margin="0 0 10px"
-          value={inputs.price}
+          value={inputs.price || ""}
           onChange={handleChange}
         />
         <Textarea
           id="postContent"
           placeholder="작품을 설명하는 글을 적어주세요. 허위로 작성한 글은 게시가 제한 될 수 있습니다."
-          value={inputs.postContent}
+          value={inputs.postContent || ""}
           maxLength="299"
           minLength="3"
           onChange={handleChange}

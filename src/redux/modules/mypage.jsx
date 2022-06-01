@@ -50,7 +50,6 @@ export const getMySellListDB = () => {
   return function (dispatch, getState, { history }) {
     Apis.getMyList()
       .then((res) => {
-        console.log("판매목록 조회 :", res);
         // dispatch(selectList());
         const mySell = res.data;
         dispatch(mySellList(mySell));
