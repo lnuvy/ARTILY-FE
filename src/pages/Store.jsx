@@ -13,7 +13,7 @@ import { history } from "../redux/configureStore";
 import _ from "lodash";
 import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
-import { FilterFilled, Search } from "../assets/icons";
+import { CheckBoxChecked, FilterFilled, Search } from "../assets/icons";
 import theme from "../styles/theme";
 import { NoInfo } from "../components";
 import styled from "styled-components";
@@ -118,13 +118,9 @@ const Store = () => {
         <Wrap margin="16px 0">
           <Flex jc="space-between">
             <WrapCheck>
-              <Check
-                type="checkbox"
-                checked={isFree}
-                id="checkFree"
-                onChange={checkFree}
-              ></Check>
-              <CheckText>나눔 작품만 보기</CheckText>{" "}
+              <Checkbox checked={isFree} id="checkFree" onChange={checkFree}>
+                <Share body2>나눔 작품만 보기</Share>
+              </Checkbox>
             </WrapCheck>
             <Flex onClick={modalOn} jc="center" ai="center">
               <Text body2>거래 방식 / 지역 선택하기</Text>
@@ -173,7 +169,7 @@ const Store = () => {
               })}
           </Flex>
         </Wrap>
-        {/* <NoInfo list={searchList} text1="검색결과가 없습니다."> */}
+        <div className="writeBtn"></div>
         <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
           {searchList && query !== ""
             ? searchList
@@ -201,7 +197,6 @@ const Store = () => {
                   );
               })}
         </Grid>
-        {/* </NoInfo> */}
       </Wrap>
     </>
   );
@@ -217,21 +212,15 @@ const SearchWrap = styled.div`
 `;
 const WrapCheck = styled.div`
   cursor: pointer;
+  position: relative;
 `;
-const Check = styled.input`
-  //체크박스 커스텀 필요
-  //checkbox style reset
-  /* appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #ddd;
-  border-radius: 3px; */
-  margin-top: 6px;
+
+const Share = styled.div`
+  width: 150px;
+  padding-left: 28px;
+  position: absolute;
+  top: 2px;
+  left: 0;
 `;
-const CheckText = styled.div`
-  float: right;
-  font-size: 14px;
-  padding-left: 5px;
-  line-height: 25px;
-`;
+
 export default Store;
