@@ -102,6 +102,7 @@ const WriteButton = styled.button`
   background-color: ${({ theme }) => theme.pallete.primary850};
   color: #fff;
   margin-top: 47px;
+  cursor: pointer;
 `;
 
 export default ReviewSelect;
