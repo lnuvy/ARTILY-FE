@@ -45,21 +45,23 @@ const Review = () => {
       <Grid>
         <Category review />
         <Wrap margin="16px">
-          <Grid gtc="1fr 1fr" margin="0 0 20px">
-            {filteringList &&
-              filteringList.map((v, i) => {
-                // console.log(v.images);
+          <NoInfo list={filteringList} text1="해당 카테고리 리뷰가 없습니다.">
+            <Grid gtc="1fr 1fr" margin="0 0 20px">
+              {filteringList &&
+                filteringList.map((v, i) => {
+                  // console.log(v.images);
 
-                return (
-                  <ReviewCard
-                    key={v.reviewId}
-                    onClick={() => clickCard(v.reviewId)}
-                    {...v}
-                    images={(v.images && v.images[0].imageUrl) || null}
-                  />
-                );
-              })}
-          </Grid>
+                  return (
+                    <ReviewCard
+                      key={v.reviewId}
+                      onClick={() => clickCard(v.reviewId)}
+                      {...v}
+                      images={(v.images && v.images[0].imageUrl) || null}
+                    />
+                  );
+                })}
+            </Grid>
+          </NoInfo>
         </Wrap>
       </Grid>
     </>
