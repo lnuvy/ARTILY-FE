@@ -272,7 +272,7 @@ const Home = () => {
           아틀리가 주목하는 작가
         </Text>
         <div className="info" onClick={howScroll}>
-          !
+          i
         </div>
         {/* <Leftbutton onClick={prevBtn}>◀</Leftbutton>
         <Rightbutton onClick={nextBtn}>▶</Rightbutton> */}
