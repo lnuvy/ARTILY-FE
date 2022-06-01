@@ -156,9 +156,11 @@ const ReviewWrite = () => {
         id="reviewContent"
         value={inputs.reviewContent}
         border="none"
+        maxLength="299"
+        minLength="3"
         placeholder="작품에 대한 후기를 작성해주세요. 허위로 작성된 글은 게시가 제한될 수 있습니다."
         onChange={InputChange}
-        textLine={100}
+        textLine={30}
       />
       <ButtonWrap>
         <Flex>

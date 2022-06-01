@@ -141,7 +141,7 @@ export const setProfileDB = (formData, goDetail = null) => {
           MySwal.fire({
             icon: "check",
             title: "닉네임 설정 완료",
-            text: "더 자세한 프로필을 작성하실래요?",
+            text: "더 자세한 프로필을 작성하시겠어요?",
             showDenyButton: true,
             confirmButtonText: "네",
             denyButtonText: `아니오`,
@@ -149,14 +149,17 @@ export const setProfileDB = (formData, goDetail = null) => {
             if (result.isConfirmed) {
               history.push("/profile/detail");
             } else {
+              MySwal.fire({
+                icon: "success",
+                text: "프로필 설정이 완료되었습니다!",
+              });
               history.replace("/");
             }
           });
         } else {
           MySwal.fire({
             icon: "success",
-            title: "프로필 작성 완료",
-            text: "고생하셨어요! 정상적으로 처리되었습니다!",
+            text: "프로필 설정이 완료되었습니다!",
           });
           history.push("/home");
         }

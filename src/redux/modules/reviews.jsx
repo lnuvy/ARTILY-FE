@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { Apis } from "../../shared/api";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 /*
  * @ 민경
  *
  */
-
+const MySwal = withReactContent(Swal);
 const initialState = {
   list: null,
   filterList: null,
@@ -72,7 +73,14 @@ export const postReviewDB = (postID, contents) => {
     Apis.postReview(postID, contents)
       .then(function (response) {
         console.log(response);
-        history.push("/review");
+        MySwal.fire({
+          icon: "success",
+          text: "리뷰 작성이 완료되었습니다!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            history.push("/review");
+          }
+        });
       })
       .catch(function (error) {
         console.error(error.message);
@@ -87,7 +95,14 @@ export const editReviewDB = (postId, contents) => {
     Apis.editReview(postId, contents)
       .then(function (response) {
         console.log(response);
-        alert("수정되었습니다");
+        MySwal.fire({
+          icon: "success",
+          text: "리뷰 수정이 완료되었습니다!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            history.push("/review");
+          }
+        });
         history.push("/review");
       })
       .catch(function (error) {
@@ -101,8 +116,14 @@ export const deleteReviewDB = (reviewId) => {
     Apis.deleteReview(reviewId)
       .then(function (response) {
         // console.log(response);
-        alert("삭제되었습니다");
-        history.push("/review");
+        MySwal.fire({
+          icon: "error",
+          text: "정상적으로 삭제되었습니다!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            history.push("/review");
+          }
+        });
       })
       .catch(function (error) {
         console.error(error.message);
