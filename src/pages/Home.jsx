@@ -264,39 +264,40 @@ const Home = () => {
         {/* <AttentionCarousel /> */}
 
         <BestArtistWrap className="WrapSlide">
-          {/* <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px"> */}
-
-          {bestWriter.length > 0 &&
-            bestWriter.map((artist, i) => {
-              return (
-                <Card
-                  key={i}
-                  border={`1px solid ${theme.pallete.gray1}`}
-                  padding="16px 16px 10px"
-                  onClick={() => history.push(`/userprofile/${artist?.userId}`)}
-                  width="270px"
-                >
-                  <Image
-                    circle
-                    size="88"
-                    margin="8px auto 10px"
-                    src={artist?.profileImage}
-                  />
-                  <Text textAlign="center" margin="0 0 9px">
-                    {artist?.nickname}
-                  </Text>
-                  <Text body2 textAlign="center" margin="0 0 6px">
-                    {artist?.introduce || "-"}
-                  </Text>
-                  <Text body3 textAlign="center" color={theme.pallete.gray3}>
-                    {/* 작품타입 오브제 ∙  */}
-                    등록작품 {artist && artist.postCount ? artist.postCount : 0}
-                    개
-                  </Text>
-                </Card>
-              );
-            })}
-          {/* </Grid> */}
+          <Grid gtc="1fr 1fr 1fr 1fr" rg="8px" cg="8px">
+            {bestWriter.length > 0 &&
+              bestWriter.map((artist, i) => {
+                return (
+                  <Card
+                    key={i}
+                    border={`1px solid ${theme.pallete.gray1}`}
+                    padding="16px 16px 10px"
+                    onClick={() =>
+                      history.push(`/userprofile/${artist?.userId}`)
+                    }
+                    width="270px"
+                  >
+                    <Image
+                      circle
+                      size="88"
+                      margin="8px auto 10px"
+                      src={artist?.profileImage}
+                    />
+                    <Text textAlign="center" margin="0 0 9px">
+                      {artist?.nickname}
+                    </Text>
+                    <Text body2 textAlign="center" margin="0 0 6px">
+                      {artist?.introduce || "-"}
+                    </Text>
+                    <Text body3 textAlign="center" color={theme.pallete.gray3}>
+                      {/* 작품타입 오브제 ∙  */}
+                      등록작품{" "}
+                      {artist && artist.postCount ? artist.postCount : 0}개
+                    </Text>
+                  </Card>
+                );
+              })}
+          </Grid>
         </BestArtistWrap>
       </WrapNotice>
       <Wrap padding="0 16px 33px">
@@ -328,10 +329,8 @@ const BestArtistWrap = styled.div`
   /*padding으로 양 옆값 주면 오른쪽 여백이 반영이 안되는 것 같아서 margin으로 바꿨습니다.*/
   /* background-color: #888; */
   margin: 0 16px 24px 16px;
-  grid-template-columns;
-  /* overflow: auto; */
-  /* overflow-y: hidden; */
-  /* background-color: blueviolet; */
+  overflow: auto;
+  overflow-y: hidden;
 `;
 
 const WrapNotice = styled.div`
