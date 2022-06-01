@@ -139,7 +139,7 @@ export const setProfileDB = (formData, goDetail = null) => {
         // console.log("setProfileDB 데이터모양", res);
         if (goDetail) {
           MySwal.fire({
-            icon: "question",
+            icon: "check",
             title: "닉네임 설정 완료",
             text: "더 자세한 프로필을 작성하실래요?",
             showDenyButton: true,
@@ -172,10 +172,19 @@ export const editProfileDB = (formData) => {
   return function (dispatch, getState, { history }) {
     Apis.patchEditProfile(formData)
       .then((res) => {
-        console.log(res);
-        // dispatch(editUser({profileImage, nickname}));
-        history.replace("/mypage");
-        // window.location.reload();
+        MySwal.fire({
+          icon: "success",
+          text: "프로필 수정이 완료되었습니다.",
+          showDenyButton: true,
+          confirmButtonText: "확인",
+          denyButtonText: `취소`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            history.push("/mypage");
+          } else {
+            history.replace("/mypage/edit");
+          }
+        });
       })
       .catch((error) => {
         // console.log("프로필 수정 정보 전달 실패", error);
