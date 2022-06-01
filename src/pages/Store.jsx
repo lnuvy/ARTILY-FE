@@ -169,14 +169,24 @@ const Store = () => {
               })}
           </Flex>
         </Wrap>
-        <div className="writeBtn"></div>
-        <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
-          {searchList && query !== ""
-            ? searchList
-            : filterList &&
-              filterList.map((v) => {
-                if (isFree) {
-                  if (v.price === "0") {
+        <NoInfo list={filterList} text1="해당 카테고리 게시글이 없습니다.">
+          <Grid gtc="1fr 1fr" rg="8px" cg="8px" margin="0">
+            {searchList && query !== ""
+              ? searchList
+              : filterList &&
+                filterList.map((v) => {
+                  if (isFree) {
+                    if (v.price === "0") {
+                      return (
+                        <StoreCard
+                          key={v.postId}
+                          {...v}
+                          imageUrl={v.images[0].imageUrl}
+                          onClick={() => handleClickData(v)}
+                        />
+                      );
+                    }
+                  } else
                     return (
                       <StoreCard
                         key={v.postId}
@@ -185,18 +195,9 @@ const Store = () => {
                         onClick={() => handleClickData(v)}
                       />
                     );
-                  }
-                } else
-                  return (
-                    <StoreCard
-                      key={v.postId}
-                      {...v}
-                      imageUrl={v.images[0].imageUrl}
-                      onClick={() => handleClickData(v)}
-                    />
-                  );
-              })}
-        </Grid>
+                })}
+          </Grid>
+        </NoInfo>
       </Wrap>
     </>
   );
