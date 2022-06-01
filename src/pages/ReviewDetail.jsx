@@ -148,13 +148,30 @@ const ReviewDetail = (props) => {
                 <Text h1>{v.reviewTitle}</Text>
 
                 <Flex margin="8px 0 0 0" jc="space-between">
-                  <GoProfile>
+                  <ProfileBtn
+                    onClick={() => {
+                      //내 글일경우 마이페이지로 이동
+                      if (detailData?.buyer[0]?.userId === currentUser.userId) {
+                        history.push(`/mypage`);
+                      } else {
+                        history.push(
+                          `/userprofile/${detailData?.buyer[0]?.userId}`
+                        );
+                      }
+                    }}
+                  >
                     <Flex>
-                      <Image circle size="32" src={v.profileImage} />
-                      <Text margin="0 0 0 8px" contents={v.nickname}></Text>
+                      <Image
+                        circle
+                        size="32"
+                        src={detailData?.buyer[0]?.profileImage}
+                        border="1px solid #eee"
+                      />
+                      <Text margin="0 0 0 8px">
+                        {detailData?.buyer[0]?.nickname}
+                      </Text>
                     </Flex>
-                  </GoProfile>
-
+                  </ProfileBtn>
                   <Flex>
                     {isMe ? (
                       <>
@@ -366,4 +383,5 @@ const Time = styled.div`
   text-align: right;
   padding: 0 16px 5px 0;
 `;
+const ProfileBtn = styled.div``;
 export default ReviewDetail;
