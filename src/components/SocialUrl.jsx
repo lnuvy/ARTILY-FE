@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Text } from "../elements";
-
+import styled from "styled-components";
 const SocialUrl = ({ snsUrl }) => {
   //풀 주소가 아닌 ID만 입력해도 링크 연결되도록 바꿨습니다. -영경
   // const insta =
@@ -27,54 +27,64 @@ const SocialUrl = ({ snsUrl }) => {
       {(insta || behance || other) && (
         <Flex padding="0.5em 0">
           {insta && (
-            <Flex margin="0 30px 0 0">
-              <img src="/images/Instagram.svg" alt="인스타" />
-              <Text className="site" margin="0 0 0 5px">
-                {insta && (
-                  //5.15 앞에 http://를 붙여야 제대로 연결이 되는 것 같습니다.
-                  //인스타그램 같은 경우 풀 주소를 받지말고 아이디만 받자
-                  <a
-                    href={`http://instagram.com/${snsUrl[0]}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    instagram
-                  </a>
-                )}
-              </Text>
-            </Flex>
+            <WrapInsta>
+              <Flex margin="0 30px 0 0">
+                <img src="/images/Instagram.svg" alt="인스타" />
+                <Text className="site" margin="0 0 0 5px">
+                  {insta && (
+                    //5.15 앞에 http://를 붙여야 제대로 연결이 되는 것 같습니다.
+                    //인스타그램 같은 경우 풀 주소를 받지말고 아이디만 받자
+                    <a
+                      href={`http://instagram.com/${snsUrl[0]}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      instagram
+                    </a>
+                  )}
+                </Text>
+              </Flex>
+            </WrapInsta>
           )}
 
           {behance && (
-            <Flex margin="0 30px 0 0">
-              <img src="/images/Behance.svg" alt="비핸스" />
+            <WrapBehance>
+              <Flex margin="0 30px 0 0">
+                <img src="/images/Behance.svg" alt="비핸스" />
 
-              <Text className="site" margin="0 0 0 5px">
-                {behance && (
-                  <a
-                    href={`http://${behance}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Behance
-                  </a>
-                )}
-              </Text>
-            </Flex>
+                <Text className="site" margin="0 0 0 5px">
+                  {behance && (
+                    <a
+                      href={`http://${behance}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Behance
+                    </a>
+                  )}
+                </Text>
+              </Flex>
+            </WrapBehance>
           )}
 
           {other && (
-            <Flex margin="0 30px 0 0">
-              <img src="/images/web.svg" alt="포트폴리오" />
+            <WrapOther>
+              <Flex margin="0 30px 0 0">
+                <img src="/images/web.svg" alt="포트폴리오" />
 
-              <Text className="site" margin="0 0 0 5px">
-                {other && (
-                  <a href={`http://${other}`} target="_blank" rel="noreferrer">
-                    Website
-                  </a>
-                )}
-              </Text>
-            </Flex>
+                <Text className="site" margin="0 0 0 5px">
+                  {other && (
+                    <a
+                      href={`http://${other}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Website
+                    </a>
+                  )}
+                </Text>
+              </Flex>
+            </WrapOther>
           )}
         </Flex>
       )}
@@ -82,4 +92,13 @@ const SocialUrl = ({ snsUrl }) => {
   );
 };
 
+const WrapInsta = styled.div`
+  cursor: pointer;
+`;
+const WrapBehance = styled.div`
+  cursor: pointer;
+`;
+const WrapOther = styled.div`
+  cursor: pointer;
+`;
 export default SocialUrl;
