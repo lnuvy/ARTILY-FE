@@ -268,7 +268,7 @@ const Home = () => {
         </Grid>
       </Wrap>
       <WrapNotice padding="0 0 24px">
-        <Text bold h3 margin="0 0 18px 16px">
+        <Text bold h3 margin="0 0 10px 16px">
           아틀리가 주목하는 작가
         </Text>
         <div className="info" onClick={howScroll}>
@@ -344,7 +344,7 @@ export default Home;
 const BestArtistWrap = styled.div`
   /*padding으로 양 옆값 주면 오른쪽 여백이 반영이 안되는 것 같아서 margin으로 바꿨습니다.*/
   /* background-color: #888; */
-  margin: 0 16px 24px 16px;
+  margin: 0 16px 28px 16px;
   overflow: auto;
   overflow-y: hidden;
 `;
@@ -352,7 +352,6 @@ const BestArtistWrap = styled.div`
 const WrapNotice = styled.div`
   position: relative;
   /* background-color: #ddd; */
-  height: 300px;
   .info {
     position: absolute;
     top: 0;

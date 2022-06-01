@@ -166,7 +166,11 @@ export const setProfileDB = (formData, goDetail = null) => {
       })
       .catch((error) => {
         // console.log("프로필 정보 전송 실패", error);
-        window.alert("프로필 저장에 문제가 발생했습니다!");
+        MySwal.fire({
+          icon: "error",
+          text: "프로필 저장에 실패했습니다!",
+        });
+        history.replace("/profile");
       });
   };
 };

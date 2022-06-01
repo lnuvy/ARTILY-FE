@@ -131,7 +131,11 @@ export const addPostDB = (data, address, direct) => {
       })
       .catch((err) => {
         console.log(err);
-        alert(err.response.data.msg);
+        MySwal.fire({
+          icon: "error",
+          text: "판매글 등록을 실패했습니다!",
+        });
+        history.replace("/manage");
 
         dispatch(isLoading(false));
       });
