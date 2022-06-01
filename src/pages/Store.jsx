@@ -119,7 +119,7 @@ const Store = () => {
           <Flex jc="space-between">
             <WrapCheck>
               <Checkbox checked={isFree} id="checkFree" onChange={checkFree}>
-                <Share body2>나눔 작품만 보기</Share>
+                <Share>나눔 작품만 보기</Share>
               </Checkbox>
             </WrapCheck>
             <Flex onClick={modalOn} jc="center" ai="center">
@@ -216,10 +216,11 @@ const WrapCheck = styled.div`
 `;
 
 const Share = styled.div`
+  font-size: 14px;
   width: 150px;
   padding-left: 28px;
   position: absolute;
-  top: 2px;
+  top: 4px;
   left: 0;
 `;
 
