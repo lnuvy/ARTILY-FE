@@ -138,18 +138,6 @@ const StoreDetail = () => {
     }
     dispatch(postMyPostLikeDB(postId));
   };
-
-  // const userId = detailData?.user?.userId;
-  // 더보기
-  // const moveToProfile = () => {
-  //   if (detailData?.user?.userId === currentUser?.userId) {
-  //     history.push(`/mypage`);
-  //   }
-  //   history.push(`/userprofile/${userId}`);
-  // };
-  // console.log(currentUser?.userId);
-  // console.log(detailData?.user?.userId);
-  // 채팅하기 버튼 눌렀을때
   const startChat = () => {
     if (!currentUser) {
       alert("로그인해주세요");

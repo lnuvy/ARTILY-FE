@@ -397,13 +397,6 @@ const StoreEdit = () => {
           textLine="21"
         />
       </Wrap>
-      {/* <Wrap
-        position="fixed"
-        bottom="16px"
-        padding="0 16px"
-        width={`${theme.view.maxWidth}`}
-        margin="0 auto"
-      > */}
 
       <ButtonWrap>
         <Flex>

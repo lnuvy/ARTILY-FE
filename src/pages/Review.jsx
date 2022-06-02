@@ -49,8 +49,6 @@ const Review = () => {
             <Grid gtc="1fr 1fr" margin="0 0 20px">
               {filteringList &&
                 filteringList.map((v, i) => {
-                  // console.log(v.images);
-
                   return (
                     <ReviewCard
                       key={v.reviewId}
