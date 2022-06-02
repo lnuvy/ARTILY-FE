@@ -105,7 +105,6 @@ const ReviewWrite = () => {
 
     if (path === `/review/write/${postId}`) {
       for (let i = 0; i < fileObj.length; i++) {
-        // console.log(fileObj[i]);
         formData.append("imageUrl", fileObj[i]);
       }
     }
@@ -119,24 +118,17 @@ const ReviewWrite = () => {
 
       if (imageDt.length > 0) {
         for (let i = 0; i < imageDt.length; i++) {
-          // console.log(imageDt[i]);
           formData.append("imgDt", imageDt[i]);
         }
       }
     }
 
     for (var pair of formData.entries()) {
-      // console.log(pair[0] + ", " + pair[1]);
     }
 
-    // console.log(postId);
-    // /review/write/4c96e2b7a1e8
-
     if (path === `/review/write/${postId}`) {
-      // console.log("reviewWrite");
       dispatch(postReviewDB(postId, formData));
     } else if (path === `/review/edit/${reviewId}`) {
-      // console.log("reviewWrite");
       dispatch(editReviewDB(reviewId, formData));
     }
   };
@@ -189,7 +181,6 @@ const ReviewWrite = () => {
   );
 };
 
-export default ReviewWrite;
 const ButtonWrap = styled.div`
   position: fixed;
   z-index: 100;
@@ -200,3 +191,4 @@ const ButtonWrap = styled.div`
   width: 100%;
   max-width: ${theme.view.maxWidth};
 `;
+export default ReviewWrite;

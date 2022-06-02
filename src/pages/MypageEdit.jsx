@@ -52,9 +52,7 @@ const MypageEdit = () => {
 
   const selectFile = (e) => {
     const reader = new FileReader();
-    // console.log(reader);
     const file = fileInput.current.files[0];
-    // console.log(file);
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       dispatch(setProfileImage(reader.result));
@@ -65,7 +63,6 @@ const MypageEdit = () => {
     if (!isValid) return;
 
     const file = fileInput.current.files[0];
-    // console.log(file);
 
     //새로운 객체 생성
     const formData = new FormData();
@@ -77,10 +74,7 @@ const MypageEdit = () => {
     formData.append("snsUrl", [website3]);
     formData.append("introduce", introduce);
 
-    // console.log("formData", formData);
-
     for (var pair of formData.entries()) {
-      // console.log(pair[0] + ", " + pair[1]);
     }
     dispatch(editProfileDB(formData));
   };
@@ -88,11 +82,9 @@ const MypageEdit = () => {
   return (
     <>
       <Flex padding="13px 0 0 5px">
-        {/* 뒤로가기 버튼이랑 같은 라인에 있어야 함 */}
         <Icon margin="8px" onClick={() => history.goBack()}>
           <ArrowBack />
         </Icon>
-
         <Text h2 bold margin="13px 0">
           프로필 수정하기
         </Text>
@@ -115,7 +107,6 @@ const MypageEdit = () => {
                       : ""
                   }
                 />
-
                 <ImgBox>
                   <label htmlFor="image">
                     <Edit color="white" />
@@ -135,7 +126,6 @@ const MypageEdit = () => {
                   <Text textAlign="left" width="80px">
                     닉네임
                   </Text>
-
                   <Input
                     icon={<Refresh onClick={renameRandom} />}
                     square
@@ -155,7 +145,6 @@ const MypageEdit = () => {
                   <Text textAlign="left" width="80px">
                     웹사이트
                   </Text>
-
                   <Input
                     square
                     icon={
@@ -178,7 +167,6 @@ const MypageEdit = () => {
               {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
               <Flex width="100%">
                 <Text textAlign="left" width="80px"></Text>
-
                 <Input
                   square
                   fg="1"
@@ -200,7 +188,6 @@ const MypageEdit = () => {
               <Flex padding="5px 0 10px">
                 <Flex width="100%">
                   <Text textAlign="left" width="80px"></Text>
-
                   <Input
                     fg="1"
                     square
@@ -224,7 +211,6 @@ const MypageEdit = () => {
                 <Text align-items="start" textAlign="left" width="80px" fg="0">
                   소개
                 </Text>
-
                 <Textarea
                   fg="1"
                   value={introduce}
@@ -300,13 +286,7 @@ const ImgBox = styled.div`
 const Outline = styled.div`
   position: relative;
   .box {
-    /* background-color: #ddd; */
     width: 100%;
-    /* top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); translate(x축,y축) */
-    //요소의 가장 좌측과 상단을 기준으로 50%를 이동하는 것이므로, 요소자체를 마이너스 값을 통해 다시 절반을 좌측, 상단으로 당겨오는 것.
-    //transform 값을 적용하기 전에는 왼쪽 위 꼭짓점이 정 중앙에 배치된 상태.
   }
 `;
 export default MypageEdit;

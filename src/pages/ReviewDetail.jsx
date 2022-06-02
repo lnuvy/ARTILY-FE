@@ -44,7 +44,6 @@ const ReviewDetail = (props) => {
   const myReviewLikeCheck = myReviewLikeList.find(
     (v) => v === reviewId.reviewId
   );
-  // console.log(reviewId.reviewId);
 
   useEffect(() => {
     // reset
@@ -81,13 +80,13 @@ const ReviewDetail = (props) => {
     dispatch(likeReviewListDB(reviewId.reviewId));
   }
 
-  function goDifferentWorkFunc(postId) {
-    history.push(`/store/view/${postId}`);
-  }
+  // function goDifferentWorkFunc(postId) {
+  //   history.push(`/store/view/${postId}`);
+  // }
 
-  function loginAlert() {
-    alert("로그인하세요.");
-  }
+  // function loginAlert() {
+  //   alert("로그인하세요.");
+  // }
 
   // 팔로우정보
   const [nowFollowing, setNowFollowing] = useState(false);
@@ -104,7 +103,6 @@ const ReviewDetail = (props) => {
       followName: detailData.buyer[0].nickname,
       profileImage: detailData.buyer[0].profileImage,
     };
-    // console.log(userData);
 
     dispatch(addFollowDB(userData));
     setNowFollowing(!nowFollowing);
@@ -119,23 +117,18 @@ const ReviewDetail = (props) => {
       followName: detailData.buyer[0].nickname,
       profileImage: detailData.buyer[0].profileImage,
     };
-    // console.log(userData);
 
     dispatch(addFollowDB(userData));
     setNowSellerFollowing(!nowsellerFollowing);
   };
 
   useEffect(() => {
-    // reset
     dispatch(getNowReview({ buyer: [], defferentInfo: [] }));
   }, []);
 
   useEffect(() => {
-    // get
-    // console.log(reviewId);
     dispatch(getReviewOne(reviewId.reviewId));
   }, []);
-  //
 
   return (
     <>
@@ -150,7 +143,6 @@ const ReviewDetail = (props) => {
                 <Flex margin="8px 0 0 0" jc="space-between">
                   <ProfileBtn
                     onClick={() => {
-                      //내 글일경우 마이페이지로 이동
                       if (detailData?.buyer[0]?.userId === currentUser.userId) {
                         history.push(`/mypage`);
                       } else {
@@ -178,7 +170,6 @@ const ReviewDetail = (props) => {
                         <Flex
                           padding="6px"
                           onClick={() => {
-                            // console.log("수정");
                             history.push(`/review/edit/${reviewId.reviewId}`);
                           }}
                         >
@@ -348,14 +339,6 @@ const FixedChatBar = styled.div`
   border-top: 1px solid ${theme.pallete.gray1};
   max-width: ${theme.view.maxWidth};
   height: 56px;
-`;
-const Seller = styled.div`
-  .seller {
-    font-weight: bold;
-  }
-`;
-const GoProfile = styled.div`
-  cursor: pointer;
 `;
 const Edit = styled.p`
   cursor: pointer;

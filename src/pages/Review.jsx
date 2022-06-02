@@ -15,7 +15,7 @@ import {
 const Review = () => {
   const dispatch = useDispatch();
 
-  const reviewList = useSelector((state) => state.review.list);
+  // const reviewList = useSelector((state) => state.review.list);
   const filteringList = useSelector((state) => state.review.filterList);
 
   function clickCard(reviewId) {

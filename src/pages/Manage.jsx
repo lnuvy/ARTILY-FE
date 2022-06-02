@@ -12,7 +12,6 @@ import { NoInfo } from "../components";
 const Manage = () => {
   const dispatch = useDispatch();
   const mystoreList = useSelector((state) => state.mypage.sellList);
-  // console.log(mystoreList);
   useEffect(() => {
     dispatch(getMySellListDB());
   }, []);
@@ -60,25 +59,6 @@ const Manage = () => {
     </>
   );
 };
-
-const CurrentDiv = styled.div`
-  padding: 5px 10px;
-  margin: 10px 0 0;
-  cursor: pointer;
-  text-align: center;
-  /* animation: all 3s ease-out; */
-  border-bottom: ${({ current, theme }) =>
-    current ? `3px solid ${theme.color.brandColor}` : "3px solid transparent;"};
-  &:focus {
-    /* outline: none; */
-  }
-  // 모바일 파란박스 없애기
-  -webkit-tap-highlight-color: transparent;
-`;
-const Nav = styled.div`
-  display: grid;
-  width: 100%;
-`;
 
 const Inner = styled.div`
   background-color: #fff;

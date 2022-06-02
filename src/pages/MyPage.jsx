@@ -6,10 +6,8 @@ import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard, NoInfo, SocialUrl } from "../components";
 import theme from "../styles/theme";
-import { getUserInfo, userLogout, logoutDB } from "../redux/modules/user";
+import { getUserInfo, logoutDB } from "../redux/modules/user";
 import { removeToken } from "../shared/token";
-import { compose } from "redux";
-import { getFollowDB, getFollowerDB } from "../redux/modules/follow";
 import { socket } from "../shared/socket";
 
 const menus = ["판매목록", "리뷰목록", "관심목록"];
@@ -20,7 +18,6 @@ const MyPage = () => {
   const getProfile = useSelector((state) => state.user.user);
   // 웹사이트 주소 외부링크 연결
   const myAllList = useSelector((state) => state.mypage.list);
-  // console.log(myAllList);
 
   // 팔로워 목록 불러오기 위해 사용함
   useEffect(() => {
@@ -37,19 +34,6 @@ const MyPage = () => {
     myReviews = null,
     // myprofile = null,
   } = myAllList;
-
-  // const handleClickSellData = (data) => {
-  //   dispatch(getDetail(data));
-  //   history.push(`/store/view/${data.postId}`);
-  // };
-  // const handleClickReviewData = (data) => {
-  //   dispatch(getDetail(data));
-  //   history.push(`/review/${data.reviewId}`);
-  // };
-  // const handleClickMarkupData = (data) => {
-  //   dispatch(getDetail(data));
-  //   history.push(`/store/view/${data.postId}`);
-  // };
 
   const [current, setCurrent] = useState(menus[0]);
 
@@ -79,12 +63,10 @@ const MyPage = () => {
             <Wrap margin="0 16px 0 16px">
               <Text h3 bold margin="0 0 10px 0">
                 {getProfile && getProfile.nickname ? getProfile.nickname : ""}
-                {/* 유저명 */}
               </Text>
               <FollowBtn
                 onClick={() => {
                   history.push("/follow");
-                  // dispatch(saveFollowDB());
                 }}
               >
                 <Text body2 color="#555">
@@ -108,7 +90,6 @@ const MyPage = () => {
               </Text>
             </Wrap>
           </Flex>
-          {/* 본인의 마이페이지일 경우에만 수정가능. 아직 구현중 */}
           <Wrap margin="0 0 45px">
             <Edit
               onClick={() => {
@@ -201,14 +182,12 @@ const MyPage = () => {
             {myPosts &&
               current === "판매목록" &&
               myPosts.map((post) => {
-                // console.log(post);
                 return (
                   <ArtCard
                     sellLabel
                     key={`${post.postId}_mypost`}
                     className="sell"
                     {...post}
-                    // userInfo={myprofile}
                     onClick={() => history.push(`/store/view/${post.postId}`)}
                   />
                 );
@@ -234,7 +213,6 @@ const MyPage = () => {
                     review
                     key={`${review.reviewId}_myReview`}
                     className="sell"
-                    // userInfo={myprofile}
                     {...review}
                     onClick={() =>
                       history.push(`/review/view/${review.reviewId}`)
@@ -263,7 +241,6 @@ const MyPage = () => {
                     markup
                     key={`${post.postId}_myMarkup`}
                     className="sell"
-                    // userInfo={myprofile}
                     {...post}
                     onClick={() => history.push(`/store/view/${post.postId}`)}
                   />
@@ -305,11 +282,9 @@ const CurrentDiv = styled.div`
   margin: 10px 0 0;
   cursor: pointer;
   text-align: center;
-  /* animation: all 3s ease-out; */
   border-bottom: ${({ current, theme }) =>
     current ? `3px solid ${theme.color.brandColor}` : "3px solid transparent;"};
   &:focus {
-    /* outline: none; */
   }
   // 모바일 파란박스 없애기
   -webkit-tap-highlight-color: transparent;
