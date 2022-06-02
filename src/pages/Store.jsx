@@ -1,14 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { StoreCard, Footer } from "../components";
+import React, { useEffect, useState } from "react";
+import { StoreCard } from "../components";
 import Category from "../components/Category";
 import { Checkbox, Flex, Grid, Input, Text, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getStoreData,
-  getPostDB,
-  go2detail,
-  filteringData,
-} from "../redux/modules/store";
+import { getStoreData, getPostDB, go2detail } from "../redux/modules/store";
 import { history } from "../redux/configureStore";
 import _ from "lodash";
 import { openModal } from "../redux/modules/modal";
@@ -19,7 +14,7 @@ import { NoInfo } from "../components";
 import styled from "styled-components";
 const Store = () => {
   const dispatch = useDispatch();
-  const { list, filterList } = useSelector((state) => state.store);
+  const { filterList } = useSelector((state) => state.store);
   // 카테고리 필터링
   useEffect(() => {
     // store data reset
@@ -90,7 +85,6 @@ const Store = () => {
     history.push(`/store/view/${data.postId}`);
   };
 
-  const searchResult = () => {};
   return (
     <>
       <Category />
@@ -109,10 +103,7 @@ const Store = () => {
             onChange={(e) => setQuery(e.target.value)}
           />
           <div className="searchBtn">
-            <Search
-              color={theme.pallete.gray2}
-              onChange={(e) => setQuery(e.target.value)}
-            />
+            <Search color={theme.pallete.gray2} />
           </div>
         </SearchWrap>
         <Wrap margin="16px 0">
@@ -122,15 +113,17 @@ const Store = () => {
                 <Share>나눔 작품만 보기</Share>
               </Checkbox>
             </WrapCheck>
-            <Flex onClick={modalOn} jc="center" ai="center">
-              <Text body2>거래 방식 / 지역 선택하기</Text>
-              {filtering.transaction === "전체" &&
-              filtering.region[0] === "전체" ? (
-                <FilterFilled fill={theme.pallete.gray3} />
-              ) : (
-                <FilterFilled fill={theme.pallete.gray3} />
-              )}
-            </Flex>
+            <Wrapfilter>
+              <Flex onClick={modalOn} jc="center" ai="center">
+                <Select body2>거래 방식 / 지역 선택하기</Select>
+                {filtering.transaction === "전체" &&
+                filtering.region[0] === "전체" ? (
+                  <FilterFilled fill={theme.pallete.gray3} />
+                ) : (
+                  <FilterFilled fill={theme.pallete.gray3} />
+                )}{" "}
+              </Flex>{" "}
+            </Wrapfilter>
           </Flex>
           <Flex>
             {filtering.transaction !== "전체" && (
@@ -209,6 +202,7 @@ const SearchWrap = styled.div`
     position: absolute;
     top: 8px;
     right: 11px;
+    cursor: pointer;
   }
 `;
 const WrapCheck = styled.div`
@@ -223,6 +217,15 @@ const Share = styled.div`
   position: absolute;
   top: 4px;
   left: 0;
+`;
+const Wrapfilter = styled.div`
+  cursor: pointer;
+  position: relative;
+`;
+const Select = styled.div`
+  font-size: 14px;
+  width: 140px;
+  cursor: pointer;
 `;
 
 export default Store;
