@@ -383,5 +383,7 @@ const Time = styled.div`
   text-align: right;
   padding: 0 16px 5px 0;
 `;
-const ProfileBtn = styled.div``;
+const ProfileBtn = styled.div`
+  cursor: pointer;
+`;
 export default ReviewDetail;
