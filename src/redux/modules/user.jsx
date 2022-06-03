@@ -183,18 +183,11 @@ export const editProfileDB = (formData) => {
           icon: "success",
           text: "프로필 수정이 완료되었습니다.",
           showDenyButton: true,
-          confirmButtonText: "확인",
-          denyButtonText: `취소`,
         }).then((result) => {
-          if (result.isConfirmed) {
-            history.push("/mypage");
-          } else {
-            history.replace("/mypage/edit");
-          }
+          history.push("/mypage");
         });
       })
       .catch((error) => {
-        // console.log("프로필 수정 정보 전달 실패", error);
         window.alert("프로필 수정 정보 저장에 문제가 발생했습니다!");
       });
   };
