@@ -195,7 +195,7 @@ const ReviewDetail = (props) => {
               </Wrap>
               <ImageCarousel src={v.images} />
 
-              <Wrap margin="5px 16px 16px 16px">
+              <Wrap margin="16px 16px 16px 16px">
                 <Text contents={v.reviewContent}></Text>
               </Wrap>
 
@@ -222,14 +222,16 @@ const ReviewDetail = (props) => {
                     <Text margin="0 0 8px">
                       {v.seller.price ? priceComma(v.seller.price) : 0}원
                     </Text>
-                    <Flex>
-                      <Image
-                        circle
-                        size="32"
-                        src={`${v.seller.user.profileImage}`}
-                      />
-                      <Text margin="0 0 0 8px">{v.seller.user.nickname}</Text>
-                    </Flex>
+                    <WrapBuy>
+                      <Flex>
+                        <Image
+                          circle
+                          size="32"
+                          src={`${v.seller.user.profileImage}`}
+                        />
+                        <Text margin="0 0 0 8px">{v.seller.user.nickname}</Text>
+                      </Flex>
+                    </WrapBuy>
                   </Wrap>
                 </Flex>
               </Wrap>
@@ -356,6 +358,10 @@ const Time = styled.div`
   padding: 0 16px 5px 0;
 `;
 const ProfileBtn = styled.div`
+  cursor: pointer;
+`;
+
+const WrapBuy = styled.div`
   cursor: pointer;
 `;
 export default ReviewDetail;
