@@ -80,7 +80,7 @@ export const getMyPostLikeDB = (postId) => {
 
 export const postMyPostLikeDB = (postId) => {
   return async function (dispatch, getState, { history }) {
-    Apis.postMyPostLIke(postId)
+    Apis.postMyPostLike(postId)
       .then((res) => {
         // console.log(res);
         // if (res.data.msg === "성공") {
