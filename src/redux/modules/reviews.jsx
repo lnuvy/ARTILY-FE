@@ -58,7 +58,6 @@ export const getReviewOne = (reviewId) => {
     // console.log(reviewId);
     Apis.getReviewDetail(reviewId)
       .then(function (response) {
-        // console.log(response);
         dispatch(getNowReview(response.data));
       })
       .catch(function (error) {
@@ -135,7 +134,7 @@ export const likeReviewDB = (reviewId) => {
   return async function (dispatch, getState, { history }) {
     Apis.likeReview(reviewId)
       .then(function (response) {
-        console.log(response);
+        console.log("좋아요 누름", response);
         // dispatch(getMyLike(response.data.totalLike));
         // dispatch(getReviewOne(reviewId));
         history.go(0);
