@@ -23,11 +23,11 @@ const formDataConfig = { headers: { "Content-Type": `multipart/form-data;` } };
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMjIxNjkzNjE0IiwiaWF0IjoxNjUxODQ2NjI3fQ.O_LCYnV5NDxh5H2xfMcCEaIup0KU4DCbeyyJv7ar3Tg
 
 //rusy7225.shop/api/review/480d33d1bf3d
-const limit = 6;
+
 // May8 api 통합 관리
 export const Apis = {
   getHome: () => Api.get("/posts"),
-  getReview: (pageNumber) => Api.get(`/reviews`),
+  getReview: () => Api.get(`/reviews`),
   getReviewDetail: (reviewId) => Api.get(`/reviews/${reviewId}`),
   postReview: (postId, reviewContents) =>
     Api.post(`/reviews/${postId}`, reviewContents),
@@ -42,15 +42,15 @@ export const Apis = {
   // store API
   // getStore: (pageHandler) =>
   //   Api.get(`/api/post/store&page=${pageHandler.page}`),
-  getStore: (pageNumber, data) => Api.get(`/stores`, data),
+  getStore: (data) => Api.get(`/stores`, data),
   // getStoreFilter: () => Api.get(`/api/post/`) ,
   getStoreDetail: (postId) => Api.get(`posts/${postId}`),
   postStore: (data) => Api.post("/posts", data, formDataConfig),
   patchStore: (postId, data) =>
     Api.patch(`/posts/${postId}`, data, formDataConfig),
   deleteStore: (postId) => Api.delete(`/posts/${postId}`),
-  getMyPostLike: () => Api.get(`/posts/likes`), //찜 리스트
-  postMyPostLike: (postId) => Api.post(`/likes/${postId}`), //찜하기
+  getMyPostLike: () => Api.get(`/markup`), //찜 리스트
+  postMyPostLike: (postId) => Api.post(`/markup/${postId}`), //찜하기
   makePostStateDone: (postId, data) => Api.patch(`/sale/${postId}`, data),
 
   // user API
@@ -65,7 +65,6 @@ export const Apis = {
   //mypage API
   getMypageData: () => Api.get(`mypage/profiles`),
   getMyList: () => Api.get(`/mypage/posts`), //판매작품 관리하기(판매목록 조회)
-  getMyBuyList: () => Api.get(`/api/profile/mypost`),
 
   //userprofile API
   getUserProfile: (userId) => Api.get(`/profiles/${userId}`),
@@ -84,7 +83,7 @@ export const Apis = {
   getUserFollowerlist: (userId) => Api.get(`/follow/followerlist/${userId}`),
 
   //팔로워 삭제
-  deleteFollower: (userId) => Api.delete(`/api/follow/delete/${userId}`),
+  deleteFollower: (userId) => Api.delete(`/follow/${userId}`),
 
   // chat API
   getChatData: () => Api.get(`/chats/data`),

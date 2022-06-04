@@ -143,7 +143,9 @@ const ReviewDetail = (props) => {
                 <Flex margin="8px 0 0 0" jc="space-between">
                   <ProfileBtn
                     onClick={() => {
-                      if (detailData?.buyer[0]?.userId === currentUser.userId) {
+                      if (
+                        detailData?.buyer[0]?.userId === currentUser?.userId
+                      ) {
                         history.push(`/mypage`);
                       } else {
                         history.push(

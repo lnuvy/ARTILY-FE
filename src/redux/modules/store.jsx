@@ -82,13 +82,6 @@ export const postMyPostLikeDB = (postId) => {
   return async function (dispatch, getState, { history }) {
     Apis.postMyPostLike(postId)
       .then((res) => {
-        // console.log(res);
-        // if (res.data.msg === "성공") {
-        //   dispatch(myPostLike(true));
-
-        // } else {
-        //   dispatch(myPostLike(false));
-        // }
         history.go(0);
       })
       .catch((err) => {

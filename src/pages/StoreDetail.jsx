@@ -75,7 +75,7 @@ const StoreDetail = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getMyPostLikeDB());
+    dispatch(getMyPostLikeDB()); //찜리스트
   }, []);
 
   const isMyMarkup = likeThisPostList?.find((v) => v === postId) ? true : false;
@@ -117,7 +117,7 @@ const StoreDetail = () => {
   // 팔로우
   const clickFollowbtn = () => {
     if (!currentUser) {
-      alert("로그인하세요");
+      alert("로그인 하세요");
       return;
     }
     const userData = {
@@ -133,14 +133,14 @@ const StoreDetail = () => {
   // 찜하기
   const markupToggle = () => {
     if (!currentUser) {
-      alert("로그인해주세요");
+      alert("로그인 해주세요");
       return;
     }
     dispatch(postMyPostLikeDB(postId));
   };
   const startChat = () => {
     if (!currentUser) {
-      alert("로그인해주세요");
+      alert("로그인 해주세요");
       return;
     }
     const postUser = detailData.user;
