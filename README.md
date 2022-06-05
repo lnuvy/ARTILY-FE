@@ -15,7 +15,7 @@
 
 ## 📌: Frontend GitHub Repository
 - 프론트엔드 GitHub Repository : https://github.com/lnuvy/mvp-project
-   김영경 : https://github.com/kimyeongkyung
+- 김영경 : https://github.com/kimyeongkyung
    
 ## 📌: Backend GitHub Repository
 - 백엔드 GitHub Respository : https://github.com/OhJinwooo/ARTILY_BE
