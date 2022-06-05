@@ -28,6 +28,9 @@ import {
 import { addFollowDB, getFollowDB } from "../redux/modules/follow";
 import { priceComma } from "../shared/utils";
 import { NoInfo } from "../components";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
   const reviewId = useParams();
@@ -70,7 +73,17 @@ const ReviewDetail = (props) => {
 
   async function likeFunc() {
     if (!currentUser) {
-      alert("로그인하세요");
+      MySwal.fire({
+        icon: "check",
+        text: "로그인이 필요한 서비스입니다.",
+        showDenyButton: true,
+        confirmButtonText: "로그인",
+        denyButtonText: `닫기`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push("/login");
+        }
+      });
       return;
     }
     await dispatch(likeReviewDB(reviewId.reviewId)).try(likeFuncList());
@@ -80,14 +93,6 @@ const ReviewDetail = (props) => {
     dispatch(likeReviewListDB(reviewId.reviewId));
   }
 
-  // function goDifferentWorkFunc(postId) {
-  //   history.push(`/store/view/${postId}`);
-  // }
-
-  // function loginAlert() {
-  //   alert("로그인하세요.");
-  // }
-
   // 팔로우정보
   const [nowFollowing, setNowFollowing] = useState(false);
   const [nowsellerFollowing, setNowSellerFollowing] = useState(false);
@@ -95,7 +100,17 @@ const ReviewDetail = (props) => {
   // 팔로우 토글
   const followToggle = () => {
     if (!currentUser) {
-      alert("로그인하세요");
+      MySwal.fire({
+        icon: "check",
+        text: "로그인이 필요한 서비스입니다.",
+        showDenyButton: true,
+        confirmButtonText: "로그인",
+        denyButtonText: `닫기`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push("/login");
+        }
+      });
       return;
     }
     const userData = {
@@ -109,7 +124,17 @@ const ReviewDetail = (props) => {
   };
   const sellerfollow = () => {
     if (!currentUser) {
-      alert("로그인하세요");
+      MySwal.fire({
+        icon: "check",
+        text: "로그인이 필요한 서비스입니다.",
+        showDenyButton: true,
+        confirmButtonText: "로그인",
+        denyButtonText: `닫기`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push("/login");
+        }
+      });
       return;
     }
     const userData = {
@@ -292,7 +317,7 @@ const ReviewDetail = (props) => {
                         return (
                           <>
                             <OtherWorkCard
-                              key={i}
+                              key={`${v}_${i}`}
                               {...v}
                               onClick={() =>
                                 history.push(`/store/view/${v.postId}`)

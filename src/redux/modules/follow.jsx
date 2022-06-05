@@ -51,8 +51,6 @@ export const getFollowerDB = () => {
     Apis.getMyFollowerlist()
       .then((res) => {
         const followerUser = res.data.data;
-        console.log("GET 팔로워 :", res);
-        console.log(followerUser);
         dispatch(getfollowerdata(followerUser));
         // history.push("/follow");
       })

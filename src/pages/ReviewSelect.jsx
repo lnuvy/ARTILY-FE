@@ -56,7 +56,7 @@ const ReviewSelect = () => {
       ) : (
         <>
           <NoInfo
-            text1="구매한 작업이 없습니다."
+            text1="구매한 작품이 없습니다."
             button="돌아가기"
             movePage="/mypage"
           />

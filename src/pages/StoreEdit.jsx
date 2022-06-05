@@ -132,7 +132,10 @@ const StoreEdit = () => {
     const { id, value } = e.target;
     // console.log(e.target.value);
     if (id === "price" && Number(value) > 9999999) {
-      alert("가격은 9,999,999원까지만 입력 가능합니다.");
+      MySwal.fire({
+        icon: "error",
+        text: "가격은 9,999,999원까지만 설정 가능합니다.",
+      });
     }
     setInputs({ ...inputs, [id]: value });
     // console.log(inputs);

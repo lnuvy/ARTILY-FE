@@ -15,6 +15,9 @@ import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
 import theme from "../styles/theme";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
 const ImagePreview = (props) => {
   const dispatch = useDispatch();
 
@@ -22,7 +25,10 @@ const ImagePreview = (props) => {
 
   const removeImage = async (image, key) => {
     if (key === 0) {
-      alert("대표이미지는 삭제할 수 없어요!");
+      MySwal.fire({
+        icon: "warning",
+        text: "대표 이미지는 삭제할 수 없습니다.",
+      });
       return;
     }
 

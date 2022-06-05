@@ -20,6 +20,9 @@ import { ArrowUpward } from "../assets/icons";
 import { priceComma } from "../shared/utils";
 import { ArrowBack } from "../assets/icons";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
 
 const ChatRoom = () => {
   const dispatch = useDispatch();
@@ -87,7 +90,10 @@ const ChatRoom = () => {
       setMessages((messages) => [...messages, messageData]);
       setMessage("");
     } else {
-      alert("공백만 입력됨");
+      MySwal.fire({
+        icon: "warning",
+        text: "텍스트를 입력해주세요.",
+      });
       setMessage("");
     }
   };
@@ -166,11 +172,16 @@ const ChatRoom = () => {
         <button
           onClick={() => {
             // window.confirm("채팅방을 나가시겠습니까?");
-            if (window.confirm("채팅방을 나가시겠습니까?")) {
-              history.goBack();
-            } else {
-              return;
-            }
+            MySwal.fire({
+              text: "채팅방을 나가시겠습니까?",
+              showDenyButton: true,
+              confirmButtonText: "네",
+              denyButtonText: `아니오`,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                history.replace("/chat");
+              }
+            });
             leaveRoom();
           }}
         >

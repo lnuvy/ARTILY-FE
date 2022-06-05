@@ -8,7 +8,9 @@ import theme from "../styles/theme";
 import { getChatList } from "../redux/modules/chat";
 import { sellCompleteDB } from "../redux/modules/store";
 import { useLocation } from "react-router-dom";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
 const SellComplete = () => {
   const dispatch = useDispatch();
   const path = useLocation().pathname;
@@ -29,7 +31,10 @@ const SellComplete = () => {
 
   function changeStateToComplete() {
     if (!selectedUserId) {
-      alert("구매한 사람을 선택하세요");
+      MySwal.fire({
+        icon: "warning",
+        text: "작품을 구매한 사람을 선택해주세요.",
+      });
       return;
     }
     dispatch(sellCompleteDB(postId, selectedUserId, path));

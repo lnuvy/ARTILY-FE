@@ -139,9 +139,10 @@ export const editPostDB = (postId, formData) => {
   return async function (dispatch, getState, { history }) {
     Apis.patchStore(postId, formData)
       .then((res) => {
-        console.log(res);
-
-        Swal.fire("게시글 수정", `게시글이 수정되었습니다!`, "success");
+        MySwal.fire({
+          icon: "success",
+          text: "게시글이 수정되었습니다.",
+        });
         history.replace("/store");
       })
       .catch((err) => {
@@ -162,10 +163,9 @@ export const deletePostDB = (postId) => {
     Apis.deleteStore(postId)
       .then((res) => {
         // console.log(res);
-        Swal.fire({
+        MySwal.fire({
           icon: "success",
-          title: "포스팅 삭제",
-          text: "삭제되었습니다.",
+          text: "게시글이 삭제되었습니다.",
         });
         dispatch(deletePost(postId));
         // history.replace("/store");
@@ -184,7 +184,10 @@ export const sellCompleteDB = (postId, userId) => {
     Apis.makePostStateDone(postId, data)
       .then((res) => {
         console.log(res);
-        alert("판매 완료 처리 되었습니다");
+        MySwal.fire({
+          icon: "success",
+          text: "판매 완료 처리 되었습니다.",
+        });
 
         history.push("/mypage/manage");
       })

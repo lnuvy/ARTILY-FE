@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { BsPaperclip } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { Button } from "../elements";
 import { accrueImage, setPreview } from "../redux/modules/image";
-
+const MySwal = withReactContent(Swal);
 const ChatFileInput = () => {
   const dispatch = useDispatch();
   const fileInput = useRef();
@@ -22,7 +23,10 @@ const ChatFileInput = () => {
     } else {
       // 임시 막기 (추후에 Swal 같은거 쓰면 좋을거같습니다)
       if (files.length > 10) {
-        alert("사진은 최대 10장까지 업로드 가능합니다!");
+        MySwal.fire({
+          icon: "warning",
+          text: "사진은 최대 10장까지 업로드 가능합니다.",
+        });
         return;
       }
 
