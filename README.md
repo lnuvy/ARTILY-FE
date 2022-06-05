@@ -1,6 +1,6 @@
 # ARTILY
 
-## 서비스 소개
+## 🔎 서비스 소개
 <p>: 예술인들의 습작 거래 플랫폼</p>
 
 <a href="https://artily.org" height="3px" width="6px" target="_blank">
