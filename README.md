@@ -1,7 +1,7 @@
 # ARTILY
 
 ## 🔎 서비스 소개
-<p>예술에 관심있는 사람이라면 누구나 이용할 수 있는 플랫폼으로써, 예술인의 꿈을 향해 달려가는 과정에서 만들어지는 세상에 단 하나뿐인 습작들을 판매하고 구매도 할 수 있는 서비스를 만들었습니다. 핵심 기능인 1:1채팅을 기술력 부족으로 인해 완벽하게 구현되지 못한 상태로 남겨두었습니다.</p>
+<p>예술에 관심있는 사람이라면 누구나 이용할 수 있는 플랫폼으로써, 예술인의 꿈을 향해 달려가는 과정에서 만들어지는 세상에 단 하나뿐인 습작들을 판매하고 구매도 할 수 있는 서비스를 만들었습니다. 핵심 기능인 1:1채팅을 기술력 부족으로 인해 완벽하게 구현되지 못한 상태로 완성하였습니다.</p>
 
 <a href="https://artily.org" height="3px" width="6px" target="_blank">
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b0d65962-b67d-4075-8d6d-5f98f5f72db1/%EC%84%9C%EB%B9%84%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220530%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220530T090012Z&X-Amz-Expires=86400&X-Amz-Signature=d847ad04943f367ff7402bee7365949d3a4f4a2d30ea47caef685c3b85e62c3b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%2584%259C%25EB%25B9%2584%25EC%258A%25A4%2520%25EB%25A1%259C%25EA%25B3%25A0.PNG.png%22&x-id=GetObject" >
