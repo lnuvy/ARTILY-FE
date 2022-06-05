@@ -13,10 +13,13 @@
 - 시연 영상 보러가기: https://www.youtube.com/watch?v=9Ngxb9VW_H4
 - 와이어프레임 : https://www.figma.com/file/BkN9CvQH4DUsJ4hPReCLz4/ARTILY?node-id=0%3A1
 
-## 📌: GitHub Repository
+## 📌: Frontend GitHub Repository
 - 프론트엔드 GitHub Repository : https://github.com/lnuvy/mvp-project
--   김영경 : https://github.com/kimyeongkyung
+   김영경 : https://github.com/kimyeongkyung
+   
+## 📌: Backend GitHub Repository
 - 백엔드 GitHub Respository : https://github.com/OhJinwooo/ARTILY_BE
+
 ## :stopwatch: 프로젝트 기간
 > 2022.04.22 ~ 2022.06.03 (6주)
 
