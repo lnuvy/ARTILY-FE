@@ -12,6 +12,7 @@
 - 사이트 바로가기 : https://artily.org
 - 시연 영상 보러가기: https://www.youtube.com/watch?v=9Ngxb9VW_H4
 - 와이어프레임 : https://www.figma.com/file/BkN9CvQH4DUsJ4hPReCLz4/ARTILY?node-id=0%3A1
+- Team Notion : https://www.notion.so/Artily-d57ee6c7d8814a4f9bf76a2eeb293054
 
 ## 📌: Frontend GitHub Repository
 - 프론트엔드 GitHub Repository : https://github.com/lnuvy/mvp-project
