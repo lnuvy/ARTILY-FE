@@ -3,9 +3,8 @@ import { history } from "../redux/configureStore";
 
 export const deleteSwal = async () => {
   const result = await Swal.fire({
-    icon: "",
-    title: "정말 삭제하시겠어요?",
-    text: "삭제 후에는 복구가 불가능 합니다.",
+    icon: "warning",
+    text: "정말 삭제하시겠습니까?",
     showDenyButton: true,
     confirmButtonText: "네",
     confirmButtonColor: "royalblue",

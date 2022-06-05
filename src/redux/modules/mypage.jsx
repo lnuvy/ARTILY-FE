@@ -23,10 +23,7 @@ export const getmyPageDB = () => {
       .then((res) => {
         dispatch(getmyPageData(res.data));
       })
-      .catch((error) => {
-        // console.log("마이페이지 조회 실패", error);
-        console.log("마이페이지를 조회하는 데 문제가 발생했습니다!");
-      });
+      .catch((error) => {});
   };
 };
 
@@ -35,13 +32,9 @@ export const getUserProfile = (userId) => {
   return function (dispatch, getState, { history }) {
     Apis.getUserProfile(userId)
       .then((res) => {
-        // console.log(res.data);
         dispatch(getUserPageData(res.data));
       })
-      .catch((error) => {
-        // console.log("유저프로필 조회 실패", error);
-        // window.alert("마이페이지를 조회하는 데 문제가 발생했습니다!");
-      });
+      .catch((error) => {});
   };
 };
 
@@ -50,27 +43,18 @@ export const getMySellListDB = () => {
   return function (dispatch, getState, { history }) {
     Apis.getMyList()
       .then((res) => {
-        // dispatch(selectList());
         const mySell = res.data;
         dispatch(mySellList(mySell));
       })
-      .catch((error) => {
-        // console.log("판매목록 조회 실패", error);
-        // window.alert("판매목록을 조회하는 데 문제가 발생했습니다!");
-      });
+      .catch((error) => {});
   };
 };
 //구매 목록 조회
 export const getMyBuyListDB = () => {
   return function (dispatch, getState, { history }) {
     Apis.getMyList()
-      .then((res) => {
-        // console.log(res);
-      })
-      .catch((error) => {
-        // console.log("구매목록 조회 실패", error);
-        window.alert("구매목록을 조회하는 데 문제가 발생했습니다!");
-      });
+      .then((res) => {})
+      .catch((error) => {});
   };
 };
 

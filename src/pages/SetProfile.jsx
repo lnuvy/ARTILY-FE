@@ -25,6 +25,8 @@ import { getUserInfo, setProfileDB } from "../redux/modules/user";
 import Swal from "sweetalert2";
 import { nicknameCheck } from "../shared/regCheck/RegCheck";
 import theme from "../styles/theme";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
 const Setprofile = () => {
   const dispatch = useDispatch();
 
@@ -72,7 +74,10 @@ const Setprofile = () => {
       return;
     }
     if (!preview) {
-      alert("프로필 이미지를 선택해주세요!");
+      MySwal.fire({
+        icon: "warning",
+        text: "프로필 이미지를 설정해주세요.",
+      });
       return;
     }
 

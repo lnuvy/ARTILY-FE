@@ -41,7 +41,9 @@ import { socket } from "../shared/socket";
 import { makeChatRoom, clearChat } from "../redux/modules/chat";
 import { postMarkupToggle } from "../redux/modules/user";
 import { FollowCheck, StoreMore } from "../components";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
 const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
@@ -66,7 +68,7 @@ const StoreDetail = () => {
   const { nowChat, roomMessages, getNowChatInfo } = useSelector(
     (state) => state.chat
   );
-  // console.log(nowChat);
+
   // reset
   useEffect(() => {
     dispatch(go2detail([]));
@@ -117,7 +119,17 @@ const StoreDetail = () => {
   // 팔로우
   const clickFollowbtn = () => {
     if (!currentUser) {
-      alert("로그인 하세요");
+      MySwal.fire({
+        icon: "check",
+        text: "로그인이 필요한 서비스입니다.",
+        showDenyButton: true,
+        confirmButtonText: "로그인",
+        denyButtonText: `닫기`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push("/login");
+        }
+      });
       return;
     }
     const userData = {
@@ -133,14 +145,34 @@ const StoreDetail = () => {
   // 찜하기
   const markupToggle = () => {
     if (!currentUser) {
-      alert("로그인 해주세요");
+      MySwal.fire({
+        icon: "check",
+        text: "로그인이 필요한 서비스입니다.",
+        showDenyButton: true,
+        confirmButtonText: "로그인",
+        denyButtonText: `닫기`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push("/login");
+        }
+      });
       return;
     }
     dispatch(postMyPostLikeDB(postId));
   };
   const startChat = () => {
     if (!currentUser) {
-      alert("로그인 해주세요");
+      MySwal.fire({
+        icon: "check",
+        text: "로그인이 필요한 서비스입니다.",
+        showDenyButton: true,
+        confirmButtonText: "로그인",
+        denyButtonText: `닫기`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push("/login");
+        }
+      });
       return;
     }
     const postUser = detailData.user;

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Text, ToggleButton, Wrap } from "../../../elements";
+import { Button, Text, ToggleButton, Wrap, Flex } from "../../../elements";
 import { closeModal } from "../../../redux/modules/modal";
 import { modalFiltering } from "../../../redux/modules/store";
+import { useHistory } from "react-router-dom";
 
 const transaction = ["전체", "직거래", "택배"];
 const regions = [
@@ -29,6 +30,7 @@ const regions = [
 // 스토어 필터 모달
 const StoreFilter = ({ filtering, setFiltering }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [filter, setFilter] = useState(
     filtering || {
       transaction: "전체",
@@ -156,9 +158,14 @@ const StoreFilter = ({ filtering, setFiltering }) => {
             );
         })}
       </Wrap>
-      <Button margin="16px 0" width="100%" onClick={submitFilter}>
-        이 조건으로 검색하기
-      </Button>
+      <Flex>
+        <Button fg="1" margin="16px 10px 16px 0px" onClick={submitFilter}>
+          이 조건으로 검색하기
+        </Button>
+        <Button fg="0" margin="16px 0" onClick={() => dispatch(closeModal())}>
+          닫기
+        </Button>
+      </Flex>
     </>
   );
 };

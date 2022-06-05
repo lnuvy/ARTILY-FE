@@ -7,7 +7,9 @@ import styled from "styled-components";
 
 import { AddPhoto } from "../assets/icons";
 import theme from "../styles/theme";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
 /*
  * @한울 4/30
  *
@@ -26,7 +28,10 @@ const Preview = () => {
     const remainFileCnt = maxFileCnt - attFileCnt;
 
     if (curFileCnt > remainFileCnt) {
-      alert("사진은 최대 10장까지 업로드 가능합니다!");
+      MySwal.fire({
+        icon: "warning",
+        text: "사진은 최대 10장까지 업로드 가능합니다.",
+      });
     }
     for (let i = 0; i < Math.min(curFileCnt, remainFileCnt); i++) {
       const file = files[i];

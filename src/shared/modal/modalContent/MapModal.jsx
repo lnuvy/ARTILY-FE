@@ -97,11 +97,17 @@ const MapModal = ({ setReceiveAddress, currentAddress }) => {
     // console.log(dongArray[dongArray.length - 1]);
 
     if (!(guArray[guArray.length - 1] === "구")) {
-      alert("구를 잘못 입력하셨습니다. 00구 형식으로 입력하세요.");
+      MySwal.fire({
+        icon: "warning",
+        text: "구를 잘못 입력하셨습니다. 00구 형식으로 입력해주세요.",
+      });
       return;
     }
     if (!(dongArray[dongArray.length - 1] === "동")) {
-      alert("동을 잘못 입력하셨습니다. 00동 형식으로 입력하세요.");
+      MySwal.fire({
+        icon: "warning",
+        text: "동을 잘못 입력하셨습니다. 00동 형식으로 입력해주세요.",
+      });
       return;
     }
 
