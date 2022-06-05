@@ -23,7 +23,9 @@ export const getmyPageDB = () => {
       .then((res) => {
         dispatch(getmyPageData(res.data));
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.log(error);
+      });
   };
 };
 
@@ -34,7 +36,9 @@ export const getUserProfile = (userId) => {
       .then((res) => {
         dispatch(getUserPageData(res.data));
       })
-      .catch((error) => {});
+      .catch((error) => {
+        console.log(error);
+      });
   };
 };
 
@@ -46,15 +50,9 @@ export const getMySellListDB = () => {
         const mySell = res.data;
         dispatch(mySellList(mySell));
       })
-      .catch((error) => {});
-  };
-};
-//구매 목록 조회
-export const getMyBuyListDB = () => {
-  return function (dispatch, getState, { history }) {
-    Apis.getMyList()
-      .then((res) => {})
-      .catch((error) => {});
+      .catch((error) => {
+        console.log(error);
+      });
   };
 };
 

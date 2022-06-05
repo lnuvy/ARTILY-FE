@@ -15,8 +15,6 @@ const initialState = {
   imageDt: [],
 };
 
-const removePreviewWhich = (image) => {};
-
 const imageSlice = createSlice({
   name: "image",
   initialState,
@@ -28,7 +26,6 @@ const imageSlice = createSlice({
     },
 
     accrueImageDelete: (state, action) => {
-      // 첫게시라면 represent 에 저장
       state.imageArr = action.payload;
     },
 
@@ -50,15 +47,12 @@ const imageSlice = createSlice({
 
     // 프리뷰 사진을 지울때
     removePreview: (state, action) => {
-      // console.log(state.imageArr);
-      // console.log(action);
       state.imageArr = state.imageArr.filter((el) => {
         return el !== action.payload;
       });
     },
 
     removeFileObj: (state, action) => {
-      // console.log(action.payload);
       if (state.fileObj.length === 1) {
         state.fileObj = [];
       } else {
@@ -66,13 +60,6 @@ const imageSlice = createSlice({
         state.fileObj = newArr;
       }
     },
-    // // 사용자가 대표이미지를 바꾸고싶을때
-    // setRepresent: (state, action) => {
-    //   let temp = state.represent;
-    //   state.represent = action.payload;
-    //   let newArr = state.imageArr.filter((el) => el !== action.payload);
-    //   state.imageArr = [...newArr, temp];
-    // },
 
     // 5/6 채팅에서 사진 변경할때
     setPreview: (state, action) => {

@@ -39,12 +39,11 @@ export const getChatMessages = (roomName) => {
   return async function (dispatch, getState, { history }) {
     Apis.getMessages(roomName)
       .then((res) => {
-        // console.log(res);
         if (roomName === res.data.roomUser.roomName) {
           dispatch(getMessages(res.data.roomUser.messages));
           history.push(`/chat/${roomName}`);
         } else {
-          alert("룸네임이 서로 일치하지않음!!!! (에러)");
+          console.log("룸네임이 서로 일치하지않음!!!! (에러)");
         }
       })
       .catch((err) => {

@@ -1,15 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-// import { homeDummy } from "../../shared/Dummy";
 import { Apis } from "../../shared/api";
 
-/*
- * 4/29 한울
- * 홈화면에서 api호출에 맞게 저장할 리덕스가 필요한거같아 새로 만듬
- */
-
 const initialState = {
-  // 5/9 변수명 바꿈
   bestPost: [],
   bestWriter: [],
   bestReview: [],
@@ -17,12 +9,8 @@ const initialState = {
 
 export const getHomeDataDB = () => {
   return async function (dispatch, getState, { history }) {
-    // console.log(homeDummy);
-    // dispatch(getHomeData(homeDummy));
-
     Apis.getHome()
       .then(function (response) {
-        // console.log(response);
         dispatch(getHomeData(response.data.data));
       })
       .catch(function (error) {
