@@ -10,7 +10,6 @@ const initialState = {
   deletelist: null,
 };
 
-// POST 팔로잉 하기
 export const addFollowDB = (userData) => {
   return function (dispatch, getState, { history }) {
     Apis.postAddFollow(userData.followId)
@@ -25,12 +24,8 @@ export const addFollowDB = (userData) => {
       .catch((error) => {
         console.log("addFollowDB 실패", error);
       });
-
-    // history.replace("/follow");
   };
 };
-
-// 이거 날림 (delete)
 
 //팔로우 목록(GET)
 export const getFollowDB = () => {
@@ -45,6 +40,7 @@ export const getFollowDB = () => {
       });
   };
 };
+
 //팔로워 목록(GET)
 export const getFollowerDB = () => {
   return function (dispatch, getState, { history }) {
@@ -83,7 +79,6 @@ export const getUserFollowDB = (userId) => {
         console.log("GET user팔로우 :", res);
         dispatch(getuserfollowdata(userId));
         dispatch(getuserfollowdata(userfollowlist));
-        // dispatch(getuserfollowdata(res.data.data));
       })
       .catch((error) => {
         console.log("follow 목록 조회 실패", error);
