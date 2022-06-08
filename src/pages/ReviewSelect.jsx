@@ -4,9 +4,9 @@ import { NoInfo } from "../components";
 import theme from "../styles/theme";
 import { Flex, Image, Text, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
-
 import { getMyBuyDB } from "../redux/modules/reviews";
 import styled from "styled-components";
+
 const ReviewSelect = () => {
   const dispatch = useDispatch();
   const mybuyList = useSelector((state) => state.review?.buyList);

@@ -12,7 +12,7 @@ const ChatFileInput = () => {
 
   const selectFile = (e) => {
     const { files } = e.target;
-    // 한번에 여러개올릴수도 있어서 if문으로 분기
+    // 한번에 여러개 올릴수도 있어서 if문으로 분기
     if (files.length === 1) {
       const reader = new FileReader();
       const file = files[0];
@@ -21,7 +21,6 @@ const ChatFileInput = () => {
         dispatch(setPreview(reader.result));
       };
     } else {
-      // 임시 막기 (추후에 Swal 같은거 쓰면 좋을거같습니다)
       if (files.length > 10) {
         MySwal.fire({
           icon: "warning",

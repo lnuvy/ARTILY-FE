@@ -7,6 +7,7 @@ const Login = () => {
   const KAKAO_REDIRECT_URL = process.env.REACT_APP_KAKAO_REDIRECT_URL;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
 
+  //배포 후 네이버 측 승인 거절로 인해 구현하지 못했습니다.
   // const NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID;
   // const NAVER_REDIRECT_URI = process.env.REACT_APP_NAVER_REDIRECT_URI;
   // // const NAVER_CLIENT_SECRET = process.env.REACT_APP_NAVER_CLIENT_SECRET;

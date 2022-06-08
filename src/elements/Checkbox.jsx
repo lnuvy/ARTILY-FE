@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Icon } from "../elements/index";
 import { CheckBoxUnchecked, CheckBoxChecked } from "../assets/icons";
-import theme from "../styles/theme";
 
 const Checkbox = (props) => {
-  // zoom, onChange 추가 zoom은 체크박스가 너무 작아서 넣었습니다 -한울-
   const { children, id, fontSize, margin, fg, onChange, zoom, checked } = props;
   const styles = {
     margin,

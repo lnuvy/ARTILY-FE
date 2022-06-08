@@ -10,7 +10,7 @@ const SellLabel = (props) => {
   } = props;
 
   if (manageLabel) {
-    //마이페이지 판매작품 관리하기 탭
+    //마이페이지 판매작품 관리하기
     return (
       <>
         {done ? (
@@ -61,7 +61,6 @@ const SellLabel = (props) => {
 
 //마이페이지=> 판매작품 관리하기에서 사용되는 라벨
 const SmallLabel = styled.div`
-  /* position: relative; */
   //판매완료 label
   .complete,
   .selling {

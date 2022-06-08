@@ -31,7 +31,6 @@ const Wrap = (props) => {
     bc,
     position,
     br,
-    //5.8 높이 추가
     height,
     fg,
     border,
@@ -67,9 +66,9 @@ const WrapStyle = styled.div`
   background-color: ${({ bc }) => bc};
   position: ${({ position }) => position};
   border-radius: ${({ br }) => br};
-  flex-grow: ${({ fg }) => fg}; // 5.12 추가 민경
-  border: ${({ border }) => border}; // 5.14 추가 민경
-  border-bottom: ${({ borderBottom }) => borderBottom}; // 5.14 추가 민경
+  flex-grow: ${({ fg }) => fg};
+  border: ${({ border }) => border};
+  border-bottom: ${({ borderBottom }) => borderBottom};
   top: ${({ top }) => top};
   left: ${({ left }) => left};
   bottom: ${({ bottom }) => bottom};

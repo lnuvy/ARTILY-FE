@@ -4,16 +4,12 @@ import { Button, Text, Flex } from "../elements";
 import { ImagePreview } from "./index";
 import { accrueImage, inputfileObj } from "../redux/modules/image";
 import styled from "styled-components";
-
 import { AddPhoto } from "../assets/icons";
 import theme from "../styles/theme";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+
 const MySwal = withReactContent(Swal);
-/*
- * @한울 4/30
- *
- */
 
 const Preview = () => {
   const dispatch = useDispatch();

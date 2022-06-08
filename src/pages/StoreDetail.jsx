@@ -9,10 +9,8 @@ import {
   Wrap,
   ImageCarousel,
   Button,
-  Icon,
 } from "../elements";
 import { FavoriteFilled, Favorite } from "../assets/icons/index";
-
 import {
   deletePostDB,
   getPostOne,
@@ -22,40 +20,30 @@ import {
   getMyPostLikeDB,
   postMyPostLikeDB,
 } from "../redux/modules/store";
-
-import { getFollowDB } from "../redux/modules/follow";
-
-import { addFollowDB } from "../redux/modules/follow";
+import { getFollowDB, addFollowDB } from "../redux/modules/follow";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { priceComma } from "../shared/utils";
 import theme from "../styles/theme";
 import SellLabel from "../components/SellLabel";
 import { deleteSwal } from "../shared/commonAlert";
-import { NoInfo } from "../components";
-// 임시 아이콘
-import { IoMdHeart } from "react-icons/io";
-
-// 채팅
 import { socket } from "../shared/socket";
-import { makeChatRoom, clearChat } from "../redux/modules/chat";
-import { postMarkupToggle } from "../redux/modules/user";
-import { FollowCheck, StoreMore } from "../components";
+import { makeChatRoom } from "../redux/modules/chat";
+import { NoInfo, FollowCheck, StoreMore } from "../components";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+
 const MySwal = withReactContent(Swal);
+
 const StoreDetail = () => {
   const dispatch = useDispatch();
   const { postId } = useParams();
-
-  // 할당
   const detailData = useSelector((state) => state.store.detailData);
   const currentUser = useSelector((state) => state.user?.user);
   const otherPosts = useSelector((state) => state.store.otherPost);
   const myFollowList = useSelector((state) => state.followUser.myFollowing);
 
   const { chatData } = useSelector((state) => state.chat);
-  const likeThisPost = useSelector((state) => state.store.myPostLike);
 
   const followInfo = detailData?.user;
   const isMe = detailData?.user?.userId === currentUser?.userId;
@@ -452,21 +440,26 @@ const FixedChatBar = styled.div`
   max-width: ${theme.view.maxWidth};
   height: 56px;
 `;
+
 const ProfileBtn = styled.div`
   cursor: pointer;
 `;
+
 const Edit = styled.p`
   cursor: pointer;
   color: ${({ theme }) => theme.pallete.primary900};
 `;
+
 const Delete = styled.p`
   cursor: pointer;
   color: ${({ theme }) => theme.pallete.primary900};
 `;
+
 const Time = styled.div`
   text-align: right;
   font-size: 14px;
   color: #999;
   padding-bottom: 5px;
 `;
+
 export default StoreDetail;

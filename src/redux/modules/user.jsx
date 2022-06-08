@@ -182,7 +182,6 @@ export const editProfileDB = (formData) => {
         MySwal.fire({
           icon: "success",
           text: "프로필 수정이 완료되었습니다.",
-          showDenyButton: true,
         }).then((result) => {
           history.push("/mypage");
         });

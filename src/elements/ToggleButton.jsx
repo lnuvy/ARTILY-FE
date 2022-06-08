@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-// 필터링에서 사용하는 동글동글 토글되는 버튼
 const ToggleButton = (props) => {
   const {
     children,

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import theme from "../styles/theme";
 import { NavigationNext } from "../assets/icons/index";
 
-// 5/7 ref 사용하는 인풋 따로만듬
 const InputRef = forwardRef((props, ref) => {
   const {
     onKeyPress,
@@ -20,7 +19,7 @@ const InputRef = forwardRef((props, ref) => {
     icon,
     padding,
     readOnly,
-    br, // border-radius
+    br,
     onClick,
   } = props;
 
@@ -112,8 +111,6 @@ const SquareInput = styled.input`
 const InputIcon = styled.div`
   height: 28px;
   width: 28px;
-  /* background-image: url(); */
-  /* background-color: grey; */
   position: absolute;
   top: calc(${({ padding }) => padding} / 2);
   right: calc(${({ padding }) => padding} / 2);

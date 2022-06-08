@@ -8,18 +8,16 @@ import { history } from "../redux/configureStore";
 import _ from "lodash";
 import { openModal } from "../redux/modules/modal";
 import StoreFilter from "../shared/modal/modalContent/StoreFilter";
-import { CheckBoxChecked, FilterFilled, Search } from "../assets/icons";
+import { FilterFilled, Search } from "../assets/icons";
 import theme from "../styles/theme";
 import { NoInfo } from "../components";
 import styled from "styled-components";
 const Store = () => {
   const dispatch = useDispatch();
   const { filterList } = useSelector((state) => state.store);
-  // 카테고리 필터링
+
   useEffect(() => {
-    // store data reset
     dispatch(getStoreData([]));
-    // store api 두번요청되는걸 막기위함
     dispatch(getPostDB());
   }, []);
 
@@ -29,7 +27,7 @@ const Store = () => {
     region: ["전체"],
   });
 
-  // 검색창 인풋
+  // 검색창 input
   const [query, setQuery] = useState("");
   // 체크박스 체크될때 데이터 필터링
   const [isFree, setIsFree] = useState(false);
@@ -67,7 +65,6 @@ const Store = () => {
     );
   });
 
-  // 필터링 모달 켜기
   const modalOn = () => {
     dispatch(
       openModal({
@@ -79,7 +76,6 @@ const Store = () => {
     );
   };
 
-  // 상세페이지 이동
   const handleClickData = (data) => {
     dispatch(go2detail(data));
     history.push(`/store/view/${data.postId}`);
@@ -205,6 +201,7 @@ const SearchWrap = styled.div`
     cursor: pointer;
   }
 `;
+
 const WrapCheck = styled.div`
   cursor: pointer;
   position: relative;
@@ -218,10 +215,12 @@ const Share = styled.div`
   top: 4px;
   left: 0;
 `;
+
 const Wrapfilter = styled.div`
   cursor: pointer;
   position: relative;
 `;
+
 const Select = styled.div`
   font-size: 14px;
   width: 140px;

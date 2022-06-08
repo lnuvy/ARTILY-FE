@@ -10,10 +10,6 @@ import { deleteSwal } from "../shared/commonAlert";
 import { deletePostDB } from "../redux/modules/store";
 import theme from "../styles/theme";
 import SellLabel from "./SellLabel";
-// import SellLabel from "./SellLabel";
-// key 값은 따로 props로 안주셔도 에러가 안나서 뺐고, 명세서대로 변수명 일치시켰습니당 4/29 한울
-
-// 5/13 스토어에서 쓰는 ArtCard 컴포넌트로뺐습니다 props 주석처리된거 안쓰시는거면 지우셔도됨 -한울-
 const ArtCard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -134,7 +130,6 @@ const ArtCard = (props) => {
                 padding="10px 15px"
                 color={theme.pallete.black}
                 onClick={() => {
-                  //done이 false(판매중)로 바뀌어야 함. 아직 구현 못함
                   history.push(`/completed/${postId}`);
                 }}
               >
@@ -162,32 +157,6 @@ const ArtCard = (props) => {
         </Text>
         <Text>{price && priceComma(price)}원</Text>
       </Card>
-    );
-  } else if (buylist) {
-    //마이페이지=> 구매내역 조회 / 리뷰 작성
-    return (
-      <>
-        <Card onClick={onClick}>
-          <Border>
-            <Flex>
-              <Image
-                width="140px"
-                src={images[0].imageUrl}
-                margin="0 10px 10px 10px"
-              />
-              <Wrap width="60%">
-                <Text bold>{postTitle}</Text>
-                <Text body2 margin="8px 0 0 0">
-                  {nickname}
-                </Text>
-              </Wrap>
-              <Button margin="0 15px 0 0" padding="10px" width="30vw">
-                리뷰 쓰기
-              </Button>
-            </Flex>
-          </Border>
-        </Card>
-      </>
     );
   } else if (sellLabel) {
     //마이페이지 하단 판매목록

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, Flex, Image, Grid, Wrap } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
-import { getmyPageDB, getDetail } from "../redux/modules/mypage";
+import { getmyPageDB } from "../redux/modules/mypage";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 import { ArtCard, NoInfo, SocialUrl } from "../components";
@@ -14,12 +14,9 @@ const menus = ["판매목록", "리뷰목록", "관심목록"];
 
 const MyPage = () => {
   const dispatch = useDispatch();
-
   const getProfile = useSelector((state) => state.user.user);
-  // 웹사이트 주소 외부링크 연결
   const myAllList = useSelector((state) => state.mypage.list);
 
-  // 팔로워 목록 불러오기 위해 사용함
   useEffect(() => {
     dispatch(getUserInfo());
   }, []);
@@ -28,16 +25,10 @@ const MyPage = () => {
     dispatch(getmyPageDB()); //게시글 정보
   }, []);
 
-  const {
-    myMarkups = null,
-    myPosts = null,
-    myReviews = null,
-    // myprofile = null,
-  } = myAllList;
+  const { myMarkups = null, myPosts = null, myReviews = null } = myAllList;
 
   const [current, setCurrent] = useState(menus[0]);
 
-  // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
     setCurrent(innerText);

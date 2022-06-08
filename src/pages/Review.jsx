@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
 // components
@@ -14,8 +14,6 @@ import {
 
 const Review = () => {
   const dispatch = useDispatch();
-
-  // const reviewList = useSelector((state) => state.review.list);
   const filteringList = useSelector((state) => state.review.filterList);
 
   function clickCard(reviewId) {

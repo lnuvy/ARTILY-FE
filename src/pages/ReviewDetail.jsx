@@ -25,20 +25,19 @@ import {
   deleteReviewDB,
   likeReviewListDB,
 } from "../redux/modules/reviews";
-import { addFollowDB, getFollowDB } from "../redux/modules/follow";
+import { addFollowDB } from "../redux/modules/follow";
 import { priceComma } from "../shared/utils";
 import { NoInfo } from "../components";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+
 const MySwal = withReactContent(Swal);
+
 const ReviewDetail = (props) => {
   const dispatch = useDispatch();
   const reviewId = useParams();
-
-  const myFollowList = useSelector((state) => state.followUser.myFollowing);
   const detailData = useSelector((state) => state.review.detailData);
   const currentUser = useSelector((state) => state.user?.user);
-  const reviewLike = useSelector((state) => state.review.myReviewLike);
   const isMe =
     detailData?.buyer && detailData?.buyer[0]?.userId === currentUser?.userId;
   const myReviewLikeList = useSelector(
@@ -49,7 +48,6 @@ const ReviewDetail = (props) => {
   );
 
   useEffect(() => {
-    // reset
     dispatch(getNowReview([]));
   }, []);
 
@@ -62,10 +60,6 @@ const ReviewDetail = (props) => {
       dispatch(likeReviewListDB());
     }
   }, []);
-
-  function editFunc() {
-    history.push(`/review/edit/${reviewId}`);
-  }
 
   function deleteFunc() {
     dispatch(deleteReviewDB(reviewId.reviewId));

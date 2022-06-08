@@ -14,12 +14,8 @@ import {
 } from "../elements";
 import { clearPreview, editPosts3Url } from "../redux/modules/image";
 import { openDragModal, openModal } from "../redux/modules/modal";
-// import MapModal from "../shared/modal/modalContent/MapModal";
 import CategoryModal from "../shared/modal/modalContent/CategoryModal";
-import { inputSpaceReg } from "../shared/utils";
 import { NavigationNext, Close } from "../assets/icons/index";
-
-import { IoIosArrowForward } from "react-icons/io";
 import { history } from "../redux/configureStore";
 import styled from "styled-components";
 import {
@@ -36,7 +32,6 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import MapModal from "../shared/modal/modalContent/MapModal";
-import { now } from "lodash";
 import theme from "../styles/theme";
 
 const MySwal = withReactContent(Swal);
@@ -49,7 +44,7 @@ const StoreEdit = () => {
 
   // selector
   const nowPost = useSelector((state) => state.store.detailData);
-  const { imageArr, fileObj, imageDt } = useSelector((state) => state.image);
+  const { fileObj, imageDt } = useSelector((state) => state.image);
   const { isLoading } = useSelector((state) => state.store);
 
   // states
@@ -130,7 +125,6 @@ const StoreEdit = () => {
   // 인풋 값 핸들링
   const handleChange = (e) => {
     const { id, value } = e.target;
-    // console.log(e.target.value);
     if (id === "price" && Number(value) > 9999999) {
       MySwal.fire({
         icon: "error",
@@ -138,7 +132,6 @@ const StoreEdit = () => {
       });
     }
     setInputs({ ...inputs, [id]: value });
-    // console.log(inputs);
   };
 
   // 맵 모달
@@ -162,20 +155,10 @@ const StoreEdit = () => {
     }
   };
 
-  // 데이터 전달
-
-  function loadingSetting() {
-    submitPost();
-  }
-
   function submitPost() {
-    // console.log(imageDt);
-    // console.log(imageArr);
     const { postTitle, price, postContent } = inputs;
-
     if (path === `/store/write`) {
       if (fileObj.length === 0) {
-        // alert("이미지를 추가하세요!");
         MySwal.fire({
           icon: "error",
           text: "이미지를 최소 1장 이상 선택해주세요.",
@@ -183,7 +166,6 @@ const StoreEdit = () => {
         return;
       }
     }
-
     if (
       (inputs.delivery === null ||
         inputs.delivery === undefined ||
@@ -192,77 +174,60 @@ const StoreEdit = () => {
         inputs.direct === undefined ||
         inputs.direct === "")
     ) {
-      // alert("거래 방식을 선택해 주세요.");
       MySwal.fire({
         icon: "error",
         text: "거래 방식을 선택해주세요.",
       });
       return;
     }
-
     if (
       inputs.direct &&
       (receiveAddress === null ||
         receiveAddress === undefined ||
         receiveAddress === "")
     ) {
-      // alert("거래하실 동네를 선택해주세요.");
       MySwal.fire({
         icon: "error",
         text: "거래하실 동네를 선택해주세요.",
       });
       return;
     }
-
     if (
       receiveCategory === null ||
       receiveCategory === undefined ||
       receiveCategory === ""
     ) {
-      // alert("카테고리를 입력하세요.");
       MySwal.fire({
         icon: "error",
         text: "카테고리를 입력해주세요.",
       });
       return;
     }
-
     if (postTitle === null || postTitle === undefined || postTitle === "") {
-      // alert("작품명을 입력하세요.");
       MySwal.fire({
         icon: "error",
         text: "작품명을 입력해주세요.",
       });
-      // history.push("/home");
       return;
     }
-
     if (
       postContent === null ||
       postContent === undefined ||
       postContent === ""
     ) {
-      // alert("내용을 입력하세요.");
       MySwal.fire({
         icon: "error",
         text: "내용을 입력해주세요.",
       });
       return;
     }
-
     if (price === null || price === undefined || price === "") {
-      // alert("가격을 입력하세요.");
       MySwal.fire({
         icon: "error",
         text: "가격을 설정해주세요. 숫자만 입력 가능합니다.",
       });
       return;
     }
-
-    // if (toString.call(price) === "[object String]") {
-    //   alert("숫자만 입력 가능합니다.");
-    //   return;
-    // }
 
     console.log("postTitle " + postTitle);
     console.log("postContent " + postContent);

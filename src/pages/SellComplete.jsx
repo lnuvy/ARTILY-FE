@@ -10,7 +10,9 @@ import { sellCompleteDB } from "../redux/modules/store";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+
 const MySwal = withReactContent(Swal);
+
 const SellComplete = () => {
   const dispatch = useDispatch();
   const path = useLocation().pathname;
@@ -20,10 +22,6 @@ const SellComplete = () => {
 
   const [currentSelect, setCurrentSelect] = useState(undefined);
   const [selectedUserId, setSelectedUserId] = useState(undefined);
-
-  const arr = new Array(3);
-
-  // console.log(arr);
 
   useEffect(() => {
     dispatch(getChatList());
@@ -40,7 +38,6 @@ const SellComplete = () => {
     dispatch(sellCompleteDB(postId, selectedUserId, path));
   }
 
-  // console.log(postId, currentSelect);
   return (
     <>
       <Wrap bc="#E0E0E0" height="calc(100vh - 48px)">
@@ -65,7 +62,7 @@ const SellComplete = () => {
 
               return (
                 <>
-                  <Selectbox>
+                  <div>
                     <ProfileCard
                       {...targetUser}
                       onClick={() => {
@@ -74,16 +71,11 @@ const SellComplete = () => {
                       }}
                       current={currentSelect === i}
                     />
-                  </Selectbox>
+                  </div>
                 </>
               );
             })
         )}
-        {/* <ProfileCard
-          onClick={() => setCurrentSelect(1)}
-          current={currentSelect === 1}
-        /> */}
-
         <Sellbtn>
           <Button shadow width="100%" onClick={changeStateToComplete}>
             선택완료
@@ -96,13 +88,10 @@ const SellComplete = () => {
 
 const Sellbtn = styled.div`
   position: fixed;
-  /* bottom: 50px; */
   bottom: 0;
   max-width: ${theme.view.maxWidth};
   width: 100%;
   padding: 16px;
 `;
-
-const Selectbox = styled.div``;
 
 export default SellComplete;

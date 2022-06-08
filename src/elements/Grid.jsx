@@ -36,7 +36,7 @@ const Grid = (props) => {
 };
 
 Grid.defaultProps = {
-  gtc: "auto", // 2줄 하고 싶으면 "auto auto", 3줄 하고 싶으면 "auto auto auto"
+  gtc: "auto",
   cg: "8px",
   rg: "8px",
   textAlign: "left",

@@ -38,8 +38,6 @@ const Header = (props) => {
     path === "/review" ||
     path === "/mypage";
 
-  const param = useParams();
-
   const isWrite =
     (path.split("/")[1] === "review" && path.split("/")[2] === "write") ||
     path === "/store/write" ||
@@ -56,7 +54,6 @@ const Header = (props) => {
     return (
       <>
         <HeaderStyle {...styles}>
-          {/* May9 아이콘 버튼의 경우 Icon 컴포넌트 안에 이미지를 넣어 감싸는식으로 작업 */}
           <WrapLogo>
             <Flex margin="0 0 18px">
               <Icon
@@ -66,16 +63,6 @@ const Header = (props) => {
               >
                 <Logo />
               </Icon>
-
-              {/* <Icon
-              onClick={(e) => {
-                e.stopPropagation();
-                history.push("/chat");
-              }}
-              margin="0 16px 0 0"
-            >
-              <Notification margin="0 16px 0 0" />
-            </Icon> */}
 
               <Chatbtn
                 className="logo"
@@ -95,28 +82,10 @@ const Header = (props) => {
       </>
     );
   else if (isWrite === true) {
-    // {
-    //   console.log(isWrite);
-    // }
     return (
       <>
-        {/* {console.log(path)}
-        {console.log(param)} */}
         <HeaderStyle2>
           <Flex height="48px" margin="0">
-            {/* {console.log(
-              path.split("/")[1] === "review" && path.split("/")[2] === "write"
-            )} */}
-
-            {/* <Icon
-              margin="0 0 0 16px"
-              onClick={() => {
-                history.goBack();
-              }}
-            >
-              <Close />
-            </Icon> */}
-            {/* {console.log(path)} */}
             <Text medium fg="1" textAlign="center">
               {path.split("/")[3] === "select" ? (
                 <Icon margin="16px 8px" onClick={() => history.goBack()}>
@@ -142,7 +111,6 @@ const Header = (props) => {
   } else if (!Notarrowbtn) {
     return (
       <>
-        {/* {console.log(param)} */}
         <HeaderStyle2>
           <Flex height="48px">
             <Icon margin="16px 8px" onClick={() => history.goBack()}>

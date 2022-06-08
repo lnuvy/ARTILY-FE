@@ -4,10 +4,7 @@ import {
   Checkbox,
   Flex,
   Grid,
-  Image,
   Input,
-  Slide,
-  Tab,
   Text,
   Textarea,
 } from "../elements/index";

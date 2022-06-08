@@ -5,8 +5,6 @@ import styled from "styled-components";
 const FollowCheck = (props) => {
   const { text = false, btn = false, follow = false } = props;
 
-  // console.log("followCheck 안", follow);
-
   if (text)
     return (
       <>

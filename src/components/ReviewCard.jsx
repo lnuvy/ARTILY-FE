@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import theme from "../styles/theme";
-// components
+
 import { Card } from "../components/index";
 import { Flex, Image, Text, Icon } from "../elements/index";
 import { Favorite, FavoriteFilled } from "../assets/icons";
@@ -11,7 +11,6 @@ const ReviewCard = (props) => {
   const {
     onClick,
     _key,
-    //
     nickname,
     profileImage,
     reviewId,
@@ -20,12 +19,9 @@ const ReviewCard = (props) => {
     likeCnt,
     images,
     createdAt,
-    //
     category,
   } = props;
 
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user?.user);
   const myReviewLikeList = useSelector(
     (state) => state.review.myreviewLikeList2
   );

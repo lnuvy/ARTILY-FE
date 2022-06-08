@@ -5,7 +5,7 @@ import { history } from "../redux/configureStore";
 import { Grid } from "../elements";
 import { useSelector } from "react-redux";
 
-// 경로를 같이 저장해야할거같아서 Object.entries로 사용
+// 경로를 같이 저장해야 할 거 같아서 Object.entries로 사용
 const menuSelect = {
   홈: "/home",
   스토어: "/store",
@@ -69,15 +69,10 @@ const CurrentDiv = styled.div`
   cursor: pointer;
   text-align: center;
   color: black;
-  /* animation: all 3s ease-out; */
   border-bottom: ${({ current, theme }) =>
     current
       ? `4px solid ${theme.color.brandColor};`
       : "4px solid transparent;"};
-  &:focus {
-    /* outline: none; */
-  }
-  // 모바일 파란박스 없애기
   -webkit-tap-highlight-color: transparent;
 `;
 

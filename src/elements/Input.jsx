@@ -255,8 +255,6 @@ const SquareInput = styled.input`
 const InputIcon = styled.div`
   height: fit-content;
   width: fit-content;
-  /* background-image: url(); */
-  /* background-color: grey; */
   position: absolute;
   top: ${({ iconTop }) => iconTop};
   right: ${({ iconRight }) => iconRight};

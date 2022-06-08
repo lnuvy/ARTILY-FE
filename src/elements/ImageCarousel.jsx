@@ -5,7 +5,6 @@ import Grid from "./Grid";
 import Image from "./Image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useSelector } from "react-redux";
 
 const ImageCarousel = (props) => {
   const { src } = props;
@@ -19,8 +18,6 @@ const ImageCarousel = (props) => {
     slidesToScroll: 1, // 스크롤 넘어가는 객체 수
     arrows: false, // 양옆의 애로우 없애기
   };
-
-  // console.log(src);
 
   return (
     <>
@@ -50,11 +47,9 @@ const StyledSlider = styled(Slider)`
     outline: none; // 슬라이드 클릭시 파란선을 제거하기 위해서 작성
     width: 100%;
   }
-
   // 점을 이미지 안에 넣기
   .slick-dots {
     bottom: 11px;
-
     // 점 간격 좁히기
     li {
       margin: 0;

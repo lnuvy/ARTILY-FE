@@ -6,13 +6,11 @@ const Card = (props) => {
     children,
     onClick,
     _key,
-    //
     height,
     width,
     padding,
     border,
     br,
-    //
     ...data
   } = props;
 

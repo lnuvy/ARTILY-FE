@@ -3,11 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Apis } from "../../shared/api";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-/*
- * @ 민경
- *
- */
+
 const MySwal = withReactContent(Swal);
+
 const initialState = {
   list: null,
   filterList: null,
@@ -26,10 +24,6 @@ const initialState = {
 
 export const getReviewDB = (pageNumber) => {
   return async function (dispatch, getState, { history }) {
-    // const pageHandler = {
-    //   page: 1,
-    //   limit: 6,
-    // };
     Apis.getReview(pageNumber)
       .then(function (response) {
         dispatch(getReviewData(response.data.reviews));
@@ -44,7 +38,6 @@ export const getMyBuyDB = () => {
   return async function (dispatch, getState, { history }) {
     Apis.getMyBuy()
       .then(function (response) {
-        // console.log(response);
         dispatch(getBuyList(response.data.myBuy));
       })
       .catch(function (error) {

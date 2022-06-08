@@ -57,26 +57,6 @@ const ChatRoom = () => {
     setMessages(roomMessages);
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(getChatMessages);
-  // }, []);
-  // 상단 채팅끌어오기위해 데이터 20개단위로 자르기
-  // const setInfinityPaging = (page, endpoint) => {
-  //   let arr = [];
-  //   for (let i = page; i >= 0; i--) {
-  //     let sliceArr = nowChat.messages.slice(i * 20 - endpoint);
-  //     console.log(sliceArr);
-  //     arr.push(sliceArr);
-  //   }
-  //   return arr;
-  // };
-
-  // useEffect(() => {
-  //   if (!nowChat) {
-  //     history.replace("/chat");
-  //   }
-  // });
-
   const sendMessage = () => {
     if (/\S/.test(message) && !uploadFile) {
       const messageData = {
@@ -127,9 +107,7 @@ const ChatRoom = () => {
   };
 
   useEffect(() => {
-    socket.on("_room", (data) => {
-      // console.log(data);
-    });
+    socket.on("_room", (data) => {});
   });
 
   return (
@@ -138,7 +116,7 @@ const ChatRoom = () => {
         <Icon margin="20px 15px" onClick={() => history.goBack()}>
           <ArrowBack />
         </Icon>
-        {/* 내 userId와 이 채팅방을 만든사람의 아이디가 같다면 targetUser 정보 보여주기 */}
+        {/* 내 userId와 이 채팅방을 만든 사람의 아이디가 같다면 targetUser 정보 보여주기 */}
         {isMe === nowChat?.createUser?.userId ? (
           <div className="targetInfo">
             <Flex>
@@ -171,7 +149,6 @@ const ChatRoom = () => {
 
         <button
           onClick={() => {
-            // window.confirm("채팅방을 나가시겠습니까?");
             MySwal.fire({
               text: "채팅방을 나가시겠습니까?",
               showDenyButton: true,
@@ -191,14 +168,14 @@ const ChatRoom = () => {
       <Wrapinfo>
         <Flex>
           {isDone ? (
-            <ImageDark>
+            <div>
               <Image
                 br="8px"
                 src={nowChat.post.imageUrl}
                 width="48px"
                 height="48px"
               />
-            </ImageDark>
+            </div>
           ) : (
             <Image
               br="8px"
@@ -237,7 +214,6 @@ const ChatRoom = () => {
               return (
                 <Flex
                   key={`${i}_msg_${msg}`}
-                  // width="100%"
                   height="auto"
                   fd="column"
                   ai="flex-end"
@@ -312,7 +288,6 @@ const ChatRoom = () => {
       </Container>
       <FixedChatBar>
         <Flex>
-          {/* <ChatFileInput /> */}
           <Input
             withBtn
             icon={
@@ -345,10 +320,6 @@ const Container = styled.div`
   padding-bottom: 80px;
 `;
 
-const ImageDark = styled.div`
-  /* background-color: rgba(0, 0, 0, 0.4); */
-`;
-
 const FixedChatBar = styled.div`
   align-items: center;
 
@@ -368,7 +339,6 @@ const Wraptop = styled.div`
     right: 23px;
     line-height: 24px;
     font-size: 15px;
-    /* font-weight: bold; */
     color: ${({ theme }) => theme.pallete.primary850};
     background-color: #fff;
   }
@@ -387,7 +357,6 @@ const Wraptop = styled.div`
   z-index: 99;
 `;
 const Wrapinfo = styled.div`
-  /* border-top: 1px solid #eee; */
   padding: 15px 16px;
   background-color: #d3d3d3;
   margin: 64px 0 0 0;

@@ -2,7 +2,6 @@ import React, { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChatCard, NoInfo } from "../components";
 import { Grid } from "../elements";
-import { history } from "../redux/configureStore";
 import {
   getChatList,
   getChatMessages,
@@ -42,7 +41,7 @@ const Chat = () => {
 
   const enterRoom = async (roomName) => {
     dispatch(getNowChatInfo(roomName));
-    await dispatch(getChatMessages(roomName));//`/chat/${roomName}`로 이동
+    await dispatch(getChatMessages(roomName)); //`/chat/${roomName}`로 이동
   };
 
   return (

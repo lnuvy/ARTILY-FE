@@ -1,51 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Preview } from "../components";
-import ImagePreview from "../components/ImagePreview";
-import {
-  Button,
-  Checkbox,
-  Flex,
-  Grid,
-  Image,
-  Input,
-  Text,
-  Textarea,
-  Wrap,
-  Icon,
-} from "../elements";
+import { Button, Flex, Input, Textarea, Wrap, Icon } from "../elements";
 import { clearPreview } from "../redux/modules/image";
 import { getReviewOne, getNowReview } from "../redux/modules/reviews";
-import { openModal } from "../redux/modules/modal";
 import { postReviewDB, editReviewDB } from "../redux/modules/reviews.jsx";
 import { resetImageDt, editPosts3Url } from "../redux/modules/image";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { history } from "../redux/configureStore";
-import { inputSpaceReg, priceComma } from "../shared/utils";
-import { NavigationNext, Close } from "../assets/icons/index";
+import { inputSpaceReg } from "../shared/utils";
+import { Close } from "../assets/icons/index";
 
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import styled from "styled-components";
-import { set } from "lodash";
 import theme from "../styles/theme";
-
-const MySwal = withReactContent(Swal);
 
 const ReviewWrite = () => {
   const dispatch = useDispatch();
 
-  // 할당
   const { postId, reviewId } = useParams();
   const path = useLocation().pathname;
 
   const [inputs, setinputs] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const { imageDt, imageArr, fileObj } = useSelector((state) => state.image);
+  const { imageDt, fileObj } = useSelector((state) => state.image);
   const buyer = useSelector((state) => state.review?.detailData?.buyer);
 
-  // redux 리셋
   useEffect(() => {
     dispatch(clearPreview());
     setIsLoading(false);
@@ -83,7 +63,6 @@ const ReviewWrite = () => {
     }
   }, [buyer[0]?.reviewTitle]);
 
-  // function
   const InputChange = (e) => {
     const { id, value } = e.target;
     setinputs({ ...inputs, [id]: value });
@@ -92,11 +71,8 @@ const ReviewWrite = () => {
   const reviewSubmit = () => {
     const { reviewTitle, reviewContent } = inputs;
     setIsLoading(true);
-    console.log(isLoading);
-
     inputSpaceReg(reviewTitle);
     inputSpaceReg(reviewContent);
-
     setinputs({ ...inputs });
 
     const formData = new FormData();
@@ -191,4 +167,5 @@ const ButtonWrap = styled.div`
   width: 100%;
   max-width: ${theme.view.maxWidth};
 `;
+
 export default ReviewWrite;

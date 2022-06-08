@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import theme from "../styles/theme";
 
 const Text = (props) => {
   const {
@@ -19,7 +18,6 @@ const Text = (props) => {
     textAlign,
     lineHeight,
     contents,
-    //5.5 underline 들어간 text 만들기 위해 추가했습니다. -영경
     width,
     textDeco,
   } = props;

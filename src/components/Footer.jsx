@@ -34,9 +34,6 @@ const Footer = () => {
             </a>
           </GitAddress>
         </Flex>
-        {/* <Text color="white" margin="0 0 12px 0">
-          footer 영역
-        </Text> */}
       </Wrap>
     </Container>
   );

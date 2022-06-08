@@ -18,10 +18,7 @@ const Textarea = (props) => {
     maxLength,
     minLength,
     textLine,
-
-    //5.8 border-radius 추가했습니다 -영경
     br,
-    // 5.9 border important속성으로 추가
     border,
   } = props;
 
@@ -124,7 +121,6 @@ const TextareaContainer = styled.textarea`
         // box-shadow: 0px 0px 6px ${theme.color.brandColor};
       }
     `}
-  //5.8 border-radius 추가했습니다 -영경
   border-radius: ${({ br }) => br};
 `;
 

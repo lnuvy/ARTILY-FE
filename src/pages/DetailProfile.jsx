@@ -1,17 +1,6 @@
-//소셜 로그인후 기본 프로필(사진, 닉네임) 설정=> 나머지 프로필 정보 설정하는 페이지
-
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {
-  Flex,
-  Input,
-  Text,
-  Textarea,
-  Button,
-  Image,
-  Wrap,
-  Icon,
-} from "../elements";
+import { Flex, Input, Text, Textarea, Button, Image, Wrap } from "../elements";
 import { history } from "../redux/configureStore";
 import { getUserInfo, setProfileDB } from "../redux/modules/user";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,9 +31,6 @@ const DetailProfile = () => {
   }, [getProfile.nickname]);
 
   const editUser = () => {
-    // const file = fileInput.current.files[0];
-    // console.log(file);
-    //새로운 객체 생성
     const formData = new FormData();
 
     formData.append("snsUrl", [website1]);
@@ -52,15 +38,11 @@ const DetailProfile = () => {
     formData.append("snsUrl", [website3]);
     formData.append("introduce", introduce);
 
-    // console.log("formData", formData);
-
     for (var pair of formData.entries()) {
-      // console.log(pair[0] + ", " + pair[1]);
     }
     dispatch(setProfileDB(formData));
   };
   const [count, setCount] = useState(2);
-
   const addressCount = () => {
     setCount(3);
   };
@@ -235,7 +217,6 @@ const DetailProfile = () => {
               <Flex
                 jc="center"
                 onClick={() => {
-                  // console.log("스킵");
                   history.push("/");
                 }}
               >
@@ -269,14 +250,7 @@ const Outline = styled.div`
   height: 100vh;
   position: relative;
   .box {
-    /* background-color: #ddd; */
     width: 100%;
-    /* position: absolute; */
-    /* top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); translate(x축,y축) */
-    //요소의 가장 좌측과 상단을 기준으로 50%를 이동하는 것이므로, 요소 자체를 마이너스 값을 통해 다시 절반을 좌측, 상단으로 당겨오는 것.
-    //translate 값을 적용하기 전에는 왼쪽 위 꼭짓점이 정 중앙에 배치된 상태.
   }
 `;
 const ProgressBar = styled.div`

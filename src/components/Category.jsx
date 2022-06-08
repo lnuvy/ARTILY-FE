@@ -25,8 +25,8 @@ const Category = (props) => {
   const [current, setCurrent] = useState("전체");
   useEffect(() => {
     review
-      ? dispatch(filteringReviewData(current)) //리뷰
-      : dispatch(filteringData(current)); //스토어
+      ? dispatch(filteringReviewData(current))
+      : dispatch(filteringData(current));
   }, [current]);
 
   return (
@@ -41,7 +41,6 @@ const Category = (props) => {
     >
       {cate.map((c, i) => {
         if (c === current) {
-          //클릭했을때
           return (
             <Button
               key={`${c}_${i}`}

@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import theme from "../styles/theme";
 
-// 당장 리스트의 내용이 없지만 채워질 가능성이 있을때 사용하면 좋을듯
 const NoInfo = ({
   list,
   text1,
@@ -18,8 +17,6 @@ const NoInfo = ({
   if (list && list.length > 0) return <>{children}</>;
   return (
     <Grid textAlign="center" margin="60px 0 ">
-      {/* 해당 내용이랑 어울리는 디자인 이미지 */}
-      {/* <Image /> */}
       <Text>{text1}</Text>
       <Text>{text2}</Text>
       {button ? (

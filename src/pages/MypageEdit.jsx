@@ -1,6 +1,3 @@
-//마이페이지에서 수정하기를 눌렀을때 나오는 페이지 입니다
-//SetProfile 페이지와 다름
-//이미 설정 되어있는 프로필 정보를 불러와야 함
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import {
@@ -18,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Front, Back } from "../shared/NicknameDummy.js";
 import { editProfileDB } from "../redux/modules/user";
-import { ArrowBack, Refresh, AddBox, Edit } from "../assets/icons";
+import { ArrowBack, Refresh, Edit } from "../assets/icons";
 import { nicknameCheck } from "../shared/regCheck/RegCheck";
 import theme from "../styles/theme";
 
@@ -64,7 +61,6 @@ const MypageEdit = () => {
 
     const file = fileInput.current.files[0];
 
-    //새로운 객체 생성
     const formData = new FormData();
 
     formData.append("profileImage", file);
@@ -164,7 +160,6 @@ const MypageEdit = () => {
                   />
                 </Flex>
               </Flex>
-              {/* 웹사이트 주소 입력시 자기소개 입력창 나오게 */}
               <Flex width="100%">
                 <Text textAlign="left" width="80px"></Text>
                 <Input

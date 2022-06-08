@@ -9,17 +9,15 @@ import {
   getFollowerDB,
   deleteFollowerDB,
 } from "../redux/modules/follow";
-import { NoInfo } from "../components";
+
 const Follow = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const userInfo = useSelector((state) => state.user.user);
 
-  //내가 팔로잉한 목록
   const nowfollowList = useSelector((state) => state.followUser.myFollowing);
-  // console.log("내가 팔로잉한 목록:", nowfollowList);
   const nowfollowerList = useSelector((state) => state.followUser.myFollower);
-  // console.log("나를 팔로우한 목록:", nowfollowerList);
+
   useEffect(() => {
     dispatch(getFollowerDB());
     dispatch(getFollowDB());
@@ -48,11 +46,9 @@ const Follow = () => {
     if (result) {
       dispatch(addFollowDB(follow));
       setFollowCnt({ ...followCnt, follow: followCnt.follow - 1 });
-      // (messages) => [...messages, messageData]
     }
   };
 
-  // 네비게이션 탭을 직접 눌렀을때
   const handleChangeCurrent = (e) => {
     const { innerText } = e.target;
     setCurrent(menus.find((l) => innerText.includes(l)));
@@ -149,11 +145,9 @@ const CurrentDiv = styled.div`
   margin: 10px 0 0;
   cursor: pointer;
   text-align: center;
-  /* animation: all 3s ease-out; */
   border-bottom: ${({ current, theme }) =>
     current ? `3px solid ${theme.color.brandColor}` : "3px solid transparent;"};
   &:focus {
-    /* outline: none; */
   }
   // 모바일 파란박스 없애기
   -webkit-tap-highlight-color: transparent;

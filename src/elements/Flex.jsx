@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import theme from "../styles/theme";
 
 const Flex = (props) => {
   const {
@@ -64,8 +63,6 @@ const Flex = (props) => {
 };
 
 Flex.defaultProps = {
-  // width: null, // May8 none -> fit-conent 변경
-  // height: null,
   fd: "row",
   ai: "center",
   margin: "0",

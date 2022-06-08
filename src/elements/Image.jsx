@@ -2,10 +2,9 @@ import styled from "styled-components";
 import React from "react";
 import theme from "../styles/theme";
 
-// 다른 형태의 이미지가 더 없다면 shape 대신 circle 이라고 주기만 하면 프로필 이미지가 되는건 어떨까요 ? 4/29 한울
 const Image = (props) => {
   const {
-    circle, // 5/2 한울 변경
+    circle,
     src,
     size,
     display,
@@ -18,7 +17,7 @@ const Image = (props) => {
     bc,
     width,
     height,
-    br, //5.3 영경 변경
+    br,
     shadow,
     backgroundPosition,
     backgroundSize,
@@ -37,7 +36,6 @@ const Image = (props) => {
     bs,
     bc,
     br,
-    //5.13 그림자 추가
     shadow,
     backgroundPosition,
     backgroundSize,
@@ -55,17 +53,15 @@ Image.defaultProps = {
   width: "100%",
   height: "100px",
   size: 36,
-  display: "", // new
-  margin: "0", // new
-  paddingTop: "100%", // new
+  display: "",
+  margin: "0",
+  paddingTop: "100%",
   previewSize: false,
   onClick: () => {},
   bs: "cover",
   bc: `${theme.pallete.gray1}`,
-  //border-radius 추가했습니다. -영경
   br: "",
-  border: ``, // May8 수정
-  //5.13 shadow 추가
+  border: ``,
   shadow: "none",
   backgroundPosition: "center",
   backgroundSize: "cover",

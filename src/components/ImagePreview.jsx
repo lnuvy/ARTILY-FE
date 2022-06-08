@@ -47,26 +47,7 @@ const ImagePreview = (props) => {
         }
       }
     });
-
-    // console.log(imageArr);
-    // console.log(filtered);
     dispatch(accrueImageDelete(filtered));
-
-    // 수정단계의 대표이미지일때
-    // if (
-    //   image.includes("https://artily-bucket.s3.ap-northeast-2") &&
-    //   image === imageArr[0].imageUrl
-    // ) {
-    //   alert("대표이미지는 삭제할수없어요!");
-    //   return;
-    // }
-    // const fileIndex = imageArr.findIndex((img) => img === image);
-    // const testFile = await convertURLtoFile(image);
-    // console.log(testFile);
-
-    // dispatch(removePreview(image));
-
-    // dispatch(removeFileObj(fileIndex));
   };
 
   return (
